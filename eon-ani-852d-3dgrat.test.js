@@ -1,5 +1,3 @@
-let fileUrl = require('file-url')
-
 if (typeof fetch !== 'function') {
   global.fetch = require('node-fetch-polyfill')
 }
@@ -10,11 +8,12 @@ let getAni = jest.fn(async () => {
   let __eo = xEonify.xEo()
   __eo({'xs': xEonify.xs(__eo)})
 
-  let eon = require('./eon-ani-852d-3dgrat.js')
-  // eon = await eon.ani852d3dgrat(__eo)
+  let anitem
+  let eon = require('./eon-ani-852d-3dgrat.js') // eon = await eon.ani852d3dgrat(__eo)
   eon = eon.ani852d3dgrat
-  __eo = window.xEonify.eon({ anitem: eon, time: 0 })
+  anitem = eon
 
+  __eo = xEonify.eon({ anitem: anitem, time: 0 })
   return __eo
 })
 

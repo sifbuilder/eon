@@ -8,19 +8,15 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... **manage anitems store**
-
   async function muonStore (__eo) {
     let [
       muonAnitem,
       muonEoric,
       muonEotim,
-      muonProps,
     ] = await Promise.all([
       __eo('xs').m('anitem'),
       __eo('xs').m('eoric'),
       __eo('xs').m('eotim'),
-      __eo('xs').m('props'),
     ])
       .catch(function (err) {
         console.log('A m.store promise failed to resolve', err)
@@ -33,14 +29,45 @@
       anigrams: [], // anigrams
     }
 
+    const a = d => {
+      let ret = []
+      if (d === undefined) { // ret = []
+      } else if (d === null) { // ret = []
+      } else if (Array.isArray(d)) {
+        ret = [...d]
+      } else {
+        ret = [d]
+      }
+      return ret
+    }
+
+    // ... **manage anitems store**
+    const fa = d => { // force array
+      let ret
+      if (Array.isArray(d)) ret = d
+      else if (d === null) ret = []
+      else if (d === undefined) ret = []
+      else if (typeof d === 'object') ret = Object.values(d)
+      else ret = d
+      return a(ret)
+    }
+    const o = obj => {
+      if (obj == null || typeof obj !== 'object') return obj
+      let copy = obj.constructor()
+      for (let attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr]
+      }
+      return copy
+    }
+
     // .................. apply
     function _apply (action = {}) {
       if (action.type === 'UPDANIMA') { // .................. UPDANIMA
-        let updAnimas = muonProps.fa(action.animas) // get new animas as array
+        let updAnimas = fa(action.animas) // get new animas as array
         let elapsed = action.elapsed || 0
 
         for (let i = 0; i < updAnimas.length; i++) {
-          let updAnima = muonProps.o(updAnimas[i]) // each new anima
+          let updAnima = o(updAnimas[i]) // each new anima
 
           let uid = (updAnima.eoric.uid !== undefined) // uid
             ? updAnima.eoric.uid
@@ -65,7 +92,7 @@
       }
 
       if (action.type === 'UPDANIGRAM') { // .................. UPDANIGRAM
-        let newAnigrams = muonProps.fa(action.anigrams)
+        let newAnigrams = fa(action.anigrams)
 
         for (let i = 0; i < newAnigrams.length; i++) {
           if (newAnigrams[i] !== undefined) {
@@ -132,9 +159,7 @@
         // eohal
 
       } else {
-
         eohal = __eo([eohal, 'eohal'])
-        
       }
 
       let anigram = anitem
@@ -180,7 +205,7 @@
 
       let newItems = []
       console.assert(eohal, `eohal not defined`)
-      if (eohal) newItems = muonProps.a(eohal.gramm(anigram))
+      if (eohal) newItems = a(eohal.gramm(anigram))
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {
         let avatars = gavatars(newItem)

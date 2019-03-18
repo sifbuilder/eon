@@ -275,27 +275,21 @@
       return formDax
     }
 
-    
     // ............................. isNatform
     let isNatform = function (eoform = {}) {
       let isform = false
       if (
-        typeof eoform === 'object'
-        && eoform.n1 !== undefined
-        && eoform.n3 !== undefined
+        typeof eoform === 'object' &&
+        eoform.n1 !== undefined &&
+        eoform.n3 !== undefined
       ) {
-        
         isform = true
-        
-      }
-      else if (
-        Array.isArray(eoform)
-        && eoform[0] !== undefined
-        && eoform[0].n3 !== undefined
+      } else if (
+        Array.isArray(eoform) &&
+        eoform[0] !== undefined &&
+        eoform[0].n3 !== undefined
       ) {
-        
         isform = true
-        
       }
       return isform
     }

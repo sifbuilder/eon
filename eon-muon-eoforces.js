@@ -22,7 +22,6 @@
       .replace(/\s+/g, '') // remove white space
       .replace(/-+/g, '') // remove hyphen
 
-    
     const ceonize = function (nome, pres = '') {
       let camelized
       if (pres === '') {
@@ -31,8 +30,8 @@
         camelized = camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
       }
       return camelized
-    }    
-    
+    }
+
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
       let nodes = sys.nodes || []
@@ -64,18 +63,16 @@
       let type = properties.type
       let filter = properties.filter
 
-      let fName = ceonize(type, 'force')  // _e_
+      let fName = ceonize(type, 'force') // _e_
 
       if (fforce !== undefined) { // force is passed from z.eon
 
       } else if (__eo([type, 'force'])) { // force is registered in mapper
         fforce = __eo([type, 'force'])
-        
       } else if (d3Force3d[fName] !== undefined) { // force is taken from physics
         fforce = d3Force3d[fName]
-        
       }
-      
+
       fforce = fforce(...args)
       for (var kee in opts) {
         if (fforce[kee] !== undefined) {

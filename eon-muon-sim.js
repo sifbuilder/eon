@@ -14,7 +14,6 @@
       muonAnitem,
       muonEonode,
       muonEotim,
-      muonProps,
       muonSnap,
       muonStore,
     ] = await Promise.all([
@@ -22,7 +21,6 @@
       __eo('xs').m('anitem'),
       __eo('xs').m('eonode'),
       __eo('xs').m('eotim'),
-      __eo('xs').m('props'),
       __eo('xs').m('snap'),
       __eo('xs').m('store'),
     ])
@@ -46,6 +44,41 @@
     let sim = d3_force.forceSimulation() //
     let dim = 3
 
+    // props.o
+    // props.fa
+    // props.v
+
+    const o = obj => {
+      if (obj == null || typeof obj !== 'object') return obj
+      let copy = obj.constructor()
+      for (let attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr]
+      }
+      return copy
+    }
+    const a = d => {
+      let ret = []
+      if (d === undefined) { // ret = []
+      } else if (d === null) { // ret = []
+      } else if (Array.isArray(d)) {
+        ret = [...d]
+      } else {
+        ret = [d]
+      }
+      return ret
+    }
+    const fa = d => { // force array
+      let ret
+      if (Array.isArray(d)) ret = d
+      else if (d === null) ret = []
+      else if (d === undefined) ret = []
+      else if (typeof d === 'object') ret = Object.values(d)
+      else ret = d
+      return a(ret)
+    }
+
+    const v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+
     // simulate
     // https://bl.ocks.org/frogcat/a06132f64b7164c1b1993c49dcd9178f
     // https://www.nist.gov/sites/default/files/documents/2017/05/09/d3rave_poster.pdf
@@ -63,13 +96,13 @@
 
     // ... initNodes
     // ... select the simnodes visible to the force field (from the anitems)
-    // ... the force acts on the geonode ... 
+    // ... the force acts on the geonode ...
     // ...    filter out anitems without eonode
     // ... synchronize between the aintem.eonode and the simnode
     // ... simnodes: {x,y,z}, {vx,vy,vz}, eoload, index
     // ...   @anitems: anitems
     // ...   @nDim:   dimensions of the field
-    
+
     function initNodes (anitems, nDim = 3) {
       let simnodes = []
 
@@ -78,14 +111,13 @@
         let eoload = aniItem.eoload
 
         if (aniItem.eonode !== undefined) { // if simmable  ...
-        
           // the eonode ports info of the simnode
           let eonode = muonEonode.init(aniItem.eonode)
 
           // the simnode location is in the eonode geometry
           let nodeGeometry = eonode.geometry
 
-          let simNode = muonProps.clone(aniItem)
+          let simNode = o(aniItem)
           simNode.x = nodeGeometry.coordinates[0] // eonode location to simnode
           simNode.y = nodeGeometry.coordinates[1]
           simNode.z = nodeGeometry.coordinates[2]
@@ -97,7 +129,7 @@
           if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
 
           // the simnode status is in the eonode properties _e_
-          
+
           let properties = eonode.properties
           if (properties.anchor) { // fix situs
             simNode.fx = simNode.x
@@ -106,7 +138,7 @@
           }
 
           // simnode velocity from eonode.properties.velin
-          
+
           simNode.vx = properties.velin[0] // eonode velocity to simnode
           simNode.vy = properties.velin[1]
           simNode.vz = properties.velin[2]
@@ -116,12 +148,12 @@
           if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
           simNode.eoload = eoload // anitem eoload to simnode
 
-          // set sim id from anitem.eoric.uid _e_ 
-          
+          // set sim id from anitem.eoric.uid _e_
+
           simNode.id = simNode.eoric.uid
 
           // sim links
-          
+
           if (eoload && eoload.link) { // links
             simNode.source = eoload.link.source
             simNode.target = eoload.link.target
@@ -143,7 +175,6 @@
     // ...     properties.{geodelta, prevous, velin}
 
     function restoreNodes (simnodes, anitems) {
-
       let updItems = []
       if (simnodes.length > 0) {
         for (let i = 0; i < simnodes.length; ++i) {
@@ -170,7 +201,7 @@
             eonode.properties.hyperdelta[0] += eonode.properties.geodelta[0]
             eonode.properties.hyperdelta[1] += eonode.properties.geodelta[1]
             eonode.properties.hyperdelta[2] += eonode.properties.geodelta[2]
-            
+
             eonode.properties.velin[0] = simNode.vx // linear velocities
             eonode.properties.velin[1] = simNode.vy
             eonode.properties.velin[2] = simNode.vz
@@ -208,13 +239,13 @@
         let aniItem = anitems[i] // each anima or anigram
 
         if (aniItem.eoforces !== undefined) { // forces in aniItem
-          let forces = muonProps.fa(aniItem.eoforces)
+          let forces = fa(aniItem.eoforces)
 
           for (let j = 0; j < forces.length; j++) { // for each force in aniItem
             let aniForce = forces[j] // aniForce in anima.eoforces eg. force_gravity
 
             let tu = aniItem.eotim.unTime
-            aniForce = muonProps.v(muonSnap.snap(aniForce, tu), aniItem)
+            aniForce = v(muonSnap.snap(aniForce, tu), aniItem)
 
             let cttes = simConstants(sim, aniForce.properties)
 

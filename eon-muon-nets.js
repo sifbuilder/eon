@@ -253,7 +253,6 @@
         shapeMaterialShading.wireframe = true
       }
 
-
       if (showlines === 1) { // show lines
         if (shading === 1) node.add(new THREE.Line(lineGeometry, lineMaterialShading))
         else node.add(new THREE.Line(lineGeometry, lineMaterialShadingNo))
@@ -264,8 +263,6 @@
         else {
           let mesh = new THREE.Mesh(shapeGeometry, shapeMaterialShadingNo)
           node.add(mesh)
-
-
         }
       }
 

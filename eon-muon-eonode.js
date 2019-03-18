@@ -35,10 +35,9 @@
     let init = function (node = {}) {
       let eonode = getdefault()
 
-      
       if (node.geometry) eonode.geometry = node.geometry
       if (node.properties) eonode.properties = Object.assign(node.properties, eonode.properties)
-        
+
       return eonode
     }
 

@@ -5,264 +5,282 @@
 }(this, function (exports) {
   'use strict'
 
+  const metas = new Map()
+  const queue = []
+  const map = queue.map
+  const some = queue.some
+  const hasOwnProperty = queue.hasOwnProperty
+  const origin = 'https://cdn.jsdelivr.net/npm/'
+  const identifierRe = /^((?:@[^/@]+\/)?[^/@]+)(?:@([^/]+))?(?:\/(.*))?$/
+  const versionRe = /^\d+\.\d+\.\d+(-[\w-.+]+)?$/
+  const extensionRe = /\.[^/]*$/
+  const mains = ['unpkg', 'jsdelivr', 'browser', 'main']
 
-
-
-const metas = new Map;
-const queue = [];
-const map = queue.map;
-const some = queue.some;
-const hasOwnProperty = queue.hasOwnProperty;
-const origin = "https://cdn.jsdelivr.net/npm/";
-const identifierRe = /^((?:@[^/@]+\/)?[^/@]+)(?:@([^/]+))?(?:\/(.*))?$/;
-const versionRe = /^\d+\.\d+\.\d+(-[\w-.+]+)?$/;
-const extensionRe = /\.[^/]*$/;
-const mains = ["unpkg", "jsdelivr", "browser", "main"];
-
-class RequireError extends Error {
-  constructor(message) {
-    super(message);
-  }
-}
-
-RequireError.prototype.name = RequireError.name;
-
-function main(meta) {
-  for (const key of mains) {
-    const value = meta[key];
-    if (typeof value === "string") {
-      return extensionRe.test(value) ? value : `${value}.js`;
+  class RequireError extends Error {
+    constructor (message) {
+      super(message)
     }
   }
-}
 
-function parseIdentifier(identifier) {
-  const match = identifierRe.exec(identifier);
-  return match && {
-    name: match[1],
-    version: match[2],
-    path: match[3]
-  };
-}
+  RequireError.prototype.name = RequireError.name
 
-
-
-// resolveMeta
-//  @target
-//    { name: 'd3-interpolate', version: undefined, path: undefined }
-//
-//  url is built from target
-//    https://cdn.jsdelivr.net/npm/d3-interpolate/package.json
-//
-//  fetch url returns json:
-//    this json() {
-//      return this._consumeBody().then(text => JSON.parse(text));
-//    }
-
-function resolveMeta(target) {
-
-  const url = `${origin}${target.name}${target.version ? `@${target.version}` : ""}/package.json`
-
-  let meta = metas.get(url)
-
-  if (!meta) metas.set(url, meta = fetch(url)
-      .then(response => {
-
-    if (!response.ok) throw new RequireError("unable to load package.json")
-
-    if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta)
-
-    return response.json()
-  }))
-  return meta
-}
-
-async function resolve(name, base) {
-
-
-  if (name.startsWith(origin)) name = name.substring(origin.length);
-  if (/^(\w+:)|\/\//i.test(name)) {
-    return name;
+  function main (meta) {
+    for (const key of mains) {
+      const value = meta[key]
+      if (typeof value === 'string') {
+        return extensionRe.test(value) ? value : `${value}.js`
+      }
+    }
   }
-  if (/^[.]{0,2}\//i.test(name)) {
 
+  function parseIdentifier (identifier) {
+    const match = identifierRe.exec(identifier)
+    return match && {
+      name: match[1],
+      version: match[2],
+      path: match[3],
+    }
+  }
 
-    let isnode1 = window.name == 'nodejs'
-    let isnode2 = navigator.userAgent.includes("Node.js") || navigator.userAgent.includes("jsdom")
-    if (isnode1 && isnode2) {  // _e_
+  // resolveMeta
+  //  @target
+  //    { name: 'd3-interpolate', version: undefined, path: undefined }
+  //
+  //  url is built from target
+  //    https://cdn.jsdelivr.net/npm/d3-interpolate/package.json
+  //
+  //  fetch url returns json:
+  //    this json() {
+  //      return this._consumeBody().then(text => JSON.parse(text));
+  //    }
 
-      return name // _e_
-    } else {
-      return new URL(name, base == null ? location : base).href;
+  function resolveMeta (target) {
+    const url = `${origin}${target.name}${target.version ? `@${target.version}` : ''}/package.json`
+
+    let meta = metas.get(url)
+
+    if (!meta) {
+      metas.set(url, meta = fetch(url)
+        .then(response => {
+          if (!response.ok) throw new RequireError('unable to load package.json')
+
+          if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta)
+
+          return response.json()
+        }))
+    }
+    return meta
+  }
+
+  async function resolve (name, base) {
+    if (1 && 1) console.log('resolve', name, base)
+
+    if (name.startsWith(origin)) name = name.substring(origin.length)
+    if (/^(\w+:)|\/\//i.test(name)) {
+      return name
+    }
+    if (/^[.]{0,2}\//i.test(name)) {
+      let isnode1 = window.name == 'nodejs'
+      let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
+      let res
+      if (isnode1 && isnode2) { // _e_
+        // res = name // _e_
+        res = 'file:///E:/Dropbox/dBox/e/c/eons/eons/d3-interpolate.js'
+
+      } else {
+        res = new URL(name, base == null ? location : base).href
+      }
+      if (1 && 1) console.log('name', res)
+      return  res
     }
 
+    if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError('illegal name')
+    const target = parseIdentifier(name)
+    if (!target) return `${origin}${name}`
+    if (!target.version && base != null && base.startsWith(origin)) {
+      const meta = await resolveMeta(parseIdentifier(base.substring(origin.length)))
+      target.version = meta.dependencies && meta.dependencies[target.name] || meta.peerDependencies && meta.peerDependencies[target.name]
+    }
+    if (target.path && !extensionRe.test(target.path)) target.path += '.js'
+    if (target.path && target.version && versionRe.test(target.version)) {
+      let res = `${origin}${target.name}@${target.version}/${target.path}`
+      return res
+    }
+    const meta = await resolveMeta(target)
+    let res = `${origin}${meta.name}@${meta.version}/${target.path || main(meta) || 'index.js'}`
 
-
-
-  }
-
-  if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError("illegal name");
-  const target = parseIdentifier(name);
-  if (!target) return `${origin}${name}`;
-  if (!target.version && base != null && base.startsWith(origin)) {
-    const meta = await resolveMeta(parseIdentifier(base.substring(origin.length)));
-    target.version = meta.dependencies && meta.dependencies[target.name] || meta.peerDependencies && meta.peerDependencies[target.name];
-  }
-  if (target.path && !extensionRe.test(target.path)) target.path += ".js";
-  if (target.path && target.version && versionRe.test(target.version)) {
-    let res = `${origin}${target.name}@${target.version}/${target.path}`
     return res
   }
-  const meta = await resolveMeta(target);
-  let res = `${origin}${meta.name}@${meta.version}/${target.path || main(meta) || "index.js"}`
 
-  return res
-}
+  const d3Require = requireFrom(resolve)
 
-const d3Require = requireFrom(resolve);
+  function requireFrom (resolver) {
+    const cache = new Map()
+    const requireBase = requireRelative(null)
 
-function requireFrom(resolver) {
-
-  const cache = new Map;
-  const requireBase = requireRelative(null);
-
-  function requireAbsolute(url) {
-
-    if (typeof url !== "string") return url;
-    let module = cache.get(url);
-
-    let isnode1 = window.name == 'nodejs'
-    let isnode2 = navigator.userAgent.includes("Node.js") || navigator.userAgent.includes("jsdom")
-    if (isnode1 && isnode2) {  // _e_
-
-      if (/^[.]{0,2}\//i.test(url)) { // ./
-        if (!module) cache.set(url, module = new Promise((resolve, reject) => {
-
-          // from feon requireAbsolute url is eg ./d3-interpolate.js
-          try {
-            resolve(require(url))
+    async function requireAbsolute (url) {
+      if (typeof url !== 'string') return url
+      let module = cache.get(url)
+let m
+      let isnode1 = window.name == 'nodejs'
+      let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
+      if (isnode1 && isnode2) { // _e_
+        if (/^[.]{0,2}\//i.test(url)) { // ./
+          if (!module) {
+            cache.set(url, module = new Promise((resolve, reject) => {
+              // from feon requireAbsolute url is eg ./d3-interpolate.js
+              try {
+                resolve(require(url))
+              } catch (error) {
+                reject(new RequireError(`invalid module: ${error}`))
+              }
+            }))
           }
-          catch (error) {
-            reject(new RequireError(`invalid module: ${error}`))
-          }
-        }))
-
-      } else  if (/^(\w+:)|\/\//i.test(url)) {
-
+        } else if (/^(\w+:)|\/\//i.test(url)) {
         // from xeon    https://cdn.jsdelivr.net/npm/d3-interpolate@1.3.2/dist/d3-interpolate.min.js
 
-        var requireFromString = require('require-from-string');
-        if (!module) cache.set(url, module = fetch(url)
-              .then(response => {
-                let res = response.text()
-                return res
-              })
-              .then(string => {
-                let res = requireFromString(string)
-                return res
-              })
-            )
+          let requireFromString = require('require-from-string')
 
+          if (!module) {
+          if (1 && 1) console.log('url', url)
+            let module
+            let reponse = await fetch(url)
+            let string = await reponse.text()
+          // if (1 && 1) console.log('string', string)
+            module = await  requireFromString(string)
+            // module = await eval(string)
+            // module()
+          if (1 && 1) console.log('module',  module)
+          // queue.pop()(requireRelative(url))
+          
+            
+            // try { queue.pop()(requireRelative(url)) } catch (error) { reject(new RequireError('invalid module')) }         
+            
+            // cache.set(url, module)
+          m = module
+
+            
+          }
+        }
+      } else {
+        if (!module) {
+          cache.set(url, module = new Promise((resolve, reject) => {
+            const script = document.createElement('script')
+            script.onload = () => {
+              try { resolve(queue.pop()(requireRelative(url))) } catch (error) { reject(new RequireError('invalid module')) }
+              script.remove()
+            }
+            script.onerror = () => {
+              reject(new RequireError('unable to load module'))
+              script.remove()
+            }
+            script.async = true
+            script.src = url
+            window.define = define
+            document.head.appendChild(script)
+          }))
+        }
       }
+          if (1 && 1) console.log('m',  m)
+          if (1 && 1) console.log('module',  module)
 
-
-    } else {
-
-      if (!module) cache.set(url, module = new Promise((resolve, reject) => {
-
-          const script = document.createElement("script");
-          script.onload = () => {
-            try { resolve(queue.pop()(requireRelative(url))); }
-            catch (error) { reject(new RequireError("invalid module")); }
-            script.remove();
-          };
-          script.onerror = () => {
-            reject(new RequireError("unable to load module"));
-            script.remove();
-          };
-          script.async = true;
-          script.src = url;
-          window.define = define;
-          document.head.appendChild(script);
-        }));
-
+      return m
     }
 
+    function requireRelative (base) {
+      if (1 && 1) console.log('requireRelative', base)
 
-    return module
-  }
+      return name => Promise.resolve(resolver(name, base)).then(requireAbsolute)
+    }
 
-  function requireRelative(base) {
-    return name => Promise.resolve(resolver(name, base)).then(requireAbsolute);
-  }
+    function requireAlias (aliases) {
+      return requireFrom((name, base) => {
+        if (name in aliases) {
+          name = aliases[name], base = null
+          if (typeof name !== 'string') return name
+        }
+        return resolver(name, base)
+      })
+    }
 
-  function requireAlias(aliases) {
-    return requireFrom((name, base) => {
-      if (name in aliases) {
-        name = aliases[name], base = null;
-        if (typeof name !== "string") return name;
-      }
-      return resolver(name, base);
-    });
-  }
+    function d3Require (name) {
+      if (1 && 1) console.log('d3Require', name)
 
-  function d3Require(name) {
-
-    return arguments.length > 1
+      return arguments.length > 1
         ? Promise.all(map.call(arguments, requireBase)).then(merge)
-        : requireBase(name);
+        : requireBase(name)
+    }
+
+    d3Require.alias = requireAlias
+    d3Require.resolve = resolver
+
+    return d3Require
   }
 
-  d3Require.alias = requireAlias;
-  d3Require.resolve = resolver;
-
-  return d3Require;
-}
-
-function merge(modules) {
-  const o = {};
-  for (const m of modules) {
-    for (const k in m) {
-      if (hasOwnProperty.call(m, k)) {
-        if (m[k] == null) Object.defineProperty(o, k, {get: getter(m, k)});
-        else o[k] = m[k];
+  function merge (modules) {
+    const o = {}
+    for (const m of modules) {
+      for (const k in m) {
+        if (hasOwnProperty.call(m, k)) {
+          if (m[k] == null) Object.defineProperty(o, k, {get: getter(m, k)})
+          else o[k] = m[k]
+        }
       }
     }
+    return o
   }
-  return o;
-}
 
-function getter(object, name) {
-  return () => object[name];
-}
+  function getter (object, name) {
+    return () => object[name]
+  }
 
-function isexports(name) {
-  return (name + "") === "exports";
-}
+  function isexports (name) {
+    return (name + '') === 'exports'
+  }
 
-function define(name, dependencies, factory) {
-// define (2) ["exports", "d3-color"] ƒ (t,n){"use strict";function r(t,n,r,e,o)
+  function define (name, dependencies, factory) {
+    
+if (1 && 1) console.log('define', arguments.length, name)
+    
+    // define (2) ["exports", "d3-color"] ƒ (t,n){"use strict";function r(t,n,r,e,o)
 
-  const n = arguments.length;
-  if (n < 2) factory = name, dependencies = [];
-  else if (n < 3) factory = dependencies, dependencies = typeof name === "string" ? [] : name;
-  queue.push(some.call(dependencies, isexports) ? d3Require => {
-    const exports = {};
-    return Promise.all(map.call(dependencies, name => {
-      return isexports(name += "") ? exports : d3Require(name);
-    })).then(dependencies => {
-      factory.apply(null, dependencies);
-      return exports;
-    });
-  } : d3Require => {
-    return Promise.all(map.call(dependencies, d3Require)).then(dependencies => {
-      return typeof factory === "function" ? factory.apply(null, dependencies) : factory;
-    });
-  });
-}
+    const n = arguments.length
+    if (n < 2) factory = name, dependencies = []
+    else if (n < 3) factory = dependencies, dependencies = typeof name === 'string' ? [] : name
+    if (1 && 1) console.log('************** 0', name)        
+      
+    // queue.push(some.call(dependencies, isexports) ? d3Require => {
+    let r = some.call(dependencies, isexports) ? d3Require => {
 
-define.amd = {};
 
+      const exports = {}
+      return Promise.all(map.call(dependencies, name => {
+      if (1 && 1) console.log('************** 1', name)        
+        return isexports(name += '') ? exports : d3Require(name)
+      })).then(dependencies => {
+        factory.apply(null, dependencies)
+      if (1 && 1) console.log('************** 2' ,exports)        
+        return exports
+      })
+
+      
+      
+      
+    } : d3Require => {
+      
+      return Promise.all(map.call(dependencies, d3Require)).then(dependencies => {
+        return typeof factory === 'function' ? factory.apply(null, dependencies) : factory
+      })
+    // })
+    }
+ 
+    queue.push(r)
+       if (1 && 1) console.log('r', r, queue)
+
+    
+  }
+
+  define.amd = {}
 
   //
   // eonify.eon(anitem)   load/map store, animation
@@ -278,7 +296,6 @@ define.amd = {};
 
   const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1)
   const a = d => Array.isArray(d) ? d : Array.of(d)
-
 
   const filenize = function (nome, path = '.', ext = 'js') {
     return `${path}/${nome}.${ext}`
@@ -331,7 +348,6 @@ define.amd = {};
 
   // ............................. getCeon
   async function getCeon (part, __eo) {
-
     let ceon = part[0]
     let r = __eo(ceon)
     return r ? Promise.resolve(r) : Promise.reject(r)
@@ -339,6 +355,7 @@ define.amd = {};
 
   // ............................. getFeon
   async function getFeon (part, __eo) { // d3Froce3d, ./d3-force-3d.js
+  if (1 && 1) console.log('getFeon', part)
 
     let eon = await d3Require(...a(part[1]))
 
@@ -347,24 +364,25 @@ define.amd = {};
     let cell = await getCell(eon, part[0], __eo) // eon to cell
 
     let feon = await mapCell(cell, part[0], __eo) // map cell
+if (1 && 1) console.log('feon', feon)
 
     return feon
   }
-
   // ............................. getXeon
   async function getXeon (part, __eo) { // d3Froce3d, d3-force-3d
-
-
+  if (1 && 1) console.log('getXeon part:', part)
     let eon = await d3Require(...a(part[1]))
+  if (1 && 1) console.log('getXeon eon:', eon)
     let cell = await getCell(eon, part[0], __eo) // eon to cell
     let xeon = await mapCell(cell, part[0], __eo) // map cell
     return xeon
-
   }
 
   // ............................. getEon
   // nome is partName: eg 'muonGraticule'
   async function getEon (inpart, __eo) {
+    if (1 && 1) console.log('inpart', inpart)
+
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
     let res = []
@@ -379,9 +397,7 @@ define.amd = {};
       let x = await eonfn(__eo)
 
       res = await x[pres]()
-
     } else {
-
       let [name, pres] = part // [name, prefix] eg.: [versor, muon]
 
       let ceon = ceonize(name, pres) // eg.: 'muonVersor' get from store
@@ -397,16 +413,16 @@ define.amd = {};
 
       // Promise.prototype.catch() The catch() method returns a Promise and deals with rejected cases only
       // if reject, get the eon sync from mapper or call next promise in array
-        // i: 0 eon from store
-        // i: 1 eon from file
-        // i: 2 eon from cdn
+      // i: 0 eon from store
+      // i: 1 eon from file
+      // i: 2 eon from cdn
 
       res = await eonsrcs.reduce( // _e_
-      (promis, func, i) => promis.catch(failed => {
-        return Promise.resolve(getCeonSync([ceon, ''], __eo) || func())
-      }), Promise.reject('init reduce'))
-      // .catch(failed => { console.log('Failed: ', ceon , failed) })
-      .catch(failed => { console.log('Failed: ', ceon ) })
+        (promis, func, i) => promis.catch(failed => {
+          return Promise.resolve(getCeonSync([ceon, ''], __eo) || func())
+        }), Promise.reject('init reduce'))
+      .catch(failed => { console.log('Failed: ', ceon , failed) })
+        // .catch(failed => { console.log('Failed: ', ceon) })
     }
 
     return res
@@ -451,9 +467,8 @@ define.amd = {};
     let state = {}
 
     let stater = function (_) {
-
       if (arguments.length < 1) return state
-      
+
       if (Array.isArray(_)) {
         let ceon = ceonize(..._)
 
@@ -476,56 +491,52 @@ define.amd = {};
   // anitem is async function that takes the mapper xEo{} as argument
   // xEo gets xs from the state to retrive eons
   //
-  let initEo = async function () {
-    let __eo = xEo() // init mapper
-
-    __eo({'xs': xs(__eo)}) // map xs
-
-    __eo({'xD3Require': {
-        require: d3Require,
-        requireFrom: requireFrom,
-      },
-    }) // map require
-
-
-    await __eo('xs').m('store') // map store
-
-    await __eo('xs').m('animation') // map animation
-
-    return __eo
-  }
 
   // ............................. eon
   let eon = async function ({anitem, time}) {
+    
+    let __eo = xEo() // init mapper
 
-    let __eo = await initEo() // init mapper
-    let animas = []
+    __eo({'xs': xs(__eo)}) // map xs
+    
+    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom, }, }) // map require
 
-    if (typeof anitem === 'function') {
-        // anitem: async ƒ anitem (__eo) {
-          // let [
-            // ctlRayder,
-            // ctlWen,
-            // eohalNatform,
-            // p…      
-      animas = await __eo('xs').a(anitem) 
-    } else if (typeof anitem === 'string') {
-      // anitem: 852d-3dgrat
-      animas = await __eo('xs').a(anitem) 
-      // animas () => {}
-      animas = animas.ani()
-      // animas: {natform: {…}}      
+    
+    // await __eo('xs').b('d3-interpolate')
+    await __eo('xs').b('d3-color')
 
-    }
+if (1 && 1) console.log('__eo', __eo())
+    
+    // let d3Interpolate = __eo('d3Interpolate')
+    // let c = d3Interpolate.interpolateCubehelix(20)
+    
+    let d3Color = __eo('d3Color')
+    let c = d3Color.color
+    
+if (1 && 1) console.log('__eo c', c)
 
-    __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
-    __eo('muonAnimation').animate(time) // animate
+    
+    
+    // await __eo('xs').m('store') // map store
+    // await __eo('xs').m('animation') // map animation
+    
+    // let animas = []
+    // if (typeof anitem === 'function') {
+      // animas = await __eo('xs').a(anitem) // anitem: async ƒ anitem (__eo) {  let [  ctlRayder,  ctlWen,
+    // } else if (typeof anitem === 'string') { // anitem: 852d-3dgrat
+      // animas = await __eo('xs').a(anitem) // animas () => {}
+      // animas = animas.ani() // animas: {natform: {…}}
+    // }
+    // __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
+    
+    // __eo('muonAnimation').animate(time) // animate
 
+    
+    
+    
     return __eo
-
   }
 
-  exports.initEo = initEo
   exports.capitalize = capitalize
   exports.filenize = filenize
   exports.ceonize = ceonize
@@ -539,7 +550,6 @@ define.amd = {};
   exports.xs = xs
   exports.require = d3Require
   exports.requireFrom = requireFrom
-
 
   Object.defineProperty(exports, '__esModule', { value: true })
 }))

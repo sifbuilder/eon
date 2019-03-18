@@ -63,10 +63,9 @@
 
     // .................... eohale
     let eohale = function (anitem) {
-      
       let eoform = anitem.eoform || anitem.eoload.eoform
       console.assert(eoform !== undefined, 'eoform is undefined')
-      
+
       anitem.eohal = 'natform'
 
       let translate = gettranslate(eoform)

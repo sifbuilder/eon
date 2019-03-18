@@ -18,11 +18,45 @@
   // ... tf: t => 1 - 4 * (t - 0.5) * (t - 0.5) // return
 
   async function muonEotim (__eo = {}) {
-    let [
-      d3Scale,
-    ] = await Promise.all([
-      __eo('xs').b('d3'),
-    ])
+    // ...................... linear
+    // https://d3js.org/d3-scale/ v2.2.2 Copyright 2019 Mike Bostock
+    function linear () {
+      let initRange = function (domain, range) {
+        switch (arguments.length) {
+          case 0: break
+          case 1: this.range(domain); break
+          default: this.range(range).domain(domain); break
+        }
+        return this
+      }
+      let array = Array.prototype
+      let slice = array.slice
+      let unit = [0, 1]
+      let domain = unit,
+        range = unit
+
+      let scale = function scale (x) {
+        let unknown
+        return isNaN(x = +x) ? unknown : range[0] + (x - domain[0]) * (range[1] - range[0]) / (domain[1] - domain[0])
+      }
+
+      scale.domain = function (_) {
+        if (!arguments.length) return domain.slice()
+        domain = []
+        let index = new Map()
+        let i = -1, n = _.length, d, key
+        while (++i < n) if (!index.has(key = (d = _[i]) + '')) index.set(key, domain.push(d))
+        return scale
+      }
+
+      scale.range = function (_) {
+        return arguments.length ? (range = slice.call(_), scale) : range.slice()
+      }
+
+      initRange.apply(scale, arguments)
+
+      return scale
+    }
 
     let epsilon = 1e-5
 
@@ -77,7 +111,7 @@
 
       let msDomain0 = [0, msDuration]
       let unRange0 = [t0, t1]
-      let timeScale0 = d3Scale.scaleLinear() // timeScale ms => un
+      let timeScale0 = linear() // timeScale ms => un
         .domain(msDomain0) // [msWait, msLimit]
         .range(unRange0) // [unBegin, unEnd]
       timeScales.push(timeScale0)

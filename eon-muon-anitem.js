@@ -11,11 +11,19 @@
   async function muonAnitem (__eo = {}) {
     let [
       muonSnap,
-      muonProps,
     ] = await Promise.all([
       __eo('xs').m('snap'),
-      __eo('xs').m('props'),
     ])
+
+    // https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
+    const clone = obj => { // props.o
+      if (obj == null || typeof obj !== 'object') return obj
+      let copy = obj.constructor()
+      for (let attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr]
+      }
+      return copy
+    }
 
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
@@ -40,7 +48,7 @@
 
     // ............................. functorize
     let functorize = function (anitem, t) {
-      let newAnitem = muonProps.clone(anitem)
+      let newAnitem = clone(anitem)
 
       console.assert(anitem !== undefined)
 
@@ -67,7 +75,7 @@
 
     // ............................. functorgeofold
     let functorgeofold = function (anitem, t) {
-      let newAnitem = muonProps.clone(anitem)
+      let newAnitem = clone(anitem)
 
       console.assert(anitem !== undefined)
       console.assert(anitem.eofold !== undefined, anitem.eoric.uid + ' eofold undefined')
@@ -81,7 +89,7 @@
 
     // ............................. functorpayload
     let functorpayload = function (anitem, t) {
-      let newAnitem = muonProps.clone(anitem)
+      let newAnitem = clone(anitem)
 
       console.assert(anitem !== undefined)
       console.assert(anitem.eoload !== undefined, anitem.eoric.uid + ' eoload undefined')

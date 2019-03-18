@@ -13,19 +13,16 @@
     const render = function (featurecollection) {
       let renderSvg = __eo('renderSvg')
       let renderWebgl = __eo('renderWebgl')
-      let renderCanvas = __eo('renderCanvas')
 
       // console.assert(renderSvg || renderWebgl || renderCanvas, `renderer not defined`)
 
       if (renderSvg) renderSvg.render(featurecollection)
       if (renderWebgl) renderWebgl.render(featurecollection)
-      if (renderCanvas) renderCanvas.render(featurecollection)
     }
 
     // ............................. enty
     let enty = function () {}
     enty.render = render
-
     return enty
   }
 

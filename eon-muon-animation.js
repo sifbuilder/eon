@@ -19,14 +19,12 @@
       muonAnitem,
       muonEotim,
       muonSim,
-      muonProps,
       renderRenderer,
     ] = await Promise.all([
       __eo('xs').c('timer'),
       __eo('xs').m('anitem'),
       __eo('xs').m('eotim'),
       __eo('xs').m('sim'),
-      __eo('xs').m('props'),
       __eo('xs').r('renderer'),
     ])
 
@@ -36,8 +34,22 @@
     state.animas = [] // global animas
     state.promise = null
 
+    const a = d => {
+      let ret = []
+      if (d === undefined) { // ret = []
+      } else if (d === null) { // ret = []
+      } else if (Array.isArray(d)) {
+        ret = [...d]
+      } else {
+        ret = [d]
+      }
+      return ret
+    }
+
     // ... getsims
     const getsims = (animas, elapsed) => {
+      console.assert(muonSim !== undefined, `muonSim undefined`)
+
       let sim = muonSim.sim() // simulation on animas
 
       // let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
@@ -70,17 +82,13 @@
 
     // ... async animate
     async function animate (time) {
-      
       if (time !== undefined) {
         animier(time)
-
-        
       } else {
         if (state.animationStop === undefined) {
           state.animationStop = ctlTimer.subscribe(animier)
         }
       }
-      
     }
 
     // ... async collectDyn
@@ -125,7 +133,7 @@
       getweens(state.animas, elapsed)
 
       let animasLive = muonStore.animas()
-      
+
       // _e_ getsims snapani for force properties - tbf
       let anisimmed = getsims(animasLive, elapsed)
 
@@ -158,7 +166,7 @@
       if (0 && 1) console.log(` ******************* anigrams ${elapsed} ${state.animas.length}`, state.anigrams)
 
       // ... TIME
-      state.animas = muonProps.a(muonStore.animasLive())
+      state.animas = a(muonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
         anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time
@@ -193,7 +201,7 @@
 
       // ... then render by sort the features in the collection
       renderRenderer.render(featurecollection)
-      
+
       return featurecollection
     }
 

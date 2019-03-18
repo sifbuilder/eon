@@ -18,7 +18,6 @@
     ])
 
     let props = {}
-    
 
     /***************************
     *        @arrays
@@ -462,7 +461,7 @@
     props.debug = () => [].join.call(arguments, '\n')
 
     /******************
- *        reticule
+ *        @reticule
  */
     props.reticule = function (ret = []) {
       let retAng = ret[0]
@@ -481,6 +480,48 @@
               .map(t => [t * Math.cos(fi * Math.PI / 180), t * Math.sin(fi * Math.PI / 180)]))
 
       return { ccs, rrs }
+    }
+    /******************
+ *        @scale
+ */
+    // https://d3js.org/d3-scale/ v2.2.2 Copyright 2019 Mike Bostock
+    props.linear = function () {
+      let initRange = function (domain, range) {
+        switch (arguments.length) {
+          case 0: break
+          case 1: this.range(domain); break
+          default: this.range(range).domain(domain); break
+        }
+        return this
+      }
+      let array = Array.prototype
+      let slice = array.slice
+      let identity = x => x
+      let unit = [0, 1]
+      let domain = unit,
+        range = unit,
+        unknown,
+        index
+
+      let scale = function scale (x) {
+        return isNaN(x = +x) ? unknown : range[0] + (x - domain[0]) * (range[1] - range[0]) / (domain[1] - domain[0])
+      }
+
+      scale.domain = function (_) {
+        if (!arguments.length) return domain.slice()
+        domain = [], index = new Map()
+        var i = -1, n = _.length, d, key
+        while (++i < n) if (!index.has(key = (d = _[i]) + '')) index.set(key, domain.push(d))
+        return scale
+      }
+
+      scale.range = function (_) {
+        return arguments.length ? (range = slice.call(_), scale) : range.slice()
+      }
+
+      initRange.apply(scale, arguments)
+
+      return scale
     }
 
     /***************************

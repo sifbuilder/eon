@@ -38,6 +38,12 @@
 
         eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
 
+        eonode: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+        },
+
         eomot: {
           proform: {
             projection: 'uniwen',
@@ -82,7 +88,7 @@
     }
 
     let enty = () => {}
-    enty.ani = ani    
+    enty.ani = ani
     return enty
   }
 

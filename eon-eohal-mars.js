@@ -31,45 +31,41 @@
 
     // ............................. eohale
     function eohale (anitem) {
-
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
 
       let newAni = anitem // muonProps.clone(anitem) // _e_
 
       let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
-      
-      // apply eomot projections to eonode
-      
-      if (eonode && anitem.eomot) {
 
+      // apply eomot projections to eonode
+
+      if (eonode && anitem.eomot) {
         for (let [mot, proton] of Object.entries(anitem.eomot)) {
           newAni.eonode = eonode
 
-          if (proton.applyProtonToNode) { 
-          
+          if (proton.applyProtonToNode) {
             let geometry = eonode.geometry || {}
             let properties = eonode.properties || {}
-            
+
             let prtion = muonProfier.formion(proton, anitem)
             let gjobj = muonGeoj.deprop(eonode) // remove properties from eonode
 
-            if (gjobj.geometry !== null) {  // geometry has non null coordinates
+            if (gjobj.geometry !== null) { // geometry has non null coordinates
               console.assert(gjobj.geometry.coordinates !== null)
             }
 
             let node = muonProj3ct(gjobj, prtion)
             node.properties = properties
             node.properties[mot] = muonGeoj.deprop(node) // save [proton] pure node _e_
-            
+
             newAni.eonode = node
-            
           }
         }
       }
 
       // if eomot.addNodeToTranslate:1, the eoanod offset is added to the projection translate
-      
+
       let eofold = muonProps.v(anitem.eofold, anitem) // newAni.eofold
       let gjcollection = muonGeoj.featurecollect(eofold)
 
