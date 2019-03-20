@@ -10,7 +10,7 @@
 
   async function ctlTimer (__eo) {
     let [
-      mtimer,
+      muonTimer,
     ] = await Promise.all([
       __eo('xs').m('timer'),
     ])
@@ -111,7 +111,7 @@
       nextListeners.push(listener)
 
       d3timers[nextListeners.length - 1] =
-        mtimer.timer(listener, wait, 0)
+        muonTimer.timer(listener, wait, 0)
 
       return function unsubscribe () {
         if (!isSubscribed) {

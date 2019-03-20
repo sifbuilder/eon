@@ -184,7 +184,7 @@
       return res
     }
     // .................. enty
-    let enty = {}
+    let enty = () => {}
     enty.timing = timing
     enty.getdefault = getdefault
     return enty

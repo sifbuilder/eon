@@ -9,6 +9,17 @@
   'use strict'
 
   async function renderRenderer (__eo = {}) {
+    
+    let [
+      renderSvg,
+      renderWebgl,
+
+    ] = await Promise.all([
+
+      __eo('xs').r('svg'),
+      __eo('xs').r('webgl'),
+    ])    
+    
     // ............................. render
     const render = function (featurecollection) {
       let renderSvg = __eo('renderSvg')

@@ -215,7 +215,7 @@
     }
 
     // ....................... enty
-    let enty = function () {}
+    let enty = () => {}
 
     enty.range = range
     enty.linear = linear

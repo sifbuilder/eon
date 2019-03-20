@@ -2,11 +2,20 @@ if (typeof fetch !== 'function') {
   global.fetch = require('node-fetch-polyfill')
 }
 
-const d3 = require('./d3-require.js')
-global.d3 = d3
+global.urlPolyfill =  require('url-polyfill')
 
-let d3Require = d3.require
-let d3RequireFrom = d3.requireFrom
+global.path = require('path')
+
+global.fs = require('fs')
+
+
+// let f = 'file:///E:/Dropbox/dBox/e/c/eons/eons/eon-muon-store.js'
+// let f = './eon-muon-store.js'
+// f = path.basename(f)
+// if (1 && 1) console.log('f', f)
+// if (1 && 1) console.log('f', fs.readFileSync(f, "utf8"))
+
+
 
 const xEonify = require('./eon-x-eonify.js')
 

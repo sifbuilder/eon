@@ -54,51 +54,85 @@
   //      return this._consumeBody().then(text => JSON.parse(text));
   //    }
 
-  function resolveMeta (target) {
+  // function resolveMeta (target) {
+  async function resolveMeta (target) {
+
     const url = `${origin}${target.name}${target.version ? `@${target.version}` : ''}/package.json`
 
     let meta = metas.get(url)
 
     if (!meta) {
-      metas.set(url, meta = fetch(url)
-        .then(response => {
-          if (!response.ok) throw new RequireError('unable to load package.json')
+      // metas.set(url, meta = fetch(url)
+      // .then(response => {
 
-          if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta)
+      // if (!response.ok) throw new RequireError('unable to load package.json')
 
-          return response.json()
-        }))
+      // if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta)
+
+      // return response.json()
+      // }))
+
+      let response = await fetch(url)
+
+      if (!response.ok) throw new RequireError('unable to load package.json')
+
+      if (response.redirected && !metas.has(response.url)) {
+        metas.set(response.url, meta)
+      } else {
+        let json = await response.json()
+
+        meta = json
+
+        metas.set(url, json)
+      }
     }
+
     return meta
   }
 
   async function resolve (name, base) {
-    if (1 && 1) console.log('resolve', name, base)
+if (1 && 1) console.log('resolve', name, base)
 
     if (name.startsWith(origin)) name = name.substring(origin.length)
     if (/^(\w+:)|\/\//i.test(name)) {
+if (1 && 1) console.log('resolve name: ', name)
+      
       return name
     }
     if (/^[.]{0,2}\//i.test(name)) {
+      
       let isnode1 = window.name == 'nodejs'
       let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
       let res
       if (isnode1 && isnode2) { // _e_
-        // res = name // _e_
-        res = 'file:///E:/Dropbox/dBox/e/c/eons/eons/d3-interpolate.js'
+        // res = 'file:///E:/Dropbox/dBox/e/c/eons/eons/d3-interpolate.js'
+        
+        try {
+          
+          let p = path.normalize(name)
+          res = new URL('file:///' + __dirname + '/' + p).href
+          
+        } catch(e) {
+          if (1 && 1) console.log(' ********* e', e)
+        }
 
       } else {
+        
         res = new URL(name, base == null ? location : base).href
+        
       }
-      if (1 && 1) console.log('name', res)
-      return  res
+      if (1 && 1) console.log('resolve url: ', res)
+
+      return res
     }
 
     if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError('illegal name')
     const target = parseIdentifier(name)
     if (!target) return `${origin}${name}`
+
     if (!target.version && base != null && base.startsWith(origin)) {
       const meta = await resolveMeta(parseIdentifier(base.substring(origin.length)))
+
       target.version = meta.dependencies && meta.dependencies[target.name] || meta.peerDependencies && meta.peerDependencies[target.name]
     }
     if (target.path && !extensionRe.test(target.path)) target.path += '.js'
@@ -106,7 +140,10 @@
       let res = `${origin}${target.name}@${target.version}/${target.path}`
       return res
     }
+
     const meta = await resolveMeta(target)
+
+
     let res = `${origin}${meta.name}@${meta.version}/${target.path || main(meta) || 'index.js'}`
 
     return res
@@ -115,59 +152,90 @@
   const d3Require = requireFrom(resolve)
 
   function requireFrom (resolver) {
+if (1 && 1) console.log('requireFrom ')    
     const cache = new Map()
     const requireBase = requireRelative(null)
 
     async function requireAbsolute (url) {
       if (typeof url !== 'string') return url
       let module = cache.get(url)
-let m
-      let isnode1 = window.name == 'nodejs'
+if (1 && 1) console.log('requireAbsolute url', url)
+
+      let isnode1 = window.name === 'nodejs'
       let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
       if (isnode1 && isnode2) { // _e_
-        if (/^[.]{0,2}\//i.test(url)) { // ./
+        if (/^file:/i.test(url)) { // file:
+        
           if (!module) {
-            cache.set(url, module = new Promise((resolve, reject) => {
-              // from feon requireAbsolute url is eg ./d3-interpolate.js
+            
+            let response
               try {
-                resolve(require(url))
-              } catch (error) {
-                reject(new RequireError(`invalid module: ${error}`))
+                let filepath = path.basename(url)
+                response = fs.readFileSync(filepath,  "utf8")
+              } catch(e) {
+                
               }
-            }))
+            let string = response
+            module = eval(string)
+            
+            
+            module = new Promise((resolve, reject) => {
+              try {
+                let f = queue.pop()
+                let m = requireRelative(url)
+                let p = f(m)
+                resolve(p)
+              } catch (error) {
+                reject(new RequireError('invalid module'))
+              }
+if (1 && 1) console.log('cache url:', url)
+
+              cache.set(url, module)
+            })
+            
+            
+            
+            
           }
-        } else if (/^(\w+:)|\/\//i.test(url)) {
-        // from xeon    https://cdn.jsdelivr.net/npm/d3-interpolate@1.3.2/dist/d3-interpolate.min.js
+        } else { // if (/^(\w+:)|\/\//i.test(url)) {
 
-          let requireFromString = require('require-from-string')
-
+        console.log('fetch:', url)
+        
           if (!module) {
-          if (1 && 1) console.log('url', url)
-            let module
-            let reponse = await fetch(url)
-            let string = await reponse.text()
-          // if (1 && 1) console.log('string', string)
-            module = await  requireFromString(string)
-            // module = await eval(string)
-            // module()
-          if (1 && 1) console.log('module',  module)
-          // queue.pop()(requireRelative(url))
-          
-            
-            // try { queue.pop()(requireRelative(url)) } catch (error) { reject(new RequireError('invalid module')) }         
-            
-            // cache.set(url, module)
-          m = module
+            let response = await fetch(url)
+            let string = await response.text()
+            module = await eval(string) // require('require-from-string')(string)
 
+            module = new Promise((resolve, reject) => {
+              try {
+                let f = queue.pop()
+                let m = requireRelative(url)
+                let p = f(m)
+                resolve(p)
+              } catch (error) {
+                reject(new RequireError('invalid module'))
+              }
+if (1 && 1) console.log('cache url:', url)
+              cache.set(url, module)
+            })
+            
+            
             
           }
         }
       } else {
         if (!module) {
-          cache.set(url, module = new Promise((resolve, reject) => {
+          module = new Promise((resolve, reject) => {
             const script = document.createElement('script')
             script.onload = () => {
-              try { resolve(queue.pop()(requireRelative(url))) } catch (error) { reject(new RequireError('invalid module')) }
+              try {
+                let f = queue.pop()
+                let m = requireRelative(url)
+                let p = f(m)
+                resolve(p)
+              } catch (error) {
+                reject(new RequireError('invalid module'))
+              }
               script.remove()
             }
             script.onerror = () => {
@@ -178,17 +246,18 @@ let m
             script.src = url
             window.define = define
             document.head.appendChild(script)
-          }))
+          })
+          if (1 && 1) console.log('cache url:', url)
+          cache.set(url, module)
         }
       }
-          if (1 && 1) console.log('m',  m)
-          if (1 && 1) console.log('module',  module)
 
-      return m
+
+      return module
     }
 
     function requireRelative (base) {
-      if (1 && 1) console.log('requireRelative', base)
+if (1 && 1) console.log('requireRelative base', base)
 
       return name => Promise.resolve(resolver(name, base)).then(requireAbsolute)
     }
@@ -204,7 +273,7 @@ let m
     }
 
     function d3Require (name) {
-      if (1 && 1) console.log('d3Require', name)
+if (1 && 1) console.log('d3Require', name)
 
       return arguments.length > 1
         ? Promise.all(map.call(arguments, requireBase)).then(merge)
@@ -239,45 +308,30 @@ let m
   }
 
   function define (name, dependencies, factory) {
-    
-if (1 && 1) console.log('define', arguments.length, name)
-    
+
     // define (2) ["exports", "d3-color"] ƒ (t,n){"use strict";function r(t,n,r,e,o)
 
     const n = arguments.length
     if (n < 2) factory = name, dependencies = []
     else if (n < 3) factory = dependencies, dependencies = typeof name === 'string' ? [] : name
-    if (1 && 1) console.log('************** 0', name)        
-      
+
     // queue.push(some.call(dependencies, isexports) ? d3Require => {
     let r = some.call(dependencies, isexports) ? d3Require => {
-
-
       const exports = {}
       return Promise.all(map.call(dependencies, name => {
-      if (1 && 1) console.log('************** 1', name)        
         return isexports(name += '') ? exports : d3Require(name)
       })).then(dependencies => {
         factory.apply(null, dependencies)
-      if (1 && 1) console.log('************** 2' ,exports)        
         return exports
       })
-
-      
-      
-      
     } : d3Require => {
-      
       return Promise.all(map.call(dependencies, d3Require)).then(dependencies => {
         return typeof factory === 'function' ? factory.apply(null, dependencies) : factory
       })
     // })
     }
- 
-    queue.push(r)
-       if (1 && 1) console.log('r', r, queue)
 
-    
+    queue.push(r)
   }
 
   define.amd = {}
@@ -322,13 +376,16 @@ if (1 && 1) console.log('define', arguments.length, name)
     .replace(/\s+/g, '') // remove white space
     .replace(/-+/g, '') // remove hyphen
 
-  const getCell = (e, n, m) => { // eon, name, mapper returns enty
+    async function getCell (e, n, m) { // eon, name, mapper returns enty
+console.log('getCell', e, n, m)
     console.assert(e !== undefined, `eon ${n} is undefined`)
     if (e[n] !== undefined && typeof e[n] === 'function') {
       // n is eon with e[n] async constructor eg. async function muonNatform
       // n is ani with e[n] async constructor eg. async function anitem
       // e[n](m) is promise
-      return e[n](m)
+      let cell = await e[n](m)
+      console.log('getCell cell', n, cell)
+      return cell
     } else if (typeof e === 'object') {
       // n is d3Scale (e[n] is undefined)
       return e
@@ -355,26 +412,28 @@ if (1 && 1) console.log('define', arguments.length, name)
 
   // ............................. getFeon
   async function getFeon (part, __eo) { // d3Froce3d, ./d3-force-3d.js
-  if (1 && 1) console.log('getFeon', part)
+    if (1 && 1) console.log('getFeon', part)
 
     let eon = await d3Require(...a(part[1]))
+    if (1 && 1) console.log('getFeon eon',  part[0], eon)
 
     console.assert(eon !== undefined, `eon undefined for part ${part[0]}`)
 
     let cell = await getCell(eon, part[0], __eo) // eon to cell
+    if (1 && 1) console.log('getFeon cell',  part[0], cell)
 
     let feon = await mapCell(cell, part[0], __eo) // map cell
-if (1 && 1) console.log('feon', feon)
+    if (1 && 1) console.log('getFeon feon',  part[0], feon)
 
     return feon
   }
   // ............................. getXeon
   async function getXeon (part, __eo) { // d3Froce3d, d3-force-3d
-  if (1 && 1) console.log('getXeon part:', part)
+    if (1 && 1) console.log('getXeon part:', part)
     let eon = await d3Require(...a(part[1]))
-  if (1 && 1) console.log('getXeon eon:', eon)
     let cell = await getCell(eon, part[0], __eo) // eon to cell
     let xeon = await mapCell(cell, part[0], __eo) // map cell
+    if (1 && 1) console.log('getXeon xeon:', xeon)
     return xeon
   }
 
@@ -405,7 +464,7 @@ if (1 && 1) console.log('feon', feon)
       let xeon = xeonize(name, pres) // eg.: 'eon-muon-versor' get from cdn
 
       // array of promises
-      var eonsrcs = [
+      var iterpromises = [
         () => getCeon([ceon, ''], __eo),
         () => getFeon([ceon, feon], __eo),
         () => getXeon([ceon, xeon], __eo),
@@ -417,12 +476,19 @@ if (1 && 1) console.log('feon', feon)
       // i: 1 eon from file
       // i: 2 eon from cdn
 
-      res = await eonsrcs.reduce( // _e_
+      
+
+  
+
+
+
+      
+      
+      res = await iterpromises.reduce( // _e_
         (promis, func, i) => promis.catch(failed => {
           return Promise.resolve(getCeonSync([ceon, ''], __eo) || func())
         }), Promise.reject('init reduce'))
-      .catch(failed => { console.log('Failed: ', ceon , failed) })
-        // .catch(failed => { console.log('Failed: ', ceon) })
+        .catch(failed => { console.log('Failed: ', ceon, failed) })
     }
 
     return res
@@ -494,46 +560,32 @@ if (1 && 1) console.log('feon', feon)
 
   // ............................. eon
   let eon = async function ({anitem, time}) {
-    
     let __eo = xEo() // init mapper
 
+
     __eo({'xs': xs(__eo)}) // map xs
-    
-    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom, }, }) // map require
 
-    
-    // await __eo('xs').b('d3-interpolate')
-    await __eo('xs').b('d3-color')
+    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } }) // map require
 
-if (1 && 1) console.log('__eo', __eo())
-    
-    // let d3Interpolate = __eo('d3Interpolate')
-    // let c = d3Interpolate.interpolateCubehelix(20)
-    
-    let d3Color = __eo('d3Color')
-    let c = d3Color.color
-    
-if (1 && 1) console.log('__eo c', c)
+    await __eo('xs').m('store') // map store
 
-    
-    
-    // await __eo('xs').m('store') // map store
-    // await __eo('xs').m('animation') // map animation
-    
-    // let animas = []
-    // if (typeof anitem === 'function') {
-      // animas = await __eo('xs').a(anitem) // anitem: async ƒ anitem (__eo) {  let [  ctlRayder,  ctlWen,
-    // } else if (typeof anitem === 'string') { // anitem: 852d-3dgrat
-      // animas = await __eo('xs').a(anitem) // animas () => {}
-      // animas = animas.ani() // animas: {natform: {…}}
-    // }
-    // __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
-    
-    // __eo('muonAnimation').animate(time) // animate
+    let stat = __eo()
 
-    
-    
-    
+    if (1 && 1) console.log('stat', stat)
+
+    await __eo('xs').m('animation') // map animation
+
+    let animas = []
+    if (typeof anitem === 'function') {
+      animas = await __eo('xs').a(anitem) // anitem: async ƒ anitem (__eo) {  let [  ctlRayder,  ctlWen,
+    } else if (typeof anitem === 'string') { // anitem: 852d-3dgrat
+      animas = await __eo('xs').a(anitem) // animas () => {}
+      animas = animas.ani() // animas: {natform: {…}}
+    }
+    __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
+
+    __eo('muonAnimation').animate(time) // animate
+
     return __eo
   }
 

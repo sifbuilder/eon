@@ -219,7 +219,7 @@
       })
     }
     // .................. enty
-    let enty = {}
+    let enty = () => {}
 
     enty.apply = _apply
     enty.gramm = gramm

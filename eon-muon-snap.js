@@ -198,7 +198,7 @@
     }
 
     // .................. enty
-    let enty = {}
+    let enty = () => {}
     enty.snap = snap
 
     return enty

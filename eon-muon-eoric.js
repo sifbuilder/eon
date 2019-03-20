@@ -23,7 +23,7 @@
     // ... sort: render sort
 
     // ... @getAnigramRic
-    let getAnigramRic = function getAnigramRic (anigram, idx = 0) {
+    let getAnigramRic = function (anigram, idx = 0) {
       // single item in subgroup manged by position
       // 0 gid, cid,  fid
       // 1 gid,       fid
@@ -154,7 +154,7 @@
     let idify = (...args) => args.reduce((p, q) => p ? p + '_' + q : q, null)
 
     // ............................. enty
-    let enty = {}
+    let enty = () => {}
     enty.getAnigramRic = getAnigramRic // build eoric from anigram, i
     enty.getuid = getuid
     enty.enric = enric

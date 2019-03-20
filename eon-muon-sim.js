@@ -11,34 +11,16 @@
   async function muonSim (__eo = {}) {
     let [
       d3Force3d,
-      muonAnitem,
       muonEonode,
-      muonEotim,
       muonSnap,
       muonStore,
     ] = await Promise.all([
       __eo('xs').b('d3-force-3d'),
-      __eo('xs').m('anitem'),
       __eo('xs').m('eonode'),
-      __eo('xs').m('eotim'),
       __eo('xs').m('snap'),
       __eo('xs').m('store'),
     ])
 
-    let _geonode = {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [0, 0, 0],
-      },
-      properties: {
-        orgen: [0, 0, 0],
-        velin: [0, 0, 0],
-        prevous: [0, 0, 0],
-        geodelta: [0, 0, 0],
-        hyperdelta: [0, 0, 0],
-      },
-    }
 
     let d3_force = d3Force3d
     let sim = d3_force.forceSimulation() //
@@ -256,7 +238,7 @@
               .alphaTarget(cttes.alphaTarget)
               .velocityDecay(cttes.velocityDecay)
               .on('tick', () => {
-                if (aniForce.ticked !== undefined) aniForce.ticked
+                if (aniForce.ticked !== undefined) aniForce.ticked()
 
                 aniSims = restoreNodes(aniNodes, anitems) // > aniNodes
 
