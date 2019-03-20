@@ -9,23 +9,12 @@
   'use strict'
 
   async function renderRenderer (__eo = {}) {
-    
-    let [
-      renderSvg,
-      renderWebgl,
-
-    ] = await Promise.all([
-
-      __eo('xs').r('svg'),
-      __eo('xs').r('webgl'),
-    ])    
+  
+    let renderSvg =__eo('renderSvg')
+    let renderWebgl = __eo('renderWebgl')    
     
     // ............................. render
     const render = function (featurecollection) {
-      let renderSvg = __eo('renderSvg')
-      let renderWebgl = __eo('renderWebgl')
-
-      // console.assert(renderSvg || renderWebgl || renderCanvas, `renderer not defined`)
 
       if (renderSvg) renderSvg.render(featurecollection)
       if (renderWebgl) renderWebgl.render(featurecollection)

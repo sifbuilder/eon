@@ -18,17 +18,16 @@
       ctlTimer,
       muonAnitem,
       muonEotim,
-      muonSim,
       renderRenderer,
     ] = await Promise.all([
       __eo('xs').c('timer'),
       __eo('xs').m('anitem'),
       __eo('xs').m('eotim'),
-      __eo('xs').m('sim'),
       __eo('xs').r('renderer'),
     ])
 
-    let muonStore = __eo('xs').m('store')
+    let muonStore =__eo('muonStore')
+    let muonSim = __eo('muonSim')
 
     let state = {}
     state.animas = [] // global animas
@@ -48,15 +47,22 @@
 
     // ... getsims
     const getsims = (animas, elapsed) => {
-      console.assert(muonSim !== undefined, `muonSim undefined`)
 
-      let sim = muonSim.sim() // simulation on animas
+      if (muonSim && typeof muonSim === 'object' && typeof muonSim.sim === 'function') {
 
-      // let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
-      let aninodes = animas
+        console.assert(muonSim !== undefined, `muonSim undefined`)
 
-      muonSim.simulate(sim, aninodes, elapsed) // stored
-
+        let sim = muonSim.sim() // simulation on animas
+  
+        // let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
+        let aninodes = animas
+  
+        muonSim.simulate(sim, aninodes, elapsed) // stored
+  
+      
+      } else {
+        
+      }
       return muonStore.animasLive()
     }
 
@@ -81,7 +87,7 @@
     }
 
     // ... async animate
-    async function animate (time) {
+    function animate (time) {
       if (time !== undefined) {
         animier(time)
       } else {

@@ -56,7 +56,6 @@
 
   // function resolveMeta (target) {
   async function resolveMeta (target) {
-
     const url = `${origin}${target.name}${target.version ? `@${target.version}` : ''}/package.json`
 
     let meta = metas.get(url)
@@ -91,37 +90,27 @@
   }
 
   async function resolve (name, base) {
-if (1 && 1) console.log('resolve', name, base)
 
     if (name.startsWith(origin)) name = name.substring(origin.length)
     if (/^(\w+:)|\/\//i.test(name)) {
-if (1 && 1) console.log('resolve name: ', name)
-      
+
       return name
     }
     if (/^[.]{0,2}\//i.test(name)) {
-      
       let isnode1 = window.name == 'nodejs'
       let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
       let res
       if (isnode1 && isnode2) { // _e_
         // res = 'file:///E:/Dropbox/dBox/e/c/eons/eons/d3-interpolate.js'
-        
+
         try {
-          
           let p = path.normalize(name)
           res = new URL('file:///' + __dirname + '/' + p).href
-          
-        } catch(e) {
-          if (1 && 1) console.log(' ********* e', e)
+        } catch (e) {
         }
-
       } else {
-        
         res = new URL(name, base == null ? location : base).href
-        
       }
-      if (1 && 1) console.log('resolve url: ', res)
 
       return res
     }
@@ -143,7 +132,6 @@ if (1 && 1) console.log('resolve name: ', name)
 
     const meta = await resolveMeta(target)
 
-
     let res = `${origin}${meta.name}@${meta.version}/${target.path || main(meta) || 'index.js'}`
 
     return res
@@ -152,33 +140,28 @@ if (1 && 1) console.log('resolve name: ', name)
   const d3Require = requireFrom(resolve)
 
   function requireFrom (resolver) {
-if (1 && 1) console.log('requireFrom ')    
     const cache = new Map()
     const requireBase = requireRelative(null)
 
     async function requireAbsolute (url) {
       if (typeof url !== 'string') return url
       let module = cache.get(url)
-if (1 && 1) console.log('requireAbsolute url', url)
 
       let isnode1 = window.name === 'nodejs'
       let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
       if (isnode1 && isnode2) { // _e_
         if (/^file:/i.test(url)) { // file:
-        
           if (!module) {
-            
             let response
-              try {
-                let filepath = path.basename(url)
-                response = fs.readFileSync(filepath,  "utf8")
-              } catch(e) {
-                
-              }
+            try {
+              let filepath = path.basename(url)
+              response = fs.readFileSync(filepath, 'utf8')
+            } catch (e) {
+
+            }
             let string = response
             module = eval(string)
-            
-            
+
             module = new Promise((resolve, reject) => {
               try {
                 let f = queue.pop()
@@ -188,19 +171,12 @@ if (1 && 1) console.log('requireAbsolute url', url)
               } catch (error) {
                 reject(new RequireError('invalid module'))
               }
-if (1 && 1) console.log('cache url:', url)
 
               cache.set(url, module)
             })
-            
-            
-            
-            
           }
         } else { // if (/^(\w+:)|\/\//i.test(url)) {
 
-        console.log('fetch:', url)
-        
           if (!module) {
             let response = await fetch(url)
             let string = await response.text()
@@ -215,12 +191,8 @@ if (1 && 1) console.log('cache url:', url)
               } catch (error) {
                 reject(new RequireError('invalid module'))
               }
-if (1 && 1) console.log('cache url:', url)
               cache.set(url, module)
             })
-            
-            
-            
           }
         }
       } else {
@@ -247,17 +219,14 @@ if (1 && 1) console.log('cache url:', url)
             window.define = define
             document.head.appendChild(script)
           })
-          if (1 && 1) console.log('cache url:', url)
           cache.set(url, module)
         }
       }
-
 
       return module
     }
 
     function requireRelative (base) {
-if (1 && 1) console.log('requireRelative base', base)
 
       return name => Promise.resolve(resolver(name, base)).then(requireAbsolute)
     }
@@ -273,7 +242,6 @@ if (1 && 1) console.log('requireRelative base', base)
     }
 
     function d3Require (name) {
-if (1 && 1) console.log('d3Require', name)
 
       return arguments.length > 1
         ? Promise.all(map.call(arguments, requireBase)).then(merge)
@@ -308,7 +276,6 @@ if (1 && 1) console.log('d3Require', name)
   }
 
   function define (name, dependencies, factory) {
-
     // define (2) ["exports", "d3-color"] ƒ (t,n){"use strict";function r(t,n,r,e,o)
 
     const n = arguments.length
@@ -376,15 +343,13 @@ if (1 && 1) console.log('d3Require', name)
     .replace(/\s+/g, '') // remove white space
     .replace(/-+/g, '') // remove hyphen
 
-    async function getCell (e, n, m) { // eon, name, mapper returns enty
-console.log('getCell', e, n, m)
+  async function getCell (e, n, m) { // eon, name, mapper returns enty
     console.assert(e !== undefined, `eon ${n} is undefined`)
     if (e[n] !== undefined && typeof e[n] === 'function') {
       // n is eon with e[n] async constructor eg. async function muonNatform
       // n is ani with e[n] async constructor eg. async function anitem
       // e[n](m) is promise
       let cell = await e[n](m)
-      console.log('getCell cell', n, cell)
       return cell
     } else if (typeof e === 'object') {
       // n is d3Scale (e[n] is undefined)
@@ -412,35 +377,28 @@ console.log('getCell', e, n, m)
 
   // ............................. getFeon
   async function getFeon (part, __eo) { // d3Froce3d, ./d3-force-3d.js
-    if (1 && 1) console.log('getFeon', part)
 
     let eon = await d3Require(...a(part[1]))
-    if (1 && 1) console.log('getFeon eon',  part[0], eon)
 
     console.assert(eon !== undefined, `eon undefined for part ${part[0]}`)
 
     let cell = await getCell(eon, part[0], __eo) // eon to cell
-    if (1 && 1) console.log('getFeon cell',  part[0], cell)
 
     let feon = await mapCell(cell, part[0], __eo) // map cell
-    if (1 && 1) console.log('getFeon feon',  part[0], feon)
 
     return feon
   }
   // ............................. getXeon
   async function getXeon (part, __eo) { // d3Froce3d, d3-force-3d
-    if (1 && 1) console.log('getXeon part:', part)
     let eon = await d3Require(...a(part[1]))
     let cell = await getCell(eon, part[0], __eo) // eon to cell
     let xeon = await mapCell(cell, part[0], __eo) // map cell
-    if (1 && 1) console.log('getXeon xeon:', xeon)
     return xeon
   }
 
   // ............................. getEon
   // nome is partName: eg 'muonGraticule'
   async function getEon (inpart, __eo) {
-    if (1 && 1) console.log('inpart', inpart)
 
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
@@ -476,14 +434,6 @@ console.log('getCell', e, n, m)
       // i: 1 eon from file
       // i: 2 eon from cdn
 
-      
-
-  
-
-
-
-      
-      
       res = await iterpromises.reduce( // _e_
         (promis, func, i) => promis.catch(failed => {
           return Promise.resolve(getCeonSync([ceon, ''], __eo) || func())
@@ -551,30 +501,21 @@ console.log('getCell', e, n, m)
     return stater
   }
 
-  // ............................. initEo
+  // ............................. eon
   //
   // called in z-file with anitem and a time
   // anitem is async function that takes the mapper xEo{} as argument
   // xEo gets xs from the state to retrive eons
   //
-
-  // ............................. eon
   let eon = async function ({anitem, time}) {
     let __eo = xEo() // init mapper
-
 
     __eo({'xs': xs(__eo)}) // map xs
 
     __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } }) // map require
 
     await __eo('xs').m('store') // map store
-
-    let stat = __eo()
-
-    if (1 && 1) console.log('stat', stat)
-
-    await __eo('xs').m('animation') // map animation
-
+    
     let animas = []
     if (typeof anitem === 'function') {
       animas = await __eo('xs').a(anitem) // anitem: async ƒ anitem (__eo) {  let [  ctlRayder,  ctlWen,
@@ -584,6 +525,8 @@ console.log('getCell', e, n, m)
     }
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
 
+
+    await __eo('xs').m('animation') // map animation
     __eo('muonAnimation').animate(time) // animate
 
     return __eo
