@@ -6,42 +6,45 @@ if (typeof fetch !== 'function') {
 
 const xEonify = require('./eon-x-eonify.js')
 
-getMuonProps = jest.fn(async () => {
+
+getEon = jest.fn(async () => {
+  // let __eo = await xEonify.eoframe()
   let __eo = xEonify.xEo()
   __eo({'xs': xEonify.xs(__eo)})
-  let muonProps = await __eo('xs').m('props')
-  return muonProps
+
+  let eon = await __eo('xs').m('props')
+if (1 && 1) console.log('eon', eon)
+  return eon
 })
 
 test('test cant', async () => {
-  let muonProps = await getMuonProps()
-
-  expect(muonProps.cant([ [0, 0], [1, 1] ], 0.2)).toEqual([ [ 0.2, 0.2 ], [ 0.8, 0.8 ] ])
+  let eon = await getEon()
+  expect(eon.cant([ [0, 0], [1, 1] ], 0.2)).toEqual([ [ 0.2, 0.2 ], [ 0.8, 0.8 ] ])
 })
 
-test('test', async () => {
-  let muonProps = await getMuonProps()
+// test('test', async () => {
+  // let eon = await getEon()
 
-  expect(muonProps.isPureArray([1, 2])).toBe(true)
-})
+  // expect(eon.isPureArray([1, 2])).toBe(true)
+// })
 
-test('test is not PureArray', async () => {
-  let muonProps = await getMuonProps()
+// test('test is not PureArray', async () => {
+  // let eon = await getEon()
 
-  expect(muonProps.isPureArray([1, {}])).toBe(false)
-})
-test('test is not PureArray', async () => {
-  let muonProps = await getMuonProps()
+  // expect(eon.isPureArray([1, {}])).toBe(false)
+// })
+// test('test is not PureArray', async () => {
+  // let eon = await getEon()
 
-  expect(muonProps.isPureArray([1, () => {}])).toBe(false)
-})
-test('test scale linear', async () => {
-  let muonProps = await getMuonProps()
+  // expect(eon.isPureArray([1, () => {}])).toBe(false)
+// })
+// test('test scale linear', async () => {
+  // let eon = await getEon()
 
-  let scale = muonProps.linear()
-    .domain([0, 3])
-    .range([2, 8])
+  // let scale = eon.linear()
+    // .domain([0, 3])
+    // .range([2, 8])
 
-  expect(scale(0)).toBe(2)
-  expect(scale(1)).toBe(4)
-})
+  // expect(scale(0)).toBe(2)
+  // expect(scale(1)).toBe(4)
+// })

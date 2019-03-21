@@ -501,6 +501,19 @@
     return stater
   }
 
+  // ............................. eoframe
+
+  let eoframe = async function () {
+    let __eo = xEo() // init mapper
+
+    __eo({'xs': xs(__eo)}) // map xs
+    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
+
+    await __eo('xs').m('store') // map store
+    
+    return __eo
+  }
+
   // ............................. eon
   //
   // called in z-file with anitem and a time
@@ -511,27 +524,24 @@
     let __eo = xEo() // init mapper
 
     __eo({'xs': xs(__eo)}) // map xs
+    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
 
-    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } }) // map require
-
-    await __eo('xs').m('store') // map store
+    let muonStore = await __eo('xs').m('store') // map store
+if (1 && 1) console.log('muonStore', muonStore)
     
-    let animas = []
-    if (typeof anitem === 'function') {
-      animas = await __eo('xs').a(anitem) // anitem: async ƒ anitem (__eo) {  let [  ctlRayder,  ctlWen,
-    } else if (typeof anitem === 'string') { // anitem: 852d-3dgrat
-      animas = await __eo('xs').a(anitem) // animas () => {}
+    let animas = await __eo('xs').a(anitem) // function
+    if (typeof anitem === 'string') { // anitem: 852d-3dgrat
       animas = animas.ani() // animas: {natform: {…}}
     }
-    __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
-
+    muonStore.apply({type: 'UPDANIMA', animas: animas})
 
     await __eo('xs').m('animation') // map animation
-    __eo('muonAnimation').animate(time) // animate
-
-    return __eo
+    let datit = __eo('muonAnimation').animate(time) // animate
+    return datit
+    // return __eo
   }
 
+  exports.eoframe = eoframe
   exports.capitalize = capitalize
   exports.filenize = filenize
   exports.ceonize = ceonize

@@ -89,11 +89,12 @@
     // ... async animate
     function animate (time) {
       if (time !== undefined) {
-        animier(time)
+        return animier(time)
       } else {
         if (state.animationStop === undefined) {
           state.animationStop = ctlTimer.subscribe(animier)
         }
+        return true
       }
     }
 
@@ -206,9 +207,9 @@
       let featurecollection = collect(state.animas, elapsed)
 
       // ... then render by sort the features in the collection
-      renderRenderer.render(featurecollection)
+      renderRenderer.render(featurecollection, elapsed)
 
-      return featurecollection
+      return {dat: featurecollection, t: elapsed}
     }
 
     // ............................. enty
