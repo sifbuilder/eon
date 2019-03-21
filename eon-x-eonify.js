@@ -501,19 +501,6 @@
     return stater
   }
 
-  // ............................. eoframe
-
-  let eoframe = async function () {
-    let __eo = xEo() // init mapper
-
-    __eo({'xs': xs(__eo)}) // map xs
-    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
-
-    await __eo('xs').m('store') // map store
-    
-    return __eo
-  }
-
   // ............................. eon
   //
   // called in z-file with anitem and a time
@@ -527,7 +514,7 @@
     __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
 
     let muonStore = await __eo('xs').m('store') // map store
-if (1 && 1) console.log('muonStore', muonStore)
+if (1 && 1) console.log('************** muonStore', muonStore)
     
     let animas = await __eo('xs').a(anitem) // function
     if (typeof anitem === 'string') { // anitem: 852d-3dgrat
@@ -541,7 +528,6 @@ if (1 && 1) console.log('muonStore', muonStore)
     // return __eo
   }
 
-  exports.eoframe = eoframe
   exports.capitalize = capitalize
   exports.filenize = filenize
   exports.ceonize = ceonize
