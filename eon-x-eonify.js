@@ -530,6 +530,7 @@
 
   }
 
+  exports.eo = eo
   exports.capitalize = capitalize
   exports.filenize = filenize
   exports.ceonize = ceonize
