@@ -12,9 +12,12 @@ let eonify = jest.fn(async ({anitem, time}) => {
   return await xEonify.eon({anitem, time})
 })
 
+let anitem = '852d-3dgrat'
+let time = 0
+
 test('test filenize', async () => {
-  let _ = {anitem: '852d-3dgrat', time: 0}
-  let datit = await eonify(_)
+  let ww = {anitem, time}
+  let datit = await eonify(ww)
 
   expect(typeof datit).toBe('object')
   let featureCollection = datit.dat

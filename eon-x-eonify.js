@@ -494,6 +494,19 @@
     return stater
   }
 
+
+   
+  // ............................. eo
+  let eo = async function () {
+    let __eo = xEo() // init mapper
+
+    __eo({'xs': xs(__eo)}) // map xs
+    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
+
+    let muonStore = await __eo('xs').m('store') // map store
+    return __eo
+  }
+
   // ............................. eon
   //
   // called in z-file with anitem and a time
@@ -501,23 +514,20 @@
   // xEo gets xs from the state to retrive eons
   //
   let eon = async function ({anitem, time}) {
-    let __eo = xEo() // init mapper
 
-    __eo({'xs': xs(__eo)}) // map xs
-    __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
-
-    let muonStore = await __eo('xs').m('store') // map store
+    let __eo = await eo()
 
     let animas = await __eo('xs').a(anitem) // function
     if (typeof anitem === 'string') { // anitem: 852d-3dgrat
       animas = animas.ani() // animas: {natform: {…}}
     }
-    muonStore.apply({type: 'UPDANIMA', animas: animas})
+    __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
 
-    await __eo('xs').m('animation') // map animation
+    let muonAnimation = await __eo('xs').m('animation') // map animation
+
     let datit = __eo('muonAnimation').animate(time) // animate
     return datit
-    // return __eo
+
   }
 
   exports.capitalize = capitalize

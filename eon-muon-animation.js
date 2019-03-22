@@ -26,8 +26,12 @@
       __eo('xs').r('renderer'),
     ])
 
-    let muonStore = __eo('muonStore')
-    let muonSim = __eo('muonSim')
+    let muonStore
+    let muonSim
+    let muonTim
+
+    // let muonStore = __eo('muonStore')
+    // let muonSim = __eo('muonSim')
 
     let state = {}
     state.animas = [] // global animas
@@ -84,6 +88,14 @@
 
     // ... async animate
     function animate (time) {
+      muonStore = __eo('muonStore')
+      muonSim = __eo('muonSim')
+      muonTim = __eo('muonTim')      
+      renderRenderer = __eo('renderRenderer')
+
+      state.animas = muonStore.animasLive()
+
+      state.anigrams = muonStore.anigrams()      
       if (time !== undefined) {
         return animier(time)
       } else {
@@ -161,9 +173,9 @@
 
     // ... ANIMIER
     function animier (elapsed) {
-      muonStore = __eo('muonStore')
-      state.animas = muonStore.animasLive()
-      state.anigrams = muonStore.anigrams()
+      // muonStore = __eo('muonStore')
+      // state.animas = muonStore.animasLive()
+      // state.anigrams = muonStore.anigrams()
 
       if (0 && 1) console.log(` ******************* animas ${elapsed} ${state.animas.length}`, state.animas)
       if (0 && 1) console.log(` ******************* anigrams ${elapsed} ${state.animas.length}`, state.anigrams)
