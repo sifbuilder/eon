@@ -1,18 +1,27 @@
-let fileUrl = require('file-url')
-
 if (typeof fetch !== 'function') {
   global.fetch = require('node-fetch-polyfill')
 }
 
+global.urlPolyfill =  require('url-polyfill')
+global.path = require('path')
+global.fs = require('fs')
+
 const xEonify = require('./eon-x-eonify.js')
 
-let getEon = jest.fn(async () => {
-  let __eo = xEonify.xEo()
-  __eo({'xs': xEonify.xs(__eo)})
-  let eon = await __eo('xs').m('graticule')
-  return eon
-})
 
+let eonify = jest.fn(async () => {
+  
+    let __eo = xEonify.xEo() // init mapper
+
+    __eo({'xs': xEonify.xs(__eo)}) // map xs
+    __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
+
+    let muonStore = await __eo('xs').m('store') // map store
+    muonStore = __eo('muonStore')
+
+    return __eo
+
+})
 // test('test tidx', async () => {
 // let eon = await getEon()
 // let tidxer = eon.tidx(6, 4, 1, 1) // h (mers), v (parals)
@@ -26,7 +35,8 @@ let getEon = jest.fn(async () => {
 // . . . . . . [0,0]:0      [5,0]:4
 
 test('tidx', async () => {
-  let eon = await getEon()
+  let __eo = await eonify()
+  let eon = await __eo('xs').m('graticule')
 
   let tidxer = eon.tidx(6, 4, 1, 1) // h (mers), v (parals)
   let idx = tidxer(3, 5) // col ([0,3]), row ([0,2])
@@ -34,7 +44,8 @@ test('tidx', async () => {
 })
 
 test('ridx a', async () => {
-  let eon = await getEon()
+  let __eo = await eonify()
+  let eon = await __eo('xs').m('graticule')
   // . . 3 . . .
   // . . . . . .
   // . . . . . .
@@ -45,7 +56,8 @@ test('ridx a', async () => {
 })
 
 test('ridx b', async () => {
-  let eon = await getEon()
+  let __eo = await eonify()
+  let eon = await __eo('xs').m('graticule')
 
   let tidxer = eon.ridx(6, 4, 1, 1) // h (mers), v (parals)
   let coords = tidxer(8) //
@@ -53,7 +65,8 @@ test('ridx b', async () => {
 })
 
 test('gratiparams', async () => {
-  let eon = await getEon()
+  let __eo = await eonify()
+  let eon = await __eo('xs').m('graticule')
 
   let params = { geoframe: [ [ [-180, 180, 15, 15], [-180, 180, 60, 60] ] ] }
   let r = eon.gratiparams(params)

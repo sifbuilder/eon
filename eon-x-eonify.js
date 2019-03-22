@@ -97,16 +97,17 @@
       return name
     }
     if (/^[.]{0,2}\//i.test(name)) {
+
       let isnode1 = window.name == 'nodejs'
       let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
       let res
       if (isnode1 && isnode2) { // _e_
         // res = 'file:///E:/Dropbox/dBox/e/c/eons/eons/d3-interpolate.js'
-
         try {
           let p = path.normalize(name)
           res = new URL('file:///' + __dirname + '/' + p).href
         } catch (e) {
+          console.log('resolve url error:', e)
         }
       } else {
         res = new URL(name, base == null ? location : base).href
@@ -180,7 +181,7 @@
           if (!module) {
             let response = await fetch(url)
             let string = await response.text()
-            module = await eval(string) // require('require-from-string')(string)
+            module = eval(string) // require('require-from-string')(string)
 
             module = new Promise((resolve, reject) => {
               try {
@@ -514,7 +515,6 @@
     __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
 
     let muonStore = await __eo('xs').m('store') // map store
-if (1 && 1) console.log('************** muonStore', muonStore)
     
     let animas = await __eo('xs').a(anitem) // function
     if (typeof anitem === 'string') { // anitem: 852d-3dgrat
