@@ -55,9 +55,12 @@
               console.assert(gjobj.geometry.coordinates !== null)
             }
 
-            let node = muonProj3ct(gjobj, prtion)
+
+            let projed = muonProj3ct(gjobj, prtion)
+            properties[mot] = projed
+
+            let node = Object.assign({}, projed)
             node.properties = properties
-            node.properties[mot] = muonGeoj.deprop(node) // save [proton] pure node _e_
 
             newAni.eonode = node
           }
@@ -82,9 +85,11 @@
                 console.assert(gjobj.geometry.coordinates !== null)
               }
 
-              let node = muonProj3ct(gjobj, prtion)
+              let projed = muonProj3ct(gjobj, prtion)
+              properties[mot] = projed
+
+              let node = Object.assign({}, projed)
               node.properties = properties
-              node.properties[mot] = node
 
               return node
             }
