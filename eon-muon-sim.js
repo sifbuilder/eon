@@ -21,7 +21,6 @@
       __eo('xs').m('store'),
     ])
 
-
     let d3_force = d3Force3d
     let sim = d3_force.forceSimulation() //
     let dim = 3

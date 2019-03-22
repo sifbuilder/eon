@@ -26,7 +26,7 @@
       __eo('xs').r('renderer'),
     ])
 
-    let muonStore =__eo('muonStore')
+    let muonStore = __eo('muonStore')
     let muonSim = __eo('muonSim')
 
     let state = {}
@@ -47,21 +47,17 @@
 
     // ... getsims
     const getsims = (animas, elapsed) => {
-
       if (muonSim && typeof muonSim === 'object' && typeof muonSim.sim === 'function') {
-
         console.assert(muonSim !== undefined, `muonSim undefined`)
 
         let sim = muonSim.sim() // simulation on animas
-  
+
         // let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
         let aninodes = animas
-  
+
         muonSim.simulate(sim, aninodes, elapsed) // stored
-  
-      
       } else {
-        
+
       }
       return muonStore.animasLive()
     }

@@ -90,14 +90,11 @@
   }
 
   async function resolve (name, base) {
-
     if (name.startsWith(origin)) name = name.substring(origin.length)
     if (/^(\w+:)|\/\//i.test(name)) {
-
       return name
     }
     if (/^[.]{0,2}\//i.test(name)) {
-
       let isnode1 = window.name == 'nodejs'
       let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
       let res
@@ -177,7 +174,6 @@
             })
           }
         } else { // if (/^(\w+:)|\/\//i.test(url)) {
-
           if (!module) {
             let response = await fetch(url)
             let string = await response.text()
@@ -228,7 +224,6 @@
     }
 
     function requireRelative (base) {
-
       return name => Promise.resolve(resolver(name, base)).then(requireAbsolute)
     }
 
@@ -243,7 +238,6 @@
     }
 
     function d3Require (name) {
-
       return arguments.length > 1
         ? Promise.all(map.call(arguments, requireBase)).then(merge)
         : requireBase(name)
@@ -378,7 +372,6 @@
 
   // ............................. getFeon
   async function getFeon (part, __eo) { // d3Froce3d, ./d3-force-3d.js
-
     let eon = await d3Require(...a(part[1]))
 
     console.assert(eon !== undefined, `eon undefined for part ${part[0]}`)
@@ -400,7 +393,6 @@
   // ............................. getEon
   // nome is partName: eg 'muonGraticule'
   async function getEon (inpart, __eo) {
-
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
     let res = []
@@ -515,7 +507,7 @@
     __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
 
     let muonStore = await __eo('xs').m('store') // map store
-    
+
     let animas = await __eo('xs').a(anitem) // function
     if (typeof anitem === 'string') { // anitem: 852d-3dgrat
       animas = animas.ani() // animas: {natform: {…}}
