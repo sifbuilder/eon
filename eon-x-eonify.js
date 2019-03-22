@@ -525,7 +525,9 @@
 
     let muonAnimation = await __eo('xs').m('animation') // map animation
 
-    let datit = __eo('muonAnimation').animate(time) // animate
+    let datit = __eo('muonAnimation').animate(5000) // animate
+
+
     return datit
 
   }
