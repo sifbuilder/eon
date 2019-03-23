@@ -494,8 +494,6 @@
     return stater
   }
 
-
-   
   // ............................. eo
   let eo = async function () {
     let __eo = xEo() // init mapper
@@ -514,7 +512,6 @@
   // xEo gets xs from the state to retrive eons
   //
   let eon = async function ({anitem, time}) {
-
     let __eo = await eo()
 
     let animas = await __eo('xs').a(anitem) // function
@@ -525,11 +522,9 @@
 
     let muonAnimation = await __eo('xs').m('animation') // map animation
 
-    let datit = __eo('muonAnimation').animate(5000) // animate
-
+    let datit = __eo('muonAnimation').animate(undefined) // animate
 
     return datit
-
   }
 
   exports.eo = eo
