@@ -16,7 +16,7 @@
       let renderWebgl = __eo('renderWebgl')
 
       if (! renderSvg&& ! renderWebgl) {
-        console.info('no renderers ', elapsed, featurecollection.features.length, featurecollection.features)
+        console.info('r.renderer no renderers')
       }
 
       if (renderSvg) renderSvg.render(featurecollection)

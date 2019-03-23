@@ -8,16 +8,9 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eonify = jest.fn(async ({anitem, time}) => {
-  return await xEonify.eon({anitem, time})
-})
-
-let anitem = '852d-3dgrat'
-let time = 0
-
 test('test filenize', async () => {
-  let ww = {anitem, time}
-  let datit = await eonify(ww)
+  let ww = {anitem:'852d-3dgrat', time:0}
+  let datit = await xEonify.eon(ww)
 
   expect(typeof datit).toBe('object')
   let featureCollection = datit.dat
