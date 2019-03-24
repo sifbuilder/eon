@@ -12,6 +12,7 @@ async function anitem (__eo) {
     THREE,
     ctlWen,
     eohalMars,
+    eohalSol,
     muonGeom,
     muonProps,
     muonGeovoro,
@@ -23,13 +24,14 @@ async function anitem (__eo) {
     __eo('xs').b('three'),
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
+    __eo('xs').e('sol'),
     __eo('xs').m('geom'),
     __eo('xs').m('props'),
     __eo('xs').m('geovoro'),
     __eo('xs').r('portview'),
     __eo('xs').r('webgl'),
   ])
-
+  try { renderSvg.scenecolor('black') } catch (e) {}
   let ani = function () {
   // .................. pics
 
@@ -159,7 +161,8 @@ async function anitem (__eo) {
             [-pars.C2, pars.C2, -pars.C2],
             [-pars.C2, pars.C2, pars.C2],
             [pars.C2, pars.C2, -pars.C2],
-            [pars.C2, pars.C2, pars.C2]],
+            [pars.C2, pars.C2, pars.C2]],
+
         faces: pars =>
 
           [[24, 2, 38, 4],

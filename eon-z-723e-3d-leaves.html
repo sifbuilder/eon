@@ -10,6 +10,7 @@ async function anitem (__eo) {
   let [
     ctlWen,
     eohalMars,
+    eohalSol,
     eohalTextform,
     muonGeoj,
     muonLindenmayer,
@@ -20,6 +21,7 @@ async function anitem (__eo) {
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
+    __eo('xs').e('sol'),
     __eo('xs').e('textform'),
     __eo('xs').m('geoj'),
     __eo('xs').m('lindenmayer'),
