@@ -35,6 +35,7 @@
       console.assert(Array.isArray(anitem) === false)
 
       let newAni = anitem // muonProps.clone(anitem) // _e_
+      console.log('newAni:', newAni)
 
       let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
 
