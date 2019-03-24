@@ -41,7 +41,7 @@
   // ... use: `muonProfier.projer_(prodef, anigram)(gj)
   // ... *get formion projector on gj*
 
-  async function muonProfier(__eo = {}) {
+  async function muonProfier (__eo = {}) {
     let [
       muonProps,
       muonWen,
@@ -60,7 +60,7 @@
     ])
 
     // ............................. getPrt
-    function getPrt(projdef) {
+    function getPrt (projdef) {
       console.assert(!Array.isArray(projdef))
 
       let geoproj = null
@@ -93,7 +93,7 @@
     }
 
     // ............................. formion
-    function formion(projdef, anigram = {}) {
+    function formion (projdef, anigram = {}) {
       let projection
       let projname
 
@@ -182,7 +182,7 @@
     }
 
     // ............................. projer_
-    function projer_(prodef, anigram) { // projer_ is fenrir if no prodef
+    function projer_ (prodef, anigram) { // projer_ is fenrir if no prodef
       return json => muonProj3ct.project(json, formion(prodef))
     }
 

@@ -10,12 +10,14 @@ async function anitem (__eo) {
   let [
     eohalNatform,
     eohalMars,
+    eohalSol,
     muonAnimas,
     muonNatform,
     renderWebgl,
   ] = await Promise.all([
     __eo('xs').e('natform'),
     __eo('xs').e('mars'),
+    __eo('xs').e('sol'),
     __eo('xs').m('animas'),
     __eo('xs').m('natform'),
     __eo('xs').r('webgl'),
@@ -67,7 +69,6 @@ async function anitem (__eo) {
           gsa: 0,
           gco: 0,
         })
-        if (1 && 1) console.log('f', f)
 
         return f
       },
@@ -252,17 +253,17 @@ async function anitem (__eo) {
       },
 
     }
-    // ............................. animas
-    let animas = [
+    // ............................. scene
+    let scene = {
 
       spotLight, // h.sol
       lightHemisphereAni, // h.sol
       natAni3, // h.mars
-      // natAni4, // h.natform
+      natAni4, // h.natform
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}

@@ -20,7 +20,7 @@ async function anitem (__eo) {
     __eo('xs').e('natform'),
     __eo('xs').r('svg'),
   ])
-
+  try { renderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let ani = function () {
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
