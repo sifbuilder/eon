@@ -16,12 +16,10 @@
   async function muonAnimation (__eo) {
     let [
       ctlTimer,
-      muonAnitem,
       muonEotim,
       renderRenderer,
     ] = await Promise.all([
       __eo('xs').c('timer'),
-      __eo('xs').m('anitem'),
       __eo('xs').m('eotim'),
       __eo('xs').r('renderer'),
     ])
@@ -90,12 +88,12 @@
     function animate (time) {
       muonStore = __eo('muonStore')
       muonSim = __eo('muonSim')
-      muonTim = __eo('muonTim')      
+      muonTim = __eo('muonTim')
       renderRenderer = __eo('renderRenderer')
 
       state.animas = muonStore.animasLive()
 
-      state.anigrams = muonStore.anigrams()      
+      state.anigrams = muonStore.anigrams()
       if (time !== undefined) {
         return animier(time)
       } else {
@@ -202,9 +200,9 @@
       let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), 0)
 
       if (!nostop &&
-          isNaN(maxlimit) &&
-          maxlimit > 0 &&
-          overtime // stop if spired
+        isNaN(maxlimit) &&
+        maxlimit > 0 &&
+        overtime // stop if spired
       ) { // stop if anigrams spired
         state.animationStop()
       }
@@ -217,7 +215,7 @@
       // ... then render by sort the features in the collection
       renderRenderer.render(featurecollection, elapsed)
 
-      return {dat: featurecollection, t: elapsed}
+      return { dat: featurecollection, t: elapsed }
     }
 
     // ............................. enty

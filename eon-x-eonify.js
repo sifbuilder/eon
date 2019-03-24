@@ -501,7 +501,7 @@
     __eo({'xs': xs(__eo)}) // map xs
     __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
 
-    let muonStore = await __eo('xs').m('store') // map store
+    await __eo('xs').m('store') // map store
     return __eo
   }
 
@@ -520,9 +520,9 @@
     }
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
 
-    let muonAnimation = await __eo('xs').m('animation') // map animation
+    await __eo('xs').m('animation') // map animation
 
-    let datit = __eo('muonAnimation').animate(undefined) // animate
+    let datit = __eo('muonAnimation').animate(time) // animate
 
     return datit
   }

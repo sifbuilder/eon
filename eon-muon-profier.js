@@ -41,7 +41,7 @@
   // ... use: `muonProfier.projer_(prodef, anigram)(gj)
   // ... *get formion projector on gj*
 
-  async function muonProfier (__eo = {}) {
+  async function muonProfier(__eo = {}) {
     let [
       muonProps,
       muonWen,
@@ -60,38 +60,40 @@
     ])
 
     // ............................. getPrt
-    function getPrt (projdef) {
+    function getPrt(projdef) {
       console.assert(!Array.isArray(projdef))
 
-      let geoproj = protonUniwen() // default to p.uniwen
-      console.assert(projdef !== undefined, 'm.profier.formion projdef undefined')
+      let geoproj = null
 
       if (projdef === undefined) {
         geoproj = protonUniwen({})
+      } else if (typeof projdef === 'string') {
+        let proton = __eo(projdef) || __eo([projdef, 'proton'])
+        if (proton !== null) {
+          geoproj = proton({})
+        }
       } else if (typeof projdef === 'function') {
         geoproj = projdef
       } else if (typeof projdef === 'object') {
         if (typeof projdef.projection === 'string') { // if string
           let prtItem = projdef.projection
-          let proton = __eo(prtItem)
+          let proton = __eo(prtItem) || __eo([prtItem, 'proton'])
           if (proton !== null) { // try eg. protonUniwen
-            //
+            geoproj = proton(projdef)
           } else {
-            proton = __eo([prtItem, 'proton']) // try eg. ['uniwen', proton]
+            geoproj = null
           }
-          console.assert(typeof proton === 'function', `proton ${proton} nor right`)
-          geoproj = proton(projdef)
         } else if (typeof projdef.projection === 'function') { // if projection _e_
-          let proton = projdef.projection // props passed to projection _
-          geoproj = proton(projdef)
+          // let proton = projdef.projection // props passed to projection _
+          // geoproj = proton(projdef)
+          geoproj = projdef.projection // props passed to projection _
         }
       }
-
       return geoproj
     }
 
     // ............................. formion
-    function formion (projdef, anigram = {}) {
+    function formion(projdef, anigram = {}) {
       let projection
       let projname
 
@@ -101,10 +103,6 @@
 
       let translation, rotation
 
-      if (typeof projdef !== 'object') { // projdef is object
-        projection = d => d
-        return projection // id
-      }
       projection = getPrt(projdef)
 
       if (projdef.translate) { // TRANSLATE proj method
@@ -136,7 +134,7 @@
 
         let projrot = projdef.rotate || [0, 0, 0] // default to 3d
         if (muonProps.isPureArray(projrot)) {
-          projrot = projrot
+          //
         } else { // if multi rotates
           let _rot = []
           for (let k = 0; k < projrot.length; k++) {
@@ -159,7 +157,7 @@
         if (prerotate) rot = muonGeom.add(rot, prerotate) // ADD prerotate
 
         let dims = projrot.length // planar or spherical geometry
-        if (dims == 2) rot = muonWen.cross([ Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
+        if (dims === 2) rot = muonWen.cross([Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
 
         rotation = rot
       }
@@ -184,7 +182,7 @@
     }
 
     // ............................. projer_
-    function projer_ (prodef, anigram) { // projer_ is fenrir if no prodef
+    function projer_(prodef, anigram) { // projer_ is fenrir if no prodef
       return json => muonProj3ct.project(json, formion(prodef))
     }
 
@@ -192,8 +190,9 @@
     let uniweon = projdef => protonUniwen(projdef)
 
     // ............................. enty
-    let enty = function () {}
+    let enty = () => { }
     enty.formion = formion
+    enty.getPrt = getPrt
     enty.projer_ = projer_
     enty.uniweon = uniweon
 

@@ -17,7 +17,7 @@
 
     let epsilon = 1e-6
     let radians = Math.PI / 180
-    let transform = d3Geo.geoTransform({ point: function (x, y) { this.stream.point(x, y) }})
+    let transform = d3Geo.geoTransform({ point: function (x, y) { this.stream.point(x, y) } })
 
     // https://medium.com/@dtipson/creating-an-es6ish-compose-in-javascript-ac580b95104a
     const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)))
@@ -68,17 +68,17 @@
         cacheStream
 
       let proj1 = p1 = d3Geo.geoOrthographic()
-      let	proj1Point
+      let proj1Point
 
       let proj2 = p2
       let proj2Point
 
       let point
-      let pointStream = {point: function (x, y) { point = [x, y] }}
+      let pointStream = { point: function (x, y) { point = [x, y] } }
 
       function projection (coordinates) {
         let x = coordinates[0], y = coordinates[1]
-        return		proj1Point.point(x, y)
+        return proj1Point.point(x, y)
       }
 
       projection.invert = function (coordinates) {
@@ -156,7 +156,7 @@
         return projection
       }
 
-      projection.drawCompositionBorders = function (context) {}
+      projection.drawCompositionBorders = function (context) { }
       projection.getCompositionBorders = function () {
         var context = path()
         this.drawCompositionBorders(context)
@@ -167,7 +167,7 @@
     }
 
     // .................. enty
-    let enty = {}
+    let enty = () => { }
     enty.projection = projection
     return enty
   }

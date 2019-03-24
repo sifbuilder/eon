@@ -10,84 +10,83 @@
   'use strict'
 
   // ... ** **
-// .................. anitem
-async function anitem (__eo) {
-  // .................. animas
-  let [
-    ctlWen,
-    eohalTextform,
-    renderSvg,
-  ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('textform'),
-    __eo('xs').r('svg'),
-  ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let ctl
-  try {
-    ctl = ctlWen().control(renderSvg.svg())
-  } catch (e) {
-    ctl = () => [0, 0, 0]
-  }
+  // .................. anitem
+  async function anitem (__eo) {
+    // .................. animas
+    let [
+      ctlWen,
+      eohalTextform,
+      renderSvg,
+    ] = await Promise.all([
+      __eo('xs').c('wen'),
+      __eo('xs').e('textform'),
+      __eo('xs').r('svg'),
+    ])
+    try { renderSvg.scenecolor('black') } catch (e) { }
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }
 
-  let ani = function () {
-    // .................. pics
-    let eotim = {'td': 10000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
+    let ani = function () {
+      // .................. pics
+      let eotim = { 'td': 10000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1 }
 
-    let textAni = {
+      let textAni = {
 
-      eohal: eohalTextform,
-      eotim: eotim,
-      eoric: {gid: 'text', cid: 'text', fid: 'text'},
+        eohal: eohalTextform,
+        eotim: eotim,
+        eoric: { gid: 'text', cid: 'text', fid: 'text' },
 
-      eofold: ani => ({
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0] },
-      }),
+        eofold: ani => ({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0] },
+        }),
 
-      eonode: ani => ({
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0] },
-      }),
+        eonode: ani => ({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0] },
+        }),
 
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ -175, 0 ],
-          rotate: [ 0, 0, 0 ],
-          prerotate: [[[ ctl.rotation ]]],
-        },
-      },
-
-      eoload: {
-        eocrom: { 'csx': 0, 'cf': 777, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5 },
-        textform: {
-          string: 'eon-z-000a',
-          style: {
-            rotate: [[[ 0, -1 ]]],
-            'font-size': [[[60, 60]]],
-            'font-family': 'BankFuturistic',
-            'text-anchor': 'center',
+        eomot: {
+          proform: {
+            projection: 'uniwen',
+            translate: [-175, 0],
+            rotate: [0, 0, 0],
+            prerotate: [[[ctl.rotation]]],
           },
         },
-      },
 
+        eoload: {
+          eocrom: { 'csx': 0, 'cf': 777, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5 },
+          textform: {
+            string: 'eon-z-000a',
+            style: {
+              rotate: [[[0, -1]]],
+              'font-size': [[[60, 60]]],
+              'font-family': 'BankFuturistic',
+              'text-anchor': 'center',
+            },
+          },
+        },
+
+      }
+
+      // .................. scene
+      let scene = {
+
+        textAni, // h.textform
+
+      }
+
+      return scene
     }
 
-    // .................. scene
-    let scene = {
-
-      textAni, // h.textform
-
-    }
-
-    return scene
+    let enty = () => { }
+    enty.ani = ani
+    return enty
   }
-
-  let enty = () => {}
-  enty.ani = ani
-  return enty
-}
   exports.ani000a = anitem
 }))
-
