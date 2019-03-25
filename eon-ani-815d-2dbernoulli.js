@@ -68,6 +68,34 @@
       let level = 0 // [[[0.3, 6, 0.1]]]
       let range = 17
 
+      let berny = (e, c, d) => { // summands
+        let summs = c[2]
+        let w = Array.from(new Array(summs), (d, i) => 1)
+        let v = c[0] // level
+        let x = c[1] * e[0] / (2 * Math.PI) // range e[0]
+        let y = w.reduce((p, q, k) => {
+          let f, f1, f2, f3, f4
+          try {
+            f1 = Math.pow(-1, k)
+            f2 = Math.pow(x / 2, v + 2 * k)
+            f3 = 1 / fact(k)
+            f4 = 1 / fact(v + k)
+          } catch (err) {
+            if (1 && 1) console.log('err', err)
+          }
+          f = f1 * f2 * f3 * f4
+          p = p + f
+          return p
+        }, 0)
+        return y
+      }
+
+
+      let bernx = (e, c, d) => {
+        let x =c[1] * e[0] / (2 * Math.PI) // range * [2 * Math.PI] / (2 * Math.PI)
+        return x // cos(e[0]) // * cos(e[2]) // x * sin(e[3])
+      }
+
       let eotim = {'td': 9600, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
       let conformAni = {
@@ -76,41 +104,14 @@
           'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
           'dom3': [0, 360],
           c: [ 1, range, 1, 1], // . , range, ., .
-          'fn0': (e, c, d) => {
-            let x = d.c[1] * e[0] / (2 * Math.PI) // range * [2 * Math.PI] / (2 * Math.PI)
-            return  x // cos(e[0]) // * cos(e[2]) // x * sin(e[3])
-          },
+          'fn0': (e, c, d) => bernx(e, d.c, d),
         },
         y: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
           'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
           'dom3': [0, 360],
           c: [ level, range, summands, 1], // order, range, summs, .
-          fn0: (e, c, d) => {
-            let summs = d.c[2]
-            let w = Array.from(new Array(summs), (d, i) => 1)
-            let v = d.c[0]
-            let x = d.c[1] * e[0] / (2 * Math.PI) // e[0]: [0, 2 * Math.PI] * 14
-            let res = 0
-            let y = w.reduce((p, q, k) => {
-              let f, f1, f2, f3, f4
-              try {
-                f1 = Math.pow(-1, k)
-                f2 = Math.pow(x / 2, v + 2 * k)
-                f3 = 1 / fact(k)
-                f4 = 1 / fact(v + k)
-              } catch (e) {
-                if (1 && 1) console.log('e', e)
-              }
-
-              f = f1 * f2 * f3 * f4
-
-              p = p + f
-              return p
-            }, 0)
-
-            return y // * sin(e[0]) // * cos(e[2]) // y 
-          },
+          fn0: (e, c, d) => berny(e, d.c, d),
 
         },
         z: {
@@ -118,12 +119,12 @@
           'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
           c: [ 1, 1, 1, 1 ],
-          fn0: (e, c, d) => sin(e[3]) // cos(e[2]),
+          fn0: (e, c, d) => sin(e[3]), // cos(e[2]),
         },
 
         // w: {
         //   'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        //   'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,          
+        //   'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
         //   'dom3': [ -180, 180 ],
         //   fn0: (e, c, d) => cos(e[2]),
         // },
