@@ -107,7 +107,6 @@
             console.log(`g type ${geometry.type} not supported`)
           }
           res = snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
-          
         } else if (muonEotype.isArray(v) && // 11_____ [v]*
           muonEotype.isPureArray(v) &&
            v.length === 1
@@ -119,44 +118,37 @@
             .domain(d)
             .range(r)
           res = w(t)
-            if (1 && 1) console.log('linear v length 1', d, r, t, res)          
-
-              
         } else if (muonEotype.isArray(v) && // 12 _____ [v1,v2,v3]*
           muonEotype.isPureArray(v) &&
            v.length > 1
         ) {
-            if (v.length ===3 && t > 0.6 && 1) {
-              console.log('linear v length > 1', v)          
-            }          
+          if (v.length === 3 && t > 0.6 && 1) {
+          }
           let d = v.map((item, idx) => idx / (v.length - 1))
           let r = v
           let w = muonLacer.linear()
             .domain(d)
             .range(r)
           res = w(t)
-            if (d.length ===3 && t > 0.6 && 1) {
-              console.log('linear v length > 1', d, r, t, res)          
-            }
+          if (d.length === 3 && t > 0.6 && 1) {
+          }
         } else if (muonEotype.isArray(v) && // 13 _____ [[a1,a2,a3],[b1,b2]]*
            muonEotype.isQuasiPureArray(v) // => [[a1,b1],[a2,b1'],[a3,b2]]
         ) { // [][] dosnap qualifier
-
           res = muonLacer.unslide(v)
-                .filter(d => d.length > 0)
+            .filter(d => d.length > 0)
 
-          res = res      
-                .map(d => snap(d, t, 1)) // _e_              
+          res = res
+            .map(d => snap(d, t, 1)) // _e_
 
           // res = muonLacer
-              // .slide(v)
-                // .filter(d => d.length > 0)
-                // .map(d => snap(d, t, 1)) // _e_
+          // .slide(v)
+          // .filter(d => d.length > 0)
+          // .map(d => snap(d, t, 1)) // _e_
         } else {
           res = v
         }
       }
-
 
       return res
     }

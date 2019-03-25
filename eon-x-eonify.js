@@ -178,8 +178,8 @@
           if (!module) {
             let response = await fetch(url)
             let string = await response.text()
-            
-            module = eval(string) // 
+
+            module = eval(string) //
 
             module = new Promise((resolve, reject) => {
               try {
