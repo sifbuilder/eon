@@ -158,6 +158,7 @@
 
             }
             let string = response
+
             module = eval(string)
 
             module = new Promise((resolve, reject) => {
@@ -177,7 +178,8 @@
           if (!module) {
             let response = await fetch(url)
             let string = await response.text()
-            module = eval(string) // require('require-from-string')(string)
+            
+            module = eval(string) // 
 
             module = new Promise((resolve, reject) => {
               try {

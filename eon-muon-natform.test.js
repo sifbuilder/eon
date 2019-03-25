@@ -26,6 +26,7 @@ test('test scale', async () => {
 
   let _s1extent = [-180, 180]
   let _s1range = [0, 6]
+  
   let _s2extent = [ 0, 1, 2, 3, 4, 5, 6 ]
   let _s2range = [
     0.24253562503633297,
@@ -144,7 +145,7 @@ test('test natMultiPolygon', async () => {
     [3, 0, 4],
     [3, 4, 7],
     [7, 4, 8],
-    [7, 8, 11]
+    [7, 8, 11],
   ]
 
   let muonNatform = await __eo('xs').m('natform')

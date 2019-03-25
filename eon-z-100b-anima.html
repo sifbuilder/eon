@@ -13,12 +13,10 @@ async function anitem (__eo) {
   let [
     eohalNatform,
     muonAnimas,
-    muonLacer,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').e('natform'),
     __eo('xs').m('animas'),
-    __eo('xs').m('lacer'),
     __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) {}
@@ -35,29 +33,23 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => {
-      
-        let b = [10, 20, 21, 34, 24]
-        let a = [3, 5] 
-        let r = muonLacer.slide([a,b])
-if (1 && 1) console.log('r', r)
-        
-      
-      },
+      eofold: ani => {},
 
       eocrom: eocrom,
-      eoform: {
-        'm1': [[[1.5, 8]]], 'm2': [[[1.5, 8]]], 'n1': [[[0.5, 0.95]]], 'n2': [[[0.5, 0.5]]], 'n3': [[[0.5, 0.5]]], 'a': 1, 'b': 0.1,
-        'w4': 0, 'ra2': [[[180, 80]]], 'seg5': 36,
-
-      },
+      eoform: Object.assign(
+        muonAnimas.animas.drop2,
+        {
+          'w4': 0, 'ra2': 90,
+          'tx': 10, 'ty': [[[50, 150]]],
+        }
+      ),
       eomot: {
         proform: {
 
           projection: 'uniwen',
-          translate: [ 0, [[[0,200]]], 0],
+          translate: [0, 0, 0],
           scale: 1,
-          rotate: [ 0, 0, -90 ],
+          rotate: [ 0, 0, 90 ],
           lens: [0, 1, Infinity],
 
         },

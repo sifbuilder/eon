@@ -42,8 +42,7 @@
 
       let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-      let  sin = Math.sin, cos = Math.cos
-
+      let sin = Math.sin, cos = Math.cos
 
       let conform = {
         'x': {
