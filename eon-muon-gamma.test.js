@@ -21,7 +21,7 @@ let eonify = jest.fn(async () => {
 
 test('test factorial', async () => {
   let __eo = await eonify()
-  let ani = await __eo('xs').a('815d-2dbernoulli')
+  let ani = await __eo('xs').m('gamma')
 
   expect(ani.fact(0)).toBeCloseTo(1, 6)
   expect(ani.fact(3)).toBeCloseTo(6, 6)
@@ -35,7 +35,7 @@ test('test factorial', async () => {
 
 test('test bern', async () => {
   let __eo = await eonify()
-  let ani = await __eo('xs').a('815d-2dbernoulli')
+  let ani = await __eo('xs').m('gamma')
 
   let e = [
     0.9817477042468103,
@@ -45,7 +45,8 @@ test('test bern', async () => {
   ]
   let d = {}
 
-  expect(ani.berny(e, [0, 17, 23, 1], d)).toBe(-0.12284023092514747)
-  expect(ani.berny(e, [1, 17, 23, 1], d)).toBe(0.454729103538626)
-  expect(ani.berny(e, [2, 17, 23, 1], d)).toBe(0.46522449711893754)
+  expect(ani.bessel(e, [0, 17, 23, 1], d)).toBe(-0.12284023092514747)
+  expect(ani.bessel(e, [1, 17, 23, 1], d)).toBe(0.454729103538626)
+  expect(ani.bessel(e, [2, 17, 23, 1], d)).toBe(0.46522449711893754)
 })
+
