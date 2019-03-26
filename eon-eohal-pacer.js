@@ -195,12 +195,12 @@
 
       let count = {}
       let grabbed = ctlRayder.getGrabbed()
-      3
+
       let dist = (!state.grabbed)
         ? Infinity
         : muonGeom.distance3d(state.grabbed, grabbed)
 
-      if (grabbed != false) {
+      if (grabbed !== false) {
         if (dist > geospan) { //
           state.grabbed = grabbed
           count.event = Math.floor(pacer.eventN) // if in state or was event

@@ -23,10 +23,6 @@
 
     let d3Range = d3Array.range
 
-    const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,
-      max = Math.max, min = Math.min, PI = Math.PI, sin = Math.sin, sqrt = Math.sqrt,
-      radians = PI / 180, degrees = 180 / PI, eps = 1e-5
-
     const epsilon = 1e-5
 
     let defaultMajor = [ [-180, 180, 90, 2.5], [-90, 90, 360, 2.5] ]
@@ -38,14 +34,13 @@
     cache.entryparams = {}
     cache.gratiparams = {}
 
-    // .................. tidx
+    // .................. tidx/ridx
     let tidx = muonProps.tidx
-
-    // .................. ridx
     let ridx = muonProps.ridx
 
     // .................. oneface
     let oneface = function (a, b, c, xn, yn) { //  xy,ru,ry
+      console.log('oneface', a, b, c, xn, yn)
       let indexer = tidx(xn, yn)
 
       let v0 = indexer(a[0], a[1])
@@ -58,6 +53,7 @@
 
     // .................. bifaces
     let bifaces = function (i, j, xn, yn) {
+      console.log('bifaces', i, j, xn, yn)      
       let indexer = tidx(xn, yn)
 
       let i0 = i
@@ -73,6 +69,7 @@
 
     // .................. quads
     let quads = function (i, j, xn, yn) {
+  
       let indexer = tidx(xn, yn)
 
       let i0 = i
@@ -115,6 +112,7 @@
     // ...          ]
     // ...
     let gratiparams = function (params = {}) {
+
       let rp = {}
 
       let X0, X1, DX, PX, x0, x1, dx, px,
@@ -186,10 +184,12 @@
 
     // .................. arywinopen
     let arywinopen = (d0, d1, dd) => { // _e_
+
       let res = []
       let md = Math.max(Math.abs(d0), Math.abs(d1)) - epsilon
       let mt = Math.ceil(md / dd)
       for (let i = -mt; i < mt; i++) { if (d0 < i * dd && i * dd < d1) { res.push(i * dd) } }
+
       return res
     }
 
@@ -213,10 +213,10 @@
         let d = arywinopen(d0, d1, dd)
         res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
       } else if (f === 1 && p === 0) { // asym closed
-        let d = d3Range(d0, d1 - eps, dd).concat(d1) // [y0,y1) ,y1]
+        let d = d3Range(d0, d1 - epsilon, dd).concat(d1) // [y0,y1) ,y1]
         res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
       } else if (f === 1 && p === 1) { // asym open
-        let d = d3Range(d0, d1 - eps, dd)
+        let d = d3Range(d0, d1 - epsilon, dd)
         res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
       }
       return res
@@ -250,7 +250,7 @@
       let mmBig = merfn(X0, X1, DX) // long mers
       let mmShort = merfn(x0, x1, dx) // short mers
       let mmAll = _merge(mmBig, mmShort) // deg location of mers in [-180,180] xy
-      let mmLines = mmAll.map(d => (Math.abs(d % DX) > eps) ? x(d) : X(d))
+      let mmLines = mmAll.map(d => (Math.abs(d % DX) > epsilon) ? x(d) : X(d))
 
       // meridians
       let mms = { type: 'MultiLineString', coordinates: mmLines }
@@ -265,9 +265,9 @@
         : (a, b, d) => d3Range(Math.ceil(a / d) * d, b, d)
 
       let ppBig = parfn(Y0, Y1, DY)
-      let ppShort = parfn(y0, y1 + eps, dy)
+      let ppShort = parfn(y0, y1 + epsilon, dy)
       let ppAll = _merge(ppBig, ppShort) // deg location of pars in [-90,90] z
-      let ppLines = ppAll.map(d => (Math.abs(d % DY) > eps) ? y(d) : Y(d)) // d:120
+      let ppLines = ppAll.map(d => (Math.abs(d % DY) > epsilon) ? y(d) : Y(d)) // d:120
 
       // parallels
       let pps = { type: 'MultiLineString', coordinates: ppLines }
@@ -533,7 +533,7 @@
     let _merge = function (major, minor, ret = {}) {
       ret = [...major, ...minor]
         .sort((a, b) => a - b)
-        .filter((elem, pos, arr) => arr.indexOf(elem) == pos)
+        .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
 
       return ret
     }
@@ -551,10 +551,16 @@
 
     enty.tidx = tidx
     enty.ridx = ridx
+    enty.quads = quads
     enty.gratiparams = gratiparams
     enty.grarr = grarr
 
     enty.dedges = dedges
+    enty.oneface = oneface
+    enty.bifaces = bifaces
+    enty.arywinopen = arywinopen
+    enty.arywinclosed = arywinclosed
+
 
     enty.gfaces = gfaces
     enty.qfaces = qfaces

@@ -140,11 +140,6 @@
 
           res = res
             .map(d => snap(d, t, 1)) // _e_
-
-          // res = muonLacer
-          // .slide(v)
-          // .filter(d => d.length > 0)
-          // .map(d => snap(d, t, 1)) // _e_
         } else {
           res = v
         }
