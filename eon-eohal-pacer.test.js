@@ -8,6 +8,8 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
+
+
 let eonify = jest.fn(async () => {
   let __eo = xEonify.xEo() // init mapper
 
@@ -22,22 +24,21 @@ let eonify = jest.fn(async () => {
   await __eo('xs').m('stace')
   await __eo('xs').p('uniwen')
 
-
   return __eo
 })
 
 test('test grabbed', async () => {
   let __eo = await eonify()
   let muonEotype = await __eo('xs').e('pacer')
-  console.log('muonEotype:', muonEotype)
 
   expect(typeof muonEotype.grabbed).toBe('function')
   expect(muonEotype.grabbed()).toBe(undefined)
 })
 
-test('test grabbed', async () => {
+test('test e.pacer', async () => {
   let __eo = await eonify()
 
+  let muonStore = __eo('muonStore')
   let eohalPacer = __eo('eohalPacer')
   let muonNatform = __eo('muonNatform')
   let muonStace = __eo('muonStace')
@@ -63,11 +64,34 @@ test('test grabbed', async () => {
     eoform: [ [[[0, 120]]], 0, 0],
     eoload: {
       eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      pacer: {
+
+        initN: 1, eventN: 0, autoN: 1, autoP: 0, autoT: 0, 
+        outtimed: 0, maxN: 60,
+        geospan: 0,
+
+        paceAnisOfSort: 'anima',
+        basePaceOnAniView: 'eoform',
+        addItemToPacer: 1, // addItemToPacer for trace
+
+      },
     },
   }
 
   let ani = eohalPacer.ween(geoLined)
+  expect(ani).toHaveLength(0)
 
+  let anitems = muonStore.animasLive()
+  console.log('anitems:', anitems)
 
-
+  expect(anitems).toHaveLength(1)
+  expect(anitems[0]).toHaveProperty('eohal')
+  expect(anitems[0]).toHaveProperty('eotim')
+  expect(anitems[0]).toHaveProperty(['eoric', 'gid'], 'traces')
+  expect(anitems[0]).toHaveProperty(['eoric', 'cid'], 'traces')
+  expect(anitems[0]).toHaveProperty(['eoric', 'fid'], 'traceLine')
+  expect(anitems[0]).toHaveProperty(['eoric', 'uid'], 'traces_traces_traceLine')
+  expect(anitems[0]).toHaveProperty('eofold')
+  expect(anitems[0]).toHaveProperty('eonode')
+  expect(anitems[0]).toHaveProperty('eoload')
 })

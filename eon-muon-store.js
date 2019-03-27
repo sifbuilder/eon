@@ -218,25 +218,29 @@
         })
       })
     }
-    // .................. enty
-    let enty = () => {}
 
-    enty.apply = _apply
-    enty.gramm = gramm
-    enty.ween = ween
+    // ............................. ancestor
+    let ancestor = function (anitem) {
+      let uidSelf = anitem.eoric.uid
+      let uidParent = anitem.eoric.pid
 
-    enty.anigrams = () => Object.values(state.anigrams)
-    enty.animasAll = () => Object.values(state.animas) // animas including eodelled
-    enty.animasLive = () => Object.values(state.animas).filter(d => d.eodelled !== 1)
-    enty.animas = enty.animasLive
+      let selfAnigram = uidSelf ? muonStore.findAnigramFromUid(uidSelf) : null
+      let selfAnima = uidSelf ? muonStore.findAnimaFromUid(uidSelf) : null
 
-    enty.animasInGroupHowMany = anima =>
-      (anima === undefined)
-        ? 0
-        : enty.animasLive()
-          .filter(d => d.eoric.gid === anima.eoric.gid).length
+      if (selfAnima !== undefined) return selfAnima
 
-    enty.animasInClassHowMany = item => {
+      // there can be an anima without anigram
+      let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
+      let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
+
+      if (!parentAnigram && !parentAnima) return null
+
+      let anima = parentAnima || ancestor(parentAnigram)
+
+      return anima
+    }
+    // ............................. animasInClassHowMany
+    let animasInClassHowMany = item => {
       let eoric
       let qmany = 0
       if (item.eoric !== undefined) {
@@ -252,8 +256,8 @@
       }
       return qmany
     }
-
-    enty.anigramsInClassHowMany = item => {
+    // ............................. anigramsInClassHowMany
+    let anigramsInClassHowMany = item => {
       let eoric
       let qmany = 0
       if (item.eoric !== undefined) {
@@ -269,6 +273,32 @@
       }
       return qmany
     }
+    // ............................. animasInGroupHowMany
+    let animasInGroupHowMany = anima =>
+      (anima === undefined)
+        ? 0
+        : enty.animasLive()
+          .filter(d => d.eoric.gid === anima.eoric.gid).length
+
+    // .................. enty
+    let enty = () => {}
+
+    enty.apply = _apply
+    enty.gramm = gramm
+    enty.ween = ween
+
+    enty.ancestor = ancestor
+
+    enty.anigrams = () => Object.values(state.anigrams)
+    enty.animasAll = () => Object.values(state.animas) // animas including eodelled
+    enty.animasLive = () => Object.values(state.animas).filter(d => d.eodelled !== 1)
+    enty.animas = enty.animasLive
+
+    enty.animasInGroupHowMany = animasInGroupHowMany
+
+    enty.animasInClassHowMany = animasInClassHowMany
+
+    enty.anigramsInClassHowMany = anigramsInClassHowMany
 
     enty.findFromUid = (uid, list) => list[uid]
     enty.findAnigramFromUid = uid => state.anigrams[uid]

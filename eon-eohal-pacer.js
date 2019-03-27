@@ -65,27 +65,9 @@
     ctlRayder.control()
     let state = {}
 
-    let ancestor = function (anitem) {
-      let uidSelf = anitem.eoric.uid
-      let uidParent = anitem.eoric.pid
 
-      let selfAnigram = uidSelf ? muonStore.findAnigramFromUid(uidSelf) : null
-      let selfAnima = uidSelf ? muonStore.findAnimaFromUid(uidSelf) : null
 
-      if (selfAnima !== undefined) return selfAnima
-
-      // there can be an anima without anigram
-      let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
-      let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
-
-      if (!parentAnigram && !parentAnima) return null
-
-      let anima = parentAnima || ancestor(parentAnigram)
-
-      return anima
-    }
-
-    // ... pacer
+    // ............................. eohale   
     // ... @anitem : anima
 
     function eohale (anitem) {
@@ -138,6 +120,7 @@
       // let anigram = muonAnitem.snapani(anitem)
 
       let anigram = anitem
+      
       let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
       let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
 
@@ -167,25 +150,22 @@
       // ...    the source is anigram
       // ...    parentAnigram is nat, anigram is trace
 
-      let hostUid, hostAnima // host - is ancestor anima
-
-      hostAnima = ancestor(anitem)
-
-      hostUid = hostAnima.eoric.uid
 
       let pacerUid, pacerAnitem // paced
+
       if (paceAnisOfSort === 'anima') {
         if (parentAnima) {
           pacerAnitem = parentAnima
         } else {
-          pacerAnitem = anima
+          pacerAnitem = anima || anitem
         }
       } else {
         pacerAnitem = anigram
       }
+
       pacerUid = pacerAnitem.eoric.uid
 
-      console.assert(hostAnima !== undefined)
+
       console.assert(pacerAnitem !== undefined)
 
       // ... anima has pacer in eoload or in avatar
@@ -209,7 +189,7 @@
       }
 
       // ... if not eoinited enable pacer init (pacer.initN), else ignore
-
+      let hostAnima = pacerAnitem
       if (hostAnima.eoinited === undefined || hostAnima.eoinited[pacerUid] === undefined) {
         if (eotim.unPassed >= (pacer.initT || 0)) {
           count.init = Math.floor(pacer.initN) // count INIT
@@ -335,8 +315,6 @@
 
     // ............................. ween
     function ween (anitem) {
-      anitem.eoload = anitem.eoload || {}
-      anitem.eoload.pacer = anitem.eoload.pacer || {}
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
         return eohale(anitem)
@@ -347,8 +325,6 @@
 
     // ............................. gramm
     function gramm (anitem) {
-      anitem.eoload = anitem.eoload || {}
-      anitem.eoload.pacer = anitem.eoload.pacer || {}
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
         let newitems = Array.of(anitem)
