@@ -335,6 +335,9 @@
 
     // ............................. ween
     function ween (anitem) {
+      anitem.eoload = anitem.eoload || {}
+      anitem.eoload.pacer = anitem.eoload.pacer || {}
+      console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
         return eohale(anitem)
       } else {
@@ -344,6 +347,9 @@
 
     // ............................. gramm
     function gramm (anitem) {
+      anitem.eoload = anitem.eoload || {}
+      anitem.eoload.pacer = anitem.eoload.pacer || {}
+      console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
         let newitems = Array.of(anitem)
         return newitems
