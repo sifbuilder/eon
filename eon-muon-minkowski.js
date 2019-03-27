@@ -39,10 +39,10 @@
   }
 
   let polygonHull = function (points) {
+    let n
     if ((n = points.length) < 3) return null
 
     let i,
-      n,
       sortedPoints = new Array(n),
       flippedPoints = new Array(n)
 

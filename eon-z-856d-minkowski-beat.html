@@ -26,7 +26,7 @@ async function anitem (__eo) {
     __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
-
+  try { renderSvg.scenecolor('black') } catch (e) {}
   let svgdata1 = {
     width: '364.815mm',
     height: '204.497mm',
