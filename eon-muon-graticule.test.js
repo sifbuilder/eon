@@ -104,7 +104,7 @@ test('gratiparams', async () => {
 
   expect(r1).toEqual(o) //
   expect(r2).toEqual(o) //
-  expect(r2).toEqual(o) //
+  expect(r3).toEqual(o) //
 })
 
 // arywinopen

@@ -29,19 +29,12 @@
       __eo('xs').r('portview'),
     ])
 
-    let muonStore = __eo('muonStore') // sync
-
     let state = {}
     state.items = [] // fuel particles
 
-    let width = renderPortview.width(), height = renderPortview.height()
-
     // ............................. gramm
     let gramm = function (anitem, newAnigrams = []) {
-      let eoload = anitem.eoload, // eoload
-        eofold = anitem.eofold, // eofold
-        eoric = anitem.eoric, // eoric
-        pid = eoric.pid // pid
+      let eoric = anitem.eoric // eoric
 
       let remainCandies = muonFuel.getCandyCooords(anitem)
 
