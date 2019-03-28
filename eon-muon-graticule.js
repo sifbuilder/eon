@@ -40,7 +40,6 @@
 
     // .................. oneface
     let oneface = function (a, b, c, xn, yn) { //  xy,ru,ry
-      console.log('oneface', a, b, c, xn, yn)
       let indexer = tidx(xn, yn)
 
       let v0 = indexer(a[0], a[1])
@@ -53,7 +52,6 @@
 
     // .................. bifaces
     let bifaces = function (i, j, xn, yn) {
-      console.log('bifaces', i, j, xn, yn)      
       let indexer = tidx(xn, yn)
 
       let i0 = i
@@ -63,7 +61,6 @@
 
       let f1 = oneface([i0, j0], [i1, j0], [i1, j1], xn, yn)
       let f2 = oneface([i0, j0], [i1, j1], [i0, j1], xn, yn)
-
       return [ f1, f2 ]
     }
 
