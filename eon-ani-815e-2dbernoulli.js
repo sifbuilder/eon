@@ -21,8 +21,8 @@
       muonGamma,
       muonGraticule,
       renderPortview,
-      // renderSvg,
-      renderWebgl,
+      renderSvg,
+      // renderWebgl,
     ] = await Promise.all([
       __eo('xs').c('wen'),
       __eo('xs').e('mars'),
@@ -31,8 +31,8 @@
       __eo('xs').m('gamma'),
       __eo('xs').m('graticule'),
       __eo('xs').r('portview'),
-      // __eo('xs').r('svg'),
-      __eo('xs').r('webgl'),
+      __eo('xs').r('svg'),
+      // __eo('xs').r('webgl'),
     ])
     try { renderSvg.scenecolor('black') } catch (e) {}
     let ctl
@@ -45,10 +45,19 @@
       return x
     }
 
+    // http://mathworld.wolfram.com/BesselFunctionZeros.html
+    // k	J_0(x)	J_1(x)	J_2(x)	J_3(x)	J_4(x)	J_5(x)
+    let jnm = [
+      [	2.4048, 3.8317, 5.1356, 6.3802, 7.5883, 8.7715 ],
+      [	5.5201, 7.0156, 8.4172, 9.7610, 11.0647, 12.3386 ],
+      [	8.6537, 10.1735, 11.6198, 13.0152, 14.3725, 15.7002 ],
+      [	11.7915, 13.3237, 14.7960, 16.2235, 17.6160, 18.9801 ],
+      [	14.9309, 16.4706, 17.9598, 19.4094, 20.8269, 22.217 ],
+    ]
     // .................. animas
     let ani = function () {
     // .................. pics
-      let sin = Math.sin, cos = Math.cos
+      let sin = Math.sin, cos = Math.cos, pi = Math.PI
 
       let summands = 23
       let level = [[[12, 0.0, 12]]]
@@ -56,31 +65,42 @@
       let conformAni = {
         x: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 1 * 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
-          'dom3': [0, 90], //  [-90, 90], // [-90, 90]
+          'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 64, 'pa6': 0, 'pb7': -1,
+          'dom3': [0, 45], //  [-90, 90], // [-90, 90]
           c: [ 1, range, 1, 1], // . , range, ., .
-          fn0: (e, c, d) => e[0], //  bernx(e, d.c, d) * sin(e[0]) * cos(e[3]),
+          fn0: (e, c, d) => {
+            // return cos(e[0]) * cos(e[2])
+            return cos(e[0])
+          }, //  bernx(e, d.c, d) * sin(e[0]) * cos(e[3]),
         },
         y: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 1 * 200, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+          'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 64, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
           c: [ level, range, summands, 1], // order, range, summs, .
-          fn0: (e, c, d) => 0 // muonGamma.bessel(e, d.c, d) * cos(e[0]),
+          fn0: (e, c, d) => {
+            // return sin(e[1]) * cos(e[2])
+            return sin(e[1])
+          }, // muonGamma.bessel(e, d.c, d) * cos(e[0]),
         },
         z: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 1 * 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+          'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 64, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          c: [ level, range, summands, 1], // order, range, summs, .
-          fn0: (e, c, d) => e[2], // bernx(e, d.c, d) * sin(e[0]) * sin(e[3]),
+          c: [ level, range, summands, [[[0,1]]] ], // order, range, summs, .
+          fn0: (e, c, d) => {
+            // return  muonGamma.bessel(e, d.c, d)
+            return (cos(d.c[2] * pi) + sin(d.c[2] * pi)) * muonGamma.bessel(e, d.c, d) * (cos(e[2]) + sin(e[2]))
+          }, // bernx(e, d.c, d) * sin(e[0]) * sin(e[3]),
         },
         w: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+          'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 64, 'pa6': 0, 'pb7': -1,
           'dom3': [0, 180], // [-180, 180],
           c: [ level, range, summands, 1], // order, range, summs, .
-          fn0: (e, c, d) => cos(e[2]),
+          fn0: (e, c, d) => {
+            return e[3] // cos(e[2]),
+          },
         },
       }
 
@@ -98,8 +118,8 @@
             gco: 0, // open line
           }
 
-          // let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
-          let res = muonNatform.natMultiPolygon(natipros) // Feature.LineString
+          let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
+          // let res = muonNatform.natMultiPolygon(natipros) // Feature.LineString
 
           return res
         },
@@ -113,7 +133,7 @@
           },
           proform: {
             projection: 'uniwen',
-            scale: [ 1, 1, 1],
+            scale: [ 100, 100, 100],
             translate: [ 0, 0, 0 ],
             rotate: [[[ctl.rotation]]],
             lens: [0, 1, Infinity ],
@@ -125,111 +145,10 @@
           eoform: conformAni,
         },
       }
-      // .................. cameraPersAni anima
-      let cameraPersAni = {
 
-        eotim: eotim,
-        eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-        eohal: eohalSol,
-
-        eofold: ani => {
-          let eoload = ani.eoload
-          let json = { // Feature
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0] },
-            properties: {
-              sort: 'camera',
-              type: 'PerspectiveCamera',
-              name: 'Perspective',
-              fov: 60, // field of view s the field of view. angle in degrees.
-              aspect: renderPortview.width() / renderPortview.height(),
-              near: 0.001,
-              far: 1600,
-
-              position: [ 501, 444, 356 ],
-              rotation: [0, 0, 0 ],
-
-              vellin: [0, 0, 0 ],
-              velang: [0, 0, 0 ],
-
-              distance2nodesFactor: 100,
-              lookAt: [0, 0, 0],
-            },
-          }
-          return json
-        },
-        eoload: {},
-
-      }
-      // .................. cameraOrthoAni anima
-      let lightHemisphereAni = {
-
-        eotim: eotim,
-        eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-        eohal: eohalSol,
-
-        eofold: anitem => {
-          let eoload = anitem.eoload
-          let json = { // Feature
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0] },
-            properties: anitem.eoload.light,
-          }
-
-          return json
-        },
-        eoload: {
-          light: {
-            sort: 'light',
-            type: 'HemisphereLight',
-            name: 'HemisphereLight',
-            skyColor: [[[111, 999]]],
-            groundColor: [[[999, 111]]],
-            intensity: 0.8,
-            position: [0, 0, 0],
-          },
-        },
-
-      }
-
-      // .................. spotLight anima
-      let spotLight = {
-
-        eotim: eotim,
-        eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-        eohal: eohalSol,
-
-        eofold: anitem => {
-          let eoload = anitem.eoload
-          let json = { // Feature
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [0, 0, 0],
-            },
-            properties: anitem.eoload.light,
-          }
-          return json
-        },
-        eoload: {
-          light: {
-            sort: 'light',
-            type: 'SpotLight',
-            name: 'spotLight',
-            color: [[[222, 777]]], // 0xe4eef9,
-            intensity: 0.99,
-            position: [-360, 400, 400],
-            normalize: 1,
-            castShadow: 1,
-          },
-        },
-
-      }
       // ............................. scene
       let scene = [
-        cameraPersAni, // h.sol
-        spotLight, // h.sol
-        lightHemisphereAni,
+
         natAniRed,
 
       ]

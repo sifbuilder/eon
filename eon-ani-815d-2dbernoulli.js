@@ -173,7 +173,6 @@
             geometry: { type: 'Point', coordinates: [0, 0, 0] },
             properties: anitem.eoload.light,
           }
-
           return json
         },
         eoload: {
@@ -187,7 +186,6 @@
             position: [0, 0, 0],
           },
         },
-
       }
 
       // .................. spotLight anima
@@ -227,11 +225,7 @@
       let scene = [
         cameraPersAni, // h.sol
         spotLight, // h.sol
-
-
-
         natAniRed,
-
       ]
 
       return scene
