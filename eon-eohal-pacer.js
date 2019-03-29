@@ -128,7 +128,6 @@
         geotype = pacer.geotype || 'LineString',
         basePaceOnAniView = pacer.basePaceOnAniView || 'eoform'
 
-
       let uidParent = anitem.eoric.pid
       let uidPreitem = muonEoric.getuid(eoric)
 
@@ -243,20 +242,21 @@
 
           let key = Object.keys(count)[counter]
           let qitems = count[key]
+
+          // ... for each count newitem ...
+          // ...   if pacer to pace animas , newitem is pacerAnitem
+          // ...     if anigrams , newitem is anigram
+          // ... remove eoload from newItem
+          // ... pid is the anima uid
+          // ...
+          // ... then override newItem propeties with pacer functors
+
           for (let i = 0; i < qitems; i++) {
             let props = {
               count: count,
               key: key,
               counter: i,
             }
-
-            // ... for each count newitem ...
-            // ...   if pacer to pace animas , newitem is pacerAnitem
-            // ...     if anigrams , newitem is anigram
-            // ... remove eoload from newItem
-            // ... pid is the anima uid
-            // ...
-            // ... then override newItem propeties with pacer functors
 
             let newItem = muonProps.clone(pacedAnitem) // anigram
 
