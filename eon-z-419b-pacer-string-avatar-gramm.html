@@ -167,18 +167,10 @@ async function anitem (__eo) {
       eofold: a => ({
         type: 'Feature',
         geometry: {
-
-          // type: 'LineString', // type: 'Point', //
-          // coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
-
-          type: 'Point', //
-          coordinates: [0,0] //
-
+          type: 'Point', //  'LineString', // type: 'Point', //
+          coordinates: [0,0] //  [ [0, 0], [50, 50] ], // coordinates: [0,0] //
         },
-        properties: {
-          pointRadius: 9
-
-        },
+        properties: { pointRadius: 9 },
       }),
 
       eonode: {
@@ -193,35 +185,41 @@ async function anitem (__eo) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ [ 0, 0 ], [[[ {
-            'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
-          } ]]] ],
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
+          translate: [ [[[0,200]]], 0 ],
+          // translate: [ [ 0, 0 ], [[[ {
+          //   'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
+          //   'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
+          // } ]]] ],
+          // scale: 1,
+          // rotate: [ 0, 0, 0 ],
+          // lens: [0, 1, Infinity],
           applyProtonToNode: 1,
         },
       },
-
-      eoload: {
-
-        eocrom: eocrom,
-
-      },
+      eocrom: eocrom,
+      eoload: {},
       avatars: {
 
-        // avaline, // h.pacer
+        avaline, // h.pacer
 
       },
     }
+
+
+
+
+
+
+
+
+
+
+
     // ............................. natAni
     let natAni1 = {
-
       eohal: eohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
-
       eofold: ani => {
         let natipros = {
           eoform: ani.eoload.eoform,
@@ -229,49 +227,19 @@ async function anitem (__eo) {
           gsa: 0, // symetric distribution of geodesics around the origin
           gco: 0, // closed line
         }
-        let nat = muonNatform.natMultiPolygon(natipros)
-        console.log('nat:', nat)
-
-        return nat
+        return muonNatform.natMultiLineString(natipros)
       },
       eonode: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-        },
+        geometry: { type: 'Point', coordinates: [0, 0, 0], },
+        properties: { orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0], },
       },
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ 0, 0, 0], // mot
-          scale: 1,
-          rotate: [ 0, 0, 0 ], // rot -90 anticlock-wise
-          lens: [0, 1, Infinity],
-          addNodeToTranslate: 1, // eonode
-        },
-      },
-
       eoload: {
-
         eocrom: eocrom,
         eoform: {
-          x: {
             'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1, // triangle
             'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': 100,
-            'dom3': [ -180, 180 ],
-          },
-          y: {
-            'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1, // triangle
-            'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': 100,
-            'dom3': [ -180, 180 ],
-          },
-
         },
-
       },
     }
     // .................. scene

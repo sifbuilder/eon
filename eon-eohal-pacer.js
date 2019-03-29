@@ -65,14 +65,27 @@
     ctlRayder.control()
     let state = {}
 
+    // ... pace models:
+    // ...   1 anima paces animas
+    // ...   2 anima has avatar that paces anigrams
+    // ...   3 anima paces anigrams
+    // ...   4 halo creates anima with pacer
+    // ...   5 halo creates anigram with pacer
+    // ...   6 animas has avatar that has avatar that is pacer
+    // ...
+    // ...    h.fourier creates anima
+    // ...
+    // ... pacerAnitem is the host
+    // ... it may be parentitem or anitem
+    // ... it may be anima or anigram
+    // ...    eg. anima.avatar(nat).avatar(pacedline)
 
 
-    // ............................. eohale   
+    // ............................. eohale
     // ... @anitem : anima
 
     function eohale (anitem) {
       let newItems = []
-
       let epsilon = 1e-3
 
       let eohal = anitem.eohal,
@@ -104,23 +117,8 @@
       let animas = muonStore.animas()
       let anigrams = muonStore.anigrams()
 
-      // ... pace models:
-      // ...   1 anima paces animas
-      // ...   2 anima has avatar that paces anigrams
-      // ...   3 anima paces anigrams
-      // ...   4 halo creates anima with pacer
-      // ...   5 halo creates anigram with pacer
-      // ...   6 animas has avatar that has avatar that is pacer
-      // ...
-      // ...    h.fourier creates anima
-      // ...
-      // ... anitem and parentitem may be anima
-      // ... or anigram, eg. anima.avatar(nat).avatar(pacedline)
-
-      // let anigram = muonAnitem.snapani(anitem)
-
       let anigram = anitem
-      
+
       let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
       let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
 
@@ -150,21 +148,23 @@
       // ...    the source is anigram
       // ...    parentAnigram is nat, anigram is trace
 
-
       let pacerUid, pacerAnitem // paced
 
-      if (paceAnisOfSort === 'anima') {
+      if (paceAnisOfSort === 'anima') { // pace anima
         if (parentAnima) {
-          pacerAnitem = parentAnima
+          pacerAnitem = parentAnima // host is parent
         } else {
-          pacerAnitem = anima || anitem
+          pacerAnitem = anima || anitem // host is self
         }
-      } else {
-        pacerAnitem = anigram
+      } else {    // pace anigram
+        if (parentAnigram) {
+          pacerAnitem = parentAnigram // host is parent
+        } else {
+          pacerAnitem = anigram || anitem // host is self
+        }
       }
 
       pacerUid = pacerAnitem.eoric.uid
-
 
       console.assert(pacerAnitem !== undefined)
 
@@ -317,7 +317,9 @@
     function ween (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
-        return eohale(anitem)
+        let newitems = eohale(anitem)
+        console.log('ween', anitem, newitems)
+        return newitems
       } else {
         return Array.of(anitem)
       }
@@ -331,6 +333,7 @@
         return newitems
       } else {
         let newitems = eohale(anitem)
+        console.log('gramm', anitem, newitems)        
         return newitems
       }
     }

@@ -52,20 +52,14 @@ async function anitem (__eo) {
 
       eofold: {
         type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: [ [0, 0], [10, 10] ],
-        },
+        geometry: { type: 'LineString', coordinates: [ [0, 0], [10, 10] ], },
         properties: {},
       },
       eonode: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
+        geometry: {type: 'Point', coordinates: [0, 0, 0] },
         properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+         orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
 
@@ -77,13 +71,13 @@ async function anitem (__eo) {
       eoload: {
         pacer: {
 
-          initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
-
-          addItemToPacer: 1, // addItemToPacer for trace
+          initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0, 
+          outtimed: 0, maxN: 60,
           geospan: 0,
 
           paceAnisOfSort: 'anigram',
           basePaceOnAniView: '', // 'viewform'
+          addItemToPacer: 1, // addItemToPacer for trace
 
           eohal: eohalMars,
 
