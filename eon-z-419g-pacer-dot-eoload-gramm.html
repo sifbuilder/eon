@@ -65,36 +65,40 @@ async function anitem (__eo) {
         },
       },
 
-      eoform: [ [[[0, 120]]], 0, 0],
+      eoform: [ [[[-220, 220]]], 0, 0],
       eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
 
         pacer: {
 
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, 
+          outtimed: 0, maxN: 60, 
+          geospan: 0,
 
-          paceAnisOfSort: 'anigram',
+          paceAnisOfSort: 'anima',
           basePaceOnAniView: 'eoform',
           addItemToPacer: 1, // addItemToPacer for trace
 
           eohal: eohalMars,
 
           eofold: function (ani, props) {
+if (1 && 1) console.log('eofold', ani)            
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
+
             } else if (props.key === 'auto') { // AUTO
+if (1 && 1) console.log('eofold', ani.eoform)
               coords = ani.eoform // eofold
+
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }
+
             return {
               type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: coords,
-              },
+              geometry: { type: 'Point', coordinates: coords, },
               properties: {},
             }
           },
@@ -105,8 +109,10 @@ async function anitem (__eo) {
               // coords is ani's transformed eonode
 
               coords = [0, 0, 0]
+              
             } else if (props.key === 'auto') { // AUTO
               coords = [0, 0, 0]
+
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -117,13 +123,9 @@ async function anitem (__eo) {
               }
             }
 
-            let coordinates = coords
             let res = {
               type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: coordinates,
-              },
+              geometry: { type: 'Point', coordinates: coords, },
               properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
             return res
@@ -133,13 +135,12 @@ async function anitem (__eo) {
       },
     }
 
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
       geoLined, // h.pacer
+    }
 
-    ]
-
-    return animas
+    return scene
   }
 
   let enty = () => {}

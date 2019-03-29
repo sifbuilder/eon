@@ -44,7 +44,6 @@ async function anitem (__eo) {
       eohal: eohalPacer,
       eotim: eotim,
       eoric: {gid: 'pacer', cid: 'pacer', fid: 'pacer'},
-      eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eofold: {
         type: 'Feature',
@@ -64,6 +63,7 @@ async function anitem (__eo) {
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
+      eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
       eoform: {
         'x': {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
@@ -110,8 +110,10 @@ async function anitem (__eo) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = [0, 0, 0]
+
             } else if (props.key === 'auto') { // AUTO
               stace = [0, 0, 0]
+
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -137,7 +139,7 @@ async function anitem (__eo) {
           eomot: {
             proform: {
               projection: 'uniwen',
-              translate: [ [[[20, 200]]], 0, 0],
+              translate: [ [[[-200, 200]]], 0, 0],
               scale: 1,
               rotate: [0, 0, 0],
               lens: [0, 1, Infinity],
@@ -148,13 +150,12 @@ async function anitem (__eo) {
       },
     }
 
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
       aniPaced, // h.pacer
+    }
 
-    ]
-
-    return animas
+    return scene
   }
 
   let enty = () => {}
