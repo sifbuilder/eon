@@ -10,13 +10,17 @@
 
   async function muonEocrom (__eo = {}) {
     let [
-      d3,
+      d3Scale,
+      d3Interpolate,
+      // d3,
     ] = await Promise.all([
-      __eo('xs').b('d3'),
+      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3-interpolate'),
+      // __eo('xs').b('d3'),
     ])
 
-    let d3Scale = d3
-    let d3Interpolate = d3
+    // let d3Scale = d3
+    // let d3Interpolate = d3
 
     function shadeRGBColor (color) {
       let p = 255,

@@ -514,8 +514,6 @@
   // xEo gets xs from the state to retrive eons
   //
   let eon = async function ({anitem, time}) {
-    console.log('anitem:', anitem)
-
     let __eo = await eo()
 
     let animas = await __eo('xs').a(anitem) // function
@@ -531,38 +529,60 @@
     return datit
   }
   // ............................. eodebug
-  let eodebug = async function ({_anitem, time}) {
-    let __anitem = async function (__eo) {
-      let ani = function () {
-        let anima = {
-          eohal: 'sol',
-          eotim: {'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
-          eoric: {gid: 'g', cid: 'c', fid: 'f'},
-          eofold: {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [0, [[[ 0, 110 ]]] ],
-            },
-          },
-          eoload: {
-            eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
-          },
-        }
-        return Array.of(anima)
+  let __anitem = async function (__eo) {
+    let ani = function () {
+      let anima = {
+        eohal: 'sol',
+        eotim: {'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
+        eoric: {gid: 'g', cid: 'c', fid: 'f'},
+        eofold: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, [[[ 0, 110 ]]] ] },
+        },
+        eoload: {
+          eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+        },
       }
-      let enty = () => {}
-      enty.ani = ani
-      return enty
+      return Array.of(anima)
     }
+    let enty = () => {}
+    enty.ani = ani
+    return enty
+  }
+
+    // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
+    ;(function () {
+    var nativeSetTimeout = window.setTimeout
+
+    window.bindTimeout = function (listener, interval) {
+      function setTimeout (code, delay) {
+        var elapsed = 0,
+          h
+
+        h = window.setInterval(function () {
+          elapsed += interval
+          if (elapsed < delay) {
+            listener(delay - elapsed)
+          } else {
+            window.clearInterval(h)
+          }
+        }, interval)
+        return nativeSetTimeout(code, delay)
+      }
+
+      window.setTimeout = setTimeout
+      setTimeout._native = nativeSetTimeout
+    }
+  }())
+
+  let eodebug = async function ({_anitem, time}) {
     let anitem = _anitem || __anitem
 
-     
     let __eo = await eo()
 
     await __eo('xs').c('timer')
     await __eo('xs').e('sol')
-    await __eo('xs').r('svg')
+    // await __eo('xs').r('svg')
 
     let muonStore = __eo('muonStore')
 
@@ -575,30 +595,6 @@
     state.animas = muonStore.animasLive()
     state.anigrams = muonStore.anigrams()
 
-    // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
-    ;(function () {
-      var nativeSetTimeout = window.setTimeout
-
-      window.bindTimeout = function (listener, interval) {
-        function setTimeout (code, delay) {
-          var elapsed = 0,
-            h
-
-          h = window.setInterval(function () {
-            elapsed += interval
-            if (elapsed < delay) {
-              listener(delay - elapsed)
-            } else {
-              window.clearInterval(h)
-            }
-          }, interval)
-          return nativeSetTimeout(code, delay)
-        }
-
-        window.setTimeout = setTimeout
-        setTimeout._native = nativeSetTimeout
-      }
-    }())
     window.bindTimeout(function (t) {
       state = muonAnimation.animier(t) // animier
       console.log(t + 'ms remaining', state)

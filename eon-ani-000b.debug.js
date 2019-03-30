@@ -13,6 +13,7 @@
   // .................. anitem
   async function anitem (__eo) {
     let ani = function () {
+     
       let anima = {
         eohal: 'sol',
         eotim: {'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1},

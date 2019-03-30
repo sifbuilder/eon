@@ -21,7 +21,10 @@ let eo = jest.fn(async () => {
 jest.useFakeTimers()
 
 test('test', async () => {
-  let anitem = async function anitem (__eo) {
+  let __eo = await eo()
+
+
+  let anitem = async function (__eo) {
     let ani = function () {
       let anima = {
         eohal: 'sol',
@@ -45,26 +48,7 @@ test('test', async () => {
     return enty
   }
 
-  let __eo = await eo()
-  await __eo('xs').c('timer')
-  await __eo('xs').e('sol')
-
-  let muonStore = __eo('muonStore')
-
-  let animas = await __eo('xs').a(anitem)
-
-  __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
-
-  let muonAnimation = await __eo('xs').m('animation')
-
-  let state = {}
-  state.animas = muonStore.animasLive()
-  state.anigrams = muonStore.anigrams()
-
-  let s = muonAnimation.animier()
-
-  console.log('pre state:', state)
-  console.log('new state:', s)
+  xEonify.eodebug({anitem: anitem, time: undefined})
 
   expect(1).toBe(1)
 })

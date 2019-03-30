@@ -37,12 +37,16 @@
     // ... MIT
 
     let [
-      d3,
+      d3Selection,
+      d3Collection,
+      d3Geo,
       muonProj3ct,
       protonUniwen,
       renderPortview, // viewScreenPrt - _e_ to be defined in z.
     ] = await Promise.all([
-      __eo('xs').b('d3'),
+      __eo('xs').b('d3-selection'),
+      __eo('xs').b('d3-collection'),
+      __eo('xs').b('d3-geo'),
       __eo('xs').m('proj3ct'),
       __eo('xs').p('uniwen'),
       __eo('xs').r('portview'),
@@ -61,10 +65,10 @@
     }
     // try { renderSvg.scenecolor('black') } catch (e) {}
     // ............................. svg
-    let _svg = () => d3.select('#viewframe')
+    let _svg = () => d3Selection.select('#viewframe')
 
-    if (d3.select('#viewframe').empty()) {
-      let svglayer = d3.select('body')
+    if (d3Selection.select('#viewframe').empty()) {
+      let svglayer = d3Selection.select('body')
         .append('svg')
         .attr('id', 'viewframe') // Viewport
         .attr('class', 'viewframe')
@@ -79,8 +83,8 @@
     }
 
     let resetsvg = function () {
-      if (!d3.select('#viewframe').empty()) {
-        let svglayer = d3.select('#viewframe')
+      if (!d3Selection.select('#viewframe').empty()) {
+        let svglayer = d3Selection.select('#viewframe')
           .attr('width', state.width)
           .attr('height', state.height)
           .style('background-color', state.background) // background
@@ -91,13 +95,13 @@
     let svgelems = function (idfyer, data = ['data'], idfn = null) {
       if (0 && 1) console.log('idfyer', idfyer)
 
-      if (d3.select('.muon-style-block').empty()) {
-        d3.select('head').append('style').attr('class', 'muon-style-block')
+      if (d3Selection.select('.muon-style-block').empty()) {
+        d3Selection.select('head').append('style').attr('class', 'muon-style-block')
           .html('')
       }
 
       if (idfyer === null) { // if null return the layer
-        let svgLayer = d3.select('body').selectAll('svg').data(['svg'])
+        let svgLayer = d3Selection.select('body').selectAll('svg').data(['svg'])
           .enter()
           .append('svg')
           .attr('class', 'svg')
@@ -132,7 +136,7 @@
           elemtyp = (elemsparts && elemsparts[0]) ? elemsparts[0] : 'circle'
           elemcls = (elemsparts && elemsparts[1]) ? elemsparts[1] : 'elems'
 
-          let layerMark = d3.select(parentLayer).selectAll('.' + layercls).data([layercls])
+          let layerMark = d3Selection.select(parentLayer).selectAll('.' + layercls).data([layercls])
           layer = layerMark.enter().append('g')
             .merge(layerMark)
             .attr('class', layercls)
@@ -148,9 +152,9 @@
 
           let layerMark
           if (layercls !== undefined) {
-            layerMark = d3.select(parentLayer).selectAll('.' + layercls).data([layercls])
+            layerMark = d3Selection.select(parentLayer).selectAll('.' + layercls).data([layercls])
           } else {
-            layerMark = d3.select(parentLayer)
+            layerMark = d3Selection.select(parentLayer)
           }
 
           layer = layerMark
@@ -210,7 +214,7 @@
 
       viewScreenPrt = proton // view screen projection
 
-      let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
+      let gitems = d3Collection.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.eoric.gid })
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features) // features
@@ -253,7 +257,7 @@
 
             let properties = text.properties || {}
             let pointRadius = properties.pointRadius || 2.5
-            let geoPath = d3.geoPath(viewScreenPrt) // path on view projection
+            let geoPath = d3Geo.geoPath(viewScreenPrt) // path on view projection
             let path = (pointRadius !== undefined) // geoPath
               ? geoPath.pointRadius(pointRadius)
               : geoPath
@@ -460,7 +464,7 @@
                 console.assert(properties.style !== undefined, `style is undefined in ${d}`)
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
-                let geoPath = d3.geoPath(viewScreenPrt) // path on view projection
+                let geoPath = d3Geo.geoPath(viewScreenPrt) // path on view projection
 
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
