@@ -8,7 +8,7 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eonify = jest.fn(async () => {
+let eo = jest.fn(async () => {
   let __eo = xEonify.xEo() // init mapper
 
   __eo({'xs': xEonify.xs(__eo)}) // map xs
@@ -21,32 +21,32 @@ let eonify = jest.fn(async () => {
 })
 
 test('test cant', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('props')
   expect(eon.cant([ [0, 0], [1, 1] ], 0.2)).toEqual([ [ 0.2, 0.2 ], [ 0.8, 0.8 ] ])
 })
 
 test('test', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('props')
 
   expect(eon.isPureArray([1, 2])).toBe(true)
 })
 
 test('test is not PureArray', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('props')
 
   expect(eon.isPureArray([1, {}])).toBe(false)
 })
 test('test is not PureArray', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('props')
 
   expect(eon.isPureArray([1, () => {}])).toBe(false)
 })
 test('test scale linear', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('props')
 
   let scale = eon.linear()

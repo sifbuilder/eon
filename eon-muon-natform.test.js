@@ -8,7 +8,7 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eonify = jest.fn(async () => {
+let eo = jest.fn(async () => {
   let __eo = xEonify.xEo() // init mapper
 
   __eo({'xs': xEonify.xs(__eo)}) // map xs
@@ -20,7 +20,7 @@ let eonify = jest.fn(async () => {
 })
 
 test.only('test natMultiLineString', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {
@@ -59,7 +59,7 @@ test.only('test natMultiLineString', async () => {
 })
 
 test('test natMultiPolygon', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -127,7 +127,7 @@ test('test natMultiPolygon', async () => {
 })
 
 test('test nat with functions ', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {
@@ -172,7 +172,7 @@ test('test nat with functions ', async () => {
 })
 
 test('test nat with functions ', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {
@@ -218,7 +218,7 @@ test('test nat with functions ', async () => {
 })
 
 test('test nat with functions 3D', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {
@@ -281,7 +281,7 @@ test('test nat with functions 3D', async () => {
 })
 
 test('test nat with functions 3D', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {
@@ -333,7 +333,7 @@ test('test nat with functions 3D', async () => {
 })
 
 test('test nat with functions 2D', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {
@@ -378,7 +378,7 @@ test('test nat with functions 2D', async () => {
 })
 
 test('test nat with functions 2D', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {
@@ -421,7 +421,7 @@ test('test nat with functions 2D', async () => {
 })
 
 test('test nat with functions 2D', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
 
   let eoform = {
     x: {

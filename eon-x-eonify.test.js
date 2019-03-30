@@ -8,7 +8,7 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eonify = jest.fn(async ({anitem, time}) => {
+let eo = jest.fn(async ({anitem, time}) => {
   let __eo = xEonify.xEo() // init mapper
 
   __eo({'xs': xEonify.xs(__eo)}) // map xs
@@ -29,7 +29,7 @@ let eonify = jest.fn(async ({anitem, time}) => {
 
 test('test filenize', async () => {
   let _ = {anitem: undefined, time: 0}
-  let eon = await eonify(_)
+  let eon = await eo(_)
 
   // let eonobjt = { xs:
   // { [Function: eons]

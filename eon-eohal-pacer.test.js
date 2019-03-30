@@ -8,7 +8,7 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eonify = jest.fn(async () => {
+let eo = jest.fn(async () => {
   let __eo = xEonify.xEo() // init mapper
 
   __eo({'xs': xEonify.xs(__eo)}) // map xs
@@ -26,7 +26,7 @@ let eonify = jest.fn(async () => {
 })
 
 test('test grabbed', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let muonEotype = await __eo('xs').e('pacer')
 
   expect(typeof muonEotype.grabbed).toBe('function')
@@ -36,7 +36,7 @@ test('test grabbed', async () => {
 // anima.pacer init.paces anima
 describe('get anima ', () => {
   test('test e.pacer anima.pacer init.paces anima', async () => {
-    let __eo = await eonify()
+    let __eo = await eo()
 
     let muonStore = __eo('muonStore')
     let eohalMars = __eo('eohalMars')
@@ -102,7 +102,7 @@ describe('get anima ', () => {
 
 describe('get anima ', () => {
   test('test anima.pacer with eoload.pacer ', async () => {
-    let __eo = await eonify()
+    let __eo = await eo()
 
     let ctlRayder = __eo('ctlRayder')
     let eohalMars = __eo('eohalMars')

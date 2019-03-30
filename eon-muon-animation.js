@@ -26,14 +26,9 @@
 
     let muonStore
     let muonSim
-    let muonTim
-
-    // let muonStore = __eo('muonStore')
-    // let muonSim = __eo('muonSim')
 
     let state = {}
     state.animas = [] // global animas
-    state.promise = null
 
     const a = d => {
       let ret = []
@@ -79,16 +74,12 @@
       return sequence(animas, anima => muonStore.ween(anima))
     }
 
-    // ... getgramms
-    function getgramms (animas, elapsed) {
-      return sequence(animas, anima => muonStore.gramm(anima)) // store anigrams
-    }
-
     // ... async animate
     function animate (time) {
+      console.log('animate time:', time)
+
       muonStore = __eo('muonStore')
       muonSim = __eo('muonSim')
-      muonTim = __eo('muonTim')
       renderRenderer = __eo('renderRenderer')
 
       state.animas = muonStore.animasLive()
@@ -100,45 +91,8 @@
         if (state.animationStop === undefined) {
           state.animationStop = ctlTimer.subscribe(animier)
         }
-        return true
+        return state
       }
-    }
-
-    // ... async collectDyn
-    async function collectDyn (animas, elapsed) {
-      let featurecollectionPromise = Promise.resolve(state.animas)
-        .then(animas => {
-          // ... get animas from eohal.ween
-          // ... animas reside in the store
-
-          getweens(animas, elapsed)
-        })
-        .then(animas => {
-          // ... animas are subject to fields
-          // ... fields are d3.forces and act upon nodes or anisims
-          // ... the field nodes correlate with the animas geonodes
-
-          return getsims(muonStore.animasLive())
-        })
-        .then(anisimmed => {
-          // ... animas reveal anigrams at any point in time
-          // ... anigrams reside in a different section of the store
-
-          return getgramms(anisimmed)
-        })
-        .then(() => {
-          // ... only feature collection can be rendered
-          // ... and that is the feature collection of the existing anigrams
-          // ... all the information to render an anigram must be in its eofold
-
-          let featurecollection = {
-            type: 'FeatureCollection',
-            features: muonStore.anigrams().map(d => d.eofold),
-          }
-          return featurecollection
-        })
-
-      return featurecollectionPromise
     }
 
     // ... collect
@@ -170,10 +124,12 @@
     }
 
     // ... ANIMIER
-    function animier (elapsed) {
-      // muonStore = __eo('muonStore')
-      // state.animas = muonStore.animasLive()
-      // state.anigrams = muonStore.anigrams()
+    function animier (elapsed, s) {
+      // state = s || state
+
+      muonStore = __eo('muonStore')
+      state.animas = muonStore.animasLive()
+      state.anigrams = muonStore.anigrams()
 
       if (0 && 1) console.log(` ******************* animas ${elapsed} ${state.animas.length}`, state.animas)
       if (0 && 1) console.log(` ******************* anigrams ${elapsed} ${state.animas.length}`, state.anigrams)
@@ -215,11 +171,13 @@
       // ... then render by sort the features in the collection
       renderRenderer.render(featurecollection, elapsed)
 
-      return { dat: featurecollection, t: elapsed }
+      // return { dat: featurecollection, t: elapsed }
+      return state
     }
 
     // ............................. enty
     let enty = {}
+    enty.animier = animier
     enty.animate = animate
     enty.animationStop = () => state.animationStop
     return enty

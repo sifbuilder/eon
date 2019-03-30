@@ -677,7 +677,7 @@
       return pts // dots in path: [0,...,seg5] => [0,1]
     }
 
-
+    // ............................. radorm
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       console.assert((Array.isArray(s1extent) && s1extent.length === 2), `extent not supported`)
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)

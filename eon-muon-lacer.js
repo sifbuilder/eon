@@ -36,6 +36,7 @@
     // ......... eoformer
 
     function eoformer (s1extent = [-1, 1], endpoints = [-1, 1]) {
+      
       let s1range = [0, endpoints.length - 1] // [0, seg5] eg. [0,6]
       let s2extent = range(0, endpoints.length) // [0,...,seg5]
       let s2range = endpoints // normed for

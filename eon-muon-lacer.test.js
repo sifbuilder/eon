@@ -8,7 +8,7 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eonify = jest.fn(async () => {
+let eo = jest.fn(async () => {
   let __eo = xEonify.xEo() // init mapper
 
   __eo({'xs': xEonify.xs(__eo)}) // map xs
@@ -20,12 +20,11 @@ let eonify = jest.fn(async () => {
 })
 
 test('test scale', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
   let _s1extent = [-180, 180]
   // let _s1range = [0, 6]
-
   // let _s2extent = [ 0, 1, 2, 3, 4, 5, 6 ]
   let _s2range = [
     0.24253562503633297,
@@ -44,35 +43,35 @@ test('test scale', async () => {
 })
 
 test('test  linscal', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
   let d = [0, 1]
   let r = [500, 650]
 
   // linscal takes
-  //  [0, 1]   => [500, 750] nok
+  //  [0, 1]   => [500, 650]
   expect(eon.eoliner(d, r)(0)).toBe(500)
-  expect(eon.eoliner(d, r)(1)).toBe(650)
-  expect(eon.eoliner(d, r)(0.5)).toBe(575)
   expect(eon.eoliner(d, r)(0.25)).toBe(537.5)
+  expect(eon.eoliner(d, r)(0.5)).toBe(575)
+  expect(eon.eoliner(d, r)(1)).toBe(650)
 
-  // eoformer takes [0,1] => [500, 750, 650] ok
+  // eoformer takes [0,1] => [500, 650]
   expect(eon.eoformer(d, r)(0)).toBe(500)
-  expect(eon.eoformer(d, r)(1)).toBe(650)
-  expect(eon.eoformer(d, r)(0.50)).toBe(575)
   expect(eon.eoformer(d, r)(0.25)).toBe(537.5)
+  expect(eon.eoformer(d, r)(0.50)).toBe(575)
+  expect(eon.eoformer(d, r)(1)).toBe(650)
 })
 
 test('test  linscal', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
   let d = [0, 1]
   let r = [500, 750, 650]
 
 
-  //  [0, 1]   => [500, 750, 650]
+  // [0, 1] => [500, 750, 650]
   expect(eon.eoliner(d, r)(0)).toBe(500)
   expect(eon.eoliner(d, r)(1)).toBe(650)
   expect(eon.eoliner(d, r)(0.5)).toBe(750)
@@ -86,22 +85,22 @@ test('test  linscal', async () => {
 })
 
 test.only('test  linscal', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
   let d = [0, 0.5, 1]
   let r = [500, 750, 650]
 
   // linscal takes
-  //  [0, 0.5]   => [500, 750] ok
-  //  [0.5, 1]   => [ 750, 650] ok
+  //  [0, 0.5]   => [500, 750]
+  //  [0.5, 1]   => [750, 650]
   expect(eon.eoliner(d, r)(0)).toBe(500)
   expect(eon.eoliner(d, r)(0.25)).toBe(625)
   expect(eon.eoliner(d, r)(0.5)).toBe(750)
   expect(eon.eoliner(d, r)(1)).toBe(650)
 
-  // eoformer takes [0,0.25] => [500, 750] nok
-  // eoformer takes [0.25,0.50] => [750, 650] nok
+  // eoformer takes [0,0.25] => [500, 750]
+  // eoformer takes [0.25,0.50] => [750, 650]
   expect(eon.eoformer(d, r)(0)).toBe(500)
   expect(eon.eoformer(d, r)(0.25)).toBe(750)
   expect(eon.eoformer(d, r)(0.50)).toBe(650)
@@ -110,7 +109,7 @@ test.only('test  linscal', async () => {
 })
 
 test.only('test  linscal', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
   let d = [0, 0.5, 1]
@@ -124,7 +123,7 @@ test.only('test  linscal', async () => {
   expect(eon.eoliner(d, r)(0.5)).toBe(575)
   expect(eon.eoliner(d, r)(1)).toBe(650)
 
-  // nok 
+  //  [0, 0.5]   => [500, 650]
   expect(eon.eoformer(d, r)(0)).toBe(500)
   expect(eon.eoformer(d, r)(0.25)).toBe(575)
   expect(eon.eoformer(d, r)(0.5)).toBe(650)
@@ -132,7 +131,7 @@ test.only('test  linscal', async () => {
 })
 
 test('test slide', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
   let as1 = [ [1, 2 ], [5, 6] ]
@@ -154,7 +153,7 @@ test('test slide', async () => {
 })
 
 test('test unslide', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
   let as1 = [ [1, 5], [2, 5.5], [3, 6] ]
@@ -165,7 +164,7 @@ test('test unslide', async () => {
 })
 
 test('test slide/unslide', async () => {
-  let __eo = await eonify()
+  let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
   let as1 = [ [0, 1], [500, 750, 650] ]
