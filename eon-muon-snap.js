@@ -114,7 +114,7 @@
           let d = [0, 1],
             r = [v[0], v[0]]
 
-          let w = muonLacer.linear()
+          let w = muonLacer.linscal()
             .domain(d)
             .range(r)
           res = w(t)
@@ -126,7 +126,7 @@
           }
           let d = v.map((item, idx) => idx / (v.length - 1))
           let r = v
-          let w = muonLacer.linear()
+          let w = muonLacer.linscal()
             .domain(d)
             .range(r)
           res = w(t)

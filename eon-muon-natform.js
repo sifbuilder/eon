@@ -180,9 +180,10 @@
   async function muonNatform (__eo = {}) {
     let [
       glMatrix,
-      d3Scale,
-      d3Array,
+      // d3Scale,
+      // d3Array,
       d3Geo,
+      muonLacer,
       muonProps,
       muonGeom,
       muonGraticule,
@@ -190,9 +191,10 @@
       muonProj3ct,
     ] = await Promise.all([
       __eo('xs').b('gl-matrix'),
-      __eo('xs').b('d3'),
-      __eo('xs').b('d3-array'),
+      // __eo('xs').b('d3'),
+      // __eo('xs').b('d3-array'),
       __eo('xs').b('d3-geo'),
+      __eo('xs').m('lacer'),
       __eo('xs').m('props'),
       __eo('xs').m('geom'),
       __eo('xs').m('graticule'),
@@ -371,6 +373,8 @@
 
     // ............................. natMultiPolygon
     let natMultiPolygon = function (props = {}) {
+      console.log('natMultiPolygon:', props)
+
       let feature
 
       const {
@@ -383,48 +387,60 @@
       if (muonProps.isSame(eoform, cache.eoform)) {
         feature = cache.feature
         return feature
+
       } else {
         let nformed = natNform({eoform: eoform}) // NFORM
 
-        let geometry, gratipros, vertices
+        let gratipros, vertices
         let dx, dy, sx, sy
 
         if (nformed.z !== undefined) { // ___ 3d
+          sx = 360 / nformed.x.seg5 // x
+          sy = 360 / nformed.z.seg5 // ____ z ___
+
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
 
-          sx = dx
-          sy = dy
+          let dom3x = [-180, 180]
+          let dom3y = [-180, 180]
+          let dom3z = [-90, 90]
 
-          let xdomain = eoform.x.dom3 || [-180, 180]
-          let ydomain = eoform.z.dom3 || [-90, 90] // ____ z ___
+          let xdomain = eoform.x.dom3 || dom3x
+          let ydomain = eoform.z.dom3 || dom3z // ____ z ___
 
           let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
 
           gratipros = {
             geoframe: geoframe,
+            ghv: ghv,            
             gsa: gsa,
             gco: gco,
           }
 
           vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
-        } else { // ___ 2d
-          dx = 360 / nformed.x.seg5 // x
-          dy = 360 / nformed.y.seg5 // y
 
+        } else { // ___ 2d
           sx = 360
           sy = 360
 
-          let xdomain = nformed.x.dom3 || [-180, 180]
-          let ydomain = nformed.y.dom3 || [-180, 180]
+          dx = 360 / nformed.x.seg5 // x
+          dy = 360 / nformed.y.seg5 // y
+
+          let dom3x = [-180, 180]
+          let dom3y = [-180, 180]
+          let dom3z = [-90, 90]
+
+          let xdomain = nformed.x.dom3 || dom3x
+          let ydomain = nformed.y.dom3 || dom3y
 
           let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
 
           gratipros = {
             geoframe: geoframe,
+            ghv: ghv,
             gsa: gsa,
             gco: gco,
-          }
+          } // _e_ x, y
 
           vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
 
@@ -447,32 +463,36 @@
             eoMultiPolygon: 1,
             eonode: {
               type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [0, 0, 0],
-              },
+                         
+                              
+              geometry: { type: 'Point', coordinates: [0, 0, 0], },
+                
+                                       
+                
               properties: {
-                orgen: [0, 0, 0],
-                velin: [0, 0, 0],
-                velang: [0, 0, 0],
-                prevous: [0, 0, 0],
-                geodelta: [0, 0, 0],
+                orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+                                 
+                                  
+                                   
+                                    
               },
             },
             faces: faces,
           },
         }
 
-        let projDef = {
-          projection: 'natform',
-          eoform: nformed,
-        }
+                       
+        let projDef = { projection: 'natform', eoform: nformed }
+                          
+         
+         
         let projection = natprojection(projDef)
 
         let feature = muonProj3ct(gj, projection)
         cache.eoform = projDef.eoform
         cache.feature = feature
 
+        console.log('natMultiLineString feature:', feature)           
         return feature
       }
     }
@@ -492,6 +512,7 @@
       if (muonProps.isSame(eoform, cache.eoform)) {
         feature = cache.feature
         return feature
+
       } else {
         let nformed = natNform({eoform: eoform}) // NFORM
 
@@ -512,9 +533,10 @@
           let xdomain = eoform.x.dom3 || dom3x
           let ydomain = eoform.z.dom3 || dom3z // ____ z ___
 
-          let geoframe = [ [
-            [...xdomain, sx, dx], [...ydomain, sy, dy],
-          ] ]
+                            
+          let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+             
+             
 
           gratipros = {
             geoframe: geoframe,
@@ -524,6 +546,7 @@
           } // x, y
 
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry
+
         } else { // ___ 2d
           sx = 360
           sy = 360
@@ -538,9 +561,10 @@
           let xdomain = nformed.x.dom3 || dom3x
           let ydomain = [0, 0] // nformed.y.dom3 || dom3y
 
-          let geoframe = [ [
-            [...xdomain, sx, dx], [...ydomain, sy, dy],
-          ] ]
+                            
+          let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+             
+             
 
           gratipros = {
             geoframe: geoframe,
@@ -564,16 +588,18 @@
             doc: 'natform',
             eonode: {
               type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [0, 0, 0],
-              },
+                         
+                              
+              geometry: { type: 'Point', coordinates: [0, 0, 0] },
+                
+                                       
+                
               properties: {
-                orgen: [0, 0, 0],
-                velin: [0, 0, 0],
-                velang: [0, 0, 0],
-                prevous: [0, 0, 0],
-                geodelta: [0, 0, 0],
+                orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+                                 
+                                  
+                                   
+                                    
               },
             },
           },
@@ -585,7 +611,6 @@
         let feature = muonProj3ct(gj, projection)
         cache.eoform = projDef.eoform
         cache.feature = feature
-
         return feature
       }
     }
@@ -652,22 +677,12 @@
       return pts // dots in path: [0,...,seg5] => [0,1]
     }
 
-    // ............................. radorm
+
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
-
-      let s1range = [0, radorPts.length - 1] // [0, seg5] eg. [0,6]
-
-      let s2extent = d3Array.range(0, radorPts.length) // [0,...,seg5]
-
-      let s2range = radorPts // mormed form
-
-      let s1 = d3Scale.scaleLinear().domain(s1extent).range(s1range) // [-1,1] => [0,seg5]
-      let s2 = d3Scale.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
-
-      return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
+      let eoformer = muonLacer.eoformer(s1extent, radorPts)
+      return p => eoformer(p)
     }
-
     // ............................. natVertex
     let natVertex = function (eoform) { // getVertex
       let nformed = natNform({eoform: eoform}) // natNform

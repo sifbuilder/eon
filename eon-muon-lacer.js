@@ -33,11 +33,29 @@
 
       return range
     }
+    // ......... eoformer
 
-    // ...................... linear
+    function eoformer (s1extent = [-1, 1], endpoints = [-1, 1]) {
+      let s1range = [0, endpoints.length - 1] // [0, seg5] eg. [0,6]
+      let s2extent = range(0, endpoints.length) // [0,...,seg5]
+      let s2range = endpoints // normed for
+
+      let scale1 = linscal().domain(s1extent).range(s1range)
+      let scale2 = linscal().domain(s2extent).range(s2range)
+
+      return p => scale2(scale1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
+    }
+
+    // ......... eoliner
+    function eoliner (s1extent = [-1, 1], endpoints = [-1, 1]) {
+      let [d, r] = unslide(slide([s1extent, endpoints]))
+
+      return p => linscal().domain(d).range(r)(p) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
+    }
+    // ...................... linscal
     // https://d3js.org/d3-scale/ v2.2.2 Copyright 2019 Mike Bostock
     // let _linear = d3scale.scaleLinear
-    function _linear () {
+    function linscal () {
       function constant (x) {
         return function () {
           return x
@@ -163,7 +181,7 @@
       for (let i = 0; i < nStreams; i++) { // scales
         let sid = [0, nDots - 1]
         let sir = [0, streams[i].length - 1]
-        let si = _linear() // argument scale
+        let si = linscal() // argument scale
           .domain(sid) // from result position
           .range(sir) // to strem i position
 
@@ -171,7 +189,7 @@
 
         let rid = range(streams[i].length).map((d, i) => i)
         let rir = streams[i]
-        let ri = _linear() // argument scale
+        let ri = linscal() // argument scale
           .domain(rid) // from result position
           .range(rir) // to strem i position
 
@@ -193,7 +211,7 @@
         let d = ss.map((item, idx) => idx / (ss.length - 1))
         let r = ss
 
-        let ws = _linear()
+        let ws = linscal()
           .domain(d)
           .range(r)
 
@@ -232,7 +250,7 @@
           let domain = [0, pointsHowmany - 1 ]
           let range = [0, stream.length - 1]
 
-          scales_1[i] = _linear()
+          scales_1[i] = linscal()
             .domain(domain)
             .range(range)
         }
@@ -244,7 +262,7 @@
           let domain = [...Array(stream.length)].map((d, i) => i)
           let range = stream
 
-          scales_2[i] = _linear()
+          scales_2[i] = linscal()
             .domain(domain)
             .range(range)
         }
@@ -286,7 +304,7 @@
       for (let i = 0; i < nStreams; i++) { // scales
         let sid = [0, nDots - 1]
         let sir = [0, streams[i].length - 1]
-        let si = _linear() // argument scale
+        let si = linscal() // argument scale
           .domain(sid) // from result position
           .range(sir) // to strem i position
 
@@ -294,7 +312,7 @@
 
         let rid = range(streams[i].length).map((d, i) => i)
         let rir = streams[i]
-        let ri = _linear() // argument scale
+        let ri = linscal() // argument scale
           .domain(rid) // from result position
           .range(rir) // to strem i position
 
@@ -322,7 +340,9 @@
     // ....................... enty
     let enty = function () {}
     enty.range = range
-    enty.linear = _linear // d3scale.scaleLinear
+    enty.linscal = linscal // copied from d3scale.scaleLinear
+    enty.eoliner = eoliner
+    enty.eoformer = eoformer
     enty.interlace = interlace
     enty.slide = slide
     enty.unslide = unslide

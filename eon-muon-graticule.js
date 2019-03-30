@@ -124,6 +124,7 @@
         x_extent = multiframe[0] // x minor
         Y_extent = multiframe[1] // y major
         y_extent = multiframe[1] // y minor
+
       } else if (params.geoframe !== undefined) { // geoframe
         let geoframe = params.geoframe
 
@@ -138,6 +139,7 @@
           x_extent = geoframe[0][0]
           y_extent = geoframe[0][1]
         }
+        
       } else if (Array.isArray(params)) { // default to geoframe
         let geoframe = params
 

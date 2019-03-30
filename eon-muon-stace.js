@@ -53,7 +53,7 @@
   async function muonStace (__eo = {}) {
     let [
       muonProps,
-      mlacer,
+      muonLacer,
       muonGeoj,
     ] = await Promise.all([
       __eo('xs').m('props'),
@@ -61,27 +61,10 @@
       __eo('xs').m('geoj'),
     ])
 
-    // ...................... range
-    // https://github.com/d3/d3-array/blob/master/src/range.js
-    const range = function (start, stop, step) {
-      start = +start
-      stop = +stop
-      step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step
-
-      let i = -1,
-        n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
-        range = new Array(n)
-
-      while (++i < n) {
-        range[i] = start + i * step
-      }
-
-      return range
-    }
-
     // ... getTranspots
     // ... call store to get current state
     let getTranspots = function (stace, anitem) {
+      console.log('stace:', stace)
       let muonStore = __eo('muonStore')
 
       let eoload = anitem.eoload
@@ -184,7 +167,7 @@
         }
 
         if (locationsPerDax.length > 0) {
-          locations = mlacer.slide(locationsPerDax) // [300, 200]
+          locations = muonLacer.slide(locationsPerDax) // [300, 200]
         }
       }
 
@@ -232,9 +215,9 @@
           let pos1 = Math.floor(c1) // last of positions array
 
           if (pos0 <= pos1) {
-            poses = range(pos0, pos1, step) // d3 create positional array
+            poses = muonLacer.range(pos0, pos1, step) // d3 create positional array
           } else {
-            poses = range(pos1, pos0, step) // d3 create positional array
+            poses = muonLacer.range(pos1, pos0, step) // d3 create positional array
           }
         }
       }
@@ -270,14 +253,14 @@
             let step = Math.round(staceDim.step) || 1 // step between positions
 
             if (pos0 <= pos1) {
-              locations = range(pos0, pos1, step) // d3 create positional array
+              locations = muonLacer.range(pos0, pos1, step) // d3 create positional array
                 .map(d => d + fas) // displace positions by phase
                 .map(d => d % parentCoordsDim.length) // mod (-1)
                 .map(d => Math.floor(d)) // integer position
                 .map(d => parentCoordsDim[d]) // location from parent coords
                 .map(d => d + dist) // sum dist to dim location
             } else {
-              locations = range(pos1, pos0, step) // d3 create positional array
+              locations = muonLacer.range(pos1, pos0, step) // d3 create positional array
                 .map(d => d + fas) // displace positions by phase
                 .map(d => d % parentCoordsDim.length) // mod
                 .map(d => Math.floor(d))

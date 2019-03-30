@@ -320,3 +320,38 @@ test('gjfMultiPolygon', async () => {
 
   expect(eon.gjfMultiPolygon(p2)).toEqual(r2)
 })
+
+
+// natMultiLineString 
+test('natMultiLineString ', async () => {
+  let __eo = await eonify()
+  let eon = await __eo('xs').m('graticule')
+
+  let p2 = {multiframe: [ [-180, 180, 120, 60], [-90, 90, 30, 30] ] }
+
+  let r2 = {
+    'type': 'Feature',
+    'geometry': {
+      'type': 'MultiPoint',
+      'coordinates': [[-120, -90], [0, -90], [120, -90], [-120, -60], [0, -60], [120, -60], [-120, -30], [0, -30], [120, -30], [-120, 0], [0, 0], [120, 0], [-120, 30], [0, 30], [120, 30], [-120, 60], [0, 60], [120, 60], [-120, 90], [0, 90], [120, 90]],
+    },
+    'properties': {
+      'doc': 'natform',
+      'eoMultiPolygon': 1,
+      'eonode': {
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [0, 0, 0],
+        }, 'properties': {
+          'geodelta': [0, 0, 0],
+          'hyperdelta': [0, 0, 0],
+          'orgen': [0, 0, 0], 'prevous': [0, 0, 0], 'velang': [0, 0, 0], 'velin': [0, 0, 0]},
+        'type': 'Feature',
+      },
+      'faces': [[0, 1, 4], [0, 4, 3], [3, 4, 7], [3, 7, 6], [6, 7, 10], [6, 10, 9], [9, 10, 13], [9, 13, 12], [12, 13, 16], [12, 16, 15], [15, 16, 19], [15, 19, 18], [1, 2, 5], [1, 5, 4], [4, 5, 8], [4, 8, 7], [7, 8, 11], [7, 11, 10], [10, 11, 14], [10, 14, 13], [13, 14, 17], [13, 17, 16], [16, 17, 20], [16, 20, 19], [2, 0, 3], [2, 3, 5], [5, 3, 6], [5, 6, 8], [8, 6, 9], [8, 9, 11], [11, 9, 12], [11, 12, 14], [14, 12, 15], [14, 15, 17], [17, 15, 18], [17, 18, 20]],
+      'sort': 'form',
+    },
+  }
+
+  expect(eon.gjfMultiPolygon(p2)).toEqual(r2)
+})
