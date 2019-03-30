@@ -532,7 +532,7 @@
   }
   // ............................. eodebug
   let eodebug = async function ({_anitem, time}) {
-    let anitem = async function (__eo) {
+    let __anitem = async function (__eo) {
       let ani = function () {
         let anima = {
           eohal: 'sol',
@@ -555,7 +555,9 @@
       enty.ani = ani
       return enty
     }
+    let anitem = _anitem || __anitem
 
+     
     let __eo = await eo()
 
     await __eo('xs').c('timer')
