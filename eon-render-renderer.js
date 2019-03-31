@@ -9,16 +9,14 @@
   'use strict'
 
   async function renderRenderer (__eo = {}) {
+    let renderSvg = __eo('renderSvg')
+    let renderWebgl = __eo('renderWebgl')
 
+    if (!renderSvg && !renderWebgl) {
+      console.info('r.renderer no renderers')
+    }
     // ............................. render
     const render = function (featurecollection, elapsed) {
-      let renderSvg = __eo('renderSvg')
-      let renderWebgl = __eo('renderWebgl')
-
-      if (! renderSvg&& ! renderWebgl) {
-        console.info('r.renderer no renderers')
-      }
-
       if (renderSvg) renderSvg.render(featurecollection)
       if (renderWebgl) renderWebgl.render(featurecollection)
     }

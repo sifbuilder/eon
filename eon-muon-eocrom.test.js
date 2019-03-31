@@ -20,9 +20,11 @@ let eo = jest.fn(async () => {
   return __eo
 })
 
-test('test', async () => {
-  let __eo = await eo()
-  let eon = await __eo('xs').m('eocrom')
+describe('test eocrom', async () => {
+  test('kolor', async () => {
+    let __eo = await eo()
+    let muonEocrom = await __eo('xs').m('eocrom')
 
-  expect(eon.kolor(777, 0)).toBe('rgb(251, 107, 11)')
+    expect(muonEocrom.kolor(777, 0)).toBe('rgb(251, 107, 11)')
+  })
 })

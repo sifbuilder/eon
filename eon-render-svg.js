@@ -53,33 +53,33 @@
     ])
 
     let width = 600,
-      height = 400,
-      background = 'black'
+      height = 400
 
     let state = {
       width: width,
       height: height,
-      // background: background,
-      // .attr('pointer-events', 'none')
-      // .attr('overflow', 'visible')
     }
-    // try { renderSvg.scenecolor('black') } catch (e) {}
     // ............................. svg
     let _svg = () => d3Selection.select('#viewframe')
 
-    if (d3Selection.select('#viewframe').empty()) {
-      let svglayer = d3Selection.select('body')
-        .append('svg')
-        .attr('id', 'viewframe') // Viewport
-        .attr('class', 'viewframe')
-        .attr('width', state.width)
-        .attr('height', state.height)
-        .style('position', 'absolute')
-        .style('top', 10)
-        .style('left', 10)
-        .style('fill', 'transparent')
-        .style('background-color', state.background) // background
-        .append('defs')
+
+    try {
+      if (d3Selection.select('#viewframe').empty()) {
+        d3Selection.select('body')
+          .append('svg')
+          .attr('id', 'viewframe') // Viewport
+          .attr('class', 'viewframe')
+          .attr('width', state.width)
+          .attr('height', state.height)
+          .style('position', 'absolute')
+          .style('top', 10)
+          .style('left', 10)
+          .style('fill', 'transparent')
+          .style('background-color', state.background) // background
+          .append('defs')
+      }
+    } catch (error) {
+      console.log('e', error)
     }
 
     let resetsvg = function () {
@@ -90,6 +90,7 @@
           .style('background-color', state.background) // background
       }
     }
+
 
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {

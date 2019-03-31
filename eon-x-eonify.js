@@ -153,12 +153,13 @@
             let response
             try {
               let filepath = path.basename(url)
+
               response = fs.readFileSync(filepath, 'utf8')
             } catch (e) {
 
             }
             let string = response
-
+            // console.log('url:', url)
             module = eval(string)
 
             module = new Promise((resolve, reject) => {
@@ -177,8 +178,9 @@
         } else { // if (/^(\w+:)|\/\//i.test(url)) {
           if (!module) {
             let response = await fetch(url)
-            let string = await response.text()
 
+            let string = await response.text()
+            // console.log('url:', url)
             module = eval(string) //
 
             module = new Promise((resolve, reject) => {
@@ -528,7 +530,8 @@
 
     return datit
   }
-  // ............................. eodebug
+
+  // ............................. support debug
   let __anitem = async function (__eo) {
     let ani = function () {
       let anima = {
@@ -550,34 +553,10 @@
     return enty
   }
 
-    // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
-    ;(function () {
-    var nativeSetTimeout = window.setTimeout
-
-    window.bindTimeout = function (listener, interval) {
-      function setTimeout (code, delay) {
-        var elapsed = 0,
-          h
-
-        h = window.setInterval(function () {
-          elapsed += interval
-          if (elapsed < delay) {
-            listener(delay - elapsed)
-          } else {
-            window.clearInterval(h)
-          }
-        }, interval)
-        return nativeSetTimeout(code, delay)
-      }
-
-      window.setTimeout = setTimeout
-      setTimeout._native = nativeSetTimeout
-    }
-  }())
+  // ............................. eodebug
 
   let eodebug = async function ({_anitem, time}) {
     let anitem = _anitem || __anitem
-
     let __eo = await eo()
 
     await __eo('xs').c('timer')
@@ -595,15 +574,52 @@
     state.animas = muonStore.animasLive()
     state.anigrams = muonStore.anigrams()
 
-    window.bindTimeout(function (t) {
+    // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
+
+    // ;(function () {
+
+      console.log('************ eodebug')
+
+
+    // var nativeSetTimeout = window.setTimeout
+    var nativeSetTimeout =  window.setTimeout
+
+    // window.bindTimeout = function (listener, interval) {
+    let bindTimeout = function (listener, interval) {
+      function _setTimeout (code, delay) {
+        var elapsed = 0,
+          h
+
+          // h = window.setInterval(function () {
+        h = setInterval(function () {
+          elapsed += interval
+          if (elapsed < delay) {
+            listener(delay - elapsed)
+          } else {
+            // window.clearInterval(h)
+            clearInterval(h)
+          }
+        }, interval)
+        return nativeSetTimeout(code, delay)
+      }
+
+      window.setTimeout = _setTimeout
+      _setTimeout._native = nativeSetTimeout
+    }
+    // }())
+
+    // window.bindTimeout(function (t) {
+    bindTimeout(function (t) {
       state = muonAnimation.animier(t) // animier
       console.log(t + 'ms remaining', state)
     }, 100)
-    window.setTimeout(function () {
+    // window.setTimeout(function () {
+    setTimeout(function () {
       console.log('All done.')
     }, 1000)
   }
 
+  // ............................. exports
   exports.eo = eo
   exports.eodebug = eodebug
   exports.capitalize = capitalize
