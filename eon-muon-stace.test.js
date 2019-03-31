@@ -8,23 +8,31 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eo = jest.fn(async () => {
-  let __eo = xEonify.xEo() // init mapper
+jest.useFakeTimers()
 
-  __eo({'xs': xEonify.xs(__eo)}) // map xs
-  __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
-
-  await __eo('xs').m('store') // map store
-
-  return __eo
-})
 
 test('test natMultiLineString', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
   let muonStace = await __eo('xs').m('stace')
 
   let anitem = {
-    eocrom: {csx: 0, cf: 777, cs: 777, cw: 0.99, co: 0.4 },
+    eohal: 'sol',
+    eoric: {gid: 'g', cid: 'c', fid: 'f', uid: 'g_c_f'},
+    eotim: {
+      t0: 0, t1: 1, t2: 1, t3: 1, td: 1800, tf: t => t,
+      common: 0,
+      inverse: 0,
+      msElapsed: 676.3500000815839,
+      nostop: 0,
+      tu: 1000,
+      tw: 1,
+      unDelta: 2.3229174139771658e-10,
+      unElapsed: 0.9999999996140835,
+      unEnd: 1,
+      unPassed: 2.3229174139771658e-10,
+      unStart: 0.9999999993817917,
+      unTime: 2.3229174139771658e-10,
+    },    
     eofold: {
       type: 'FeatureCollection',
       features: [{
@@ -48,47 +56,20 @@ test('test natMultiLineString', async () => {
         },
       }],
     },
-
-    eoform: [-29.819999989122152, 0, 0],
-    eohal: 'sol',
-    eoinited: {g_c_f: 0.3757500000453244},
-    eomot: {},
     eonode: {
       type: 'Feature',
-      geometry: {
-        coordinates: [0, 0, 0],
-        type: 'Point',
-      },
+      geometry: { coordinates: [0, 0, 0], type: 'Point', },
       properties: {
-        geodelta: null,
-        orgen: null,
-        prevous: null,
-        velang: [0, 0, 0],
-        velin: [0, 0, 0],
+        geodelta: null, orgen: null, prevous: null, velang: [0, 0, 0], velin: [0, 0, 0],
       },
     },
+    eomot: {},
+    eoform: [-29.819999989122152, 0, 0],
+    eocrom: {csx: 0, cf: 777, cs: 777, cw: 0.99, co: 0.4 },
+    eoload: {},
+    eoinited: {g_c_f: 0.3757500000453244},
     eoouted: {g_c_f: 0.8117388889271145},
-    eoric: {gid: 'g', cid: 'c', fid: 'f', uid: 'g_c_f'},
-    eotim: {
-      common: 0,
-      inverse: 0,
-      msElapsed: 676.3500000815839,
-      nostop: 0,
-      t0: 0,
-      t1: 1,
-      t2: 1,
-      t3: 1,
-      td: 1800,
-      tf: t => t,
-      tu: 1000,
-      tw: 1,
-      unDelta: 2.3229174139771658e-10,
-      unElapsed: 0.9999999996140835,
-      unEnd: 1,
-      unPassed: 2.3229174139771658e-10,
-      unStart: 0.9999999993817917,
-      unTime: 2.3229174139771658e-10,
-    },
+
   }
 
   let stace0 = [ 0, 1, 2]
@@ -97,7 +78,7 @@ test('test natMultiLineString', async () => {
   let stace3 = [300, 200, 0]
   // let stace4 = [[a1,a2,a3], [b1,b2]]
   // let stace5 = [[[ {nat} ]]]
-  // let stace6 = [{pos:0}, 3]
+  let stace6 = [{pos:0}, 3]
 
   let locus0 = muonStace.getTranspots(stace0, anitem)
   let locus1 = muonStace.getTranspots(stace1, anitem)
@@ -109,3 +90,64 @@ test('test natMultiLineString', async () => {
   expect(locus2).toEqual([[0, 0, 0]])
   expect(locus3).toEqual([[300, 200, 0]])
 })
+
+
+describe('stace from anitem', () => {
+  test('aniTimer', async () => {
+
+    let anitem = async function (__eo) {
+      let z = function () {
+        let anima = {
+          eohal: 'sol',
+          eotim: {'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
+          eoric: {gid: 'g', cid: 'c', fid: 'f'},
+          eofold: {
+            type: 'Feature',
+            geometry: {type: 'Point', coordinates: [ [[[0, 200]]], 0] },
+          },
+          eoload: {
+            eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+          },
+        }
+        return Array.of(anima)
+      }
+      let enty = () => {}
+      enty.z = z
+      return enty
+    }
+
+    let __eo = await xEonify.eonit({anitem})
+    
+    await __eo('xs').c('timer')
+    await __eo('xs').e('sol')
+    await __eo('xs').r('svg')
+
+    let muonStace = await __eo('xs').m('stace')
+
+    let state = {}, times = 0, dt = 100, t = 0, ntimes = 8 // td: 1000
+
+    async function aniTimer (callback) {
+      await callback()
+      setTimeout(() => {
+        t = times * dt
+        ++times
+        state = __eo('muonAnimation').animier(t) // animier
+        aniTimer(callback)
+      }, dt)
+    }
+    const callback = jest.fn()
+    await aniTimer(callback)
+    for (let i = 0; i < ntimes; i++) {
+      jest.advanceTimersByTime(dt)
+      await Promise.resolve()
+    }
+
+    let animas = __eo('muonStore').animasLive()
+    let stace0 = [ 0, 1, 2]
+    let locus0 = muonStace.getTranspots(stace0, animas[0])
+    expect(locus0).toEqual([[0, 1, 2]])
+
+  })
+})
+
+

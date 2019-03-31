@@ -144,7 +144,6 @@ describe('get anima ', () => {
           eohal: eohalMars,
 
           eofold: function (ani, props) {
-            if (1 && 1) console.log('eofold:', ani, props)
             let coords
             if (props.key === 'init') { // INIT
               let point = ani.eonode.geometry.coordinates

@@ -68,7 +68,7 @@
       let muonStore = __eo('muonStore')
 
       let eoload = anitem.eoload
-      console.assert(eoload !== undefined, anitem, ' eoload undefined')
+      console.assert(eoload !== undefined, `m.stace eoload undefined in ${anitem}`)
       let locations = []
 
       // if object, convert stace to array

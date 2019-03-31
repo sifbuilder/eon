@@ -519,12 +519,11 @@
     let __eo = await eo()
 
     let animas = await __eo('xs').z(anitem) // z eon
-
-    if (typeof anitem === 'string') { // eg. anitem: 852d-3dgrat
-      animas = animas.z() // z function
-    }
+    if (animas['z'] !== undefined) animas = animas.z()
+    // if (typeof anitem === 'string') { // eg. anitem: 852d-3dgrat
+      // animas = animas.z() // z function
+    // }
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
-
     await __eo('xs').m('animation') // map animation
 
     return __eo

@@ -29,97 +29,11 @@ let eo = jest.fn(async ({anitem, time}) => {
 
 test('test filenize', async () => {
   let _ = {anitem: undefined, time: 0}
-  let eon = await eo(_)
 
-  // let eonobjt = { xs:
-  // { [Function: eons]
-  // a: [Function],
-  // ani: [Function],
-  // b: [Function],
-  // boson: [Function],
-  // c: [Function],
-  // ctl: [Function],
-  // d: [Function],
-  // dat: [Function],
-  // e: [Function],
-  // eohal: [Function],
-  // f: [Function],
-  // force: [Function],
-  // g: [Function],
-  // geo: [Function],
-  // l: [Function],
-  // lib: [Function],
-  // m: [Function],
-  // muon: [Function],
-  // p: [Function],
-  // proton: [Function],
-  // r: [Function],
-  // render: [Function],
-  // z: [Function],
-  // zindex: [Function] },
-  // xD3Require:
-  // { require:
-  // { [Function: d3Require]
-  // alias: [Function: requireAlias],
-  // resolve: [AsyncFunction: resolve] },
-  // requireFrom: [Function: requireFrom] },
-  // muonEoric:
-  // { [Function: enty]
-  // getAnigramRic: [Function: getAnigramRic],
-  // getuid: [Function: getuid],
-  // enric: [Function: enric],
-  // idify: [Function: idify],
-  // getdefault: [Function: getdefault] },
-  // muonEotim:
-  // { [Function: enty]
-  // timing: [Function: timing],
-  // getdefault: [Function: getdefault] },
-  // muonLacer:
-  // { [Function: enty]
-  // range: [Function: range],
-  // linear: [Function: linear],
-  // interlace: [Function: interlace],
-  // slide: [Function: slide],
-  // unslide: [Function: unslide],
-  // interadd: [Function: interadd] },
-  // muonSnap: { [Function: enty] snap: [Function: snap] },
-  // muonAnitem:
-  // { [Function: enty]
-  // snapani: [Function: snapani],
-  // functorize: [Function: functorize],
-  // functorgeofold: [Function: functorgeofold],
-  // functorpayload: [Function: functorpayload] },
-  // muonStore:
-  // { [Function: enty]
-  // apply: [Function: _apply],
-  // gramm: [Function: gramm],
-  // ween: [Function: ween],
-  // anigrams: [Function],
-  // animasAll: [Function],
-  // animasLive: [Function],
-  // animas: [Function],
-  // animasInGroupHowMany: [Function],
-  // animasInClassHowMany: [Function],
-  // anigramsInClassHowMany: [Function],
-  // findFromUid: [Function],
-  // findAnigramFromUid: [Function],
-  // findAnimaFromUid: [Function] },
-  // renderRenderer: { [Function: enty] render: [Function: render] },
-  // muonTimer:
-  // { now: [Function: now],
-  // Timer: [Function: Timer],
-  // timer: [Function: timer],
-  // timerFlush: [Function: timerFlush] },
-  // ctlTimer:
-  // { started: [Function],
-  // start: [Function: start],
-  // restart: [Function: restart],
-  // resume: [Function: resume],
-  // stop: [Function: stop],
-  // subscribe: [Function: subscribe] },
-  // muonAnimation: { animate: [Function: animate], animationStop: [Function] } }
-
-  let json = JSON.stringify(eon())
+    let __eo = await xEonify.eonit({anitem: undefined})
+    let muonAnimation = await __eo('xs').m('animation')
+ 
+  let json = JSON.stringify(__eo())
   expect(json).toEqual('{"xD3Require":{},"muonTimer":{},"ctlTimer":{},"muonAnimation":{}}')
 })
 

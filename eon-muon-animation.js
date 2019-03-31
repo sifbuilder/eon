@@ -76,7 +76,6 @@
 
     // ... async animate
     function animate (time) {
-      console.log('animate time:', time)
 
       muonStore = __eo('muonStore')
       muonSim = __eo('muonSim')
