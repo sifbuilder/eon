@@ -254,8 +254,8 @@ describe('get anima ', () => {
 
     let animas = muonStore.animasLive()
     let anigrams = muonStore.anigrams()
-    console.log('animas:', animas)
-    console.log('anigrams:', anigrams)
+    // console.log('animas:', animas)
+    // console.log('anigrams:', anigrams)
     let anitems = animas
 
     // expect(1).toBe(1)

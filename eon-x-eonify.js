@@ -509,7 +509,7 @@
     return __eo
   }
 
-  // ............................. eon
+  // ............................. eonit
   //
   // called in z-file with anitem and a time
   // anitem is async function that takes the mapper xEo{} as argument
@@ -518,7 +518,7 @@
   let eonit = async function ({anitem, time}) {
     let __eo = await eo()
 
-    let animas = await __eo('xs').a(anitem) // function
+    let animas = await __eo('xs').z(anitem) // function
     if (typeof anitem === 'string') { // anitem: 852d-3dgrat
       animas = animas.ani() // animas: {natform: {…}}
     }
@@ -526,22 +526,12 @@
 
     await __eo('xs').m('animation') // map animation
 
-    // let datit = __eo('muonAnimation').animate(time) // animate
-
     return __eo
   }
 
+  // ............................. eon
   let eon = async function ({anitem, time}) {
-    // let __eo = await eo()
-
-    // let animas = await __eo('xs').a(anitem) // function
-    // if (typeof anitem === 'string') { // anitem: 852d-3dgrat
-    //   animas = animas.ani() // animas: {natform: {…}}
-    // }
-    // __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
-
     let __eo = await eonit({anitem, time})
-
     return __eo('muonAnimation').animate(time) // animate
   }
 
@@ -567,15 +557,19 @@
     return enty
   }
 
-  // ............................. eodebug
+  // ............................. eondebug
 
-  let eodebug = async function ({_anitem, time}) {
-    let anitem = _anitem || __anitem
+  let eondebug = async function ({anitem, time}) {
+     console.log('************ eondebug', anitem)    
+
+    //  let __eo = await eonit({__anitem, time})
+
+     anitem = __anitem
     let __eo = await eo()
 
     await __eo('xs').c('timer')
     await __eo('xs').e('sol')
-    // await __eo('xs').r('svg')
+    await __eo('xs').r('svg')
 
     let muonStore = __eo('muonStore')
 
@@ -589,11 +583,7 @@
     state.anigrams = muonStore.anigrams()
 
     // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
-
     // ;(function () {
-
-      console.log('************ eodebug')
-
 
     // var nativeSetTimeout = window.setTimeout
     var nativeSetTimeout =  window.setTimeout
@@ -636,7 +626,7 @@
   // ............................. exports
   exports.eo = eo
   exports.eonit = eonit
-  exports.eodebug = eodebug
+  exports.eondebug = eondebug
   exports.capitalize = capitalize
   exports.filenize = filenize
   exports.ceonize = ceonize

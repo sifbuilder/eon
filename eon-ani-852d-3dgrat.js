@@ -27,7 +27,7 @@
 
     let ani = function () {
       // .................. pics
-      let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
+      let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
       // .................. gratiform
       let natform = {
