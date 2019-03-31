@@ -515,7 +515,7 @@
   // anitem is async function that takes the mapper xEo{} as argument
   // xEo gets xs from the state to retrive eons
   //
-  let eon = async function ({anitem, time}) {
+  let eonit = async function ({anitem, time}) {
     let __eo = await eo()
 
     let animas = await __eo('xs').a(anitem) // function
@@ -526,9 +526,23 @@
 
     await __eo('xs').m('animation') // map animation
 
-    let datit = __eo('muonAnimation').animate(time) // animate
+    // let datit = __eo('muonAnimation').animate(time) // animate
 
-    return datit
+    return __eo
+  }
+
+  let eon = async function ({anitem, time}) {
+    // let __eo = await eo()
+
+    // let animas = await __eo('xs').a(anitem) // function
+    // if (typeof anitem === 'string') { // anitem: 852d-3dgrat
+    //   animas = animas.ani() // animas: {natform: {…}}
+    // }
+    // __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
+
+    let __eo = await eonit({anitem, time})
+
+    return __eo('muonAnimation').animate(time) // animate
   }
 
   // ............................. support debug
@@ -621,6 +635,7 @@
 
   // ............................. exports
   exports.eo = eo
+  exports.eonit = eonit
   exports.eodebug = eodebug
   exports.capitalize = capitalize
   exports.filenize = filenize

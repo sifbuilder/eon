@@ -32,7 +32,7 @@
 
     let ani = function () {
       // .................. pics
-      let eotim = { 'td': 10000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1 }
+      let eotim = { 'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1 }
 
       let textAni = {
 

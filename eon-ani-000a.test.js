@@ -8,15 +8,41 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-test('test filenize', async () => {
+jest.useFakeTimers()
 
-  let ww = {anitem: '000a', time: 5000}
-  let datit = await xEonify.eon(ww)
+describe('results from animation', () => {
+  test('aniTimer', async () => {
 
-  expect(datit.dat.type).toEqual('FeatureCollection')
-  expect(datit.dat.features[0].type).toEqual('Feature')
-  expect(datit.dat.features[0].geometry.coordinates).toEqual([-175, 0, 0])
-  expect(datit.dat.features[0].properties.eotim.msElapsed).toEqual(5000)
-  expect(datit.dat.features[0].properties.eotim.unElapsed).toEqual(0.5)
+    let anitem = '000a' 
+    let __eo = await xEonify.eonit({anitem})
+    await __eo('xs').c('timer')
+    await __eo('xs').e('sol')
+    await __eo('xs').r('svg')
 
+    let muonAnimation = await __eo('xs').m('animation')
+
+    let state = {}, times = 0, dt = 100, t = 0, ntimes = 8 // td: 1000
+
+    async function simpleTimer (callback) {
+      await callback()
+      setTimeout(() => {
+        t = times * dt
+        ++times
+        state = muonAnimation.animier(t) // animier
+        //   console.log(`time: ${t} with ${state.animas.length} animas and ${state.anigrams.length} anigrams in ${state}`)
+        simpleTimer(callback)
+      }, dt)
+    }
+    const callback = jest.fn()
+    await simpleTimer(callback)
+    for (let i = 0; i < ntimes; i++) {
+      jest.advanceTimersByTime(dt)
+      await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
+    }
+
+    expect(callback).toHaveBeenCalledTimes(9) // ncalled: ntimes + 1
+    expect(t).toBe(700) // ([0, ntimes - 1] + 1) * dt
+    expect(state.anigrams[0].eotim.unElapsed).toBe(0.6) // 0.6 * 200
+    expect(state.anigrams[0].eofold.features[0].geometry.coordinates).toEqual([-175, 0, 0])
+  })
 })
