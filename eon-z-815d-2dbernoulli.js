@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @ani815d2dbernoulli
+   *    @z815d2dbernoulli
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ani815d2dbernoulli = global.ani815d2dbernoulli || {})))
+      : (factory((global.z815d2dbernoulli = global.z815d2dbernoulli || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -44,7 +44,7 @@
     }
 
     // .................. animas
-    let ani = function () {
+    let z = function () {
     // .................. pics
       let sin = Math.sin, cos = Math.cos
 
@@ -232,9 +232,9 @@
     }
 
     let enty = () => {}
-    enty.ani = ani
+    enty.z = z
 
     return enty
   }
-  exports.ani815d2dbernoulli = anitem
+  exports.z815d2dbernoulli = anitem
 }))

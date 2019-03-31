@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @ani000a
+   *    @z000a
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ani000a = global.ani000a || {})))
+      : (factory((global.z000a = global.z000a || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -30,7 +30,7 @@
       ctl = () => [0, 0, 0]
     }
 
-    let ani = function () {
+    let z = function () {
       // .................. pics
       let eotim = { 'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1 }
 
@@ -85,8 +85,8 @@
     }
 
     let enty = () => { }
-    enty.ani = ani
+    enty.z = z
     return enty
   }
-  exports.ani000a = anitem
+  exports.z000a = anitem
 }))

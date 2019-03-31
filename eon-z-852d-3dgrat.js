@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @ani852d3dgrat
+   *    @z852d3dgrat
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ani852d3dgrat = global.ani852d3dgrat || {})))
+      : (factory((global.z852d3dgrat = global.z852d3dgrat || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -25,7 +25,7 @@
 
     try { renderSvg.scenecolor('black') } catch (e) {}
 
-    let ani = function () {
+    let z = function () {
       // .................. pics
       let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
@@ -90,9 +90,9 @@
     }
 
     let enty = () => {}
-    enty.ani = ani
+    enty.z = z
     return enty
   }
 
-  exports.ani852d3dgrat = anitem
+  exports.z852d3dgrat = anitem
 }))

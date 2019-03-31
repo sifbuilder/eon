@@ -405,12 +405,12 @@
       // return empty array
 
     } else if (typeof part[0] === 'function') {
-      // [async ƒ anitem(__eo), "ani"]
+      // [async ƒ anitem(__eo), "z"]
 
       let [eonfn, pres] = part
       let x = await eonfn(__eo)
 
-      res = await x[pres]()
+      res = await x[pres]()   // in eon-z expect the z function
     } else {
       let [name, pres] = part // [name, prefix] eg.: [versor, muon]
 
@@ -445,7 +445,7 @@
   let xs = function (__eo = {}) {
     const patterns = [
 
-      ['ani', 'a', 'ani'],
+      // ['ani', 'a', 'ani'],
       ['boson', 'b', ''],
       ['ctl', 'c', 'ctl'],
       ['dat', 'd', 'dat'],
@@ -519,10 +519,12 @@
     let __eo = await eo()
 
     let animas = await __eo('xs').z(anitem) // function
+   
     if (typeof anitem === 'string') { // anitem: 852d-3dgrat
       animas = animas.ani() // animas: {natform: {…}}
     }
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
+
 
     await __eo('xs').m('animation') // map animation
 
@@ -537,7 +539,7 @@
 
   // ............................. support debug
   let __anitem = async function (__eo) {
-    let ani = function () {
+    let z = function () {
       let anima = {
         eohal: 'sol',
         eotim: {'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
@@ -553,7 +555,7 @@
       return Array.of(anima)
     }
     let enty = () => {}
-    enty.ani = ani
+    enty.z = z
     return enty
   }
 
@@ -573,7 +575,7 @@
 
     let muonStore = __eo('muonStore')
 
-    let animas = await __eo('xs').a(anitem)
+    let animas = await __eo('xs').z(anitem)
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
 
     let muonAnimation = await __eo('xs').m('animation')

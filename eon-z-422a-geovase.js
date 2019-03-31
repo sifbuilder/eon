@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @ani422aGeovase
+   *    @z422aGeovase
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ani422aGeovase = global.ani422aGeovase || {})))
+      : (factory((global.z422aGeovase = global.z422aGeovase || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -42,7 +42,7 @@
     ])
     try { renderSvg.scenecolor('black') } catch (e) { }
     // .................. animas
-    let ani = function () {
+    let z = function () {
       // .................. pics
       let ctl
       try {
@@ -152,8 +152,8 @@
     }
 
     let enty = () => { }
-    enty.ani = ani
+    enty.z = z
     return enty
   }
-  exports.ani422aGeovase = anitem
+  exports.z422aGeovase = anitem
 }))

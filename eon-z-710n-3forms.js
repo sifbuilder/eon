@@ -1,12 +1,12 @@
 
 /* ******************************************
-   *    @ani000a
+   *    @z710n3forms
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ani710n3forms = global.ani710n3forms || {})))
+      : (factory((global.z710n3forms = global.z710n3forms || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -37,7 +37,7 @@
     let ctl
     try { ctl = ctlWen().control(renderSvg.svg()) } catch (e) { ctl = () => [0, 0, 0] }
     // .................. animas
-    let ani = function () {
+    let z = function () {
     // .................. pics
 
       let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
@@ -272,8 +272,8 @@
     }
 
     let enty = () => {}
-    enty.ani = ani
+    enty.z = z
     return enty
   }
-  exports.ani710n3forms = anitem
+  exports.z710n3forms = anitem
 }))

@@ -14,7 +14,7 @@ describe('results from animation', () => {
   // https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function/52196951
   test('aniTimer', async () => {
     let anitem = async function (__eo) {
-      let ani = function () {
+      let z = function () {
         let anima = {
           eohal: 'sol',
           eotim: {'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
@@ -30,7 +30,7 @@ describe('results from animation', () => {
         return Array.of(anima)
       }
       let enty = () => {}
-      enty.ani = ani
+      enty.z = z
       return enty
     }
 
@@ -49,7 +49,6 @@ describe('results from animation', () => {
         t = times * dt
         ++times
         state = muonAnimation.animier(t) // animier
-        //   console.log(`time: ${t} with ${state.animas.length} animas and ${state.anigrams.length} anigrams in ${state}`)
         aniTimer(callback)
       }, dt)
     }
@@ -60,9 +59,9 @@ describe('results from animation', () => {
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
 
-    expect(callback).toHaveBeenCalledTimes(9) // ncalled: ntimes + 1
-    expect(t).toBe(700) // ([0, ntimes - 1] + 1) * dt
-    expect(state.anigrams[0].eotim.unElapsed).toBe(0.6) // 0.6 * 200
+    expect(callback).toHaveBeenCalledTimes(9) // ntimes + 1
+    expect(t).toBe(700) // (ntimes - 1) * dt
+    expect(state.anigrams[0].eotim.unElapsed).toBe(0.6) // 0.6 : ((ntimes - 1) * dt) / td
     expect(state.anigrams[0].eofold.features[0].geometry.coordinates).toEqual([120, 0])
   })
 })

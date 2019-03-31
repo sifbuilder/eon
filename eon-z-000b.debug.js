@@ -1,18 +1,18 @@
 /* ******************************************
-   *    @ani000b-debug
+   *    @z000bDebug
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ani000bDebug = global.ani000bDebug || {})))
+      : (factory((global.z000bDebug = global.z000bDebug || {})))
 }(this, function (exports) {
   'use strict'
 
   // ... ** **
   // .................. anitem
   async function anitem (__eo) {
-    let ani = function () {
+    let z = function () {
      
       let anima = {
         eohal: 'sol',
@@ -32,9 +32,9 @@
       return Array.of(anima)
     }
     let enty = () => {}
-    enty.ani = ani
+    enty.z = z
     return enty
   }
-  exports.ani000bDebug = anitem
+  exports.z000bDebug = anitem
 }))
 

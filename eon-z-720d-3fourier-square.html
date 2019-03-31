@@ -61,7 +61,7 @@ async function anitem (__eo) {
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
 
-  let ani = function () {
+  let z = function () {
   // .................. pics
 
     let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin
@@ -604,7 +604,7 @@ async function anitem (__eo) {
   }
 
   let enty = () => {}
-  enty.ani = ani
+  enty.z = z
   return enty
 }
 </script>

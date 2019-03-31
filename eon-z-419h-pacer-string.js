@@ -1,4 +1,4 @@
-/* ******************************************
+  /* ******************************************
    *    @z419hPacerString
    *
    */
@@ -44,7 +44,7 @@ async function anitem (__eo) {
     ctlRayder.showpos(true)
   
     // .................. animas
-    let ani = function () {
+    let z = function () {
       // .................. pics
       let eotim = {'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
   
@@ -218,7 +218,7 @@ async function anitem (__eo) {
     }
   
     let enty = () => {}
-    enty.ani = ani
+    enty.z = z
     return enty
   }
   exports.z419hPacerString = anitem

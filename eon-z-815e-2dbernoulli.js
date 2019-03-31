@@ -55,7 +55,7 @@
       [	14.9309, 16.4706, 17.9598, 19.4094, 20.8269, 22.217 ],
     ]
     // .................. animas
-    let ani = function () {
+    let z = function () {
     // .................. pics
       let sin = Math.sin, cos = Math.cos, pi = Math.PI
 
@@ -157,7 +157,7 @@
     }
 
     let enty = () => {}
-    enty.ani = ani
+    enty.z = z
 
     return enty
   }
