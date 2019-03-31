@@ -47,13 +47,13 @@ async function anitem (__eo) {
 
       eofold: {
         type: 'Feature',
-        geometry: { type: 'LineString',coordinates: null,},
+        geometry: { type: 'LineString', coordinates: null},
         properties: {},
       },
 
       eonode: {
         type: 'Feature',
-        geometry: {type: 'Point',coordinates: [0, 0, 0],},
+        geometry: {type: 'Point', coordinates: [0, 0, 0]},
         properties: {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
@@ -67,7 +67,7 @@ async function anitem (__eo) {
       eoload: {
         pacer: {
 
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, 
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0,
           outtimed: 0, maxN: 60, geospan: 0,
 
           paceAnisOfSort: 'anigram',
@@ -79,14 +79,10 @@ async function anitem (__eo) {
           eofold: function (ani, props) { // eofold from pacer
             let coords
             if (props.key === 'init') { // INIT
-
               coords = ani.eonode.geometry.coordinates // eonode
-
             } else if (props.key === 'auto') { // AUTO
-
               console.log('ani:', ani)
               let point = muonStace.getLocus([null, null, null], ani)
-
 
               // let point = [0,0,0]
 
@@ -108,14 +104,12 @@ async function anitem (__eo) {
               } else {
                 coords = Array.of(point) // if no parent
               }
-
             } else if (props.key === 'event') { // EVENT
-
               coords = ani.eonode.geometry.coordinates
             }
 
             let geometry = {
-              type: 'LineString', 
+              type: 'LineString',
               coordinates: coords,
             }
             console.assert(muonGeoj.isValid(geometry), `gj coords not valid in ${geometry}`)
@@ -129,13 +123,10 @@ async function anitem (__eo) {
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-
               // stace is ani's transformed eonode
               stace = [0, 0, 0]
-
             } else if (props.key === 'auto') { // AUTO
               stace = [0, 0, 0]
-
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -149,7 +140,7 @@ async function anitem (__eo) {
             let coordinates = stace
             let res = {
               type: 'Feature',
-              geometry: { type: 'Point', coordinates: coordinates, },
+              geometry: { type: 'Point', coordinates: coordinates },
               properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
             return res

@@ -1,4 +1,4 @@
-  /* ******************************************
+/* ******************************************
    *    @z419hPacerString
    *
    */
@@ -9,8 +9,8 @@
 }(this, function (exports) {
   'use strict'
 
- // .................. anitem
-async function anitem (__eo) {
+  // .................. anitem
+  async function anitem (__eo) {
     // .................. eons
     let [
       ctlWen,
@@ -37,24 +37,24 @@ async function anitem (__eo) {
       __eo('xs').p('uniwen'),
       __eo('xs').r('svg'),
     ])
-  
+
     try { renderSvg.scenecolor('black') } catch (e) {}
     let muonStore = __eo('muonStore')
     ctlRayder.control()
     ctlRayder.showpos(true)
-  
+
     // .................. animas
     let z = function () {
       // .................. pics
       let eotim = {'td': 1000, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
-  
+
       // .................. geoLined
       let geoLined = {
-  
+
         eohal: eohalPacer,
         eotim: eotim,
         eoric: {gid: 'g', cid: 'c', fid: 'f'},
-  
+
         eofold: {
           type: 'Feature',
           geometry: { type: 'LineString', coordinates: [ [0, 0], [10, 10] ] },
@@ -67,35 +67,34 @@ async function anitem (__eo) {
             orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
           },
         },
-  
+
         // ... the eofold changes form with eofom
-  
+
         eoform: [ 0, 0, 0], // [ [[[0, 120]]], 0, 0]
         eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
-  
+
         eoload: {
           pacer: {
-  
+
             // initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0,
             initN: 0, eventN: 0, autoN: 1, autoP: 0.1, autoT: 0.1,
             outtimed: 0, maxN: 60,
             geospan: 0,
-  
+
             paceAnisOfSort: 'anigram',
             basePaceOnAniView: '', // 'viewform'
             addItemToPacer: 1, // addItemToPacer for trace
-  
+
             eohal: eohalMars,
-  
+
             eofold: function (ani, props) {
               let coords
               if (props.key === 'init') { // INIT
                 let point = ani.eonode.geometry.coordinates
                 coords = Array.of(point) // eonode
-                
               } else if (props.key === 'auto') { // AUTO
                 let point = ani.eoform
-       
+
                 point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
                 point = [600 * (0.5 - Math.random()), 400 * (0.5 - Math.random()) ]
                 console.log('point:', point)
@@ -117,14 +116,14 @@ async function anitem (__eo) {
                 }
               } else if (props.key === 'event') { // EVENT
                 let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
-  
+
                 let grabbed = ctlRayder.getGrabbed()
                 if (grabbed !== undefined) {
                   let x = grabbed[0]
                   let y = grabbed[1]
                   let z = 0
                   let point = [ x, y, z ]
-  
+
                   if (preani) {
                     if (preani.eofold.type === 'FeatureCollection') {
                       let feature = preani.eofold.features[0]
@@ -142,13 +141,13 @@ async function anitem (__eo) {
                   }
                 }
               }
-  
+
               let geometry = {
                 type: 'LineString',
                 coordinates: coords,
               }
               console.assert(muonGeoj.isValid(geometry), `geo ${geometry} not valid gj`)
-  
+
               return {
                 type: 'Feature',
                 geometry: geometry,
@@ -159,7 +158,7 @@ async function anitem (__eo) {
               let coords = [0, 0, 0]
               if (props.key === 'init') { // INIT
                 // coords is ani's transformed eonode
-  
+
                 coords = [0, 0, 0]
               } else if (props.key === 'auto') { // AUTO
                 coords = [0, 0, 0]
@@ -172,7 +171,7 @@ async function anitem (__eo) {
                   coords = {x, y, z }
                 }
               }
-  
+
               let coordinates = coords
               let res = {
                 type: 'Feature',
@@ -184,7 +183,7 @@ async function anitem (__eo) {
               }
               return res
             },
-  
+
           },
         },
       }
@@ -213,10 +212,10 @@ async function anitem (__eo) {
         geoLined,
         textAni,
       }
-  
+
       return scene
     }
-  
+
     let enty = () => {}
     enty.z = z
     return enty

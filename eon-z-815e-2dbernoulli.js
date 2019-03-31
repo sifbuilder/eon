@@ -87,7 +87,7 @@
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
           'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 64, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          c: [ level, range, summands, [[[0,1]]] ], // order, range, summs, .
+          c: [ level, range, summands, [[[0, 1]]] ], // order, range, summs, .
           fn0: (e, c, d) => {
             // return  muonGamma.bessel(e, d.c, d)
             return (cos(d.c[2] * pi) + sin(d.c[2] * pi)) * muonGamma.bessel(e, d.c, d) * (cos(e[2]) + sin(e[2]))

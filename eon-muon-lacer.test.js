@@ -70,7 +70,6 @@ test('test  linscal', async () => {
   let d = [0, 1]
   let r = [500, 750, 650]
 
-
   // [0, 1] => [500, 750, 650]
   expect(eon.eoliner(d, r)(0)).toBe(500)
   expect(eon.eoliner(d, r)(1)).toBe(650)

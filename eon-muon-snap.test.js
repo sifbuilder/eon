@@ -19,12 +19,11 @@ let eo = jest.fn(async () => {
   return __eo
 })
 
-
 test.only('test snap triple array', async () => {
   let __eo = await eo()
   let muonSnap = await __eo('xs').m('snap')
 
-  let v =  [[[0.0, 12, 0.0, 12, 0.0, 12]]]
+  let v = [[[0.0, 12, 0.0, 12, 0.0, 12]]]
   let vb = [ 0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
   expect(muonSnap.snap(v, vb[0], 0)).toBe(0)
   expect(muonSnap.snap(v, 0.1, 0)).toBeCloseTo(6, 4)
@@ -34,9 +33,7 @@ test.only('test snap triple array', async () => {
   expect(muonSnap.snap(v, vb[3], 0)).toBe(12)
   expect(muonSnap.snap(v, vb[4], 0)).toBe(0)
   expect(muonSnap.snap(v, vb[5], 0)).toBe(12)
-
 })
-
 
 test('test snap', async () => {
   let __eo = await eo()

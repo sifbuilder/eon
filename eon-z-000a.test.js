@@ -12,8 +12,6 @@ jest.useFakeTimers()
 
 describe('results from animation', () => {
   test('aniTimer', async () => {
-
-
     let __eo = await xEonify.eonit({anitem: '000a'})
     await __eo('xs').c('timer')
     await __eo('xs').e('sol')

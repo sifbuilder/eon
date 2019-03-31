@@ -79,7 +79,8 @@ async function anitem (__eo) {
 
         pacer: {
 
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, 
+          outtimed: 0, maxN: 60, geospan: 0,
 
           paceAnisOfSort: 'anigram',
           basePaceOnAniView: 'viewform',
@@ -91,17 +92,14 @@ async function anitem (__eo) {
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
-
             } else if (props.key === 'auto') { // AUTO
               coords = ani.eoform // eofold
-
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
-
             }
             return {
               type: 'Feature',
-              geometry: {type: 'Point',coordinates: coords,},
+              geometry: {type: 'Point', coordinates: coords},
               properties: {},
             }
           },
@@ -110,10 +108,8 @@ async function anitem (__eo) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = [0, 0, 0]
-
             } else if (props.key === 'auto') { // AUTO
               stace = [0, 0, 0]
-
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -127,7 +123,7 @@ async function anitem (__eo) {
             let coordinates = stace
             let res = {
               type: 'Feature',
-              geometry: { type: 'Point', coordinates: coordinates, },
+              geometry: { type: 'Point', coordinates: coordinates },
               properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
             return res

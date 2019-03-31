@@ -49,4 +49,3 @@ test('test bern', async () => {
   expect(ani.bessel(e, [1, 17, 23, 1], d)).toBe(0.454729103538626)
   expect(ani.bessel(e, [2, 17, 23, 1], d)).toBe(0.46522449711893754)
 })
-

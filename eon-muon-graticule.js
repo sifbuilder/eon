@@ -66,7 +66,6 @@
 
     // .................. quads
     let quads = function (i, j, xn, yn) {
-  
       let indexer = tidx(xn, yn)
 
       let i0 = i
@@ -109,7 +108,6 @@
     // ...          ]
     // ...
     let gratiparams = function (params = {}) {
-
       let rp = {}
 
       let X0, X1, DX, PX, x0, x1, dx, px,
@@ -124,7 +122,6 @@
         x_extent = multiframe[0] // x minor
         Y_extent = multiframe[1] // y major
         y_extent = multiframe[1] // y minor
-
       } else if (params.geoframe !== undefined) { // geoframe
         let geoframe = params.geoframe
 
@@ -139,7 +136,6 @@
           x_extent = geoframe[0][0]
           y_extent = geoframe[0][1]
         }
-        
       } else if (Array.isArray(params)) { // default to geoframe
         let geoframe = params
 
@@ -183,7 +179,6 @@
 
     // .................. arywinopen
     let arywinopen = (d0, d1, dd) => { // _e_
-
       let res = []
       let md = Math.max(Math.abs(d0), Math.abs(d1)) - epsilon
       let mt = Math.ceil(md / dd)
@@ -559,7 +554,6 @@
     enty.bifaces = bifaces
     enty.arywinopen = arywinopen
     enty.arywinclosed = arywinclosed
-
 
     enty.gfaces = gfaces
     enty.qfaces = qfaces

@@ -8,7 +8,6 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-
 let eo = jest.fn(async () => {
   let __eo = xEonify.xEo() // init mapper
 
@@ -99,8 +98,6 @@ describe('get anima ', () => {
   })
 })
 
-
-
 describe('get anima ', () => {
   test('test anima.pacer with eoload.pacer ', async () => {
     let __eo = await eo()
@@ -147,15 +144,14 @@ describe('get anima ', () => {
           eohal: eohalMars,
 
           eofold: function (ani, props) {
-            if (1 && 1) console.log('eofold:', ani, props)            
+            if (1 && 1) console.log('eofold:', ani, props)
             let coords
             if (props.key === 'init') { // INIT
               let point = ani.eonode.geometry.coordinates
               coords = Array.of(point) // eonode
-
             } else if (props.key === 'auto') { // AUTO
               let point = ani.eoform
- 
+
               point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
               point = [600 * (0.5 - Math.random()), 400 * (0.5 - Math.random()) ]
 

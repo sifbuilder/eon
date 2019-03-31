@@ -14,8 +14,6 @@ jest.useFakeTimers()
 
 describe('results from animation', () => {
   test('aniTimer', async () => {
-
-
     let __eo = await xEonify.eonit({anitem: '852d-3dgrat'})
     await __eo('xs').c('timer')
     await __eo('xs').e('sol')
@@ -23,7 +21,7 @@ describe('results from animation', () => {
 
     let muonAnimation = await __eo('xs').m('animation')
 
-    let state = {}, times = 0, dt = 100, t = 0, ntimes = 8 
+    let state = {}, times = 0, dt = 100, t = 0, ntimes = 8
 
     async function anitimer (callback) {
       await callback()
@@ -50,6 +48,5 @@ describe('results from animation', () => {
     expect(anigram.eotim.unElapsed).toBe(0.875) // 0.875 tp ???? td: 12800
     expect(feature.geometry.type).toBe('MultiLineString')
     expect(feature.geometry.coordinates.length).toBe(2)
-
   })
 })

@@ -9,8 +9,6 @@
   'use strict'
 
   async function muonEotype (__eo = {}) {
-
-
     const isArray = d => Array.isArray(d)
 
     // pure array: no object/funcion elements
@@ -34,7 +32,6 @@
         d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]
 
     const isObject = d => (typeof d === 'object' && Array.isArray(d) === false)
-
 
     // .................. enty
     let enty = () => {}

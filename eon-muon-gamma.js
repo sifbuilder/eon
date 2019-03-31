@@ -18,7 +18,6 @@
       return gamma(op + 1)
     }
 
-
     // ............................. pics
 
     // let fact = n => (n === 0) ? 1 : n * fact( n - 1 )
@@ -48,8 +47,7 @@
       return d
     }
 
-
-    let bessel = (e=[], c=[], d={}) => { 
+    let bessel = (e = [], c = [], d = {}) => {
       let summs = c[2] // summands
       let w = Array.from(new Array(summs), (d, i) => 1)
       let v = c[0] // level
@@ -81,4 +79,3 @@
   }
   exports.muonGamma = anitem
 }))
-

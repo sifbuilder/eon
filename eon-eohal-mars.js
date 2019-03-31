@@ -55,7 +55,6 @@
               console.assert(gjobj.geometry.coordinates !== null)
             }
 
-
             let projed = muonProj3ct(gjobj, prtion)
             properties[mot] = projed
 

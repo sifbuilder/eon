@@ -11,7 +11,7 @@
 
   // ... ** **
   // .................. anitem
-  async function anitem(__eo) {
+  async function anitem (__eo) {
     // .................. eons
     let [
       d3Geo,
@@ -98,8 +98,6 @@
             translate: [0, 0, 0],
             scale: 100,
             rotate: [0, 0, 0],
-
-
 
           },
           proform: {

@@ -62,7 +62,6 @@
     // ............................. svg
     let _svg = () => d3Selection.select('#viewframe')
 
-
     try {
       if (d3Selection.select('#viewframe').empty()) {
         d3Selection.select('body')
@@ -90,7 +89,6 @@
           .style('background-color', state.background) // background
       }
     }
-
 
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {

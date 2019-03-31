@@ -410,7 +410,7 @@
       let [eonfn, pres] = part
       let x = await eonfn(__eo)
 
-      res = await x[pres]()   // in eon-z expect the z function
+      res = await x[pres]() // in eon-z expect the z function
     } else {
       let [name, pres] = part // [name, prefix] eg.: [versor, muon]
 
@@ -518,13 +518,12 @@
   let eonit = async function ({anitem, time}) {
     let __eo = await eo()
 
-    let animas = await __eo('xs').z(anitem) // function
-   
-    if (typeof anitem === 'string') { // anitem: 852d-3dgrat
-      animas = animas.ani() // animas: {natform: {…}}
+    let animas = await __eo('xs').z(anitem) // z eon
+
+    if (typeof anitem === 'string') { // eg. anitem: 852d-3dgrat
+      animas = animas.z() // z function
     }
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
-
 
     await __eo('xs').m('animation') // map animation
 
@@ -562,11 +561,11 @@
   // ............................. eondebug
 
   let eondebug = async function ({anitem, time}) {
-     console.log('************ eondebug', anitem)    
+    console.log('************ eondebug', anitem)
 
     //  let __eo = await eonit({__anitem, time})
 
-     anitem = __anitem
+    anitem = __anitem
     let __eo = await eo()
 
     await __eo('xs').c('timer')
@@ -588,7 +587,7 @@
     // ;(function () {
 
     // var nativeSetTimeout = window.setTimeout
-    var nativeSetTimeout =  window.setTimeout
+    var nativeSetTimeout = window.setTimeout
 
     // window.bindTimeout = function (listener, interval) {
     let bindTimeout = function (listener, interval) {

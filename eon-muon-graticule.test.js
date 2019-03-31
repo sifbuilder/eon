@@ -181,7 +181,7 @@ test('oneface', async () => {
 
   let p1 = [[ 2, 1 ], [ 0, 2 ], [ 2, 2 ], 3, 7]
   let r1 = [ 5, 6, 8 ]
-  
+
   let p2 = [[ 2, 2 ], [ 0, 2 ], [ 0, 3 ], 3, 7]
   let r2 = [ 8, 6, 9 ]
 
@@ -197,7 +197,7 @@ test('bifaces', async () => {
   let r1 = [[ 13, 14, 17 ], [ 13, 17, 16 ]]
 
   let p2 = [ 1, 5, 3, 7]
-  let r2 = [[ 16, 17, 20 ],[ 16, 20, 19 ]]
+  let r2 = [[ 16, 17, 20 ], [ 16, 20, 19 ]]
 
   expect(eon.bifaces(...p1)).toEqual(r1)
   expect(eon.bifaces(...p2)).toEqual(r2)
@@ -321,8 +321,7 @@ test('gjfMultiPolygon', async () => {
   expect(eon.gjfMultiPolygon(p2)).toEqual(r2)
 })
 
-
-// natMultiLineString 
+// natMultiLineString
 test('natMultiLineString ', async () => {
   let __eo = await eo()
   let eon = await __eo('xs').m('graticule')
