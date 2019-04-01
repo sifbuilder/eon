@@ -1,4 +1,3 @@
-
 <script src="./eon-x-eonify.js"></script>
 
 <script>
@@ -101,7 +100,7 @@ async function anitem (__eo) {
         fn0: (e, c, d) => d.c[3] * c[3] * sin(e[0]) * sin(e[3]),
       },
 
-      'r': {
+      'w': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'dom3': [ -720, 720 ],
         fn0: (e, c) => c[3] * cos(e[2]),
@@ -111,13 +110,13 @@ async function anitem (__eo) {
     // ............................. circform1
     let circform1 = {
 
-      eohal: eohalMars,
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
+      eohal: eohalMars,
 
       eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoframe)
+        let vertices = muonGraticule.gjfMultiPoint(p.eoload.eoframe).geometry.coordinates
+        let quads = muonGraticule.qfaces(p.eoload.eoframe)
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
@@ -155,12 +154,14 @@ async function anitem (__eo) {
         },
       },
 
-      eoframe: {
 
-        geoframe: [ [ [ -180, 180, 30, 30], [ -180, 180, 30, 30] ] ],
+      eoload: {
+        eoframe: {
 
+          geoframe: [ [ [ -180, 180, 30, 30], [ -180, 180, 30, 30] ] ],
+
+        },        
       },
-      eoload: {},
     }
 
     // .................. cameraPersAni anima

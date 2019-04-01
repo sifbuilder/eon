@@ -53,7 +53,7 @@
 
         eohal: eohalPacer,
         eotim: eotim,
-        eoric: {gid: 'g', cid: 'c', fid: 'f'},
+        eoric: {gid: 'gline', cid: 'cline', fid: 'fline'},
 
         eofold: {
           type: 'Feature',
@@ -89,10 +89,13 @@
 
             eofold: function (ani, props) {
               let coords
+
               if (props.key === 'init') { // INIT
                 let point = ani.eonode.geometry.coordinates
                 coords = Array.of(point) // eonode
+
               } else if (props.key === 'auto') { // AUTO
+
                 let point = ani.eoform
 
                 point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
@@ -114,6 +117,7 @@
                 } else {
                   coords = Array.of(point)
                 }
+
               } else if (props.key === 'event') { // EVENT
                 let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
 

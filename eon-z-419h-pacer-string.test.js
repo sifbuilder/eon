@@ -39,7 +39,7 @@ describe('results from animation', () => {
       jest.advanceTimersByTime(dt)
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
-
+console.log('state.anigrams', state.anigrams)
     let trace = state.anigrams[1].eofold.features[0]
 
     expect(callback).toHaveBeenCalledTimes(9) // ncalled: ntimes + 1

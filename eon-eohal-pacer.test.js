@@ -9,12 +9,8 @@ global.fs = require('fs')
 const xEonify = require('./eon-x-eonify.js')
 
 let eo = jest.fn(async () => {
-  let __eo = xEonify.eomap() // init mapper
+  let __eo = await xEonify.eostore()
 
-  __eo({'xs': xEonify.xs(__eo)}) // map xs
-  __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
-
-  await __eo('xs').m('store')
   await __eo('xs').c('rayder')
   await __eo('xs').e('mars')
   await __eo('xs').e('pacer')
@@ -25,16 +21,18 @@ let eo = jest.fn(async () => {
   return __eo
 })
 
-test('test grabbed', async () => {
-  let __eo = await eo()
-  let muonEotype = await __eo('xs').e('pacer')
+describe('test grabbed', () => {
+  test('grabbed is undefined', async () => {
+    let __eo = await eo()
+    let muonEotype = await __eo('xs').e('pacer')
 
-  expect(typeof muonEotype.grabbed).toBe('function')
-  expect(muonEotype.grabbed()).toBe(undefined)
+    expect(typeof muonEotype.grabbed).toBe('function')
+    expect(muonEotype.grabbed()).toBe(undefined)
+  })
 })
 
 // anima.pacer init.paces anima
-describe('get anima ', () => {
+describe('1 anima paces animas init', () => {
   test('test e.pacer anima.pacer init.paces anima', async () => {
     let __eo = await eo()
 
@@ -98,7 +96,7 @@ describe('get anima ', () => {
   })
 })
 
-describe('get anima ', () => {
+describe('1 anima paces animas auto', () => {
   test('test anima.pacer with eoload.pacer ', async () => {
     let __eo = await eo()
 
@@ -122,9 +120,7 @@ describe('get anima ', () => {
       eonode: {
         type: 'Feature',
         geometry: {type: 'Point', coordinates: [0, 0, 0] },
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-        },
+        properties: { orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0] },
       },
 
       eoform: [ 0, 0, 0],
@@ -198,17 +194,10 @@ describe('get anima ', () => {
               }
             }
 
-            let geometry = {
-              type: 'LineString',
-              coordinates: coords,
-            }
+            let geometry = { type: 'LineString', coordinates: coords }
             console.assert(muonGeoj.isValid(geometry), `geo ${geometry} not valid gj`)
-
-            return {
-              type: 'Feature',
-              geometry: geometry,
-              properties: {},
-            }
+            let feature = { type: 'Feature', geometry: geometry, properties: {} }
+            return feature
           },
           eonode: function (ani, props) {
             let coords = [0, 0, 0]
@@ -231,10 +220,7 @@ describe('get anima ', () => {
             let coordinates = coords
             let res = {
               type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: coordinates,
-              },
+              geometry: { type: 'Point', coordinates: coordinates },
               properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
             return res
@@ -248,12 +234,9 @@ describe('get anima ', () => {
     eohalPacer.gramm(geoLined)
 
     let animas = muonStore.animasLive()
-    let anigrams = muonStore.anigrams()
-    // console.log('animas:', animas)
-    // console.log('anigrams:', anigrams)
+
     let anitems = animas
 
-    // expect(1).toBe(1)
     expect(anitems).toHaveLength(1)
     expect(anitems[0]).toHaveProperty('eohal')
     expect(anitems[0]).toHaveProperty('eotim')

@@ -1,4 +1,3 @@
-
 <script src="./eon-x-eonify.js"></script>
 
 <script>
@@ -132,8 +131,8 @@ async function anitem (__eo) {
       eohal: eohalMars,
 
       eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoframe)
+        let vertices = muonGraticule.gjfMultiPoint(p.eoload.eoframe).geometry.coordinates
+        let quads = muonGraticule.qfaces(p.eoload.eoframe)
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
@@ -166,17 +165,18 @@ async function anitem (__eo) {
           projection: 'uniwen',
           translate: [0, 0, 0],
           scale: 0.05,
-          rotate: [ [[[0, 360]]], [[[0, 2 * 360]]], [[[0, 1.5 * 360]]]], // [ 0, 0, 0 ],
+          rotate: [ [[[0, 360]]], [[[0, 2 * 360]]], [[[0, 1.5 * 360]]]],
           lens: [ 0, 1, Infinity ],
         },
       },
 
-      eoframe: {
 
-        geoframe: [ [ [ -180, 180, 9, 9], [ -180, 180, 9, 9] ] ],
-
-      },
       eoload: {
+        eoframe: {
+
+          geoframe: [ [ [ -180, 180, 9, 9], [ -180, 180, 9, 9] ] ],
+
+        },        
       },
     }
     // .................. cameraOrthoAni anima
@@ -344,9 +344,9 @@ async function anitem (__eo) {
       // cameraPersAni, // h.sol
       cameraOrthoAni, // h.sol
       circform1, // h.mars
-      // gridHelper, // h.sol
-      // ambientLight, // h.sol
-      // spotLight, // h.sol
+      gridHelper, // h.sol
+      ambientLight, // h.sol
+      spotLight, // h.sol
 
     ]
 
