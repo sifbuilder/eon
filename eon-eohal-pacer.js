@@ -218,6 +218,8 @@
         }
       }
 
+console.log('hostanima: ', hostAnima.eoric.uid)
+
       if (paceAnisOfSort === 'anima') {
         // z.419b ani.ava(pacer)
         // update host anima
@@ -259,6 +261,7 @@
             }
 
             let newItem = muonProps.clone(pacedAnitem) // anigram
+            console.log('newItem:', newItem.eoric.uid)
 
             let unElapsed = newItem.eotim.unElapsed
             newItem.eotim.t0 = unElapsed

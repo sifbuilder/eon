@@ -70,7 +70,11 @@ async function anitem (__eo) {
       eoload: {
         pacer: { // addItemToPacer for trace
 
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, 
+          outtimed: 0, maxN: 60,
+
+
+          geoaad: 1,
 
           addItemToPacer: 1,
           geospan: 0,
@@ -86,15 +90,16 @@ async function anitem (__eo) {
               coords = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
               let point = muonStace.getLocus([null, null, null], ani)
+              console.log('point:', point)
 
               point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
-
+              console.log('eoric:', ani.eoric.uid)
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) {
                 if (preani.eofold.type === 'FeatureCollection') {
                   let feature = preani.eofold.features[0]
-                  coords = (feature.geometry.coordinates)
-                    ? [...feature.geometry.coordinates, point ]
+                  coords = (feature.geometry.coordinates) // point
+                    ? [feature.geometry.coordinates, point ]
                     : Array.of(point)
                 } else if (preani.eofold.type === 'Feature') {
                   let feature = preani.eofold
@@ -108,7 +113,7 @@ async function anitem (__eo) {
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }
-
+console.log('coords', coords)
             console.assert(coords !== undefined && coords !== null, `coords undefined`)
 
             let geometry = {
