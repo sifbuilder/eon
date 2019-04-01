@@ -476,7 +476,7 @@
   //
   //    manage eons state
   //
-  let xEo = function () {
+  let eomap = function () {
     let state = {}
 
     let stater = function (_) {
@@ -499,8 +499,8 @@
   }
 
   // ............................. eo
-  let eo = async function () {
-    let __eo = xEo() // init mapper
+  let eostore = async function () {
+    let __eo = eomap() // init mapper
 
     __eo({'xs': xs(__eo)}) // map xs
     __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
@@ -516,13 +516,11 @@
   // xEo gets xs from the state to retrive eons
   //
   let eonit = async function ({anitem, time}) {
-    let __eo = await eo()
+    let __eo = await eostore()
 
     let animas = await __eo('xs').z(anitem) // z eon
     if (animas['z'] !== undefined) animas = animas.z()
-    // if (typeof anitem === 'string') { // eg. anitem: 852d-3dgrat
-      // animas = animas.z() // z function
-    // }
+
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
     await __eo('xs').m('animation') // map animation
 
@@ -530,7 +528,7 @@
   }
 
   // ............................. eon
-  let eon = async function ({anitem, time}) {
+  let eonify = async function ({anitem, time}) {
     let __eo = await eonit({anitem, time})
     return __eo('muonAnimation').animate(time) // animate
   }
@@ -557,19 +555,25 @@
     return enty
   }
 
-  // ............................. eondebug
+  // ............................. eoeocharge
+  let eocharge = async function (__eo) {
 
+    await __eo('xs').c('timer')
+    await __eo('xs').e('sol')
+    await __eo('xs').r('svg')
+
+    return __eo
+  }
+
+
+  // ............................. eondebug
   let eondebug = async function ({anitem, time}) {
     console.log('************ eondebug', anitem)
 
     //  let __eo = await eonit({__anitem, time})
 
     anitem = __anitem
-    let __eo = await eo()
-
-    await __eo('xs').c('timer')
-    await __eo('xs').e('sol')
-    await __eo('xs').r('svg')
+    let __eo = await eomap()
 
     let muonStore = __eo('muonStore')
 
@@ -577,6 +581,10 @@
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
 
     let muonAnimation = await __eo('xs').m('animation')
+
+    await __eo('xs').c('timer')
+    await __eo('xs').e('sol')
+    await __eo('xs').r('svg')
 
     let state = {}
     state.animas = muonStore.animasLive()
@@ -624,8 +632,11 @@
   }
 
   // ............................. exports
-  exports.eo = eo
+  exports.eomap = eomap
+  exports.eostore = eostore
   exports.eonit = eonit
+  exports.eonify = eonify
+  exports.eocharge = eocharge
   exports.eondebug = eondebug
   exports.capitalize = capitalize
   exports.filenize = filenize
@@ -634,9 +645,6 @@
   exports.camelize = camelize
   exports.getCell = getCell
   exports.mapCell = mapCell
-  exports.mapCell = mapCell
-  exports.eon = eon
-  exports.xEo = xEo
   exports.xs = xs
   exports.require = d3Require
   exports.requireFrom = requireFrom

@@ -9,7 +9,7 @@ global.fs = require('fs')
 const xEonify = require('./eon-x-eonify.js')
 
 let eo = jest.fn(async () => {
-  let __eo = xEonify.xEo() // init mapper
+  let __eo = xEonify.eomap() // init mapper
 
   __eo({'xs': xEonify.xs(__eo)}) // map xs
   __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })

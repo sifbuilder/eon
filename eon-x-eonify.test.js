@@ -9,7 +9,7 @@ global.fs = require('fs')
 const xEonify = require('./eon-x-eonify.js')
 
 let eo = jest.fn(async ({anitem, time}) => {
-  let __eo = xEonify.xEo() // init mapper
+  let __eo = xEonify.eomap() // init mapper
 
   __eo({'xs': xEonify.xs(__eo)}) // map xs
   __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
@@ -65,7 +65,7 @@ test('test camelize', () => {
 test('test getCell if e.n function', async () => {
   let e = {muonProps: () => {} }
   let n = 'muonProps'
-  let m = xEonify.xEo()
+  let m = xEonify.eomap()
   let r = await xEonify.getCell(e, n, m)
   expect(r).toBe(undefined)
 })
@@ -73,7 +73,7 @@ test('test getCell if e.n function', async () => {
 test('test getCell if e object', async () => {
   let e = {f: () => {}}
   let n = 'muonProps'
-  let m = xEonify.xEo()
+  let m = xEonify.eomap()
   let r = await xEonify.getCell(e, n, m)
   expect(r).toBe(e)
 })
