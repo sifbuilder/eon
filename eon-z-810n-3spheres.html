@@ -14,21 +14,23 @@ async function anitem (__eo) {
   let [
     ctlWen,
     eohalMars,
+    eohalSol,
     muonGraticule,
     muonNatform,
     protonNatform,
     renderPortview,
     renderWebgl,
-    // renderSvg,
+    renderSvg,
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
+    __eo('xs').e('sol'),
     __eo('xs').m('graticule'),
     __eo('xs').m('natform'),
     __eo('xs').p('natform'),
     __eo('xs').r('portview'),
     __eo('xs').r('webgl'),
-    // __eo('xs').r('svg'),
+    __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) {}
   // .................. animas

@@ -14,6 +14,7 @@ async function anitem (__eo) {
   let [
     ctlWen,
     eohalMars,
+    eohalSol,
     muonGeom,
     muonGraticule,
     muonNatform,
@@ -24,6 +25,7 @@ async function anitem (__eo) {
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
+    __eo('xs').e('sol'),
     __eo('xs').m('geom'),
     __eo('xs').m('graticule'),
     __eo('xs').m('natform'),
