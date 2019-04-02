@@ -82,7 +82,7 @@ async function anitem (__eo) {
             outtimed: 0, maxN: 60, 
             geospan: 0,
   
-            paceAnisOfSort: 'anima',
+            pacedAnisort: 'anima',
             basePaceOnAniView: 'eoform',
             addItemToPacer: 1, // addItemToPacer for trace
   

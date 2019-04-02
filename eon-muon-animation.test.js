@@ -1,3 +1,5 @@
+jest.setTimeout(30000)
+
 if (typeof fetch !== 'function') {
   global.fetch = require('node-fetch-polyfill')
 }
@@ -35,20 +37,18 @@ describe('results from animation', () => {
     }
 
     let __eo = await xEonify.eonit({anitem: anitem})
-    await __eo('xs').c('timer')
-    await __eo('xs').e('sol')
-    await __eo('xs').r('svg')
+    __eo = await xEonify.eocharge(__eo)
 
     let muonAnimation = await __eo('xs').m('animation')
 
-    let state = {}, times = 0, dt = 100, t = 0, ntimes = 8 // td: 1000
+    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3 // td: 1000
 
     async function aniTimer (callback) {
       await callback()
       setTimeout(() => {
         t = times * dt
         ++times
-        state = muonAnimation.animier(t) // animier
+        gjfc = muonAnimation.animier(t) // animier
         aniTimer(callback)
       }, dt)
     }
@@ -59,9 +59,12 @@ describe('results from animation', () => {
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
 
-    expect(callback).toHaveBeenCalledTimes(9) // ntimes + 1
-    expect(t).toBe(700) // (ntimes - 1) * dt
-    expect(state.anigrams[0].eotim.unElapsed).toBe(0.6) // 0.6 : ((ntimes - 1) * dt) / td
-    expect(state.anigrams[0].eofold.features[0].geometry.coordinates).toEqual([120, 0])
+
+    let td = gjfc.features[0].properties.eotim.td //  1000
+
+    expect(callback).toHaveBeenCalledTimes(ntimes + 1) //  4
+    expect(t).toBe((ntimes - 1) * dt) //  200
+    expect(gjfc.features[0].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td) // 0.1 
+    expect(gjfc.features[0].geometry.coordinates).toEqual([40, 0])
   })
 })

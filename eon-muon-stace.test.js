@@ -10,7 +10,6 @@ const xEonify = require('./eon-x-eonify.js')
 
 jest.useFakeTimers()
 
-
 test('test natMultiLineString', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
   let muonStace = await __eo('xs').m('stace')
@@ -32,7 +31,7 @@ test('test natMultiLineString', async () => {
       unPassed: 2.3229174139771658e-10,
       unStart: 0.9999999993817917,
       unTime: 2.3229174139771658e-10,
-    },    
+    },
     eofold: {
       type: 'FeatureCollection',
       features: [{
@@ -58,7 +57,7 @@ test('test natMultiLineString', async () => {
     },
     eonode: {
       type: 'Feature',
-      geometry: { coordinates: [0, 0, 0], type: 'Point', },
+      geometry: { coordinates: [0, 0, 0], type: 'Point' },
       properties: {
         geodelta: null, orgen: null, prevous: null, velang: [0, 0, 0], velin: [0, 0, 0],
       },
@@ -78,7 +77,7 @@ test('test natMultiLineString', async () => {
   let stace3 = [300, 200, 0]
   // let stace4 = [[a1,a2,a3], [b1,b2]]
   // let stace5 = [[[ {nat} ]]]
-  let stace6 = [{pos:0}, 3]
+  let stace6 = [{pos: 0}, 3]
 
   let locus0 = muonStace.getTranspots(stace0, anitem)
   let locus1 = muonStace.getTranspots(stace1, anitem)
@@ -91,10 +90,13 @@ test('test natMultiLineString', async () => {
   expect(locus3).toEqual([[300, 200, 0]])
 })
 
+/* ----------------------
 
+get locus from stace [ 0, 1, 2]
+
+---------------------- */
 describe('stace from anitem', () => {
   test('aniTimer', async () => {
-
     let anitem = async function (__eo) {
       let z = function () {
         let anima = {
@@ -117,7 +119,7 @@ describe('stace from anitem', () => {
     }
 
     let __eo = await xEonify.eonit({anitem})
-    
+
     await __eo('xs').c('timer')
     await __eo('xs').e('sol')
     await __eo('xs').r('svg')
@@ -146,8 +148,5 @@ describe('stace from anitem', () => {
     let stace0 = [ 0, 1, 2]
     let locus0 = muonStace.getTranspots(stace0, animas[0])
     expect(locus0).toEqual([[0, 1, 2]])
-
   })
 })
-
-

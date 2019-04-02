@@ -1,10 +1,15 @@
-
-<script src="./eon-x-eonify.js"></script>
-
-<script>
-window.xEonify.eonify({anitem, time: undefined})
-
-// .................. anitem
+/* ******************************************
+   *    @z419ePacerNatEoloadWeen
+   *
+   */
+  (function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+      : typeof define === 'function' && define.amd ? define(['exports'], factory)
+        : (factory((global.z419ePacerNatEoloadWeen = global.z419ePacerNatEoloadWeen || {})))
+  }(this, function (exports) {
+    'use strict'
+  
+    // .................. anitem
 async function anitem (__eo) {
   // .................. eons
   let [
@@ -96,7 +101,7 @@ async function anitem (__eo) {
         pacer: {
 
           initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
-          paceAnisOfSort: 'anima',
+          pacedAnisort: 'anima',
           basePaceOnAniView: '',
           addItemToPacer: 0,
 
@@ -177,4 +182,5 @@ async function anitem (__eo) {
   enty.z = z
   return enty
 }
-</script>
+exports.z419ePacerNatEoloadWeen = anitem
+}))

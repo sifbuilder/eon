@@ -25,9 +25,9 @@
       async function anitimer (callback) {
         await callback()
         setTimeout(() => {
-            res.newt = t + times * dt
-            res.stat = anifn(t) // animier
-            res.stats[times] = stat
+          res.newt = t + times * dt
+          res.stat = anifn(t) // animier
+          res.stats[times] = stat
           console.log(`time: ${res.newt} with ${res.stat.animas.length} animas and ${res.stat.anigrams.length} anigrams `)
           anitimer(callback)
           ++times

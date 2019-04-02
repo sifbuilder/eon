@@ -15,36 +15,33 @@ jest.useFakeTimers()
 describe('results from animation', () => {
   test('aniTimer', async () => {
     let __eo = await xEonify.eonit({anitem: '419h-pacer-string'})
-    await __eo('xs').c('timer')
-    await __eo('xs').e('sol')
-    await __eo('xs').r('svg')
-
+    __eo = await xEonify.eocharge(__eo)
     let muonAnimation = await __eo('xs').m('animation')
 
-    let state = {}, times = 0, dt = 100, t = 0, ntimes = 8 // td: 1000
-
+    jest.useFakeTimers()
+    const callback = jest.fn()    
+    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 8 // td: 1000
     async function anitimer (callback) {
       await callback()
       setTimeout(() => {
         t = times * dt
         ++times
-        state = muonAnimation.animier(t) // animier
-        //   console.log(`time: ${t} with ${state.animas.length} animas and ${state.anigrams.length} anigrams in ${state}`)
+        gjfc = muonAnimation.animier(t) // animier
+        //   console.log(`time: ${t}`)
         anitimer(callback)
       }, dt)
     }
-    const callback = jest.fn()
     await anitimer(callback)
     for (let i = 0; i < ntimes; i++) {
       jest.advanceTimersByTime(dt)
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
-console.log('state.anigrams', state.anigrams)
-    let trace = state.anigrams[1].eofold.features[0]
+
+    let trace = gjfc.anigrams[1].eofold.features[0]
 
     expect(callback).toHaveBeenCalledTimes(9) // ncalled: ntimes + 1
     expect(t).toBe(700) // ([0, ntimes - 1] + 1) * dt
-    expect(state.anigrams[0].eotim.unElapsed).toBe(0.6) // 0.6 * 200
+    expect(gjfc.anigrams[0].eotim.unElapsed).toBe(0.6) // 0.6 * 200
     expect(trace.geometry.coordinates.length).toEqual(3)
   })
 })

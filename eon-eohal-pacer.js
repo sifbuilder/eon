@@ -9,7 +9,7 @@
   'use strict'
 
   // ... **create new items at init, on auto or upon event**
-  // ... the pacer works on animas or anigrams depending on pacer.paceAnisOfSort
+  // ... the pacer works on animas or anigrams depending on pacer.pacedAnisort
   // ... anigrams are gramm-eohalled with the paced halo and returned
   // ... animas are ween-eohalled with the paced halo and saved to the store
   // ...
@@ -111,7 +111,7 @@
       let pacer = context.pacer
       let eotim = context.eotim
       let geospan = context.geospan
-      let hostAnima = context.hostAnima
+      let hostAnitem = context.hostAnitem
       let pacedUid = context.pacedUid
 
       let newgrabbed = data.newgrabbed
@@ -128,18 +128,14 @@
         }
       }
 
-      if (hostAnima.eoinited === undefined || hostAnima.eoinited[pacedUid] === undefined) {
+      if (hostAnitem.eoinited === undefined || hostAnitem.eoinited[pacedUid] === undefined) {
         if (eotim.unPassed >= (pacer.initT || 0)) {
           count.init = Math.floor(pacer.initN) // INIT
-
-          hostAnima.eoinited = (hostAnima.eoinited === undefined)
-            ? {[pacedUid]: eotim.unPassed}
-            : Object.assign(hostAnima.eoinited, {[pacedUid]: eotim.unPassed})
         }
       }
 
-      let eoouted = (hostAnima.eoouted && hostAnima.eoouted[pacedUid])
-        ? hostAnima.eoouted[pacedUid]
+      let eoouted = (hostAnitem.eoouted && hostAnitem.eoouted[pacedUid])
+        ? hostAnitem.eoouted[pacedUid]
         : 0
       let cycletime = eotim.unPassed - eoouted
 
@@ -158,17 +154,16 @@
     }
     // ............................. getNewItems
     let getNewItems = function (data = {}, context = {}) {
-      let res = {}
+
       let counter = data.i
       let count = data.count
       let key = data.key
 
       let pacedAnitem = context.pacedAnitem
-      let paceAnisOfSort = context.paceAnisOfSort
+      let pacedAnisort = context.pacedAnisort
       let pacer = context.pacer
 
       let props = {count, key, counter}
-      let newItems = []
 
       let newItem = muonProps.clone(pacedAnitem) // anigram
 
@@ -190,33 +185,65 @@
         }
       }
 
-      let eohal = typeof newItem.eohal === 'object' ? newItem.eohal : __eo([newItem.eohal, 'eohal'])
+      let eohal = typeof newItem.eohal === 'object'
+        ? newItem.eohal
+        : __eo([newItem.eohal, 'eohal'])
 
       let newItemsInCount
-      if (paceAnisOfSort === 'anima') {
+      if (pacedAnisort === 'anima') {
         newItemsInCount = eohal.ween(newItem)
-      } else {
+      } else if (pacedAnisort === 'anigram') {
         newItemsInCount = eohal.gramm(newItem)
       }
 
-      newItemsInCount = muonProps.a(newItemsInCount)
-      newItems = [...newItems, ...newItemsInCount]
-
-      res.newItems = newItems
-
-      return res
+      return {newItems: muonProps.a(newItemsInCount)}
     }
+    // ............................. getitems
+    let getitems = function (data, context) {
+      let hostAnitem, pacedAnitem
+
+      let anitem = context.anitem
+      let pacedAnisort = context.pacedAnisort || 'anigram'
+      console.assert(pacedAnisort === 'anima' || pacedAnisort === 'anigram')
+
+      let uidParent = anitem.eoric.pid
+
+      if (pacedAnisort === 'anima') { // is anima
+        let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
+        if (parentAnima === null) { // anima has no parent
+          hostAnitem = anitem // hostAnima is anitem (self)
+          pacedAnitem = anitem.eoload.pacer.anima // pacedAnima is in eoload.pacer.anima
+        }
+        if (parentAnima !== null) { // anima has parent
+          console.assert(parentAnima === null, `pacer anima should not have parent`)
+        }
+      }
+
+      if (pacedAnisort === 'anigram') { // is anigram - avatar
+        let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
+        if (parentAnigram === null) { // anigram has no parent
+          hostAnitem = anitem // hostAnima is anitem (self)
+          pacedAnitem = anitem.eoload.pacer.anigram // pacedAnigram is in eoload.pacer.anigram
+        }
+        if (parentAnigram !== null) { // anima has parent
+          hostAnitem = parentAnigram // hostAnigram is parent anitem
+          pacedAnitem = anitem.eoload.pacer.anigram // pacedAnigram is in eoload.pacer.anigram
+        }
+      }
+
+      return {hostAnitem, pacedAnitem}
+    }
+
     // ............................. eohale
     // ... @anitem : anitem
 
     function eohale (anitem) {
-
       let epsilon = 1e-3
 
       // ... default pacer properties:
       // ... geospan: epsilon  - span between two paceitems
       // ... addItemToPacer:       0   - add paceitems to preanitem
-      // ... paceAnisOfSort: anigram  - generated paceitem {anigram, anima}
+      // ... pacedAnisort: anigram  - generated paceitem {anigram, anima}
       // ... geotype: LineString  - type of geojson geometry
       // ... basePaceOnAniView: eoform   - geoform in change of model projections
 
@@ -226,10 +253,13 @@
 
       let pacer = eoload.pacer || {},
         geospan = pacer.geospan || epsilon,
-        paceAnisOfSort = pacer.paceAnisOfSort || 'anigram',
+        pacedAnisort = pacer.pacedAnisort || 'anigram',
         geotype = pacer.geotype || 'LineString',
         addItemToPacer = pacer.addItemToPacer || 0,
         basePaceOnAniView = pacer.basePaceOnAniView || 'eoform'
+
+      pacedAnisort = pacedAnisort || 'anigram'
+      console.assert(pacedAnisort === 'anima' || pacedAnisort === 'anigram')
 
       // -------------------  // HOST/PACED
 
@@ -244,7 +274,7 @@
 
       let pacedUid, pacedAnitem // paced
 
-      if (paceAnisOfSort === 'anima') { // pace anima
+      if (pacedAnisort === 'anima') { // pace anima
         if (parentAnima) {
           pacedAnitem = parentAnima // host is parent
         } else {
@@ -263,41 +293,43 @@
 
       let hostAnima = pacedAnitem // gline_cline_fline
 
-      // host: if anima.avatar, host is anima.anima
-      // paced: if anima.avatar, paced is anigram.avatar
-
+      // let items = getitems({}, {anitem, pacedAnisort})
+      // let hostAnitem = items.hostAnitem
+      // let pacedAnitem = items.pacedAnitem
+      // let pacedUid = pacedAnitem.eoric.uid
+      
+      let hostAnitem = hostAnima
 
       // -------------------  // COUNT
 
       let newgrabbed = ctlRayder.getGrabbed()
       let count = {}
       let data = {newgrabbed}
-      let context = {pacer, eotim, geospan, hostAnima, pacedUid}
+      let context = {pacer, eotim, geospan, hostAnitem, pacedUid}
       count = getCounter(data, context).count
 
-
       // -------------------  // UPD HOST ANIMA
-      if (hostAnima.eoinited === undefined) {
-        hostAnima.eoinited = {[pacedUid]: eotim.unPassed}
+      if (hostAnitem.eoinited === undefined) {
+        hostAnitem.eoinited = {[pacedUid]: eotim.unPassed}
       } else {
-        hostAnima.eoinited = Object.assign(hostAnima.eoinited, {[pacedUid]: eotim.unPassed})
+        hostAnitem.eoinited = Object.assign(hostAnitem.eoinited, {[pacedUid]: eotim.unPassed})
       }
 
       // -------------------  // COUNT
       if (count.auto > 0) {
-        if (hostAnima.eoouted === undefined) {
-          hostAnima.eoouted = {[pacedUid]: eotim.unPassed}
+        if (hostAnitem.eoouted === undefined) {
+          hostAnitem.eoouted = {[pacedUid]: eotim.unPassed}
         } else {
-          hostAnima.eoouted = Object.assign(hostAnima.eoouted, {[pacedUid]: eotim.unPassed})
+          hostAnitem.eoouted = Object.assign(hostAnitem.eoouted, {[pacedUid]: eotim.unPassed})
         }
       }
 
       // -------------------------- eostore host
-      if (paceAnisOfSort === 'anima') { // z.419b ani.ava(pacer)
-        muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: Array.of(hostAnima)})
+      if (pacedAnisort === 'anima') { // z.419b ani.ava(pacer)
+        muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: Array.of(hostAnitem)})
       }
 
-      let newItems = []      
+      let newItems = []
       if (Object.keys(count).length > 0) {
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
           let key = Object.keys(count)[counter]
@@ -305,15 +337,15 @@
 
           for (let i = 0; i < qitems; i++) {
             let data = {count, key, i}
-            let context = {pacedAnitem, paceAnisOfSort, pacer}
+            let context = {pacedAnitem, pacedAnisort, pacer}
             let newItemsInCount = getNewItems(data, context).newItems
-            newItems = [...newItems, ...newItemsInCount]
-
 
             // -------------------------- eostore paced
-            if (paceAnisOfSort === 'anima') {
+            if (pacedAnisort === 'anima') {
               muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItemsInCount})
             }
+
+            newItems = [...newItems, ...newItemsInCount]
           }
         }
       }
@@ -323,7 +355,7 @@
     // ............................. ween
     function ween (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
-      if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
+      if (anitem.eoload.pacer.pacedAnisort === 'anima') {
         let newitems = eohale(anitem)
         return newitems
       } else {
@@ -335,7 +367,7 @@
     // ............................. gramm
     function gramm (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
-      if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
+      if (anitem.eoload.pacer.pacedAnisort === 'anima') {
         let newitems = Array.of(anitem)
         return newitems
       } else {

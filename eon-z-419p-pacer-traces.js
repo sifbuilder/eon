@@ -99,7 +99,7 @@
 
         eoload: {
           pacer: {
-            paceAnisOfSort: 'anigram',
+            pacedAnisort: 'anigram',
             basePaceOnAniView: 'eoform',
             initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
             addItemToPacer: 0,
@@ -252,7 +252,7 @@
         eoload: {
           pacer: {
             eohal: eohalMars,
-            paceAnisOfSort: 'anigram',
+            pacedAnisort: 'anigram',
             basePaceOnAniView: 'viewform',
             initN: 0, eventN: 0, autoN: 1, autoP: 0.01, 
             outtimed: 0, maxN: 60, 

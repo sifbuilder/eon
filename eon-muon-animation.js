@@ -149,9 +149,7 @@
 
       // ... @STOP
       let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.unEnd), 0)
-
       let overtime = state.animas.reduce((pre, item) => (pre && item.eotim.unTime > item.eotim.unEnd), true)
-
       let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), 0)
 
       if (!nostop &&
@@ -171,7 +169,8 @@
       renderRenderer.render(featurecollection, elapsed)
 
       // return { dat: featurecollection, t: elapsed }
-      return state
+      return featurecollection
+      // return state
     }
 
     // ............................. enty

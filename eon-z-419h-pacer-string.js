@@ -81,7 +81,7 @@
             outtimed: 0, maxN: 60,
             geospan: 0,
 
-            paceAnisOfSort: 'anigram',
+            pacedAnisort: 'anigram',
             basePaceOnAniView: '', // 'viewform'
             addItemToPacer: 1, // addItemToPacer for trace
 
