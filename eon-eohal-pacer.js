@@ -203,7 +203,7 @@
       newItems = [...newItems, ...newItemsInCount]
 
       res.newItems = newItems
-      console.log('newItems:', newItems)
+
       return res
     }
     // ............................. eohale
@@ -213,10 +213,6 @@
 
       let epsilon = 1e-3
 
-      let eoric = anitem.eoric,
-        eotim = anitem.eotim,
-        eoload = anitem.eoload
-
       // ... default pacer properties:
       // ... geospan: epsilon  - span between two paceitems
       // ... addItemToPacer:       0   - add paceitems to preanitem
@@ -224,12 +220,18 @@
       // ... geotype: LineString  - type of geojson geometry
       // ... basePaceOnAniView: eoform   - geoform in change of model projections
 
+      let eoric = anitem.eoric,
+        eotim = anitem.eotim,
+        eoload = anitem.eoload
+
       let pacer = eoload.pacer || {},
         geospan = pacer.geospan || epsilon,
         paceAnisOfSort = pacer.paceAnisOfSort || 'anigram',
         geotype = pacer.geotype || 'LineString',
         addItemToPacer = pacer.addItemToPacer || 0,
         basePaceOnAniView = pacer.basePaceOnAniView || 'eoform'
+
+      // -------------------  // HOST/PACED
 
       let uidParent = anitem.eoric.pid
       let uidPreitem = muonEoric.getuid(eoric)
@@ -260,15 +262,19 @@
       console.assert(pacedAnitem !== undefined)
 
       let hostAnima = pacedAnitem // gline_cline_fline
-      let newgrabbed = ctlRayder.getGrabbed()
+
+      // host: if anima.avatar, host is anima.anima
+      // paced: if anima.avatar, paced is anigram.avatar
+
 
       // -------------------  // COUNT
+
+      let newgrabbed = ctlRayder.getGrabbed()
       let count = {}
       let data = {newgrabbed}
       let context = {pacer, eotim, geospan, hostAnima, pacedUid}
       count = getCounter(data, context).count
-      console.log('count:', count)
-      console.log('hostAnima:', hostAnima)  
+
 
       // -------------------  // UPD HOST ANIMA
       if (hostAnima.eoinited === undefined) {
@@ -302,7 +308,7 @@
             let context = {pacedAnitem, paceAnisOfSort, pacer}
             let newItemsInCount = getNewItems(data, context).newItems
             newItems = [...newItems, ...newItemsInCount]
-            console.log('newItems:', i, key, newItems)
+
 
             // -------------------------- eostore paced
             if (paceAnisOfSort === 'anima') {
@@ -322,7 +328,7 @@
         return newitems
       } else {
         let newitems = Array.of(anitem)
-        return Array.of(anitem)
+        return newitems
       }
     }
 
