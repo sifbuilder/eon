@@ -28,8 +28,8 @@
       return anitem
     }
 
-    // ....................... ween
-    let ween = anitem => {
+    // ....................... anify
+    let anify = anitem => {
       let newItem = eohale(anitem)
 
       let newItems = muonProps.a(newItem)
@@ -37,8 +37,8 @@
       return newItems
     }
 
-    // ....................... gramm
-    let gramm = anitem => {
+    // ....................... gramify
+    let gramify = anitem => {
       let newItem = eohale(anitem)
 
       let newItems = muonProps.a(newItem)
@@ -47,8 +47,8 @@
     }
 
     let eohalCore = {
-      ween: anitem => ween(anitem),
-      gramm: anitem => gramm(anitem),
+      anify: anitem => anify(anitem),
+      gramify: anitem => gramify(anitem),
     }
 
     // ....................... enty

@@ -78,8 +78,8 @@ async function anitem (__eo) {
     let eohalIsolation_gramm = anima => [] // eohal GRAMM))
 
     let isolation = {
-      ween: anima => eohalIsolation_ween(anima),
-      gramm: anima => eohalIsolation_gramm(anima),
+      anify: anima => eohalIsolation_ween(anima),
+      gramify: anima => eohalIsolation_gramm(anima),
     }
 
     // .................... pics
@@ -88,7 +88,7 @@ async function anitem (__eo) {
     // .................... natAni
     let natAni = {
 
-      eohal: isolation, // eohal defines ween and gramm behavior
+      eohal: isolation, // eohal defines anify and gramify behavior
 
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
 

@@ -11,7 +11,7 @@
   // ... **process h.mars animas**
   // ... transparent to animas, applies to anigrams
   // ... eoform, conform, ereform and proform anigrams
-  // ... parse result through h.sol.gramm
+  // ... parse result through h.sol.gramify
 
   async function eohalMars (__eo = {}) {
     let [
@@ -101,23 +101,23 @@
       return newAni
     }
 
-    // ............................. gramm
-    let gramm = anitem => {
+    // ............................. gramify
+    let gramify = anitem => {
       let newItem = eohale(anitem)
-      let newAnitems = eohalSol.gramm(newItem)
+      let newAnitems = eohalSol.gramify(newItem)
       return newAnitems
     }
 
-    // ............................. ween
-    let ween = anitem => {
+    // ............................. anify
+    let anify = anitem => {
       let newitems = muonProps.v(anitem)
       return newitems
     }
 
     // ............................. eohal
     let eohalMars = {}
-    eohalMars.ween = anitem => ween(anitem)
-    eohalMars.gramm = anitem => gramm(anitem)
+    eohalMars.anify = anitem => anify(anitem)
+    eohalMars.gramify = anitem => gramify(anitem)
 
     // ............................. enty
     let enty = eohalMars

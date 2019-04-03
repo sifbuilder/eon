@@ -190,9 +190,9 @@
 
       let newItemsInCount
       if (pacedAnisort === 'anima') {
-        newItemsInCount = eohal.ween(newItem)
+        newItemsInCount = eohal.anify(newItem)
       } else if (pacedAnisort === 'anigram') {
-        newItemsInCount = eohal.gramm(newItem)
+        newItemsInCount = eohal.gramify(newItem)
       }
 
       return {newItems: muonProps.a(newItemsInCount)}
@@ -274,8 +274,8 @@
       return newItems
     }
 
-    // ............................. ween
-    function ween (anitem) {
+    // ............................. anify
+    function anify (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       if (anitem.eoload.pacer.bypacer.pacedAnisort === 'anima') {
         let newitems = eohale(anitem)
@@ -287,8 +287,8 @@
       }
     }
 
-    // ............................. gramm
-    function gramm (anitem) {
+    // ............................. gramify
+    function gramify (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       if (anitem.eoload.pacer.bypacer.pacedAnisort === 'anima') {
         let newitems = []
@@ -300,8 +300,8 @@
     }
 
     let eohal = {
-      ween: anitem => ween(anitem),
-      gramm: anitem => gramm(anitem),
+      anify: anitem => anify(anitem),
+      gramify: anitem => gramify(anitem),
     }
 
     // ....................... enty

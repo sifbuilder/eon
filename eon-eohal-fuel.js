@@ -32,8 +32,8 @@
     let state = {}
     state.items = [] // fuel particles
 
-    // ............................. gramm
-    let gramm = function (anitem, newAnigrams = []) {
+    // ............................. gramify
+    let gramify = function (anitem, newAnigrams = []) {
       let eoric = anitem.eoric // eoric
 
       let remainCandies = muonFuel.getCandyCooords(anitem)
@@ -67,7 +67,7 @@
 
         newAnigram.eomot = eomot // proform of each fuel nat
 
-        let avaAnigrams = eohalNatform.gramm(newAnigram) // async
+        let avaAnigrams = eohalNatform.gramify(newAnigram) // async
         newAnigrams = [...newAnigrams, ...avaAnigrams]
       }
 
@@ -76,8 +76,8 @@
 
     // .................... enty
     let eohalFuel = {}
-    eohalFuel.ween = anima => [anima]
-    eohalFuel.gramm = anima => gramm(anima)
+    eohalFuel.anify = anima => [anima]
+    eohalFuel.gramify = anima => gramify(anima)
 
     let enty = eohalFuel
     return enty

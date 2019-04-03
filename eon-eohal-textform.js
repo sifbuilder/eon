@@ -14,8 +14,8 @@
   // ...
   // ...
   // ... ## methods
-  // ... * [ween](#ween) - process anima
-  // ... * [gramm](#gramm) - process anigram
+  // ... * [anify](#anify) - process anima
+  // ... * [gramify](#gramify) - process anigram
   // ...  buils the newitem eoform and pass it to h.mars
   // ...
   // ... # license
@@ -94,18 +94,18 @@
       return res
     }
 
-    // .................. gramm
-    function gramm (anitem) {
+    // .................. gramify
+    function gramify (anitem) {
       let newitem = muonProps.clone(anitem)
 
       newitem.eofold = _geofold(anitem)
       newitem.eonode = _geofold(anitem)
 
-      return eohalMars.gramm(newitem)
+      return eohalMars.gramify(newitem)
     }
 
-    // .................. ween
-    let ween = anitem => {
+    // .................. anify
+    let anify = anitem => {
       let newitems = []
       if (anitem.eoinited !== 1) {
         anitem.eoinited = 1
@@ -117,8 +117,8 @@
 
     // .................. eohal
     let eohal = {
-      ween: anitem => ween(anitem),
-      gramm: anitem => gramm(anitem),
+      anify: anitem => anify(anitem),
+      gramify: anitem => gramify(anitem),
     }
 
     // .................. enty

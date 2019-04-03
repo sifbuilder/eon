@@ -82,15 +82,15 @@
       return newAnimas
     }
 
-    // ............................. gramm
-    let gramm = anitem => {
+    // ............................. gramify
+    let gramify = anitem => {
       let newItem = eohale(anitem)
-      let newAnitems = eohalSol.gramm(newItem)
+      let newAnitems = eohalSol.gramify(newItem)
       return newAnitems
     }
 
-    // ............................. ween
-    let ween = anitem => {
+    // ............................. anify
+    let anify = anitem => {
       if (anitem.eoinited === undefined) {
         return muonProps.v(anitem)
       } else {

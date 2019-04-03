@@ -76,8 +76,8 @@
       return Array.of(anitem)
     }
 
-    // ............................. ween
-    let ween = anitem => {
+    // ............................. anify
+    let anify = anitem => {
       let newitems = []
 
       newitems = muonProps.a(anitem)
@@ -85,9 +85,9 @@
       return newitems
     }
 
-    // ............................. gramm
+    // ............................. gramify
 
-    let gramm = anitem => {
+    let gramify = anitem => {
       let newitems = []
 
       newitems = eohale(anitem)
@@ -97,8 +97,8 @@
 
     // ............................. eohalSol
     let eohalSol = {}
-    eohalSol.ween = anima => ween(anima)
-    eohalSol.gramm = anima => gramm(anima)
+    eohalSol.anify = anima => anify(anima)
+    eohalSol.gramify = anima => gramify(anima)
 
     // ............................. enty
     let enty = eohalSol

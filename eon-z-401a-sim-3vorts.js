@@ -229,8 +229,8 @@
           animas.push(ani)
         }
 
-        // ... org anima is becomes gelded after halo ween
-        // ... org anima is becomes delled after halo ween
+        // ... org anima is becomes gelded after halo anify
+        // ... org anima is becomes delled after halo anify
 
         let updanima = muonProps.cloneObj(anima)
         updanima.eogelded = 1
@@ -251,8 +251,8 @@
     let eohal_gramm = anitem => anitem
 
     let ineohal = {
-      ween: anitem => eohal_ween(anitem),
-      gramm: anitem => eohal_gramm(anitem),
+      anify: anitem => eohal_ween(anitem),
+      gramify: anitem => eohal_gramm(anitem),
     }
 
     // .................. animas

@@ -40,14 +40,14 @@
         eoload = anigram.eoload // eoload
 
       let newAnigram = muonProps.clone(anigram)
-      newAnigrams = [...newAnigrams, ...__eo('eohalMars').gramm(newAnigram)]
+      newAnigrams = [...newAnigrams, ...__eo('eohalMars').gramify(newAnigram)]
       return newAnigrams
     }
-    // ............................. ween
-    let gramm = anitem => eohale(anitem)
+    // ............................. anify
+    let gramify = anitem => eohale(anitem)
 
-    // ............................. ween
-    let ween = anitem => {
+    // ............................. anify
+    let anify = anitem => {
       if (anitem.eoinited !== undefined) {
         anitem.eoinited = 1
         return muonProps.a(anitem)
@@ -57,8 +57,8 @@
     }
     // ............................. eohalImgform
     let eohalImgform = {}
-    eohalImgform.ween = anima => Array.of(anima)
-    eohalImgform.gramm = anima => eohale(anima)
+    eohalImgform.anify = anima => Array.of(anima)
+    eohalImgform.gramify = anima => eohale(anima)
 
     // .................. enty
     let enty = eohalImgform

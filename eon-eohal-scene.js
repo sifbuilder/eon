@@ -15,22 +15,22 @@
       __eo('xs').m('scene'),
     ])
 
-    // .................... ween
-    function ween (anima, newAnimas = []) {
+    // .................... anify
+    function anify (anima, newAnimas = []) {
       let p = anima.eoload.context
       mscene.scenify(p)
       newAnimas = Array.of(anima)
       return newAnimas
     }
-    // .................. gramm
-    function gramm (anima, newAnigrams = []) {
+    // .................. gramify
+    function gramify (anima, newAnigrams = []) {
       return newAnigrams
     }
 
     // .................. eohal
     let eohalEon = {}
-    eohalEon.ween = anima => ween(anima)
-    eohalEon.gramm = anima => gramm(anima)
+    eohalEon.anify = anima => anify(anima)
+    eohalEon.gramify = anima => gramify(anima)
 
     // .................. enty
     let enty = eohalEon

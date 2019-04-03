@@ -120,23 +120,23 @@
       return newItems
     }
 
-    // ....................... gramm
-    let gramm = anitem => {
+    // ....................... gramify
+    let gramify = anitem => {
       let newgramms = muonProps.a(eohale(anitem))
-      let newItems = newgramms.reduce((p, q) => [...p, ...muonProps.a(eohalMars.gramm(q))], [])
+      let newItems = newgramms.reduce((p, q) => [...p, ...muonProps.a(eohalMars.gramify(q))], [])
       return newItems
     }
 
-    // ....................... ween
-    let ween = anitem => {
+    // ....................... anify
+    let anify = anitem => {
       let newItems = eohale(anitem)
       return muonProps.a(newItems)
     }
 
     // ....................... eohalLinkform
     let eohalLinkform = {
-      ween: anitem => ween(anitem),
-      gramm: anitem => gramm(anitem),
+      anify: anitem => anify(anitem),
+      gramify: anitem => gramify(anitem),
     }
 
     // ....................... enty

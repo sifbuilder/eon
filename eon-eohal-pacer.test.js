@@ -444,7 +444,7 @@ describe('2 anima paces animas auto', () => {
 
 //
 // anima paces animas auto
-// eon-z-419e-pacer-nat-eoload-ween
+// eon-z-419e-pacer-nat-eoload-anify
 //
 describe('2 anima paces animas auto', () => {
   test('test anima.pacer with eoload.pacer ', async () => {

@@ -118,7 +118,7 @@
           avatar.eoric.uid = muonEoric.getuid(avatar)
           avatar.eotim = item.eotim
           avatar.eoric.pid = item.eoric.uid
-          gramm(avatar)
+          gramify(avatar)
         })
       })
     }
@@ -146,13 +146,13 @@
       }
 
       let anigram = anitem
-      let newItems = eohal.ween(anigram)
+      let newItems = eohal.anify(anigram)
 
       return newItems
     }
 
-    // .................. ween
-    function ween (anitem) { // ok trace
+    // .................. anify
+    function anify (anitem) { // ok trace
       let eohal = anitem.eohal
       if (typeof (eohal) === 'object') {
 
@@ -166,7 +166,7 @@
       console.assert(eohal, `eohal not defined`)
 
       let newItems = []
-      if (eohal) newItems = eohal.ween(anigram)
+      if (eohal) newItems = eohal.anify(anigram)
 
       return newItems
     }
@@ -176,7 +176,7 @@
       return muonAnitem.snapani(anitem)
         .then(snapped => muonAnitem.functorize(snapped))
         .then(anigram => (typeof (anitem.eohal) === 'object') ? Promise.resolve(anitem.eohal) : __eo('xs').e(anigram.eohal)
-          .then(eohal => Promise.resolve(eohal.gramm(anigram))
+          .then(eohal => Promise.resolve(eohal.gramify(anigram))
             .then(newItems => {
               _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
               newItems.forEach(newItem => {
@@ -187,14 +187,14 @@
                   avatar.eoric.uid = muonEoric.getuid(avatar) // uid from avatar
                   avatar.eoric.pid = newItem.eoric.uid // pid from newItem
 
-                  gramm(avatar)
+                  gramify(avatar)
                 })
               })
             })
           )
         )
     }
-    function gramm (anitem) {
+    function gramify (anitem) {
       let snapped = muonAnitem.snapani(anitem)
       let anigram = muonAnitem.functorize(snapped)
       let eohal = (typeof (anitem.eohal) === 'object')
@@ -205,7 +205,7 @@
 
       let newItems = []
       console.assert(eohal, `eohal not defined`)
-      if (eohal) newItems = a(eohal.gramm(anigram))
+      if (eohal) newItems = a(eohal.gramify(anigram))
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {
         let avatars = gavatars(newItem)
@@ -214,7 +214,7 @@
           avatar.eoric.uid = muonEoric.getuid(avatar) // uid from avatar
           avatar.eoric.pid = newItem.eoric.uid // pid from newItem
 
-          gramm(avatar)
+          gramify(avatar)
         })
       })
     }
@@ -284,8 +284,8 @@
     let enty = () => {}
 
     enty.apply = _apply
-    enty.gramm = gramm
-    enty.ween = ween
+    enty.gramify = gramify
+    enty.anify = anify
 
     enty.ancestor = ancestor
 

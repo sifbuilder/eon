@@ -84,22 +84,22 @@
 
       if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(eoform)
 
-      return eohalMars.gramm(anitem)
+      return eohalMars.gramify(anitem)
     }
 
-    // .................... gramm
-    let gramm = anitem => {
+    // .................... gramify
+    let gramify = anitem => {
       return eohale(anitem)
     }
-    // .................... ween
-    let ween = anitem => {
+    // .................... anify
+    let anify = anitem => {
       return anitem
     }
 
     // .................... eohal
     let eohalNatform = {}
-    eohalNatform.ween = anitem => ween(anitem)
-    eohalNatform.gramm = anitem => gramm(anitem)
+    eohalNatform.anify = anitem => anify(anitem)
+    eohalNatform.gramify = anitem => gramify(anitem)
 
     // .................... enty
     let enty = eohalNatform

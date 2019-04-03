@@ -71,7 +71,7 @@
 
     // ... getweens
     function getweens (animas, elapsed) {
-      return sequence(animas, anima => muonStore.ween(anima))
+      return sequence(animas, anima => muonStore.anify(anima))
     }
 
     // ... async animate
@@ -104,7 +104,7 @@
       let anisimmed = getsims(animasLive, elapsed)
 
       // _e_ double snapani in getsims - tbf
-      anisimmed.map(ani => muonStore.gramm(ani))
+      anisimmed.map(ani => muonStore.gramify(ani))
 
       let anigrams = muonStore.anigrams()
 

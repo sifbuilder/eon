@@ -59,23 +59,23 @@
       return newItems
     }
 
-    // .................... ween
-    function ween (anima) {
+    // .................... anify
+    function anify (anima) {
       return (anima.eoinited !== 1) ? (anima.eoinited = anima.eogelded = 1, [anima]) : []
     }
 
-    // .................... gramm
-    function gramm (anigram) {
-      return Promise.all(getTiles(anigram).map(ani => eohalMars.gramm(ani)))
+    // .................... gramify
+    function gramify (anigram) {
+      return Promise.all(getTiles(anigram).map(ani => eohalMars.gramify(ani)))
     }
 
     // .................... enty
-    let eohalNat_ween = anima => ween(anima)
-    let eohalNat_gramm = anima => gramm(anima)
+    let eohalNat_ween = anima => anify(anima)
+    let eohalNat_gramm = anima => gramify(anima)
 
     let eohalTileform = {}
-    eohalTileform.ween = anima => eohalNat_ween(anima)
-    eohalTileform.gramm = anima => eohalNat_gramm(anima)
+    eohalTileform.anify = anima => eohalNat_ween(anima)
+    eohalTileform.gramify = anima => eohalNat_gramm(anima)
 
     let enty = eohalTileform
 

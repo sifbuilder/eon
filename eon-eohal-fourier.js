@@ -12,7 +12,7 @@
   // ... cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
   // ... anigrams turned to h.mars
   // ...
-  // ... ### h.fourier.gramm
+  // ... ### h.fourier.gramify
   // ... eoload.fourier.transforms, gj featurized, complexified, ntimed
   // ... eoload.fourier.maglast pencil radio
   // ... eoload.fourier.interval [0,1] delete anigrams outside
@@ -278,13 +278,13 @@
       return newItems
     }
 
-    // ............................. ween
-    function ween (anitem) {
+    // ............................. anify
+    function anify (anitem) {
       console.assert(anitem.eoload.fourier !== undefined, `anitem.eoload.fourier undefined ${anitem}`)
       if (anitem.eoload.fourier.pacedAnisort === 'anima') {
         let newItems = eohale(anitem)
 
-        let anilists = newItems.map(ani => eohalMars.ween(ani))
+        let anilists = newItems.map(ani => eohalMars.anify(ani))
         let anis = anilists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
 
         return anis
@@ -293,15 +293,15 @@
       }
     }
 
-    // ............................. gramm
-    function gramm (anitem) {
+    // ............................. gramify
+    function gramify (anitem) {
       let newAnigrams = []
       console.assert(anitem.eoload.fourier !== undefined, `anitem.eoload.fourier undefined ${anitem}`)
       if (anitem.eoload.fourier.pacedAnisort === 'anima') {
         newAnigrams = Array.of(anitem)
       } else {
         let newItems = eohale(anitem)
-        let anilists = newItems.map(ani => eohalMars.gramm(ani))
+        let anilists = newItems.map(ani => eohalMars.gramify(ani))
 
         for (let i = 0; i < anilists.length; i++) {
           let anilist = anilists[i]
@@ -317,8 +317,8 @@
     }
     // .................... eohal
     let eohal = {
-      ween: anitem => ween(anitem),
-      gramm: anitem => gramm(anitem),
+      anify: anitem => anify(anitem),
+      gramify: anitem => gramify(anitem),
     }
 
     let enty = eohal

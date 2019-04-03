@@ -25,8 +25,8 @@
       __eo('xs').m('anitem'),
     ])
 
-    // ............................. gramm
-    function gramm (anitem) {
+    // ............................. gramify
+    function gramify (anitem) {
       let eoload = anigram.eoload, // eoload
         eoric = anigram.eoric, // eoric
         uid = eoric.uid, // uid
@@ -65,13 +65,13 @@
         }),
       }
       delete newAnigram.eoload.axis
-      return eohalMars.gramm(newAnigram)
+      return eohalMars.gramify(newAnigram)
     }
 
     // ............................. enty
     let eohalAxis = {}
-    eohalAxis.ween = anima => Array.of(anima)
-    eohalAxis.gramm = anima => gramm(anima)
+    eohalAxis.anify = anima => Array.of(anima)
+    eohalAxis.gramify = anima => gramify(anima)
 
     let enty = eohalAxis
 
