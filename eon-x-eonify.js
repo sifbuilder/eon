@@ -557,7 +557,6 @@
 
   // ............................. eoeocharge
   let eocharge = async function (__eo) {
-
     await __eo('xs').c('timer')
     await __eo('xs').e('sol')
     await __eo('xs').r('svg')
@@ -565,30 +564,14 @@
     return __eo
   }
 
-
   // ............................. eondebug
   let eondebug = async function ({anitem, time}) {
-    console.log('************ eondebug', anitem)
-
-    //  let __eo = await eonit({__anitem, time})
-
-    anitem = __anitem
-    let __eo = await eomap()
-
-    let muonStore = __eo('muonStore')
-
-    let animas = await __eo('xs').z(anitem)
-    __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
-
-    let muonAnimation = await __eo('xs').m('animation')
-
-    await __eo('xs').c('timer')
-    await __eo('xs').e('sol')
-    await __eo('xs').r('svg')
+    let __eo = await eonit({anitem, time})
+    __eo = await eocharge(__eo)
 
     let state = {}
-    state.animas = muonStore.animasLive()
-    state.anigrams = muonStore.anigrams()
+    state.animas = __eo('muonStore').animasLive()
+    state.anigrams = __eo('muonStore').anigrams()
 
     // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
     // ;(function () {
@@ -622,7 +605,7 @@
 
     // window.bindTimeout(function (t) {
     bindTimeout(function (t) {
-      state = muonAnimation.animier(t) // animier
+      state = __eo('muonAnimation').animier(t) // animier
       console.log(t + 'ms remaining', state)
     }, 100)
     // window.setTimeout(function () {
