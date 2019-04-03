@@ -42,6 +42,8 @@ async function anitem (__eo) {
     let aniCube = {
 
       eohal: eohalMars,
+      eotim: eotim,
+      eoric: {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
 
       eofold: p => {
         let eoload = p.eoload
@@ -70,9 +72,7 @@ async function anitem (__eo) {
 
         return json // FeatureCollection.features[i].geometry.coordinates[i]::[-1, -1, 1]
       },
-      eotim: eotim,
-      eoric: {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
-      eocrom: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -83,6 +83,8 @@ async function anitem (__eo) {
           prerotate: [[[ ctl.rotation ]]],
         },
       },
+      eocrom: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+
       eoload: {
         points: [
           [-1, -1, 1], // 0

@@ -8,21 +8,31 @@ window.xEonify.eonify({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    muonProps,
+    d3,
+    d3Geo,
+    THREE,
+    d3Force3d,
     ctlWen,
-    muonGraticule,
     eohalMars,
-    eohalNatform,
-    eohalScene,
+    eohalSol,
+    muonGraticule,
+    muonGeom,
+    protonNatform,
+    renderPortview,
+    renderSvg,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
+    __eo('xs').b('d3'),
+    __eo('xs').b('d3-geo'),
+    __eo('xs').b('three'),
+    __eo('xs').b('d3-force-3d'),
     __eo('xs').c('wen'),
-    __eo('xs').m('graticule'),
     __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('scene'),
+    __eo('xs').e('sol'),
+    __eo('xs').m('graticule'),
+    __eo('xs').m('geom'),
+    __eo('xs').p('natform'),
+    __eo('xs').r('portview'),
+    __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
@@ -81,15 +91,20 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani'},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
 
-      eocrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
       eomot: {
-        conform: conform,
+        conform: {
+          projection: 'natform',
+          eoform: conform,
+        },   
         proform: proform,
       },
-      eoframe: geoframe,
-      eoload: {},
+
+      eoload: {
+        eocrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+        eoframe: geoframe,        
+      },
     }
 
     // .................. animas

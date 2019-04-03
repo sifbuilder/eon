@@ -8,20 +8,30 @@ window.xEonify.eonify({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    muonProps,
+    d3,
+    d3Geo,
+    THREE,
+    d3Force3d,
     ctlWen,
-    muonGraticule,
     eohalMars,
-    eohalNatform,
+    eohalSol,
+    muonGraticule,
+    muonGeom,
+    protonNatform,
+    renderPortview,
     renderSvg,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
+    __eo('xs').b('d3'),
+    __eo('xs').b('d3-geo'),
+    __eo('xs').b('three'),
+    __eo('xs').b('d3-force-3d'),
     __eo('xs').c('wen'),
-    __eo('xs').m('graticule'),
     __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
+    __eo('xs').e('sol'),
+    __eo('xs').m('graticule'),
+    __eo('xs').m('geom'),
+    __eo('xs').p('natform'),
+    __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) { }
@@ -62,8 +72,7 @@ async function anitem (__eo) {
       },
     }
 
-    let geoframe = [ [ [ -180, 180, [[[72, 36, 72]]], [[[72, 36, 72]]] ],
-      [ [[[-90, -360]]], [[[90, 360]]], [[[72, 36, 72]]], [[[72, 36, 72]]] ] ] ]
+
 
     let proform = {
       projection: 'uniwen',
@@ -78,24 +87,24 @@ async function anitem (__eo) {
     let natAni = {
 
       eohal: eohalMars,
-
-      eofold: function (p) {
-        let graticule = p.eoframe
-
-        let gjfMultiLineString = muonGraticule.gjfMultiLineString(graticule)
-        return gjfMultiLineString
-      },
-
       eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani'},
-      eocrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+
+      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+
       eomot: {
-        conform: conform,
+        conform: {
+          projection: 'natform',
+          eoform: conform,
+        },        
 
         proform: proform,
       },
-      eoframe: geoframe,
       eoload: {
+        eocrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+
+        eoframe: [ [ [ -180, 180, [[[72, 36, 72]]], [[[72, 36, 72]]] ],
+          [ [[[-90, -360]]], [[[90, 360]]], [[[72, 36, 72]]], [[[72, 36, 72]]] ] ] ],
 
       },
     }

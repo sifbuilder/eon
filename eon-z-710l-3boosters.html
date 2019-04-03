@@ -8,19 +8,21 @@ window.xEonify.eonify({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    muonProps,
     ctlWen,
     eohalMars,
     eohalNatform,
+    eohalSol,
+    muonNatform,
+    muonProps,
     renderPortview,
     renderWebgl,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
     __eo('xs').e('natform'),
+    __eo('xs').e('sol'),
+    __eo('xs').m('natform'),
+    __eo('xs').m('props'),
     __eo('xs').r('portview'),
     __eo('xs').r('webgl'),
   ])

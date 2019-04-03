@@ -8,39 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... **create new items at init, on auto or upon event**
-  // ... the pacer works on animas or anigrams depending on pacer.pacedAnisort
-  // ... anigrams are gramm-eohalled with the paced halo and returned
-  // ... animas are ween-eohalled with the paced halo and saved to the store
-  // ...
-  // ... ### functions
-  // ...
-  // ... * ##### _geojsor
-  // ... usage: `_geojsor(@ani, @prob`
-  // ... ani.pacer.initN
-  // ... ani.pacer.eventN
-  // ... ani.pacer.autoN
-  // ... ani.pacer.autoP
-  // ... ani.pacer.outtimed
-  // ... ani.pacer.maxN
-  // ... ani.pacer.geospan
-  // ... ani.pacer.addItemToPacer: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
-  // ... ani.pacer.geotype: {LineString}
-  // ... ani.pacer.basePaceOnAniView: {geo, ere, pro}
-  // ...
-  // ... ### methods
-  // ...
-  // ... * ##### gramm
-  // ... `@a.p.pacer.initSitus`  : situs for init items
-  // ... `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
-  // ... usage: `eoload.pacer.autoSitus(anigram)`
-  // ... autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
-  // ... auto time is `a.p.eotim.unPassed - a.p.pacer.eoouted`
-  // ... `@a.p.pacer.eventSitus` : situs for event items
-  // ... `count` new items to pacer from init, auto and event
-  // ...
-  // ... `@a.p.pacer.fidder`  : new item `fid` identifier
-  // ... `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
 
   async function eohalPacer (__eo = {}) {
     let [
@@ -103,34 +70,68 @@
     // ...    the source is anigram
     // ...    parentAnigram is nat, anigram is trace
 
+    // ............................. getitems
+    let getitems = function (data, context) {
+      let anitem = data.anitem
+      let pacedAnisort = data.pacedAnisort
+      console.assert(pacedAnisort === 'anima' || pacedAnisort === 'anigram')
+
+      let uidParent = anitem.eoric.pid
+
+      let hostAnitem, pacedAnitem
+      if (pacedAnisort === 'anima') { // is anima
+        let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
+        if (parentAnima === null) { // anima has no parent
+          hostAnitem = anitem // hostAnima is anitem (self)
+          // pacedAnitem = anitem.eoload.pacer.anima // pacedAnima is in eoload.pacer.anima
+          pacedAnitem = anitem
+        }
+        if (parentAnima !== null) { // anima has parent
+          console.assert(parentAnima === null, `pacer anima should not have parent`)
+        }
+      }
+
+      if (pacedAnisort === 'anigram') { // is anigram - avatar
+        let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
+        if (parentAnigram === null) { // anigram has no parent
+          hostAnitem = anitem // hostAnima is anitem (self)
+          pacedAnitem = anitem.eoload.pacer.anigram // pacedAnigram is in eoload.pacer.anigram
+        }
+        if (parentAnigram !== null) { // anima has parent
+          hostAnitem = parentAnigram // hostAnigram is parent anitem
+          // pacedAnitem = anitem.eoload.pacer.anigram // pacedAnigram is in eoload.pacer.anigram
+          pacedAnitem = anitem
+        }
+      }
+
+      return {hostAnitem, pacedAnitem}
+    }
     // ............................. getCounter
     function getCounter (data = {}, context = {}) {
-      let res = {}
+      let eotim = data.eotim
+      let geospan = data.geospan
+      let hostAnitem = data.hostAnitem
+      let pacedUid = data.pacedUid
+      let newgrabbed = data.newgrabbed
+      let bypacer = data.bypacer
+
       let count = {}
 
-      let pacer = context.pacer
-      let eotim = context.eotim
-      let geospan = context.geospan
-      let hostAnitem = context.hostAnitem
-      let pacedUid = context.pacedUid
-
-      let newgrabbed = data.newgrabbed
-
-      let dist = (!context.grabbed)
+      let dist = (!data.grabbed)
         ? Infinity
-        : muonGeom.distance3d(context.grabbed, newgrabbed)
+        : muonGeom.distance3d(data.grabbed, newgrabbed)
 
       if (newgrabbed !== false) {
         if (dist > geospan) { //
-          context.grabbed = newgrabbed
-          count.event = Math.floor(pacer.eventN) // EVEMT
-          count.grabbed = context.grabbed
+          data.grabbed = newgrabbed
+          count.event = Math.floor(bypacer.eventN) // EVEMT
+          count.grabbed = data.grabbed
         }
       }
 
       if (hostAnitem.eoinited === undefined || hostAnitem.eoinited[pacedUid] === undefined) {
-        if (eotim.unPassed >= (pacer.initT || 0)) {
-          count.init = Math.floor(pacer.initN) // INIT
+        if (eotim.unPassed >= (bypacer.initT || 0)) {
+          count.init = Math.floor(bypacer.initN) // INIT
         }
       }
 
@@ -139,9 +140,9 @@
         : 0
       let cycletime = eotim.unPassed - eoouted
 
-      let autoT = pacer.autoT || 0
-      let autoP = pacer.autoP || 0
-      let autoN = pacer.autoN
+      let autoT = bypacer.autoT || 0
+      let autoP = bypacer.autoP || 0
+      let autoN = bypacer.autoN
 
       if (eotim.unPassed >= autoT) {
         if (cycletime > autoP) {
@@ -149,23 +150,21 @@
         }
       }
 
-      res.count = count
-      return res
+      return {count}
     }
+
     // ............................. getNewItems
     let getNewItems = function (data = {}, context = {}) {
-
       let counter = data.i
       let count = data.count
       let key = data.key
-
-      let pacedAnitem = context.pacedAnitem
-      let pacedAnisort = context.pacedAnisort
-      let pacer = context.pacer
+      let pacedAnitem = data.pacedAnitem
+      let pacedAnisort = data.pacedAnisort
+      let pacedfields = data.pacedfields
 
       let props = {count, key, counter}
 
-      let newItem = muonProps.clone(pacedAnitem) // anigram
+      let newItem = muonProps.clone(pacedAnitem)
 
       let unElapsed = newItem.eotim.unElapsed
       newItem.eotim.t0 = unElapsed
@@ -177,10 +176,10 @@
       delete newItem.avatars
 
       // newItem.eoric.pid = uidAnima
-      let ownProps = Object.getOwnPropertyNames(pacer)
+      let ownProps = Object.getOwnPropertyNames(pacedfields)
       for (let prop of ownProps) {
         if (newItem[prop] !== undefined) {
-          let newpropval = muonProps.v(pacer[prop], pacedAnitem, props)
+          let newpropval = muonProps.v(pacedfields[prop], pacedAnitem, props)
           newItem[prop] = newpropval
         }
       }
@@ -198,41 +197,6 @@
 
       return {newItems: muonProps.a(newItemsInCount)}
     }
-    // ............................. getitems
-    let getitems = function (data, context) {
-      let hostAnitem, pacedAnitem
-
-      let anitem = context.anitem
-      let pacedAnisort = context.pacedAnisort || 'anigram'
-      console.assert(pacedAnisort === 'anima' || pacedAnisort === 'anigram')
-
-      let uidParent = anitem.eoric.pid
-
-      if (pacedAnisort === 'anima') { // is anima
-        let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
-        if (parentAnima === null) { // anima has no parent
-          hostAnitem = anitem // hostAnima is anitem (self)
-          pacedAnitem = anitem.eoload.pacer.anima // pacedAnima is in eoload.pacer.anima
-        }
-        if (parentAnima !== null) { // anima has parent
-          console.assert(parentAnima === null, `pacer anima should not have parent`)
-        }
-      }
-
-      if (pacedAnisort === 'anigram') { // is anigram - avatar
-        let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
-        if (parentAnigram === null) { // anigram has no parent
-          hostAnitem = anitem // hostAnima is anitem (self)
-          pacedAnitem = anitem.eoload.pacer.anigram // pacedAnigram is in eoload.pacer.anigram
-        }
-        if (parentAnigram !== null) { // anima has parent
-          hostAnitem = parentAnigram // hostAnigram is parent anitem
-          pacedAnitem = anitem.eoload.pacer.anigram // pacedAnigram is in eoload.pacer.anigram
-        }
-      }
-
-      return {hostAnitem, pacedAnitem}
-    }
 
     // ............................. eohale
     // ... @anitem : anitem
@@ -240,73 +204,33 @@
     function eohale (anitem) {
       let epsilon = 1e-3
 
-      // ... default pacer properties:
-      // ... geospan: epsilon  - span between two paceitems
-      // ... addItemToPacer:       0   - add paceitems to preanitem
-      // ... pacedAnisort: anigram  - generated paceitem {anigram, anima}
-      // ... geotype: LineString  - type of geojson geometry
-      // ... basePaceOnAniView: eoform   - geoform in change of model projections
-
-      let eoric = anitem.eoric,
-        eotim = anitem.eotim,
+      let eotim = anitem.eotim,
         eoload = anitem.eoload
 
-      let pacer = eoload.pacer || {},
-        geospan = pacer.geospan || epsilon,
-        pacedAnisort = pacer.pacedAnisort || 'anigram',
-        geotype = pacer.geotype || 'LineString',
-        addItemToPacer = pacer.addItemToPacer || 0,
-        basePaceOnAniView = pacer.basePaceOnAniView || 'eoform'
+      let pacer = eoload.pacer || {}
+      let bypacer = eoload.pacer.bypacer || {},
+        geospan = bypacer.geospan || epsilon, // span between two paceitems
+        pacedAnisort = bypacer.pacedAnisort || 'anigram', // generated paceitem {anigram, anima}
+        geotype = bypacer.geotype || 'LineString', //  type of geojson geometry
+        addItemToPacer = bypacer.addItemToPacer || 0, // add paceitems to preanitem
+        basePaceOnAniView = bypacer.basePaceOnAniView || 'eoform' // geoform projections
 
-      pacedAnisort = pacedAnisort || 'anigram'
+      let pacedfields = pacer.anima
+
       console.assert(pacedAnisort === 'anima' || pacedAnisort === 'anigram')
 
       // -------------------  // HOST/PACED
 
-      let uidParent = anitem.eoric.pid
-      let uidPreitem = muonEoric.getuid(eoric)
-
-      let preAnima = uidPreitem ? muonStore.findAnimaFromUid(uidPreitem) : null
-      let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
-
-      let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
-      let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
-
-      let pacedUid, pacedAnitem // paced
-
-      if (pacedAnisort === 'anima') { // pace anima
-        if (parentAnima) {
-          pacedAnitem = parentAnima // host is parent
-        } else {
-          pacedAnitem = preAnima || anitem // host is self
-        }
-      } else { // pace anigram
-        if (parentAnigram) {
-          pacedAnitem = parentAnigram // host is parent
-        } else {
-          pacedAnitem = preAnigram || anitem // host is self
-        }
-      }
-
-      pacedUid = pacedAnitem.eoric.uid
-      console.assert(pacedAnitem !== undefined)
-
-      let hostAnima = pacedAnitem // gline_cline_fline
-
-      // let items = getitems({}, {anitem, pacedAnisort})
-      // let hostAnitem = items.hostAnitem
-      // let pacedAnitem = items.pacedAnitem
-      // let pacedUid = pacedAnitem.eoric.uid
-      
-      let hostAnitem = hostAnima
+      let items = getitems({anitem, pacedAnisort})
+      let hostAnitem = items.hostAnitem
+      let pacedAnitem = items.pacedAnitem
+      let pacedUid = pacedAnitem.eoric.uid
 
       // -------------------  // COUNT
 
       let newgrabbed = ctlRayder.getGrabbed()
-      let count = {}
-      let data = {newgrabbed}
-      let context = {pacer, eotim, geospan, hostAnitem, pacedUid}
-      count = getCounter(data, context).count
+      let data = {newgrabbed, bypacer, eotim, geospan, hostAnitem, pacedUid}
+      let count = getCounter(data).count
 
       // -------------------  // UPD HOST ANIMA
       if (hostAnitem.eoinited === undefined) {
@@ -336,15 +260,13 @@
           let qitems = count[key]
 
           for (let i = 0; i < qitems; i++) {
-            let data = {count, key, i}
-            let context = {pacedAnitem, pacedAnisort, pacer}
-            let newItemsInCount = getNewItems(data, context).newItems
+            let data = {count, key, i, pacedAnitem, pacedAnisort, pacedfields}
+            let newItemsInCount = getNewItems(data).newItems
 
             // -------------------------- eostore paced
             if (pacedAnisort === 'anima') {
               muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItemsInCount})
             }
-
             newItems = [...newItems, ...newItemsInCount]
           }
         }
@@ -355,11 +277,12 @@
     // ............................. ween
     function ween (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
-      if (anitem.eoload.pacer.pacedAnisort === 'anima') {
+      if (anitem.eoload.pacer.bypacer.pacedAnisort === 'anima') {
         let newitems = eohale(anitem)
         return newitems
       } else {
         let newitems = Array.of(anitem)
+
         return newitems
       }
     }
@@ -367,8 +290,8 @@
     // ............................. gramm
     function gramm (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
-      if (anitem.eoload.pacer.pacedAnisort === 'anima') {
-        let newitems = Array.of(anitem)
+      if (anitem.eoload.pacer.bypacer.pacedAnisort === 'anima') {
+        let newitems = []
         return newitems
       } else {
         let newitems = eohale(anitem)

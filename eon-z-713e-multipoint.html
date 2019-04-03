@@ -16,6 +16,7 @@ async function anitem (__eo) {
     muonProps,
     muonGraticule,
     protonNatform,
+    renderSvg,    
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
@@ -25,6 +26,7 @@ async function anitem (__eo) {
     __eo('xs').m('props'),
     __eo('xs').m('graticule'),
     __eo('xs').p('natform'),
+    __eo('xs').r('svg'),    
   ])
   try { renderSvg.scenecolor('black') } catch (e) { }
   // .................. animas

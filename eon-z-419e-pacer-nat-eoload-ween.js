@@ -2,185 +2,201 @@
    *    @z419ePacerNatEoloadWeen
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.z419ePacerNatEoloadWeen = global.z419ePacerNatEoloadWeen || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    // .................. anitem
-async function anitem (__eo) {
-  // .................. eons
-  let [
-    ctlRayder,
-    ctlWen,
-    eohalNatform,
-    eohalMars,
-    eohalPacer,
-    eohalTextform,
-    muonEoric,
-    muonNatform,
-    muonProps,
-    muonStace,
-    protonUniwen,
-    renderSvg,
-  ] = await Promise.all([
-    __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
-  ])
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.z419ePacerNatEoloadWeen = global.z419ePacerNatEoloadWeen || {})))
+}(this, function (exports) {
+  'use strict'
 
-  let muonStore = __eo('muonStore')
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  // .................. animas
-  let z = function () {
-    // .................. pics
-    let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
+  // .................. anitem
+  async function anitem (__eo) {
+    // .................. eons
+    let [
+      ctlRayder,
+      ctlWen,
+      eohalNatform,
+      eohalMars,
+      eohalPacer,
+      eohalTextform,
+      muonEoric,
+      muonNatform,
+      muonProps,
+      muonStace,
+      protonUniwen,
+      renderSvg,
+    ] = await Promise.all([
+      __eo('xs').c('rayder'),
+      __eo('xs').c('wen'),
+      __eo('xs').e('natform'),
+      __eo('xs').e('mars'),
+      __eo('xs').e('pacer'),
+      __eo('xs').e('textform'),
+      __eo('xs').m('eoric'),
+      __eo('xs').m('natform'),
+      __eo('xs').m('props'),
+      __eo('xs').m('stace'),
+      __eo('xs').p('uniwen'),
+      __eo('xs').r('svg'),
+    ])
 
-    // ....................... pacerNat
-    let pacerNat = {
+    let muonStore = __eo('muonStore')
+    try { renderSvg.scenecolor('black') } catch (e) {}
+    // .................. animas
+    let z = function () {
+      // .................. pics
+      let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-      eohal: eohalPacer,
-      eotim: eotim,
-      eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
+      // ....................... pacerNat
+      let pacerNat = {
 
-      eofold: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
+        eohal: 'pacer',
+        eotim: eotim,
+        eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
+
+        eofold: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
         },
-        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-      },
 
-      eonode: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
+        eonode: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
         },
-        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-      },
 
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ [[[0, 250]]], 0, 0], // mot
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-          addNodeToTranslate: 1, // eonode
-        },
-      },
-
-      eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
-
-      eoform: {
-        x: {
-          'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-          'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
-        },
-        y: {
-          'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-          'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
-        },
-      },
-
-      eoload: {
-
-        pacer: {
-
-          initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
-          pacedAnisort: 'anima',
-          basePaceOnAniView: '',
-          addItemToPacer: 0,
-
-          eohal: eohalMars,
-
-          eoric: function (ani, props) {
-            let eoric = muonProps.clone(ani.eoric)
-
-            if (props.key === 'init') { // INIT
-              let q = muonStore.animasInClassHowMany(eoric)
-              let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
-            } else if (props.key === 'auto') { // AUTO
-              let q = muonStore.animasInClassHowMany(eoric)
-              let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
-            } else if (props.key === 'event') { // EVENT
-              let q = muonStore.animasInClassHowMany(eoric)
-              let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
-            }
-
-            eoric.uid = muonEoric.getuid(eoric)
-            return eoric
+        eomot: {
+          proform: {
+            projection: 'uniwen',
+            translate: [ [[[0, 250]]], 0, 0], // mot
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+            addNodeToTranslate: 1, // eonode
           },
+        },
 
-          eofold: function (ani, props) {
-            let neweofold = ani => muonNatform.natMultiLineString({eoform: ani.eoform})
-            return neweofold
+        eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+
+        eoform: {
+          x: {
+            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+            'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
           },
+          y: {
+            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+            'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+          },
+        },
 
-          eonode: function (ani, props) {
-            let stace = [0, 0, 0]
-            if (props.key === 'init') { // INIT
-              let autocount = props.counter
-              let C1 = 50
-              let C2 = 2
-              stace = [0, Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2), 0]
-              if (1 && 1) console.log('stace', stace)
-            } else if (props.key === 'auto') { // AUTO
-              stace = [ 0 + 20 * Math.random(), 0 + 20 * Math.random(), 0]
-            } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
-                let x = grabbed[0]
-                let y = grabbed[1]
-                let z = 0
-                stace = {x, y, z }
-              }
-            }
+        eoload: {
 
-            let coordinates = stace
-            let res = {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: coordinates,
+          pacer: {
+
+            bypacer: {
+              initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
+              pacedAnisort: 'anima',
+              basePaceOnAniView: '',
+              addItemToPacer: 0,
+            },
+
+            anima: {
+              eotim: eotim,
+              eohal: 'mars',
+
+              eoric: function (ani, props) {
+                let eoric = muonProps.clone(ani.eoric)
+
+                if (props !== undefined) {
+                  if (props.key === 'init') { // INIT
+                    let q = muonStore.animasInClassHowMany(eoric)
+                    let nextq = q + props.counter
+                    eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+                  } else if (props.key === 'auto') { // AUTO
+                    let q = muonStore.animasInClassHowMany(eoric)
+                    let nextq = q + props.counter
+                    eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+                  } else if (props.key === 'event') { // EVENT
+                    let q = muonStore.animasInClassHowMany(eoric)
+                    let nextq = q + props.counter
+                    eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+                  }
+                  eoric.uid = muonEoric.getuid(eoric)
+                }
+
+                return eoric
               },
-              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-            }
-            return res
-          },
 
+              eofold: function (ani, props) {
+                let eofold = muonProps.clone(ani.eofold)
+
+                if (ani.eoform !== undefined) {
+                  eofold = ani => muonNatform.natMultiLineString({eoform: ani.eoform})
+                }
+
+                return eofold
+              },
+
+              eonode: function (ani, props) {
+                let eonode = muonProps.clone(ani.eonode)
+
+                if (props !== undefined) {
+                  let stace = [0, 0, 0]
+                  if (props.key === 'init') { // INIT
+                    let autocount = props.counter
+                    let C1 = 50
+                    let C2 = 2
+                    stace = [0, Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2), 0]
+                  } else if (props.key === 'auto') { // AUTO
+                    stace = [ 0 + 20 * Math.random(), 0 + 20 * Math.random(), 0]
+                  } else if (props.key === 'event') { // EVENT
+                    if (ctlRayder.grabbed() !== undefined) {
+                      let grabbed = ctlRayder.grabbed()
+                      let x = grabbed[0]
+                      let y = grabbed[1]
+                      let z = 0
+                      stace = {x, y, z }
+                    }
+                  }
+
+                  let coordinates = stace
+                  eonode = {
+                    type: 'Feature',
+                    geometry: { type: 'Point', coordinates: coordinates, },
+                    properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+                  }
+                }
+                return eonode
+              },
+              eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+
+              eoform: {
+                x: {
+                  'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+                  'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+                },
+                y: {
+                  'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+                  'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+                },
+              },
+            }, // end anima
+
+          },
         },
-      },
+      }
+
+      // .................. scene
+      let scene = {
+        pacerNat, // h.pacer
+      }
+      return scene
     }
 
-    // .................. animas
-    let animas = [
-      pacerNat, // h.pacer
-
-    ]
-
-    return animas
+    let enty = () => {}
+    enty.z = z
+    return enty
   }
-
-  let enty = () => {}
-  enty.z = z
-  return enty
-}
-exports.z419ePacerNatEoloadWeen = anitem
+  exports.z419ePacerNatEoloadWeen = anitem
 }))

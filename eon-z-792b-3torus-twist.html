@@ -123,11 +123,11 @@ async function anitem (__eo) {
       },
     }
 
-    // -------------------------------  circform1
-    let circform1 = {
+    // -------------------------------  formAni
+    let formAni = {
 
+      eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'formAni'},
       eotim: eotim,
-      eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
       eohal: eohalMars,
 
       eofold: p => {
@@ -341,9 +341,9 @@ async function anitem (__eo) {
 
     // .................. animas
     let animas = [
+       formAni, // h.mars
       // cameraPersAni, // h.sol
       cameraOrthoAni, // h.sol
-      circform1, // h.mars
       gridHelper, // h.sol
       ambientLight, // h.sol
       spotLight, // h.sol
