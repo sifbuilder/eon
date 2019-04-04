@@ -70,12 +70,12 @@
     }
 
     // .................... enty
-    let eohalNat_ween = anima => anify(anima)
-    let eohalNat_gramm = anima => gramify(anima)
+    let eohalNat_anify = anima => anify(anima)
+    let eohalNat_gramify = anima => gramify(anima)
 
     let eohalTileform = {}
-    eohalTileform.anify = anima => eohalNat_ween(anima)
-    eohalTileform.gramify = anima => eohalNat_gramm(anima)
+    eohalTileform.anify = anima => eohalNat_anify(anima)
+    eohalTileform.gramify = anima => eohalNat_gramify(anima)
 
     let enty = eohalTileform
 

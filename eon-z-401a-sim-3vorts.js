@@ -247,12 +247,12 @@
       }
     }
 
-    let eohal_ween = anitem => eohale(anitem)
-    let eohal_gramm = anitem => anitem
+    let eohal_anify = anitem => eohale(anitem)
+    let eohal_gramify = anitem => anitem
 
     let ineohal = {
-      anify: anitem => eohal_ween(anitem),
-      gramify: anitem => eohal_gramm(anitem),
+      anify: anitem => eohal_anify(anitem),
+      gramify: anitem => eohal_gramify(anitem),
     }
 
     // .................. animas

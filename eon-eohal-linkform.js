@@ -122,8 +122,8 @@
 
     // ....................... gramify
     let gramify = anitem => {
-      let newgramms = muonProps.a(eohale(anitem))
-      let newItems = newgramms.reduce((p, q) => [...p, ...muonProps.a(eohalMars.gramify(q))], [])
+      let newAnigrams = muonProps.a(eohale(anitem))
+      let newItems = newAnigrams.reduce((p, q) => [...p, ...muonProps.a(eohalMars.gramify(q))], [])
       return newItems
     }
 

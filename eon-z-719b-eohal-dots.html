@@ -36,7 +36,7 @@ async function anitem (__eo) {
     let width = renderPortview.width(),
       height = renderPortview.height()
 
-    let eohalIsolation_ween = anima => { // eohal WEEN
+    let eohalIsolation_anify = anima => { // eohal ANIFY
       let animas = (anima.eoinited !== 1) ? (anima.eoinited = anima.eogelded = 1, [anima]) : []
 
       let nbr = 12
@@ -75,11 +75,11 @@ async function anitem (__eo) {
       return animas
     }
 
-    let eohalIsolation_gramm = anima => [] // eohal GRAMM))
+    let eohalIsolation_gramify = anima => [] // eohal GRAMIFY))
 
     let isolation = {
-      anify: anima => eohalIsolation_ween(anima),
-      gramify: anima => eohalIsolation_gramm(anima),
+      anify: anima => eohalIsolation_anify(anima),
+      gramify: anima => eohalIsolation_gramify(anima),
     }
 
     // .................... pics

@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @z419gPacerDotEoloadGramm
+   *    @z419gPacerDotEoloadGramify
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.z419gPacerDotEoloadGramm = global.z419gPacerDotEoloadGramm || {})))
+      : (factory((global.z419gPacerDotEoloadGramify = global.z419gPacerDotEoloadGramify || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -153,5 +153,5 @@ async function anitem (__eo) {
     enty.z = z
     return enty
   }
-  exports.z419gPacerDotEoloadGramm = anitem
+  exports.z419gPacerDotEoloadGramify = anitem
 }))

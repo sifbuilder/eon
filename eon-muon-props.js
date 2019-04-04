@@ -178,7 +178,16 @@
     /***************************
    *        @functions
    */
-    props.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+    // props.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+    props.v = function (d, ...p) {
+      let res
+      if (typeof d === 'function') {
+        res = d(...p)
+      } else {
+        res = d
+      }
+      return res
+    }
     props.f = d => (typeof (d) === 'function') ? d : () => d
     props.clone = d => {
       let clone = d

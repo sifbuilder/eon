@@ -160,7 +160,7 @@
         state.animationStop()
       }
 
-      // ... @WEEN SIM GRAMM RENDER
+      // ... @ANIFY SIM GRAMIFY RENDER
       // ... from the anigrams, collect the feature collection to be rendered
 
       let featurecollection = collect(state.animas, elapsed)

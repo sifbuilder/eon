@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @z419ePacerNatEoloadWeen
+   *    @z419ePacerNatEoloadAnify
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.z419ePacerNatEoloadWeen = global.z419ePacerNatEoloadWeen || {})))
+      : (factory((global.z419ePacerNatEoloadAnify = global.z419ePacerNatEoloadAnify || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -94,7 +94,7 @@
 
           pacer: {
 
-            bypacer: {
+            pacedby: {
               initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
               pacedAnisort: 'anima',
               basePaceOnAniView: '',
@@ -163,7 +163,7 @@
                   let coordinates = stace
                   eonode = {
                     type: 'Feature',
-                    geometry: { type: 'Point', coordinates: coordinates, },
+                    geometry: { type: 'Point', coordinates: coordinates },
                     properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
                   }
                 }
@@ -198,5 +198,5 @@
     enty.z = z
     return enty
   }
-  exports.z419ePacerNatEoloadWeen = anitem
+  exports.z419ePacerNatEoloadAnify = anitem
 }))

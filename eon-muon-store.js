@@ -136,8 +136,8 @@
       return chain(items, 0)
     }
 
-    // .................. weenDyn
-    async function weenDyn (anitem) { // ok trace
+    // .................. anifyDyn
+    async function anifyDyn (anitem) { // ok trace
       let eohal = anitem.eohal
       if (typeof (eohal) === 'object') {
         eohal = await Promise.resolve(eohal)
@@ -171,8 +171,8 @@
       return newItems
     }
 
-    // .................. grammDyn
-    function grammDyn (anitem) {
+    // .................. gramifyDyn
+    function gramifyDyn (anitem) {
       return muonAnitem.snapani(anitem)
         .then(snapped => muonAnitem.functorize(snapped))
         .then(anigram => (typeof (anitem.eohal) === 'object') ? Promise.resolve(anitem.eohal) : __eo('xs').e(anigram.eohal)

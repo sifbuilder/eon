@@ -29,13 +29,12 @@ describe('test grabbed', () => {
   })
 })
 
-
 //
 // anima paces animas auto
 //  eon-z-419k-pacer-anima-nat
 //
 describe('2 anima paces animas auto', () => {
-  test('test anima.pacer with eoload.pacer ', async () => {
+  test.only('test anima.pacer with eoload.pacer ', async () => {
   // .................. anitem
     async function anitem (__eo) {
     // .................. eons
@@ -69,7 +68,7 @@ describe('2 anima paces animas auto', () => {
         __eo('xs').r('svg'),
       ])
 
-      let muonStore = __eo('muonStore')
+
       try { renderSvg.scenecolor('black') } catch (e) {}
       // .................. animas
       let z = function () {
@@ -120,57 +119,60 @@ describe('2 anima paces animas auto', () => {
 
             pacer: {
 
-              initN: 24, eventN: 0, autoN: 0, autoP: 0.01,
-              outtimed: 0, maxN: 60,
-              geospan: 0,
+              pacedby: {
+                initN: 24, eventN: 0, autoN: 0, autoP: 0.01,
+                outtimed: 0, maxN: 60,
+                geospan: 0,
 
-              eohal: eohalMars,
-              pacedAnisort: 'anima',
-              basePaceOnAniView: '',
-              addItemToPacer: 0,
-
-              eoric: function (ani, props) {
-                let autocount = props.counter
-                let eoric = muonProps.clone(ani.eoric)
-                eoric.fid = muonEoric.idify(eoric.fic, autocount)
-                eoric.uid = muonEoric.getuid(eoric)
-                return eoric
+                eohal: eohalMars,
+                pacedAnisort: 'anima',
+                basePaceOnAniView: '',
+                addItemToPacer: 0,
               },
-
-              eofold: (ani, props) => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
-
-              eonode: function (ani, props) {
-                let stace = [0, 0, 0]
-                if (props.key === 'init') { // INIT
+              anima: {
+                eoric: function (ani, props) {
                   let autocount = props.counter
+                  let eoric = muonProps.clone(ani.eoric)
+                  eoric.fid = muonEoric.idify(eoric.fic, autocount)
+                  eoric.uid = muonEoric.getuid(eoric)
+                  return eoric
+                },
 
-                  let ridx = muonGraticule.ridx(4, 6, 1, 1)
+                eofold: (ani, props) => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
 
-                  let k = [40, 40]
-                  let d = [-140, -40]
+                eonode: function (ani, props) {
+                  let stace = [0, 0, 0]
+                  if (props.key === 'init') { // INIT
+                    let autocount = props.counter
 
-                  stace = [d[0] + k[0] * ridx(autocount)[0],
-                    d[1] + k[1] * ridx(autocount)[1],
-                    0]
-                } else if (props.key === 'auto') { // AUTO
-                  stace = [0, 0, 0]
-                } else if (props.key === 'event') { // EVENT
-                  if (ctlRayder.grabbed() !== undefined) {
-                    let grabbed = ctlRayder.grabbed()
-                    let x = grabbed[0]
-                    let y = grabbed[1]
-                    let z = 0
-                    stace = {x, y, z }
+                    let ridx = muonGraticule.ridx(4, 6, 1, 1)
+
+                    let k = [40, 40]
+                    let d = [-140, -40]
+
+                    stace = [d[0] + k[0] * ridx(autocount)[0],
+                      d[1] + k[1] * ridx(autocount)[1],
+                      0]
+                  } else if (props.key === 'auto') { // AUTO
+                    stace = [0, 0, 0]
+                  } else if (props.key === 'event') { // EVENT
+                    if (ctlRayder.grabbed() !== undefined) {
+                      let grabbed = ctlRayder.grabbed()
+                      let x = grabbed[0]
+                      let y = grabbed[1]
+                      let z = 0
+                      stace = {x, y, z }
+                    }
                   }
-                }
 
-                let coordinates = stace
-                let res = {
-                  type: 'Feature',
-                  geometry: { type: 'Point', coordinates: coordinates },
-                  properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-                }
-                return res
+                  let coordinates = stace
+                  let res = {
+                    type: 'Feature',
+                    geometry: { type: 'Point', coordinates: coordinates },
+                    properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+                  }
+                  return res
+                },
               },
             },
           },
@@ -415,7 +417,7 @@ describe('2 anima paces animas auto', () => {
 
     jest.useFakeTimers()
     const callback = jest.fn()
-    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3 
+    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3
     async function aniTimer (callback) {
       await callback()
       setTimeout(() => {
@@ -448,9 +450,8 @@ describe('2 anima paces animas auto', () => {
 //
 describe('2 anima paces animas auto', () => {
   test('test anima.pacer with eoload.pacer ', async () => {
-
   // .................. anitem
-  async function anitem (__eo) {
+    async function anitem (__eo) {
     // .................. eons
       let [
         ctlRayder,
@@ -479,7 +480,7 @@ describe('2 anima paces animas auto', () => {
         __eo('xs').p('uniwen'),
         __eo('xs').r('svg'),
       ])
-  
+
       let muonStore = __eo('muonStore')
       try { renderSvg.scenecolor('black') } catch (e) {}
       // .................. animas
@@ -488,19 +489,19 @@ describe('2 anima paces animas auto', () => {
         let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
         // ....................... pacerNat
         let pacerNat = {
-  
+
           eohal: eohalPacer,
           eotim: eotim,
           eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
-  
+
           eofold: {
             type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0], },
+            geometry: { type: 'Point', coordinates: [0, 0, 0] },
             properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
           },
           eonode: {
             type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0], },
+            geometry: { type: 'Point', coordinates: [0, 0, 0] },
             properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
           },
           eomot: {
@@ -524,20 +525,20 @@ describe('2 anima paces animas auto', () => {
               'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
             },
           },
-  
+
           eoload: {
             pacer: {
-  
+
               initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
               pacedAnisort: 'anima',
               basePaceOnAniView: '',
               addItemToPacer: 0,
-  
+
               eohal: eohalMars,
-  
+
               eoric: function (ani, props) {
                 let eoric = muonProps.clone(ani.eoric)
-  
+
                 if (props.key === 'init') { // INIT
                   let q = muonStore.animasInClassHowMany(eoric)
                   let nextq = q + props.counter
@@ -551,16 +552,16 @@ describe('2 anima paces animas auto', () => {
                   let nextq = q + props.counter
                   eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
                 }
-  
+
                 eoric.uid = muonEoric.getuid(eoric)
                 return eoric
               },
-  
+
               eofold: function (ani, props) {
                 let neweofold = ani => muonNatform.natMultiLineString({eoform: ani.eoform})
                 return neweofold
               },
-  
+
               eonode: function (ani, props) {
                 let stace = [0, 0, 0]
                 if (props.key === 'init') { // INIT
@@ -593,7 +594,7 @@ describe('2 anima paces animas auto', () => {
             },
           },
         }
-  
+
         // .................. animas
         let animas = [
           pacerNat, // h.pacer
@@ -611,7 +612,7 @@ describe('2 anima paces animas auto', () => {
 
     jest.useFakeTimers()
     const callback = jest.fn()
-    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3 
+    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3
     async function aniTimer (callback) {
       await callback()
       setTimeout(() => {
