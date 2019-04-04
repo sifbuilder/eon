@@ -270,7 +270,7 @@
           let key = Object.keys(count)[counter]
           let qitems = count[key]
 
-          for (let i = 0; i < qitems; i++) {
+          for (let i = 0; i < qitems; i++) {       
             let data = {count, key, i, pacedAnitem, pacedAnisort, pacedfields}
             let newItemsInCount = getNewItems(data).newItems
 
@@ -290,7 +290,8 @@
     function anify (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       let newitems = []
-      if (anitem.eoload.pacer.pacedby.pacedAnisort === 'anima') {
+      // if (anitem.eoload.pacer.pacedby.pacedAnisort === 'anima') {
+      if (anitem.eoload.pacer.anima !== undefined) {
         newitems = eohale(anitem)
       } else {
         newitems = Array.of(anitem)
@@ -303,7 +304,8 @@
     function gramify (anitem) {
       console.assert(anitem.eoload.pacer !== undefined, `anitem.eoload.pacer is undefined`)
       let newitems = []
-      if (anitem.eoload.pacer.pacedby.pacedAnisort === 'anigram') {
+      // if (anitem.eoload.pacer.pacedby.pacedAnisort === 'anigram') {
+      if (anitem.eoload.pacer.anigram !== undefined) {
         newitems = eohale(anitem)
       } else {
         newitems = Array.of(anitem)

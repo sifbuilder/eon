@@ -96,7 +96,7 @@
 
             pacedby: {
               initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
-              pacedAnisort: 'anima',
+              // pacedAnisort: 'anima',
               basePaceOnAniView: '',
               addItemToPacer: 0,
             },
@@ -106,12 +106,15 @@
               eohal: 'mars',
 
               eoric: function (ani, props) {
-                let eoric = muonProps.clone(ani.eoric)
+                // let eoric = muonProps.clone(ani.eoric)
+                let eoric =  { gid: 'nat', cid: 'nat', fid: 'paced' }
+
 
                 if (props !== undefined) {
                   if (props.key === 'init') { // INIT
                     let q = muonStore.animasInClassHowMany(eoric)
-                    let nextq = q + props.counter
+                    // let nextq = q + props.counter
+                    let nextq = q++ // store updated between items
                     eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
                   } else if (props.key === 'auto') { // AUTO
                     let q = muonStore.animasInClassHowMany(eoric)

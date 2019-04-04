@@ -564,54 +564,66 @@
     return __eo
   }
 
-  // ............................. eondebug
-  let eondebug = async function ({anitem, time}) {
+  // ............................. eodebug
+  let eodebug = async function ({anitem, time}) {
     let __eo = await eonit({anitem, time})
     __eo = await eocharge(__eo)
 
-    let state = {}
-    state.animas = __eo('muonStore').animasLive()
-    state.anigrams = __eo('muonStore').anigrams()
-
+    // let state = {}
+    // state.animas = __eo('muonStore').animasLive()
+    // state.anigrams = __eo('muonStore').anigrams()
     // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
     // ;(function () {
 
     // var nativeSetTimeout = window.setTimeout
-    var nativeSetTimeout = window.setTimeout
+    // let step = 100, limit = 1000
+    // let bindTimeout = function (listener, interval) {
+    //   function _setTimeout (code, delay) {
+    //     var elapsed = 0,
+    //       h
 
-    // window.bindTimeout = function (listener, interval) {
-    let bindTimeout = function (listener, interval) {
-      function _setTimeout (code, delay) {
-        var elapsed = 0,
-          h
+    //     h = setInterval(function () {
+    //       elapsed += interval
+    //       if (elapsed < delay) {
+    //         listener(delay - elapsed)
+    //       } else {
+    //         clearInterval(h)
+    //       }
+    //     }, interval)
+    //     return nativeSetTimeout(code, delay)
+    //   }
+    //   window.setTimeout = _setTimeout
+    //   _setTimeout._native = nativeSetTimeout
+    // }
+    // bindTimeout(function (t) {
+    //   state = __eo('muonAnimation').animier(t) // animier
+    //   console.log(t + 'ms remaining', state)
+    // }, step)
+    // setTimeout(function () {
+    // }, limit)
 
-          // h = window.setInterval(function () {
-        h = setInterval(function () {
-          elapsed += interval
-          if (elapsed < delay) {
-            listener(delay - elapsed)
-          } else {
-            // window.clearInterval(h)
-            clearInterval(h)
-          }
-        }, interval)
-        return nativeSetTimeout(code, delay)
-      }
 
-      window.setTimeout = _setTimeout
-      _setTimeout._native = nativeSetTimeout
+    let muonAnimation = await __eo('xs').m('animation')
+
+    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3
+   // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout    
+    async function aniTimer (callback) {
+      await callback()
+      setTimeout(() => {
+        t = times * dt
+        ++times
+        gjfc = muonAnimation.animier(t) // animier
+        console.log(times, t, gjfc)
+        aniTimer(callback)
+      }, dt)
     }
-    // }())
-
-    // window.bindTimeout(function (t) {
-    bindTimeout(function (t) {
-      state = __eo('muonAnimation').animier(t) // animier
-      console.log(t + 'ms remaining', state)
-    }, 100)
-    // window.setTimeout(function () {
-    setTimeout(function () {
-      console.log('All done.')
-    }, 1000)
+    const callback = ()=>{}
+    await aniTimer(callback)
+    for (let i = 0; i < ntimes; i++) {
+      dt = dt * ntimes
+      console.log(i, ntimes, dt)      
+      await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
+    }    
   }
 
   // ............................. exports
@@ -620,7 +632,7 @@
   exports.eonit = eonit
   exports.eonify = eonify
   exports.eocharge = eocharge
-  exports.eondebug = eondebug
+  exports.eodebug = eodebug
   exports.capitalize = capitalize
   exports.filenize = filenize
   exports.ceonize = ceonize
