@@ -112,7 +112,9 @@
       let eotim = data.eotim
       let geospan = data.geospan
       let hostAnitem = data.hostAnitem
-      let pacedUid = data.pacedUid
+      let pacedUid = data.pacedAnitem.eoric.uid
+
+
       let newgrabbed = data.newgrabbed
       let pacedby = data.pacedby
 
@@ -146,6 +148,7 @@
       let autoN = pacedby.autoN
 
       if (eotim.unPassed >= autoT) {
+
         if (cycletime > autoP) {
           count.auto = Math.floor(autoN) //    AUTO
         }
@@ -179,12 +182,12 @@
       // properties in pacedItem
       let propertyNames = Object.getOwnPropertyNames(pacedfields)
       for (let propName of propertyNames) {
-        // if (newItem[propName] !== undefined) { // if prop in host
-          let newpropval = muonProps.v(pacedfields[propName], pacedAnitem, counterProps)
-          newItem[propName] = newpropval
-        // }
+
+        let newpropval = muonProps.v(pacedfields[propName], pacedAnitem, counterProps)
+        newItem[propName] = newpropval
+
       }
-      console.log(newItem)
+
       let eohal = typeof newItem.eohal === 'object'
         ? newItem.eohal
         : __eo([newItem.eohal, 'eohal'])
@@ -236,7 +239,7 @@
       // -------------------  // COUNT getCounter
 
       let newgrabbed = ctlRayder.getGrabbed()
-      let data = {newgrabbed, pacedby, eotim, geospan, hostAnitem, pacedUid}
+      let data = {newgrabbed, pacedby, eotim, geospan, hostAnitem, pacedAnitem}
       let count = getCounter(data).count
 
       // -------------------  // UPD STORE HOST

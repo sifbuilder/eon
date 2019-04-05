@@ -1,5 +1,3 @@
-// node <program> actuponpattern
-
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
@@ -151,6 +149,7 @@ async function actView (fls, opts) {
 
 if (action === 'help') {
   console.log(`node ${prgname} {[help], actPattern} on eon-z- files`)
+  console.log(`call puppeteer and show html eon`)
   console.log(`eg.: node ${prgname} 793`)
   console.log(`eg.: node ${prgname} 793d`)
 } else if (action === 'actView') {

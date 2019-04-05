@@ -44,8 +44,8 @@
       // ....................... pacerNat
       let pacerNat = {
 
-        eohal:  eohalPacer,
-        eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
+        eohal: 'pacer',
+        eoric: { gid: 'g', cid: 'c', fid: 'pacer' },
 
         eoload: {
 
@@ -53,7 +53,8 @@
 
             pacedby: {
               initN: 2, eventN: 0, autoN: 1, autoP: 0.1, 
-              outtimed: 0, maxN: 60, geospan: 0,
+              outtimed: 0, maxN: 60, 
+              geospan: 0,
               basePaceOnAniView: '',
               addItemToPacer: 0,
             },
@@ -64,7 +65,7 @@
 
               eoric: function (ani, props) {
                 let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
-
+console.log(props)
                 if (props !== undefined) {
                   if (props.key === 'init') { // INIT
                     let q = muonStore.animasInClassHowMany(eoric)
@@ -114,7 +115,6 @@
                       stace = {x, y, z }
                     }
                   }
-
                   let coordinates = stace
                   eonode = {
                     type: 'Feature',
