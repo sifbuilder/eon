@@ -112,6 +112,7 @@
         type: 'FeatureCollection',
         features: anigrams
           .filter(p => p.eofold !== null)
+          .filter(p => p.eofold !== undefined)
           .reduce((p, q, i) =>
             q.eofold.type === 'Feature'
               ? [...p, q.eofold] // Feature

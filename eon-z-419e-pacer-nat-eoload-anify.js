@@ -18,11 +18,8 @@
       eohalNatform,
       eohalMars,
       eohalPacer,
-      eohalTextform,
       muonEoric,
       muonNatform,
-      muonProps,
-      muonStace,
       protonUniwen,
       renderSvg,
     ] = await Promise.all([
@@ -31,11 +28,8 @@
       __eo('xs').e('natform'),
       __eo('xs').e('mars'),
       __eo('xs').e('pacer'),
-      __eo('xs').e('textform'),
       __eo('xs').m('eoric'),
       __eo('xs').m('natform'),
-      __eo('xs').m('props'),
-      __eo('xs').m('stace'),
       __eo('xs').p('uniwen'),
       __eo('xs').r('svg'),
     ])
@@ -51,44 +45,7 @@
       let pacerNat = {
 
         eohal: 'pacer',
-        eotim: eotim,
         eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
-
-        eofold: {
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-        },
-
-        eonode: {
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-        },
-
-        eomot: {
-          proform: {
-            projection: 'uniwen',
-            translate: [ [[[0, 250]]], 0, 0], // mot
-            scale: 1,
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, Infinity],
-            addNodeToTranslate: 1, // eonode
-          },
-        },
-
-        eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
-
-        eoform: {
-          x: {
-            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-            'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-          y: {
-            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-            'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-        },
 
         eoload: {
 
@@ -96,7 +53,6 @@
 
             pacedby: {
               initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
-              // pacedAnisort: 'anima',
               basePaceOnAniView: '',
               addItemToPacer: 0,
             },
@@ -106,14 +62,11 @@
               eohal: 'mars',
 
               eoric: function (ani, props) {
-                // let eoric = muonProps.clone(ani.eoric)
-                let eoric =  { gid: 'nat', cid: 'nat', fid: 'paced' }
-
+                let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
 
                 if (props !== undefined) {
                   if (props.key === 'init') { // INIT
                     let q = muonStore.animasInClassHowMany(eoric)
-                    // let nextq = q + props.counter
                     let nextq = q++ // store updated between items
                     eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
                   } else if (props.key === 'auto') { // AUTO
@@ -132,17 +85,15 @@
               },
 
               eofold: function (ani, props) {
-                let eofold = muonProps.clone(ani.eofold)
-
-                if (ani.eoform !== undefined) {
-                  eofold = ani => muonNatform.natMultiLineString({eoform: ani.eoform})
-                }
-
-                return eofold
+                return a => muonNatform.natMultiLineString({eoform: a.eoload.eoform})
               },
 
               eonode: function (ani, props) {
-                let eonode = muonProps.clone(ani.eonode)
+                let eonode = {
+                  type: 'Feature',
+                  geometry: { type: 'Point', coordinates: [0, 0, 0] },
+                  properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+                }
 
                 if (props !== undefined) {
                   let stace = [0, 0, 0]
@@ -172,17 +123,31 @@
                 }
                 return eonode
               },
-              eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
 
-              eoform: {
-                x: {
-                  'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-                  'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+              eomot: {
+                proform: {
+                  projection: 'uniwen',
+                  translate: [ [[[0, 250]]], 0, 0], // mot
+                  scale: 1,
+                  rotate: [ 0, 0, 0 ],
+                  lens: [0, 1, Infinity],
+                  addNodeToTranslate: 1, // eonode
                 },
-                y: {
-                  'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-                  'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+              },
+
+              eoload: {
+                eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 222 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+                eoform: {
+                  x: {
+                    'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+                    'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+                  },
+                  y: {
+                    'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+                    'ra2': [[[6, 60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+                  },
                 },
+
               },
             }, // end anima
 

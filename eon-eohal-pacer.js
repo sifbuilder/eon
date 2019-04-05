@@ -81,13 +81,11 @@
       if (pacedAnisort === 'anima') { // is anima
         let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
         if (parentAnima === null) { // anima has no parent
-
           // the host serves to support the field functions
           hostAnitem = anitem // hostAnima is anitem (self)
 
           // newItems will call anitem.eoload.pacer.anima field functions
           pacedAnitem = anitem
-
         }
         if (parentAnima !== null) { // anima has parent
           console.assert(parentAnima === null, `pacer anima should not have parent`)
@@ -158,7 +156,6 @@
 
     // ............................. getNewItems
     let getNewItems = function (data = {}, context = {}) {
-
       let counter = data.i
       let count = data.count
       let key = data.key
@@ -176,19 +173,18 @@
 
       newItem.eotim = muonEotim.timing(newItem.eotim, newItem.eotim.msElapsed)
 
-      delete newItem.eoload
+      delete newItem.eoload.pacer
       delete newItem.avatars
 
-      // newItem.eoric.pid = uidAnima
+      // properties in pacedItem
       let propertyNames = Object.getOwnPropertyNames(pacedfields)
       for (let propName of propertyNames) {
-        if (newItem[propName] !== undefined) {
-
+        // if (newItem[propName] !== undefined) { // if prop in host
           let newpropval = muonProps.v(pacedfields[propName], pacedAnitem, counterProps)
           newItem[propName] = newpropval
-        }
+        // }
       }
-
+      console.log(newItem)
       let eohal = typeof newItem.eohal === 'object'
         ? newItem.eohal
         : __eo([newItem.eohal, 'eohal'])
@@ -207,7 +203,6 @@
     // ... @anitem : anitem
 
     function eohale (anitem) {
-
       let eotim = anitem.eotim,
         eoload = anitem.eoload
 
@@ -270,7 +265,7 @@
           let key = Object.keys(count)[counter]
           let qitems = count[key]
 
-          for (let i = 0; i < qitems; i++) {       
+          for (let i = 0; i < qitems; i++) {
             let data = {count, key, i, pacedAnitem, pacedAnisort, pacedfields}
             let newItemsInCount = getNewItems(data).newItems
 
@@ -283,7 +278,6 @@
         }
       }
       return newItems
-
     }
 
     // ............................. anify
