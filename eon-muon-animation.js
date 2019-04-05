@@ -125,7 +125,6 @@
 
     // ... ANIMIER
     function animier (elapsed, s) {
-      // state = s || state
 
       muonStore = __eo('muonStore')
       state.animas = muonStore.animasLive()
@@ -140,9 +139,6 @@
         let anima = state.animas[i]
         anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time
 
-        // if (elapsed > anima.eotim.msLimit + anima.eotim.msStart) {
-        // anima.eodelled = 1 // crop by time
-        // }
         if (anima.eotim.unElapsed > anima.eotim.unEnd) {
           anima.eodelled = 1 // crop by time
         }
@@ -169,9 +165,7 @@
       // ... then render by sort the features in the collection
       renderRenderer.render(featurecollection, elapsed)
 
-      // return { dat: featurecollection, t: elapsed }
       return featurecollection
-      // return state
     }
 
     // ............................. enty

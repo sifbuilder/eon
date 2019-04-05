@@ -38,24 +38,18 @@ describe('results from animation', () => {
     expect(callback).toHaveBeenCalledTimes(ntimes + 1) //  4
     expect(t).toBe((ntimes - 1) * dt) //  200
 
-    expect(gjfc.features.length).toBe(3)
+    expect(gjfc.features.length).toBe(2)
 
-    // feature 0 is Point
-    expect(gjfc.features[0].properties.eotim).toBe(undefined)
-    expect(gjfc.features[0].geometry.type).toEqual('Point')
-    expect(gjfc.features[0].geometry.coordinates).toEqual([ 0, 0, 0 ])
-    expect(gjfc.features[0].properties.eoric).toBe(undefined)
+    // feature 0 is MultiLineString
+    let td_0 = gjfc.features[0].properties.eotim.td
+    expect(gjfc.features[0].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td_0) // 0.1
+    expect(gjfc.features[0].geometry.type).toBe('MultiLineString')
+    expect(gjfc.features[0].properties.eoric.uid).toEqual('g_c_paced_init_0')
 
-    // feature 1 is MultiLineString
-    let td1 = gjfc.features[1].properties.eotim.td
-    expect(gjfc.features[1].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td1) // 0.1
+    // feature 1 is Mul0iLineString
+    let td_1 = gjfc.features[1].properties.eotim.td
+    expect(gjfc.features[1].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td_1) // 0.1
     expect(gjfc.features[1].geometry.type).toBe('MultiLineString')
-    expect(gjfc.features[1].properties.eoric.uid).toEqual('nat_nat_paced_init_0')
-
-    // feature 1 is MultiLineString
-    let td2 = gjfc.features[2].properties.eotim.td
-    expect(gjfc.features[2].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td2) // 0.1
-    expect(gjfc.features[2].geometry.type).toBe('MultiLineString')
-    expect(gjfc.features[2].properties.eoric.uid).toEqual('nat_nat_paced_init_1')
+    expect(gjfc.features[1].properties.eoric.uid).toEqual('g_c_paced_init_1')
   })
 })

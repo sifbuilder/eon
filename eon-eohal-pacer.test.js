@@ -311,7 +311,6 @@ describe('2 anima paces animas auto', () => {
 
                   point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
                   point = [600 * (0.5 - Math.random()), 400 * (0.5 - Math.random()) ]
-                  console.log('point:', point)
                   let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
                   if (preani) {
                     if (preani.eofold.type === 'FeatureCollection') {
@@ -432,8 +431,6 @@ describe('2 anima paces animas auto', () => {
       jest.advanceTimersByTime(dt)
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
-
-    console.log(gjfc.features[0].geometry)
 
     expect(callback).toHaveBeenCalledTimes(ntimes + 1) // 4
     expect(t).toBe((ntimes - 1) * dt) // ([0, ntimes - 1] + 1) * dt

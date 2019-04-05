@@ -43,34 +43,12 @@
   }
 
   // resolveMeta
-  //  @target
-  //    { name: 'd3-interpolate', version: undefined, path: undefined }
-  //
-  //  url is built from target
-  //    https://cdn.jsdelivr.net/npm/d3-interpolate/package.json
-  //
-  //  fetch url returns json:
-  //    this json() {
-  //      return this._consumeBody().then(text => JSON.parse(text));
-  //    }
-
-  // function resolveMeta (target) {
   async function resolveMeta (target) {
     const url = `${origin}${target.name}${target.version ? `@${target.version}` : ''}/package.json`
 
     let meta = metas.get(url)
 
     if (!meta) {
-      // metas.set(url, meta = fetch(url)
-      // .then(response => {
-
-      // if (!response.ok) throw new RequireError('unable to load package.json')
-
-      // if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta)
-
-      // return response.json()
-      // }))
-
       let response = await fetch(url)
 
       if (!response.ok) throw new RequireError('unable to load package.json')
@@ -405,8 +383,6 @@
       // return empty array
 
     } else if (typeof part[0] === 'function') {
-      // [async ƒ anitem(__eo), "z"]
-
       let [eonfn, pres] = part
       let x = await eonfn(__eo)
 
@@ -445,7 +421,6 @@
   let xs = function (__eo = {}) {
     const patterns = [
 
-      // ['ani', 'a', 'ani'],
       ['boson', 'b', ''],
       ['ctl', 'c', 'ctl'],
       ['dat', 'd', 'dat'],
@@ -602,28 +577,25 @@
     // setTimeout(function () {
     // }, limit)
 
-
     let muonAnimation = await __eo('xs').m('animation')
 
     let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3
-   // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout    
+    // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
     async function aniTimer (callback) {
       await callback()
       setTimeout(() => {
         t = times * dt
         ++times
         gjfc = muonAnimation.animier(t) // animier
-        console.log(times, t, gjfc)
         aniTimer(callback)
       }, dt)
     }
-    const callback = ()=>{}
+    const callback = () => {}
     await aniTimer(callback)
     for (let i = 0; i < ntimes; i++) {
       dt = dt * ntimes
-      console.log(i, ntimes, dt)      
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
-    }    
+    }
   }
 
   // ............................. exports
