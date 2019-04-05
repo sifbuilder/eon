@@ -44,7 +44,7 @@
       // ....................... pacerNat
       let pacerNat = {
 
-        eohal: 'pacer',
+        eohal:  eohalPacer,
         eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
         eoload: {
@@ -52,7 +52,8 @@
           pacer: {
 
             pacedby: {
-              initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
+              initN: 2, eventN: 0, autoN: 1, autoP: 0.1, 
+              outtimed: 0, maxN: 60, geospan: 0,
               basePaceOnAniView: '',
               addItemToPacer: 0,
             },
