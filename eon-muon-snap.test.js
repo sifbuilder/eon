@@ -8,19 +8,9 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eo = jest.fn(async () => {
-  let __eo = xEonify.eomap() // init mapper
-
-  __eo({'xs': xEonify.xs(__eo)}) // map xs
-  __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
-
-  await __eo('xs').m('store') // map store
-
-  return __eo
-})
-
 test.only('test snap triple array', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let muonSnap = await __eo('xs').m('snap')
 
   let v = [[[0.0, 12, 0.0, 12, 0.0, 12]]]
@@ -36,7 +26,8 @@ test.only('test snap triple array', async () => {
 })
 
 test('test snap', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let muonSnap = await __eo('xs').m('snap')
 
   expect(muonSnap.snap(null, 0, 0)).toBe(null)
@@ -44,7 +35,8 @@ test('test snap', async () => {
 })
 
 test('test nat', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let muonSnap = await __eo('xs').m('snap')
   await __eo('xs').m('natform')
 
@@ -73,7 +65,8 @@ test('test nat', async () => {
 })
 
 test('test nat', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let muonSnap = await __eo('xs').m('snap')
   await __eo('xs').m('natform')
 

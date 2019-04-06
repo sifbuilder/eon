@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @z419qPacerAnigramLine
+   *    @z419qPacerCubes
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.z419qPacerAnigramLine = global.z419qPacerAnigramLine || {})))
+      : (factory((global.z419qPacerCubes = global.z419qPacerCubes || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -204,5 +204,5 @@
     enty.z = z
     return enty
   }
-  exports.z419qPacerAnigramLine = anitem
+  exports.z419qPacerCubes = anitem
 }))

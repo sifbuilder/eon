@@ -8,19 +8,9 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eo = jest.fn(async () => {
-  let __eo = xEonify.eomap() // init mapper
-
-  __eo({'xs': xEonify.xs(__eo)}) // map xs
-  __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
-
-  await __eo('xs').m('store') // map store
-
-  return __eo
-})
-
 test.only('test natMultiLineString', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {
@@ -59,7 +49,8 @@ test.only('test natMultiLineString', async () => {
 })
 
 test('test natMultiPolygon', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -127,7 +118,8 @@ test('test natMultiPolygon', async () => {
 })
 
 test('test nat with functions ', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {
@@ -172,7 +164,8 @@ test('test nat with functions ', async () => {
 })
 
 test('test nat with functions ', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {
@@ -218,7 +211,8 @@ test('test nat with functions ', async () => {
 })
 
 test('test nat with functions 3D', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {
@@ -281,7 +275,8 @@ test('test nat with functions 3D', async () => {
 })
 
 test('test nat with functions 3D', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {
@@ -333,7 +328,8 @@ test('test nat with functions 3D', async () => {
 })
 
 test('test nat with functions 2D', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {
@@ -378,7 +374,8 @@ test('test nat with functions 2D', async () => {
 })
 
 test('test nat with functions 2D', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {
@@ -421,7 +418,8 @@ test('test nat with functions 2D', async () => {
 })
 
 test('test nat with functions 2D', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
 
   let eoform = {
     x: {

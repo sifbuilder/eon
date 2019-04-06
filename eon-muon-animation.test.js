@@ -38,17 +38,16 @@ describe('results from animation', () => {
 
     let __eo = await xEonify.eonit({anitem: anitem})
     __eo = await xEonify.eocharge(__eo)
-
     let muonAnimation = await __eo('xs').m('animation')
 
-    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3 // td: 1000
+    let state = {}, times = 0, dt = 100, t = 0, ntimes = 3 // td: 1000
 
     async function aniTimer (callback) {
       await callback()
       setTimeout(() => {
         t = times * dt
         ++times
-        gjfc = muonAnimation.animier(t) // animier
+        state = muonAnimation.animier(t) // animier
         aniTimer(callback)
       }, dt)
     }
@@ -60,11 +59,11 @@ describe('results from animation', () => {
     }
 
 
-    let td = gjfc.features[0].properties.eotim.td //  1000
+    let td = state.featurecollection.features[0].properties.eotim.td //  1000
 
     expect(callback).toHaveBeenCalledTimes(ntimes + 1) //  4
     expect(t).toBe((ntimes - 1) * dt) //  200
-    expect(gjfc.features[0].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td) // 0.1 
-    expect(gjfc.features[0].geometry.coordinates).toEqual([40, 0])
+    expect(state.featurecollection.features[0].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td) // 0.1 
+    expect(state.featurecollection.features[0].geometry.coordinates).toEqual([40, 0])
   })
 })

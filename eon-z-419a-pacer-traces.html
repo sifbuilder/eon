@@ -293,207 +293,157 @@ async function anitem (__eo) {
       },
     }
     // ............................. natAni
-    let natLined = {
+    // let natLined = {
 
-      eohal: eohalMars,
-      eofold: a => ({
-        type: 'Feature',
-        geometry: {
+    //   eohal: eohalMars,
+    //   eofold: a => ({
+    //     type: 'Feature',
+    //     geometry: {
 
-          type: 'LineString', // type: 'Point', //
-          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
+    //       type: 'LineString', // type: 'Point', //
+    //       coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
 
-        },
-        properties: {},
-      }),
+    //     },
+    //     properties: {},
+    //   }),
 
-      eonode: {
-        type: 'Feature',
-        geometry: {type: 'Point', coordinates: [0, 0]},
-        properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
-      },
+    //   eonode: {
+    //     type: 'Feature',
+    //     geometry: {type: 'Point', coordinates: [0, 0]},
+    //     properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+    //   },
 
-      eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
+    //   eotim,
+    //   eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
 
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ [ -170, 80 ], [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          } ]]] ],
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
+    //   eomot: {
+    //     proform: {
+    //       projection: 'uniwen',
+    //       translate: [ [ -170, 80 ], [[[ {
+    //         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
+    //         'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+    //       } ]]] ],
+    //       scale: 1,
+    //       rotate: [ 0, 0, 0 ],
+    //       lens: [0, 1, Infinity],
 
-        },
-      },
+    //     },
+    //   },
 
-      eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
-      },
-      eoload: {},
+    //   eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
+    //   },
+    //   eoload: {},
 
-    }
+    // }
 
     // ............................. traceLine
-    let traceLine = {
+    // let traceLine = {
 
-      eohal: eohalPacer,
+    //   eohal: eohalPacer,
 
-      eofold: {
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: null,
-        },
-        properties: {},
-      },
-      eonode: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        properties: {},
-      },
+    //   eofold: {
+    //     type: 'Feature',
+    //     geometry: {
+    //       type: 'LineString',
+    //       coordinates: null,
+    //     },
+    //     properties: {},
+    //   },
+    //   eonode: {
+    //     type: 'Feature',
+    //     geometry: {
+    //       type: 'Point',
+    //       coordinates: [0, 0, 0],
+    //     },
+    //     properties: {},
+    //   },
 
-      eotim,
-      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
-      eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+    //   eotim,
+    //   eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+    //   eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-      eoload: {
-        pacer: { // addItemToPacer for trace
-          eohal: eohalMars,
-          pacedAnisort: 'anigram',
-          basePaceOnAniView: 'eoform',
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
+    //   eoload: {
+    //     pacer: { // addItemToPacer for trace
+    //       eohal: eohalMars,
+    //       pacedAnisort: 'anigram',
+    //       basePaceOnAniView: 'eoform',
+    //       initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
-          addItemToPacer: 1,
+    //       addItemToPacer: 1,
 
-          eofold: function (ani, props) {
-            let coords
-            if (props.key === 'init') { // INIT
-              coords = ani.eonode.geometry.coordinates // eonode
-            } else if (props.key === 'auto') { // AUTO
-              let point = muonStace.getLocus([null, null, null], ani)
+    //       eofold: function (ani, props) {
+    //         let coords
+    //         if (props.key === 'init') { // INIT
+    //           coords = ani.eonode.geometry.coordinates // eonode
+    //         } else if (props.key === 'auto') { // AUTO
+    //           let point = muonStace.getLocus([null, null, null], ani)
 
-              point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
+    //           point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
 
-              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
-              if (preani) {
-                if (preani.eofold.type === 'FeatureCollection') {
-                  let feature = preani.eofold.features[0]
-                  coords = (feature.geometry.coordinates)
-                    ? [...feature.geometry.coordinates, point ]
-                    : Array.of(point)
-                } else if (preani.eofold.type === 'Feature') {
-                  let feature = preani.eofold
-                  coords = (feature.geometry.coordinates)
-                    ? [...feature.geometry.coordinates, point ]
-                    : Array.of(point)
-                }
-              }
-            } else if (props.key === 'event') { // EVENT
-              coords = ani.eonode.geometry.coordinates
-            }
+    //           let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+    //           if (preani) {
+    //             if (preani.eofold.type === 'FeatureCollection') {
+    //               let feature = preani.eofold.features[0]
+    //               coords = (feature.geometry.coordinates)
+    //                 ? [...feature.geometry.coordinates, point ]
+    //                 : Array.of(point)
+    //             } else if (preani.eofold.type === 'Feature') {
+    //               let feature = preani.eofold
+    //               coords = (feature.geometry.coordinates)
+    //                 ? [...feature.geometry.coordinates, point ]
+    //                 : Array.of(point)
+    //             }
+    //           }
+    //         } else if (props.key === 'event') { // EVENT
+    //           coords = ani.eonode.geometry.coordinates
+    //         }
 
-            console.assert(coords !== undefined && coords !== null)
-            let geometry = {
-              type: 'LineString',
-              coordinates: coords,
-            }
-            console.assert(muonGeoj.isValid(geometry))
+    //         console.assert(coords !== undefined && coords !== null)
+    //         let geometry = {
+    //           type: 'LineString',
+    //           coordinates: coords,
+    //         }
+    //         console.assert(muonGeoj.isValid(geometry))
 
-            return {
-              type: 'Feature',
-              geometry: geometry,
-              properties: {},
-            }
-          },
+    //         return {
+    //           type: 'Feature',
+    //           geometry: geometry,
+    //           properties: {},
+    //         }
+    //       },
 
-          eonode: function (ani, props) {
-            let stace = [0, 0, 0]
-            if (props.key === 'init') { // INIT
-              // stace is ani's transformed eonode
-              stace = muonStace.getLocus([null, null, null], ani)
-            } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus([null, null, null], ani)
-            } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
-                let x = grabbed[0]
-                let y = grabbed[1]
-                let z = 0
-                stace = {x, y, z }
-              }
-            }
+    //       eonode: function (ani, props) {
+    //         let stace = [0, 0, 0]
+    //         if (props.key === 'init') { // INIT
 
-            let coordinates = stace
-            let res = {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: coordinates,
-              },
-              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-            }
-            return res
-          },
+    //           stace = muonStace.getLocus([null, null, null], ani)
+    //         } else if (props.key === 'auto') { // AUTO
+    //           stace = muonStace.getLocus([null, null, null], ani)
+    //         } else if (props.key === 'event') { // EVENT
+    //           if (ctlRayder.grabbed() !== undefined) {
+    //             let grabbed = ctlRayder.grabbed()
+    //             let x = grabbed[0]
+    //             let y = grabbed[1]
+    //             let z = 0
+    //             stace = {x, y, z }
+    //           }
+    //         }
 
-        },
-      },
-    }
-    // .................. textAni
-    let textAni = {
+    //         let coordinates = stace
+    //         let res = {
+    //           type: 'Feature',
+    //           geometry: {
+    //             type: 'Point',
+    //             coordinates: coordinates,
+    //           },
+    //           properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+    //         }
+    //         return res
+    //       },
 
-      eohal: eohalTextform,
-      eotim: eotim,
-      eoric: {gid: 'text', cid: 'text', fid: 'text'},
-
-      eofold: ani => {
-        let res = {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0],
-          },
-        }
-        return res
-      },
-
-      eonode: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0],
-        },
-        properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
-      },
-
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
-
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ -250, 0 ],
-        },
-      },
-      eoload: {
-
-        textform: {
-          string: 'i like that almost ...',
-          style: {
-            rotate: [[[ 0, -1 ]]],
-            'font-size': [[[10, 60]]],
-            'font-family': 'BankFuturistic',
-            'text-anchor': 'center',
-
-          },
-        },
-
-      },
-    }
+    //     },
+    //   },
+    // }
 
     // ....................... animapi
     natLeaform.avatars = {
@@ -501,12 +451,12 @@ async function anitem (__eo) {
       traceNat, // h.pacer
 
     }
-    // ....................... animapi
-    natLined.avatars = {
+    // // ....................... animapi
+    // natLined.avatars = {
 
-      traceLine, // h.pacer
+    //   traceLine, // h.pacer
 
-    }
+    // }
 
     // .................. animas
     let animas = [

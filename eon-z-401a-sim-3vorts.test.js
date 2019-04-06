@@ -15,10 +15,7 @@ jest.useFakeTimers()
 describe('results from animation', () => {
   test('aniTimer', async () => {
     let __eo = await xEonify.eonit({anitem: '401a-sim-3vorts'})
-    await __eo('xs').c('timer')
-    await __eo('xs').e('sol')
-    await __eo('xs').r('svg')
-
+    __eo = await xEonify.eocharge(__eo)
     let muonAnimation = await __eo('xs').m('animation')
 
     let state = {}, times = 0, dt = 100, t = 0, ntimes = 2
@@ -28,7 +25,7 @@ describe('results from animation', () => {
       setTimeout(() => {
         t = times * dt
         ++times
-        state = muonAnimation.animier(t) // animier
+        state = muonAnimation.animier(t)
         anitimer(callback)
       }, dt)
     }

@@ -239,23 +239,27 @@
 
       return anima
     }
-    // ............................. animasInClassHowMany
-    let animasInClassHowMany = item => {
+    // ............................. animasInClass
+    let animasInClass = item => {
       let eoric
       let qmany = 0
       if (item.eoric !== undefined) {
         eoric = item.eoric
       } else {
-        eoric = item
+        if (typeof item === 'object') {
+          eoric = item
+        }
       }
       if (eoric !== undefined) {
         let anitems = enty.animas()
         qmany = anitems
-          .filter(d => (d.eoric.gid === eoric.gid &&
-                    d.eoric.cid === eoric.cid)).length
+          .filter(d => (d.eoric.gid === eoric.gid && d.eoric.cid === eoric.cid))
       }
       return qmany
     }
+    // ............................. animasInClassHowMany
+    let animasInClassHowMany = item => animasInClass(item).length
+
     // ............................. anigramsInClassHowMany
     let anigramsInClassHowMany = item => {
       let eoric
@@ -273,13 +277,48 @@
       }
       return qmany
     }
-    // ............................. animasInGroupHowMany
-    let animasInGroupHowMany = anima =>
+    // ............................. anianimasInGroupmasInGroupHowMany
+    let animasInGroup = anima =>
       (anima === undefined)
         ? 0
         : enty.animasLive()
-          .filter(d => d.eoric.gid === anima.eoric.gid).length
+          .filter(d => d.eoric.gid === anima.eoric.gid)
 
+    // ............................. animasInGroupHowMany
+    let animasInGroupHowMany = anima => animasInGroup(anima).length
+
+    // ............................. findAnima
+    let findItem = (item, list) => {
+      let anitems = list
+
+      let res
+      if (item) {
+        if (typeof item === 'object' && item.eoric !== undefined) {
+          let eoric = item.eoric
+          res = findAnima(eoric)
+        } else if (typeof item === 'object' && item.uid !== undefined) {
+          res = anitems[item.uid]
+        } else if (typeof item === 'object' && item.gid !== undefined) {
+          let uid = muonEoric.idify(item.gid, item.cid, item.fid)
+
+
+          res = anitems[uid]
+        } else if (typeof item === 'string') {
+          res = anitems[item]
+        }
+      }
+      return res
+    }
+    // ............................. findAnima
+    let findAnima = item => {
+      let anitems = state.animas
+      return findItem(item, anitems)
+    }
+    // ............................. findAnima
+    let findAnigram = item => {
+      let anitems = state.anigrams
+      return findItem(item, anitems)
+    }
     // .................. enty
     let enty = () => {}
 
@@ -289,20 +328,24 @@
 
     enty.ancestor = ancestor
 
-    enty.anigrams = () => Object.values(state.anigrams)
     enty.animasAll = () => Object.values(state.animas) // animas including eodelled
     enty.animasLive = () => Object.values(state.animas).filter(d => d.eodelled !== 1)
-    enty.animas = enty.animasLive
+    enty.animas = () => enty.animasLive()
+    enty.anigrams = () => Object.values(state.anigrams)
+    enty.state = () => state
 
+    enty.animasInGroup = animasInGroup
     enty.animasInGroupHowMany = animasInGroupHowMany
-
+    enty.animasInClass = animasInClass
     enty.animasInClassHowMany = animasInClassHowMany
 
     enty.anigramsInClassHowMany = anigramsInClassHowMany
 
     enty.findFromUid = (uid, list) => list[uid]
-    enty.findAnigramFromUid = uid => state.anigrams[uid]
+    enty.findAnima = findAnima
     enty.findAnimaFromUid = uid => state.animas[uid]
+    enty.findAnigram = findAnigram
+    enty.findAnigramFromUid = uid => state.anigrams[uid]
 
     return enty
   }

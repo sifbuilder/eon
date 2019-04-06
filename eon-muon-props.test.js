@@ -8,45 +8,40 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eo = jest.fn(async () => {
-  let __eo = xEonify.eomap() // init mapper
 
-  __eo({'xs': xEonify.xs(__eo)}) // map xs
-  __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
-
-  let muonStore = await __eo('xs').m('store') // map store
-  muonStore = __eo('muonStore')
-
-  return __eo
-})
 
 test('test cant', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: '419e-pacer-nat-eoload-anify'})
+  __eo = await xEonify.eocharge(__eo)
   let eon = await __eo('xs').m('props')
   expect(eon.cant([ [0, 0], [1, 1] ], 0.2)).toEqual([ [ 0.2, 0.2 ], [ 0.8, 0.8 ] ])
 })
 
 test('test', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: '419e-pacer-nat-eoload-anify'})
+  __eo = await xEonify.eocharge(__eo)
   let eon = await __eo('xs').m('props')
 
   expect(eon.isPureArray([1, 2])).toBe(true)
 })
 
 test('test is not PureArray', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: '419e-pacer-nat-eoload-anify'})
+  __eo = await xEonify.eocharge(__eo)
   let eon = await __eo('xs').m('props')
 
   expect(eon.isPureArray([1, {}])).toBe(false)
 })
 test('test is not PureArray', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: '419e-pacer-nat-eoload-anify'})
+  __eo = await xEonify.eocharge(__eo)
   let eon = await __eo('xs').m('props')
 
   expect(eon.isPureArray([1, () => {}])).toBe(false)
 })
 test('test scale linear', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: '419e-pacer-nat-eoload-anify'})
+  __eo = await xEonify.eocharge(__eo)
   let eon = await __eo('xs').m('props')
 
   let scale = eon.linear()

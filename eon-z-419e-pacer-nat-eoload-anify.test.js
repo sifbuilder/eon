@@ -18,13 +18,13 @@ describe('results from animation', () => {
     __eo = await xEonify.eocharge(__eo)
     let muonAnimation = await __eo('xs').m('animation')
 
-    let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 7
+    let state = {}, times = 0, dt = 100, t = 0, ntimes = 7
     async function aniTimer (callback) {
       await callback()
       setTimeout(() => {
         t = times * dt
         ++times
-        gjfc = muonAnimation.animier(t) // animier
+        state = muonAnimation.animier(t) // animier
         aniTimer(callback)
       }, dt)
     }
@@ -38,18 +38,19 @@ describe('results from animation', () => {
     expect(callback).toHaveBeenCalledTimes(ntimes + 1) //  4
     expect(t).toBe((ntimes - 1) * dt) //  200
 
-    expect(gjfc.features.length).toBe(2)
+    expect(state.featurecollection.features.length).toBe(2)
+
 
     // feature 0 is MultiLineString
-    let td_0 = gjfc.features[0].properties.eotim.td
-    expect(gjfc.features[0].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td_0) // 0.1
-    expect(gjfc.features[0].geometry.type).toBe('MultiLineString')
-    expect(gjfc.features[0].properties.eoric.uid).toEqual('g_c_paced_init_0')
+    let td_0 = state.featurecollection.features[0].properties.eotim.td
+    expect(state.featurecollection.features[0].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td_0) // 0.1
+    expect(state.featurecollection.features[0].geometry.type).toBe('MultiLineString')
+    expect(state.featurecollection.features[0].properties.eoric.uid).toEqual('g_c_paced_init_1')
 
     // feature 1 is Mul0iLineString
-    let td_1 = gjfc.features[1].properties.eotim.td
-    expect(gjfc.features[1].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td_1) // 0.1
-    expect(gjfc.features[1].geometry.type).toBe('MultiLineString')
-    expect(gjfc.features[1].properties.eoric.uid).toEqual('g_c_paced_init_1')
+    let td_1 = state.featurecollection.features[1].properties.eotim.td
+    expect(state.featurecollection.features[1].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td_1) // 0.1
+    expect(state.featurecollection.features[1].geometry.type).toBe('MultiLineString')
+    expect(state.featurecollection.features[1].properties.eoric.uid).toEqual('g_c_paced_init_2')
   })
 })

@@ -12,6 +12,7 @@ jest.useFakeTimers()
 
 test('test natMultiLineString', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo)  
   let muonStace = await __eo('xs').m('stace')
 
   let anitem = {

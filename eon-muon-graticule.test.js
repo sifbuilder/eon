@@ -1,3 +1,5 @@
+jest.setTimeout(30000)
+
 if (typeof fetch !== 'function') {
   global.fetch = require('node-fetch-polyfill')
 }
@@ -8,17 +10,6 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eo = jest.fn(async () => {
-  let __eo = xEonify.eomap() // init mapper
-
-  __eo({'xs': xEonify.xs(__eo)}) // map xs
-  __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
-
-  let muonStore = await __eo('xs').m('store') // map store
-  muonStore = __eo('muonStore')
-
-  return __eo
-})
 // test('test tidx', async () => {
 // let eon = await getEon()
 // let tidxer = eon.tidx(6, 4, 1, 1) // h (mers), v (parals)
@@ -32,7 +23,8 @@ let eo = jest.fn(async () => {
 // . . . . . . [0,0]:0      [5,0]:4
 
 test('tidx', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let tidxer = eon.tidx(6, 4, 1, 1) // h (mers), v (parals)
@@ -41,7 +33,8 @@ test('tidx', async () => {
 })
 
 test('ridx a', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
   // . . 3 . . .
   // . . . . . .
@@ -53,7 +46,8 @@ test('ridx a', async () => {
 })
 
 test('tidxer b', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let tidxer = eon.ridx(6, 4, 1, 1) // h (mers), v (parals)
@@ -63,7 +57,8 @@ test('tidxer b', async () => {
 
 // quads
 test('quads', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p0 = [0, 0, 3, 13] // i, j, xn, yn
@@ -73,7 +68,8 @@ test('quads', async () => {
 })
 
 test('gratiparams', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let params1 = {
@@ -109,7 +105,8 @@ test('gratiparams', async () => {
 
 // arywinopen
 test('arywinopen', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let pars1 = [-180, 180, 30] //  d0, d1, dd
@@ -124,7 +121,8 @@ test('arywinopen', async () => {
 
 // arywinclosed
 test('arywinclosed', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let pars1 = [-180, 180, 30] //  d0, d1, dd
@@ -139,7 +137,8 @@ test('arywinclosed', async () => {
 
 // grarr
 test('grarr', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p2 = {multiframe: [ [-180, 180, 180, 180], [-90, 90, 90, 90] ] }
@@ -154,7 +153,8 @@ test('grarr', async () => {
 })
 // dedges
 test('dedges', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p2 = {
@@ -176,7 +176,8 @@ test('dedges', async () => {
 })
 // oneface
 test('oneface', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p1 = [[ 2, 1 ], [ 0, 2 ], [ 2, 2 ], 3, 7]
@@ -190,7 +191,8 @@ test('oneface', async () => {
 })
 // bifaces
 test('bifaces', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p1 = [ 1, 4, 3, 7]
@@ -205,7 +207,8 @@ test('bifaces', async () => {
 
 // gfaces
 test('gfaces', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p2 = {multiframe: [ [-180, 180, 120, 60], [-90, 90, 30, 30] ] }
@@ -218,7 +221,8 @@ test('gfaces', async () => {
 
 // equator
 test('equator', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p1 = {multiframe: [ [-180, 180, 60, 60], [-180, 180, 60, 60] ] }
@@ -251,7 +255,8 @@ test('equator', async () => {
 })
 // gjfMultiLineString
 test('gjfMultiLineString', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p2 = {multiframe: [ [-180, 180, 120, 60], [-90, 90, 30, 30] ] }
@@ -270,7 +275,8 @@ test('gjfMultiLineString', async () => {
 
 // gjfMultiPoint
 test('gjfMultiPoint', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p2 = {multiframe: [ [-180, 180, 120, 60], [-90, 90, 30, 30] ] }
@@ -289,7 +295,8 @@ test('gjfMultiPoint', async () => {
 
 // gjfMultiPolygon
 test('gjfMultiPolygon', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p2 = {multiframe: [ [-180, 180, 120, 60], [-90, 90, 30, 30] ] }
@@ -323,7 +330,8 @@ test('gjfMultiPolygon', async () => {
 
 // natMultiLineString
 test('natMultiLineString ', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo) 
   let eon = await __eo('xs').m('graticule')
 
   let p2 = {multiframe: [ [-180, 180, 120, 60], [-90, 90, 30, 30] ] }

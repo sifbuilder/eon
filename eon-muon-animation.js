@@ -130,8 +130,8 @@
       state.animas = muonStore.animasLive()
       state.anigrams = muonStore.anigrams()
 
-      if (0 && 1) console.log(` ******************* animas ${elapsed} ${state.animas.length}`, state.animas)
-      if (0 && 1) console.log(` ******************* anigrams ${elapsed} ${state.anigrams.length}`, state.anigrams)
+      if (1 && 1) console.log(` ================= ${parseInt(elapsed)} ${state.animas.length}`, state.animas)
+      if (1 && 1) console.log(` ----------------- ${parseInt(elapsed)} ${state.anigrams.length}`, state.anigrams)
 
       // ... TIME
       state.animas = a(muonStore.animasLive())
@@ -161,11 +161,13 @@
       // ... from the anigrams, collect the feature collection to be rendered
 
       let featurecollection = collect(state.animas, elapsed)
+      state.featurecollection = featurecollection
+      state.elapsed = elapsed
 
       // ... then render by sort the features in the collection
       renderRenderer.render(featurecollection, elapsed)
-
-      return featurecollection
+      
+      return state
     }
 
     // ............................. enty

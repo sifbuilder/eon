@@ -8,20 +8,10 @@ global.fs = require('fs')
 
 const xEonify = require('./eon-x-eonify.js')
 
-let eo = jest.fn(async () => {
-  let __eo = xEonify.eomap() // init mapper
-
-  __eo({'xs': xEonify.xs(__eo)}) // map xs
-  __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
-
-  let muonStore = await __eo('xs').m('store') // map store
-  muonStore = __eo('muonStore')
-
-  return __eo
-})
 
 test('test', async () => {
-  let __eo = await eo()
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo)  
   let eon = await __eo('xs').m('eoforces')
 
   expect(eon.ceonize('link', 'force')).toBe('forceLink')
