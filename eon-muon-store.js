@@ -73,7 +73,7 @@
             ? updAnima.eoric.uid
             : muonEoric.getuid(updAnima)
 
-          let anima = state.animas[uid]
+          let anima = state.animas[uid] 
 
           if (anima !== undefined) { // anima exists
             if (updAnima.eodelled === 1) {
@@ -99,10 +99,10 @@
             let newItem = newAnigrams[i] // new anigram
 
             if (Array.isArray(newItem)) {
-              newItem = newItem[0]
+              newItem = newItem[0]  // _e_
             }
 
-            let uid = newItem.eoric.uid
+            let uid = newItem.eoric.uid || muonEoric.getuid(newItem)
             state.anigrams[uid] = newItem // replace anigram
           }
         }

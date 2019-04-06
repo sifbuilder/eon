@@ -1,5 +1,5 @@
 /* ******************************************
- *    @z419rPacerLine
+ *    @z419tPacerTrace
  *
  */
 ;(function (global, factory) {
@@ -7,7 +7,7 @@
     ? factory(exports)
     : typeof define === 'function' && define.amd
       ? define(['exports'], factory)
-      : factory((global.z419rPacerLine = global.z419rPacerLine || {}))
+      : factory((global.z419tPacerTrace = global.z419tPacerTrace || {}))
 })(this, function (exports) {
   'use strict'
 
@@ -63,8 +63,42 @@
 
       // ....................... pacerNat
       let pacerNat = {
-        eohal: eohalPacer,
-        eoric: { gid: 'nat', cid: 'nat', fid: 'nat' },
+        eohal: eohalMars, // eohalPacer,
+        eoric: { gid: 'ani', cid: 'ani', fid: 'dot' },
+        eotim: eotim,
+        eofold: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [[[[0, 200]]], 0, 0] },
+          properties: { pointRadius: 6 },
+        },
+        eocrom: {
+          csx: 0,
+          cf: 888,
+          co: 0.29,
+          cs: 555,
+          cw: 0.9,
+          cp: 0.9,
+        },
+        __avatars: {
+          avatar: {
+            eohal: eohalMars, // eohalPacer,
+            eoric: { gid: 'ava', cid: 'ava', fid: 'dot' },
+            eotim: eotim,
+            eofold: {
+              type: 'Feature',
+              geometry: { type: 'Point', coordinates: [[[[0, 200]]], 0, 0] },
+              properties: { pointRadius: 16 },
+            },
+            eocrom: {
+              csx: 0,
+              cf: 888,
+              co: 0.09,
+              cs: 555,
+              cw: 0.9,
+              cp: 0.9,
+            },
+          },
+        },
         eoload: {
           pacer: {
             pacedby: {
@@ -94,7 +128,7 @@
               eofold: function (ani, props) {
                 let coords = [0, 0]
                 let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
-
+console.log('ani', ani)
                 // let preani = muonStore.findAnima(eoric)
                 let preani = muonStore.findAnigram(eoric) // _e_
 
@@ -122,7 +156,10 @@
                   type: 'LineString',
                   coordinates: coords,
                 }
-                console.assert(muonGeoj.isValid(geometry), `gj coords not valid in ${geometry}`)
+                console.assert(
+                  muonGeoj.isValid(geometry),
+                  `gj coords not valid in ${geometry}`
+                )
 
                 let feature = {
                   type: 'Feature',
@@ -246,5 +283,5 @@
     enty.z = z
     return enty
   }
-  exports.z419rPacerLine = anitem
+  exports.z419tPacerTrace = anitem
 })

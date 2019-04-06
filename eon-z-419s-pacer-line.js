@@ -1,5 +1,5 @@
 /* ******************************************
- *    @z419rPacerLine
+ *    @z419sPacerLine
  *
  */
 ;(function (global, factory) {
@@ -7,7 +7,7 @@
     ? factory(exports)
     : typeof define === 'function' && define.amd
       ? define(['exports'], factory)
-      : factory((global.z419rPacerLine = global.z419rPacerLine || {}))
+      : factory((global.z419sPacerLine = global.z419sPacerLine || {}))
 })(this, function (exports) {
   'use strict'
 
@@ -80,14 +80,13 @@
               addItemToPacer: 1, // geometries will not be accumulated
             },
 
-            anigram: {
+            anima: {
               eotim: eotim,
               eohal: eohalMars,
 
               eoric: function (ani, props) {
                 let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
-                console.assert(ani.eoric.uid !== undefined)
-                eoric.pid = ani.eoric.uid
+
                 return eoric
               },
 
@@ -95,8 +94,7 @@
                 let coords = [0, 0]
                 let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
 
-                // let preani = muonStore.findAnima(eoric)
-                let preani = muonStore.findAnigram(eoric) // _e_
+                let preani = muonStore.findAnima(eoric)
 
                 let point = [
                   200 * (0.5 - Math.random()),
@@ -106,15 +104,7 @@
                 if (preani === undefined) {
                   coords = Array.of(coords)
                 } else {
-                  let precoords
-                  if (preani.eofold.geometry) {
-                    precoords = preani.eofold.geometry.coordinates
-                  }
-
-                  if (preani.eofold.type === 'FeatureCollection') {
-                    precoords = preani.eofold.features[0].geometry.coordinates // _e_
-                  }
-
+                  let precoords = preani.eofold.geometry.coordinates
                   coords = [...precoords, point]
                 }
 
@@ -246,5 +236,5 @@
     enty.z = z
     return enty
   }
-  exports.z419rPacerLine = anitem
+  exports.z419sPacerLine = anitem
 })

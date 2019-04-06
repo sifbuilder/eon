@@ -79,28 +79,21 @@
 
       let hostAnitem, pacedAnitem
       if (pacedAnisort === 'anima') { // is anima
-        let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
-        if (parentAnima === null) { // anima has no parent
-          // the host serves to support the field functions
+        let parentAnima = uidParent ? muonStore.findAnima(uidParent) : undefined
+        if (parentAnima === undefined) { // anima has no parent
           hostAnitem = anitem // hostAnima is anitem (self)
-
-          // newItems will call anitem.eoload.pacer.anima field functions
           pacedAnitem = anitem
-        }
-        if (parentAnima !== null) { // anima has parent
-          console.assert(parentAnima === null, `pacer anima should not have parent`)
         }
       }
 
       if (pacedAnisort === 'anigram') { // is anigram - avatar
-        let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
-        if (parentAnigram === null) { // anigram has no parent
+        let parentAnitem = uidParent ? muonStore.findAnima(uidParent) : undefined
+        if (parentAnitem === undefined) { // anigram has no parent
           hostAnitem = anitem // hostAnima is anitem (self)
-          // pacedAnitem = anitem.eoload.pacer.anigram // pacedAnigram is in eoload.pacer.anigram
+          pacedAnitem = anitem
         }
-        if (parentAnigram !== null) { // anima has parent
-          // hostAnitem = parentAnigram // hostAnigram is parent anitem
-          pacedAnitem = anitem.eoload.pacer.anigram // pacedAnigram is in eoload.pacer.anigram
+        if (parentAnitem !== undefined) { // anima has parent
+          hostAnitem = anitem // parentAnitem // hostAnigram is parent anitem
           pacedAnitem = anitem
         }
       }
@@ -113,8 +106,6 @@
       let geospan = data.geospan
       let hostAnitem = data.hostAnitem
       let pacedUid = data.pacedAnitem.eoric.uid
-
-
       let newgrabbed = data.newgrabbed
       let pacedby = data.pacedby
 
@@ -138,6 +129,7 @@
         }
       }
 
+      // eoouted is in the host
       let eoouted = (hostAnitem.eoouted && hostAnitem.eoouted[pacedUid])
         ? hostAnitem.eoouted[pacedUid]
         : 0
@@ -192,14 +184,14 @@
         ? newItem.eohal
         : __eo([newItem.eohal, 'eohal'])
 
-      let newItemsInCount
+      let newItems
       if (pacedAnisort === 'anima') {
-        newItemsInCount = eohal.anify(newItem)
+        newItems = eohal.anify(newItem)
       } else if (pacedAnisort === 'anigram') {
-        newItemsInCount = eohal.gramify(newItem)
+        newItems = eohal.gramify(newItem)
       }
 
-      return {newItems: muonProps.a(newItemsInCount)}
+      return {newItems: muonProps.a(newItems) }
     }
 
     // ............................. eohale
@@ -217,12 +209,15 @@
         addItemToPacer = pacedby.addItemToPacer || 0, // add paceitems to preanitem
         basePaceOnAniView = pacedby.basePaceOnAniView || 'eoform' // geoform projections
 
-      let pacedfields = pacer.anima
-
       // define the paced item in the pacer
-      let pacedAnisort = 'anigram'
+      let pacedfields
+      let pacedAnisort
       if (eoload.pacer.anima !== undefined) {
         pacedAnisort = 'anima'
+        pacedfields = pacer.anima
+      } else {
+        pacedAnisort = 'anigram'
+        pacedfields = pacer.anigram
       }
 
       console.assert(pacedAnisort === 'anima' || pacedAnisort === 'anigram')
@@ -249,6 +244,7 @@
         hostAnitem.eoinited = Object.assign(hostAnitem.eoinited, {[pacedUid]: eotim.unPassed})
       }
 
+      // hostAnitem must be anima to save eoouted _e_
       if (count.auto > 0) {
         if (hostAnitem.eoouted === undefined) {
           hostAnitem.eoouted = {[pacedUid]: eotim.unPassed}
@@ -257,11 +253,13 @@
         }
       }
 
-      if (pacedAnisort === 'anima') { // z.419b ani.ava(pacer)
+      // if (pacedAnisort === 'anima') { // z.419b ani.ava(pacer)
         muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: Array.of(hostAnitem)})
-      }
+      // }
 
       // -------------------------- NEW items getNewItems
+
+
       let newItems = []
       if (Object.keys(count).length > 0) {
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
