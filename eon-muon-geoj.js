@@ -350,7 +350,7 @@
     // ...................... featurecollect
     function featurecollect (gj) {
       let res = {type: 'FeatureCollection', features: []}
-      console.assert(gj && gj.type, `geojson not defined`)
+      if (0 && 1) console.assert(gj && gj.type, `geojson not defined`)
 
       if (gj && gj.type) {
         let type = gj.type
