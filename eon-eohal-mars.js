@@ -41,8 +41,6 @@
 
       let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
 
-      console.log('pacer:', anitem.eoload.pacer)
-
       // apply eomot projections to
       //
       //  eonode
@@ -120,9 +118,12 @@
 
       let pacedItems = []
       anitem.eoload = anitem.eoload || {}
-      if (anitem.eoload.pacer !== undefined && anitem.eoload.pacer.anigram !== undefined) {
+      if (
+        anitem.eoload.pacer !== undefined &&
+        anitem.eoload.pacer.anigram !== undefined
+      ) {
         pacedItems = eohalPacer.eopace(anitem)
-        console.log('pacedItems:', pacedItems)
+
       }
 
       return [...newAnitems, ...pacedItems]
@@ -134,9 +135,12 @@
 
       let pacedItems = []
       anitem.eoload = anitem.eoload || {}
-      if (anitem.eoload.pacer !== undefined && anitem.eoload.pacer.anima !== undefined) {
+      if (
+        anitem.eoload.pacer !== undefined &&
+        anitem.eoload.pacer.anima !== undefined
+      ) {
         pacedItems = eohalPacer.eopace(anitem)
-        console.log('pacedItems:', pacedItems)
+
       }
 
       return [...newAnitems, ...pacedItems]

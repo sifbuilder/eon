@@ -102,9 +102,9 @@
         },
         avatars: {
           line: {
+            eotim: eotim,
             eohal: eohalMars, // eohalPacer,
             eoric: { gid: 'ava', cid: 'ava', fid: 'line' },
-            eotim: eotim,
             eofold: ani => {
               let parentani = muonStore.findAnigramFromUid(ani.eoric.pid)
               let point = parentani.eofold.features[0].geometry.coordinates

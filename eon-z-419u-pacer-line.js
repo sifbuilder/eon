@@ -117,24 +117,20 @@
             anima: {
               eotim: eotim,
               eohal: eohalMars,
-
-              eoric: function (ani, props) {
-                let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
-
-                return eoric
-              },
-
+              eoric: { gid: 'g', cid: 'c', fid: 'paced' },
               eofold: function (ani, props) {
                 let coords = [0, 0]
                 let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
 
-                let preani = muonStore.findAnima(eoric)
+                let parentani = muonStore.findAnigramFromUid(ani.eoric.pid)
+                console.log('*** parentani:', parentani)
 
                 let point = [
                   200 * (0.5 - Math.random()),
                   200 * (0.5 - Math.random()),
                 ]
 
+                let preani = muonStore.findAnima(eoric)
                 if (preani === undefined) {
                   coords = Array.of(coords)
                 } else {

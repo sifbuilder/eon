@@ -27,15 +27,16 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) {}
-  // .................. animas
-  let z = function () {
-    // .................. pics
-    let ctl
+  let ctl
     try {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
+    
+  // .................. animas
+  let z = function () {
+    // .................. pics
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -132,7 +133,7 @@ async function anitem (__eo) {
     let eocrom = { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
       'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
 
-    // ............................. natAni
+    // ............................. natAni1
     let natAni1 = {
 
       eohal: eohalMars,
@@ -157,6 +158,7 @@ async function anitem (__eo) {
       eoload: {},
 
     }
+    // ............................. natAni2    
     let natAni2 = {
 
       eohal: eohalMars,

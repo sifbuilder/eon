@@ -68,11 +68,13 @@
           : undefined
         if (parentAnitem === undefined) {
           // anigram has no parent
+
           hostAnitem = anitem // hostAnima is anitem (self)
           pacedAnitem = anitem
         }
         if (parentAnitem !== undefined) {
           // anima has parent
+
           hostAnitem = anitem // parentAnitem // hostAnigram is parent anitem
           pacedAnitem = anitem
         }
@@ -253,7 +255,8 @@
         }
       }
 
-      muonStore.apply({ // if (pacedAnisort === 'anima') { // z.419b ani.ava(pacer)
+      muonStore.apply({
+        // if (pacedAnisort === 'anima') { // z.419b ani.ava(pacer)
         type: 'UPDANIMA',
         caller: 'h.pacer',
         animas: Array.of(hostAnitem),
