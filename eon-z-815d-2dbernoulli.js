@@ -83,6 +83,7 @@
       }
 
       let eotim = {'td': 9600, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
+
       // ............................. natAniRed
       let natAniRed = {
         eohal: eohalMars,
@@ -96,8 +97,8 @@
             gco: 0, // open line
           }
 
-          // let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
-          let res = muonNatform.natMultiPolygon(natipros) // Feature.LineString
+          let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
+          // let res = muonNatform.natMultiPolygon(natipros) // Feature.LineString
 
           return res
         },
@@ -223,8 +224,8 @@
       }
       // ............................. scene
       let scene = [
-        cameraPersAni, // h.sol
-        spotLight, // h.sol
+        // cameraPersAni, // h.sol
+        // spotLight, // h.sol
         natAniRed,
       ]
 

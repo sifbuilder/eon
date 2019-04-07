@@ -13,12 +13,15 @@ async function anitem (__eo) {
     eohalMars,
     muonNatform,
     muonProps,
+    renderSvg,    
+   
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('scene'),
     __eo('xs').e('mars'),
     __eo('xs').m('natform'),
     __eo('xs').m('props'),
+    __eo('xs').r('svg'),    
   ])
   try { renderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
@@ -71,13 +74,13 @@ async function anitem (__eo) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': [[[120, 120]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[18, 18]]], 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (e, c, d) => c[0] * (10 + 5 * cos(e[0])) * c[2] * cos(e[3]),
+        'fn0': (e, c, d) => (e[2]*e[2]/360) * c[0] * (10 + 5 * cos(e[0])) * c[2] * cos(e[3]),
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': [[[120, 120]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[18, 18]]], 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (e, c, d) => c[1] * (10 + 5 * cos(e[0])) * c[2] * sin(e[3]),
+        'fn0': (e, c, d) =>(e[2]*e[2]/360) *  c[1] * (10 + 5 * cos(e[0])) * c[2] * sin(e[3]),
       },
       z: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -102,7 +105,7 @@ async function anitem (__eo) {
       },
       w: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'dom3': [ -180, 180 ],
+        'dom3': [ 0, 180 ],
         'fn0': (e, c) => c[3] * cos(e[2]),
       },
 
