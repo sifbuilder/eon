@@ -572,7 +572,7 @@
         let feature = item // .feature
         let style = feature.properties.style
         let geometry = feature.geometry
-        let coordinates = Array.of(geometry.coordinates)
+        let coordinates = geometry.coordinates
 
         let threeMaterial = new THREE.LineBasicMaterial({
           color: style.stroke,

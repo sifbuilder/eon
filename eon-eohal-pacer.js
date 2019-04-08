@@ -30,7 +30,7 @@
     ])
 
     let muonStore = __eo('muonStore')
-    ctlRayder.control()
+    // ctlRayder.control()
     let state = {}
     let epsilon = 1e-3
 
@@ -224,7 +224,7 @@
 
       // -------------------  // COUNT getCounter
 
-      let newgrabbed = ctlRayder.getGrabbed()
+      let newgrabbed = null // ctlRayder.getGrabbed()
       let data = {
         newgrabbed,
         pacedby,

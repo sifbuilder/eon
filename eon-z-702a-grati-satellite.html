@@ -67,13 +67,15 @@ async function anitem (__eo) {
           prerotate: [[[ ctl.rotation ]]],
           translate: [ -150, 0],
           scale: 1,
-          rotate: [0, 0, 0],
+          rotate: [[[[0,30,-30,0]]], -60, [[[0,360]]] ],
           lens: [ 0, 1, Infinity ],
         },
       },
       eoframe: {
-        geoframe: [ [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ],
-          [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ] ],
+        // geoframe: [ [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ],
+        //   [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ] ],
+        geoframe: [ [ [-180, 180, 15, 15], [-90, 1, 22.5, 22.5] ],
+          [ [-180, 180, 15, 15], [-90, 1, 22.5, 22.5] ] ],
       },
       eoload: {
       },
@@ -115,9 +117,9 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           prerotate: [[[ ctl.rotation ]]],
-          translate: [ 150, 0],
+          translate: [ 150, [[[0,50,-50,0]]] ],
           scale: 100,
-          rotate: [0, 0, 0],
+          rotate: [0, 0, [[[0,360]]] ],
           lens: [ 0, 1, Infinity ],
         },
       },
@@ -133,7 +135,7 @@ async function anitem (__eo) {
     let animas = [
 
       g1, // h.mars
-      g2, // h.mars
+      // g2, // h.mars
       g3, // h.mars
 
     ]
