@@ -14,19 +14,20 @@
 
   async function ctlRayder (__eo) {
     let [
-      renderSvg,
+      // renderSvg,
       renderPortview,
     ] = await Promise.all([
-      __eo('xs').r('svg'),
+      // __eo('xs').r('svg'),
       __eo('xs').r('portview'),
     ])
 
-    let domNode = renderSvg.svg()
+    let renderSvg = __eo('renderSvg')
+
 
     let state = {
       showpos: false,
       grabbed: false,
-      domNode,
+      domNode: undefined, // renderSvg.svg()
     }
 
     let getPos = renderPortview.getPos // event position
@@ -79,6 +80,7 @@
 
     // ............................. controlrayder
     let control = function (domNode) {
+      state.domNode = renderSvg.svg() // _e_
       enty.domNode(domNode)
 
       subscribe(mouseDownListener, state.domNode, 'mousedown')
