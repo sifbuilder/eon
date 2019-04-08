@@ -82,93 +82,6 @@
         tf: t => 1 + sin(pihalf + pihalf * t),
       }
 
-      let conformSphere = {
-        x: {
-          m1: 4,
-          m2: 4,
-          n1: 2,
-          n2: 2,
-          n3: 2,
-          a: 1,
-          b: 1, // circ
-          ra2: 60,
-          v0: 0,
-          v1: 1,
-          w4: 0,
-          seg5: 12,
-          pa6: 0,
-          pb7: -1,
-          dom3: [-180, 180],
-          c: [],
-          e: [cost, 1, 1, cost],
-          // 'fn0': (e,c) => {
-          // return c[0] * cos(e[0]) * c[2] * cos(e[3])
-          // },
-        },
-        y: {
-          m1: 4,
-          m2: 4,
-          n1: 2,
-          n2: 2,
-          n3: 2,
-          a: 1,
-          b: 1, // circ
-          ra2: 60,
-          v0: 0,
-          v1: 1,
-          w4: 0,
-          seg5: 12,
-          pa6: 0,
-          pb7: -1,
-          dom3: [-180, 180],
-          fn0: (e, c, dax) => {
-            return c[1] * sin(e[0]) * c[2] * cos(e[3])
-          },
-        },
-
-        z: {
-          m1: 4,
-          m2: 4,
-          n1: 2,
-          n2: 2,
-          n3: 2,
-          a: 1,
-          b: 1, // circ
-          ra2: 60,
-          v0: 0,
-          v1: 1,
-          w4: 0,
-          seg5: 12,
-          pa6: 0,
-          pb7: -1,
-          dom3: [-90, 90],
-          c: [], // [1, 1, [0,1], 1],
-          e: [1, 1, 1, sint], // 1 * sin(v)
-          // 'fn0': (e,c) => c[2] * sin(e[3]) ,
-        },
-
-        w: {
-          m1: 4,
-          m2: 4,
-          n1: 2,
-          n2: 2,
-          n3: 2,
-          a: 1,
-          b: 1, // circ
-          ra2: 60,
-          v0: 0,
-          v1: 1,
-          w4: 0,
-          seg5: 12,
-          pa6: 0,
-          pb7: -1,
-          dom3: [-90, 90],
-          // c: [ 0, 1 ],
-          // e: [0, [1, 0, 0, 0, 0, 0, 0, 0, 0, 0] ], // 1 * id(q)
-          fn0: (e, c) => c[3] * cos(e[2]),
-        },
-      }
-
       let conformLight = {
         x: {
           m1: 4,
@@ -185,11 +98,11 @@
           seg5: 18,
           pa6: 0,
           pb7: -1,
-          dom3: [90, 270],
+          dom3: [-90, 90],
           c: [5, 1, 5, 1],
           // e: [ cost, 1, 1, cosht ],
           // e: [cost, 1, 1, cost],
-          // 'fn0': (e, c) => c[0] * (10 + 5 * cos(e[0])) * c[2] * cos(e[3]),
+          // 'fn0': (e, c, d) => c[0] * (10 + 5 * cos(e[0])) * c[2] * cos(e[3]),
           'fn0': (e, c, d) => e[0] * cos(e[0]) * d.c[2] * cos(e[3]),
         },
         y: {
@@ -207,12 +120,12 @@
           seg5: 18,
           pa6: 0,
           pb7: -1,
-          dom3: [90, 270],
+          dom3: [-90, 90],
           c: [ 5, 1, 5, 1],
           // e: [ 1 , [0, [[[9,0]]], [[[-10, 1]]] ], 1 , 1 ]
           // e: [ 1 ,  [0, 0, 1, 0 ], 1, 1,  ]
           e: [cost, 1, 1, sint],
-          // fn0: (e, c) => c[1] * (10 + 5 * cos(e[0])) * c[2] * sin(e[3]),
+          // fn0: (e, c, d) => c[1] * (10 + 5 * cos(e[0])) * c[2] * sin(e[3]),
           fn0: (e, c, d) => e[0] * cos(e[0]) * d.c[2] * sin(e[3]),
         },
 
@@ -284,45 +197,10 @@
         eoform: conformLight,
         eoload: {},
       }
-      // ............................. sphereAni
-      let sphereAni = {
-        eotim: eotim,
-        eohal: eohalMars,
-        eoric: { gid: 'q', cid: 'q', fid: 'q2' },
 
-        eofold: ani =>
-          muonNatform.natMultiLineString({ eoform: ani.eoload.eoform }),
-
-        eomot: {
-          proform: {
-            projection: 'uniwen',
-            scale: [1.5, 1.5],
-            prerotate: [[[ctl.rotation]]],
-            translate: [[0, 0, 0]],
-            rotate: [
-              [[[0, 0, 36, -64, -64, -64]]],
-              [[[0, 36, 36, 36, 36, 36]]],
-              [[[0, 12, 36, 90, 12, 0]]],
-            ],
-            lens: [0, 1, Infinity],
-          },
-        },
-        eocrom: {
-          csx: 0,
-          cf: [[[666, 333, 666]]],
-          co: [[[0.069, 0.06, 0.069]]],
-          cs: [[[333, 333, 333]]],
-          cw: [[[0.0099, 0.0099, 0.99]]],
-          cp: [[[0.99, 0.99]]],
-        },
-        eoload: {
-          eoform: conformSphere,
-        },
-      }
       // ............................. animas
       let animas = [
-        // lightAni, // h.mars
-        sphereAni, // h.mars
+        lightAni, // h.mars
       ]
 
       return animas
