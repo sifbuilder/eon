@@ -91,7 +91,7 @@ for (let i = 0; i < indexfiles.length; i++) {
   let searchpattern = escapeRegExp(cpsearchpattern)   
   let searchexp = RegExp(`${searchpattern}`, 'm')
 
-  let findPattern2 = /.................. anitem/mg // filename
+  // let findPattern2 = /.................. anitem/mg // filename
 
   let tx3a = `.................. anitem`
   let tx3b = `/* ******************************************
@@ -108,11 +108,11 @@ for (let i = 0; i < indexfiles.length; i++) {
     // ... ** **
     // .................. anitem`
 
-    let findPattern = /<\/script>/mg // filename
-    let replacePattern = /tx2b/i // ignoring case
-    var nameArr
-    while ((nameArr = findPattern.exec(fileText)) !== null) {
-      fileText = fileText.replace(tx2a, tx2b)
+    let findPattern2 = /anitem/mg // filename
+    let replacePattern2 = /tx2b/i // ignoring case
+    var nameArr2
+    while ((nameArr2 = findPattern2.exec(fileText)) !== null) {
+      fileText = fileText.replace(tx2a, tx3a)
     }
     console.log(`fileText ${fileText}`)
 
