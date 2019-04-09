@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @z000a
+   *    @eonZ000a
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.z000a = global.z000a || {})))
+      : (factory((global.eonZ000a = global.eonZ000a || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -75,18 +75,18 @@
       }
 
       // .................. scene
-      let scene = {
+      let animas = [
 
         textAni, // h.textform
 
-      }
+      ]
 
-      return scene
+      return animas
     }
 
     let enty = () => { }
     enty.z = z
     return enty
   }
-  exports.z000a = anitem
+  exports.eonZ000a = anitem
 }))

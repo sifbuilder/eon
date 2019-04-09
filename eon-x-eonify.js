@@ -301,19 +301,21 @@
 
   const ceonize = function (nome, pres = '') {
     let camelized
-    if (pres === '') {
-      camelized = camelize(nome.replace(/^eon-/, ''))
+    if (pres === '' || pres === 'eon') {
+      // camelized = camelize(nome.replace(/^eon-/, ''))
+      camelized = camelize(nome)
     } else {
       camelized = camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
     }
+
     return camelized
   }
   const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js' // wen => ./muon-wen.js
-  let xeonize = (nome, pres = '') => (pres === '') // wen => eon-muon-wen
-    ? nome
-    : (pres !== '')
-      ? 'eon' + '-' + pres + '-' + nome
-      : pres + '-' + nome
+
+  const xeonize = (nome, pres = '') =>
+    (pres === '' || pres === 'eon') // wen => eon-muon-wen
+      ? nome
+      : 'eon' + '-' + pres + '-' + nome
 
   const camelize = str => str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
@@ -377,6 +379,10 @@
   async function getEon (inpart, __eo) {
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
+    if (part[1] === "eon") {
+    console.log('part:', part)
+  }
+
     let res = []
     if (part[0] === undefined) {
 
@@ -391,6 +397,7 @@
       let [name, pres] = part // [name, prefix] eg.: [versor, muon]
 
       let ceon = ceonize(name, pres) // eg.: 'muonVersor' get from store
+
       let feon = feonize(name, pres) // eg.: './eon-muon-versor.js' get from file
       let xeon = xeonize(name, pres) // eg.: 'eon-muon-versor' get from cdn
 
@@ -432,10 +439,11 @@
       ['proton', 'p', 'proton'],
       ['render', 'r', 'render'],
       ['zindex', 'z', 'z'],
+      ['zindex', 'z', 'eon'],
 
     ]
 
-    let eons = function () {}
+    let eons = () => {}
     for (let i = 0; i < patterns.length; i++) {
       let pattern = patterns[i]
       let name = pattern[0]
@@ -492,11 +500,18 @@
   //
   let eonit = async function ({anitem, time}) {
     let __eo = await eostore()
+    console.log('*************anitem:', anitem)
+    let aniset = await __eo('xs').z(anitem) // z eon
+    console.log('************* aniset:', aniset)
 
-    let animas = await __eo('xs').z(anitem) // z eon
-    if (animas['z'] !== undefined) animas = animas.z()
+    let muonStore = __eo('muonStore')
 
-    __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
+    let animas = aniset
+    if (aniset['z'] !== undefined) { // anitem comes from string
+      animas = aniset.z()
+    }
+
+    muonStore.apply({type: 'UPDANIMA', animas: animas})
     await __eo('xs').m('animation') // map animation
 
     return __eo

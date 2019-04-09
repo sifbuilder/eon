@@ -1,5 +1,5 @@
 /* ******************************************
- *    @z812xTorusClepsidra
+ *    @eonZ812xTorusClepsidra
  *
  */
 ;(function (global, factory) {
@@ -7,7 +7,7 @@
     ? factory(exports)
     : typeof define === 'function' && define.amd
       ? define(['exports'], factory)
-      : factory((global.z812xTorusClepsidra = global.z812xTorusClepsidra || {}))
+      : factory((global.eonZ812xTorusClepsidra = global.eonZ812xTorusClepsidra || {}))
 })(this, function (exports) {
   'use strict'
 
@@ -201,5 +201,5 @@
     enty.z = z
     return enty
   }
-  exports.z812xTorusClepsidra = anitem
+  exports.eonZ812xTorusClepsidra = anitem
 })
