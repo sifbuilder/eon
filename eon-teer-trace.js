@@ -12,8 +12,12 @@ const camelize = str => str
 .replace(/\s+/g, '') // remove white space
 .replace(/-+/g, '') // remove hyphen
 
+function escapeRegExp (string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
+}
+
 let indexpattern = new RegExp('^' + '(eon-z-.*).(html)', 'i')
-let testpattern = new RegExp('^' + '(eon-z-421b.*).(html)', 'i')
+let testpattern = new RegExp('^' + '(eon-z-021a.*).(html)', 'i')
 
 
 let newLine = '\n'
@@ -49,6 +53,8 @@ let indexfiles = fs.readdirSync(appdir) // index files
 for (let i = 0; i < indexfiles.length; i++) {
   let fileName = indexfiles[i]
 
+  let fileText = fs.readFileSync(fileName, 'utf8')
+
   let regex2 = new RegExp('^(eon-z-)?(.*).(html)', 'i')
   let parts = fileName.match(regex2)
 
@@ -64,14 +70,30 @@ for (let i = 0; i < indexfiles.length; i++) {
   console.log(`create: ${newNameHtml} with txt: ${htmljs}`)
   console.log(`create: ${newNameJs}  with contents of ${fileName}`)
 
+
   let tx2a = '</script>'
   let tx2b = `exports.${eonName} = anitem
-  })))`
-  console.log(`replace ${tx2a} with ${tx2b}`)
+})`
+  // console.log(`replace ${tx2a} with ${tx2b}`)
+
+  // let findPattern = /<\/script>/mg // filename
+  // let replacePattern = /tx2b/i // ignoring case
+  // var nameArr
+  // while ((nameArr = findPattern.exec(fileText)) !== null) {
+  //   fileText = fileText.replace(tx2a, tx2b)
+  // }
+  // console.log(`fileText ${fileText}`)
 
 
 
-  let tx3a = `* // .................. anitem`
+
+  let cpsearchpattern = `.................. anitem`
+  let searchpattern = escapeRegExp(cpsearchpattern)   
+  let searchexp = RegExp(`${searchpattern}`, 'm')
+
+  let findPattern2 = /.................. anitem/mg // filename
+
+  let tx3a = `.................. anitem`
   let tx3b = `/* ******************************************
    *    @${eonName}
    *
@@ -86,9 +108,18 @@ for (let i = 0; i < indexfiles.length; i++) {
     // ... ** **
     // .................. anitem`
 
-    console.log(`replace ${tx3a} with ${tx3b}`)
+    let findPattern = /<\/script>/mg // filename
+    let replacePattern = /tx2b/i // ignoring case
+    var nameArr
+    while ((nameArr = findPattern.exec(fileText)) !== null) {
+      fileText = fileText.replace(tx2a, tx2b)
+    }
+    console.log(`fileText ${fileText}`)
 
-    console.log(`delete ${fileName}`)
+
+
+    // console.log(`replace ${tx3a} with ${tx3b}`)
+    // console.log(`delete ${fileName}`)
 
 }
 

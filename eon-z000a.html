@@ -1,7 +1,5 @@
 <script src="./eon-x-eonify.js"></script>
-
 <script>
-
   function getFileName() {
     var url = document.location.href
     url = url.substring( 0, url.indexOf("#") == -1 ? url.length : url.indexOf("#") )
@@ -12,5 +10,4 @@
     return url
   }
   window.xEonify.eonify({ anitem: getFileName(), time: undefined })
-
 </script>

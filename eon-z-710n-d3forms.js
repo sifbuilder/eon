@@ -1,12 +1,12 @@
 
 /* ******************************************
-   *    @z710n3forms
+   *    @z710nD3forms
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.z710n3forms = global.z710n3forms || {})))
+      : (factory((global.z710nD3forms = global.z710nD3forms || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -275,5 +275,5 @@
     enty.z = z
     return enty
   }
-  exports.z710n3forms = anitem
+  exports.z710nD3forms = anitem
 }))
