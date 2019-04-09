@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @z401aSim3vorts
+   *    @z401aSimD3vorts
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.z401aSim3vorts = global.z401aSim3vorts || {})))
+      : (factory((global.z401aSimD3vorts = global.z401aSimD3vorts || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -380,5 +380,5 @@
     enty.z = z
     return enty
   }
-  exports.z401aSim3vorts = anitem
+  exports.z401aSimD3vorts = anitem
 }))

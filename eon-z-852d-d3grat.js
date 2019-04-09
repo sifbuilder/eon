@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @z852d3dgrat
+   *    @z852dD3grat
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.z852d3dgrat = global.z852d3dgrat || {})))
+      : (factory((global.z852dD3grat = global.z852dD3grat || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -93,5 +93,5 @@
     return enty
   }
 
-  exports.z852d3dgrat = anitem
+  exports.z852dD3grat = anitem
 }))

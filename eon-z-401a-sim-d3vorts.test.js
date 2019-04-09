@@ -14,7 +14,7 @@ jest.useFakeTimers()
 
 describe('results from animation', () => {
   test('aniTimer', async () => {
-    let __eo = await xEonify.eonit({anitem: '401a-sim-3vorts'})
+    let __eo = await xEonify.eonit({anitem: '401a-sim-d3vorts'})
     __eo = await xEonify.eocharge(__eo)
     let muonAnimation = await __eo('xs').m('animation')
 

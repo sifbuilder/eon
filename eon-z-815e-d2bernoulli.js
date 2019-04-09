@@ -1,5 +1,5 @@
 /* ******************************************
- *    @z815e2dbernoulli
+ *    @z815eD2bernoulli
  *
  */
 ;(function (global, factory) {
@@ -7,7 +7,7 @@
     ? factory(exports)
     : typeof define === 'function' && define.amd
       ? define(['exports'], factory)
-      : factory((global.z815e2dbernoulli = global.z815e2dbernoulli || {}))
+      : factory((global.z815eD2bernoulli = global.z815eD2bernoulli || {}))
 })(this, function (exports) {
   'use strict'
 
@@ -217,5 +217,5 @@
     enty.z = z
     return enty
   }
-  exports.z815e2dbernoulli = anitem
+  exports.z815eD2bernoulli = anitem
 })

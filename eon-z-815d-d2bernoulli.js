@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @z815d2dbernoulli
+   *    @z815dD2bernoulli
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.z815d2dbernoulli = global.z815d2dbernoulli || {})))
+      : (factory((global.z815dD2bernoulli = global.z815dD2bernoulli || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -237,5 +237,5 @@
 
     return enty
   }
-  exports.z815d2dbernoulli = anitem
+  exports.z815dD2bernoulli = anitem
 }))

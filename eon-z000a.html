@@ -4,27 +4,13 @@
 
   function getFileName() {
     var url = document.location.href
-    url = url.substring(
-      0,
-      url.indexOf("#") == -1 ? url.length : url.indexOf("#")
-    )
-    url = url.substring(
-      0,
-      url.indexOf("?") == -1 ? url.length : url.indexOf("?")
-    )
+    url = url.substring( 0, url.indexOf("#") == -1 ? url.length : url.indexOf("#") )
+    url = url.substring( 0, url.indexOf("?") == -1 ? url.length : url.indexOf("?") )
     url = url.substring(url.lastIndexOf("/") + 1, url.length)
-    url = url.substring(
-      0,
-      url.indexOf(".") == -1 ? url.length : url.indexOf(".")
-    )    
-    if (url.length == 0) {
-      url = "index"
-    }
+    url = url.substring( 0, url.indexOf(".") == -1 ? url.length : url.indexOf(".") )
+    if (url.length == 0) { url = "index" }
     return url
   }
+  window.xEonify.eonify({ anitem: getFileName(), time: undefined })
 
-  window.xEonify.eonify({
-    anitem: getFileName(),
-    time: undefined
-  })
 </script>
