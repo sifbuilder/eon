@@ -379,10 +379,6 @@
   async function getEon (inpart, __eo) {
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
-    if (part[1] === "eon") {
-    console.log('part:', part)
-  }
-
     let res = []
     if (part[0] === undefined) {
 
