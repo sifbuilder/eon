@@ -61,7 +61,7 @@ const regexFileNameParts = new RegExp('^(eon-z)(-)?(.*).(html)', 'i')
 const newHtmlText = `<script src="./eon-x-eonify.js"></script>
 <script>
   function getHtmlFilename(input) {
-    const rfile = /^.*\/(?<filename>[^\/]+)(?=\.html).*$/u
+    const rfile = /^.*\\/(?<filename>[^\/]+)(?=\.html).*$/u
     const match = rfile.exec(input)
     return (match !== null) ? match.groups.filename : null
   }
