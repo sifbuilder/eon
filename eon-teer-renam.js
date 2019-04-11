@@ -1,10 +1,6 @@
-
-// node _eonify-teer-view eonpattern
-
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
-
 const puppeteer = require('puppeteer')
 
 const waitInPromise = delay => arg =>
@@ -34,25 +30,30 @@ let fromreplace = '(^__from)'
 let toreplace = '(^__to$)'
 let doreplace = 0
 
-if (opts.length < 2) {
+
+if (opts.length === 0) {
   action = 'help'
-} else if (opts.length === 2) {
+
+} else if (opts.length === 3 && (Number.parseInt(opts[2]) === 1)) {
+  action = 'renam'
+  fromreplace = `(${opts[0]})` || '(^__from)'
+  toreplace = `${opts[1]}` || '(^__to$)'
+
+
+} else if (opts.length === 2 || (opts.length === 3 && (Number.parseInt(opts[2]) !== 1))) {
+
   action = 'show'
 
   fromreplace = `(${opts[0]})` || '(^__from)'
   toreplace = `${opts[1]}` || '(^__to$)'
-  doreplace = 0
-} else {
-  action = 'renam'
-  fromreplace = `(${opts[0]})` || '(^__from)'
-  toreplace = `${opts[1]}` || '(^__to$)'
-  doreplace = (Number.parseInt(opts[2]) === 1) ? 1 : 0
+
 }
 
-let regex = new RegExp(`${fromreplace}`, 'i')
 
-function renam (p = {}) {
-  let doreplace = p.doreplace
+
+function renam (data) {
+  let {doreplace,fromreplace,toreplace} = data
+  let regex = new RegExp(`${fromreplace}`, 'i')
 
   let fzs = files.filter(d => regex.test(d))
   for (let i = 0; i < fzs.length; i++) {
@@ -67,17 +68,16 @@ function renam (p = {}) {
   }
 }
 
-if (opts.length === 0) {
-  console.log()
-}
 
 if (action === 'help') {
   console.log(`rename files in cwd ${indir}`)
   console.log(`node ${prgname} frompattern, topattern, {0,1}`)
 } else if (action === 'show') {
-  renam({doreplace: 0})
+  console.log(`show`)
+  renam({doreplace: 0, fromreplace, toreplace})
 } else if (action === 'renam') {
-  renam({doreplace: 1})
+  console.log(`rename`)
+  renam({doreplace: 1, fromreplace, toreplace})
 } else {
-  console.log(`usage: node ${prgname} {[help], viewpattern} on eon-z- files`)
+  console.log(`usage: node ${prgname} frompattern, topattern, {0,1}`)
 }
