@@ -91,6 +91,12 @@ function htmlToJs (data) {
   // .................. footer
   let regexJsHeader = new RegExp(`^(.*async function anitem)`, 'si')
   let partsJsHeader = text.match(regexJsHeader)
+  if (partsJsHeader === null) {
+
+    console.log(`footer not found`)
+
+  
+  }
   text = text.replace(partsJsHeader[0], newHeader)
 
   let newFooter = `
@@ -208,7 +214,7 @@ function doit (data) {
       if (action === 'show' || action === 'debug') {
         console.log(` *********** HTML`)
         console.log(`${preFileHtml}`) // eon-z-815e-d2bernoulli.html
-        console.log(` ---- will update ${newNameHtml}`)
+        console.log(` ---- will create ${newNameHtml}`)
       }
       if (action === 'debug') {      
         console.log(` ---- new text of ${newNameHtml}:`)
@@ -227,7 +233,7 @@ function doit (data) {
       let fileJsText = htmlToJs({eonName, text: fileHtmlText})
 
       if (action === 'show' || action === 'debug') {
-        console.log(` ---- will update ${newNameJs}`)
+        console.log(` ---- will create ${newNameJs}`)
       }
       if (action === 'debug') {      
         console.log(` ---- new text of ${newNameJs}:`)
