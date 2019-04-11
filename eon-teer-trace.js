@@ -1,100 +1,81 @@
 #!/usr/bin/env node
 const fs = require('fs')
+const path = require('path')
+const http = require('http')
+const puppeteer = require('puppeteer')
 
-let outText = ''
-let outfile = 'README.md'
-console.log(`generate ${outfile}`)
-
-let appdir = '.'
+const isDirectory = d => fs.lstatSync(d).isDirectory()
+const isFile = d => fs.lstatSync(d).isFile()
+const existsFile = d => fs.existsSync(d)
 
 const camelize = str => str
-.replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
-.replace(/\s+/g, '') // remove white space
-.replace(/-+/g, '') // remove hyphen
+  .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
+  .replace(/\s+/g, '') // remove white space
+  .replace(/-+/g, '') // remove hyphen
 
 function escapeRegExp (string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 }
 
-let indexpattern = new RegExp('^' + '(eon-z-.*).(html)', 'i')
-let testpattern = new RegExp('^' + '(eon-z-021a.*).(html)', 'i')
+// fs
 
+let filename = __filename // full path name of the current module
+let prgname = path.basename(filename) // file name of current module
+let dirname = path.dirname(require.main.filename) // __dirname
 
-let newLine = '\n'
-let endOfLine = '  '
-let header = `# eons ${newLine}${newLine}**time space manyfolds** ${endOfLine}${newLine}${newLine}`
-let footer = `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`
+// args - define action
 
-let htmljs = `<script src="./eon-x-eonify.js"></script>
-<script>
-  function getFileName() {
-    var url = document.location.href
-    url = url.substring( 0, url.indexOf("#") == -1 ? url.length : url.indexOf("#") )
-    url = url.substring( 0, url.indexOf("?") == -1 ? url.length : url.indexOf("?") )
-    url = url.substring(url.lastIndexOf("/") + 1, url.length)
-    url = url.substring( 0, url.indexOf(".") == -1 ? url.length : url.indexOf(".") )
-    if (url.length == 0) { url = "index" }
-    return url
+let args = process.argv
+let [cmd, scp, ...opts] = args
+
+let action
+let inScopePattern = new RegExp('^' + '(eon-z-.*).(html)', 'i')
+
+if (opts.length === 0) { // action: help
+  action = 'help'
+} else if (opts.length >= 1) { // action || doit
+  if (opts.length === 2 && opts[1] === 'doit') {
+    action = 'doit'
+  } else if (opts.length === 2 && opts[1] === 'debug') {
+    action = 'debug'
+  } else {
+    action = 'show'
   }
-  window.xEonify.eonify({ anitem: getFileName(), time: undefined })
+
+  let argpattern = '.*' // default to all
+  if (opts[0] === '.') {
+    argpattern = '.*'
+  } else {
+    argpattern = opts[0]
+  }
+  inScopePattern = new RegExp(`^(eon-z-${argpattern}.*).(html)`, 'i')
+}
+
+const appdir = '.'
+
+let indexfiles = fs.readdirSync(appdir) // eon-z-.*.html files
+  .filter(d => inScopePattern.test(d))
+
+const regexFileNameParts = new RegExp('^(eon-z)(-)?(.*).(html)', 'i')
+
+const newHtmlText = `<script src="./eon-x-eonify.js"></script>
+<script>
+  function getHtmlFilename(input) {
+    const rfile = /^.*\/(?<filename>[^\/]+)(?=\.html).*$/u
+    const match = rfile.exec(input)
+    return (match !== null) ? match.groups.filename : null
+  }
+  const fileName = getHtmlFilename(document.location.href)
+  window.xEonify.eonify({ anitem: fileName, time: undefined })
 </script>`
 
-outText += `${header}`
+// .................. htmlToJs
+function htmlToJs (data) {
+  let {eonName, text} = data
 
-let body = ''
-let indexfiles = fs.readdirSync(appdir) // index files
-  .filter(d => indexpattern.test(d))
-  .filter(d => testpattern.test(d))
+  // .................. header
 
-// eon-z-xxxa.*.html 
-//  => eon-zxxxa.*.js
-//  => create eon-zxxxa.*.html
-
-for (let i = 0; i < indexfiles.length; i++) {
-  let fileName = indexfiles[i]
-
-  let fileText = fs.readFileSync(fileName, 'utf8')
-
-  let regex2 = new RegExp('^(eon-z-)?(.*).(html)', 'i')
-  let parts = fileName.match(regex2)
-
-
-  let newName = 'eon-z' + parts[2]
-  let newNameHtml = newName + '.html'
-  let newNameJs = newName + '.js'
-  let eonName = camelize(newName)
-
-  console.log(`fileName: ${fileName}` )
-  console.log(`for eon: ${eonName}` )
-  console.log(`fileName: ${fileName}` )
-  console.log(`create: ${newNameHtml} with txt: ${htmljs}`)
-  console.log(`create: ${newNameJs}  with contents of ${fileName}`)
-
-
-  let tx2a = '</script>'
-  let tx2b = `exports.${eonName} = anitem
-})`
-  // console.log(`replace ${tx2a} with ${tx2b}`)
-
-  // let findPattern = /<\/script>/mg // filename
-  // let replacePattern = /tx2b/i // ignoring case
-  // var nameArr
-  // while ((nameArr = findPattern.exec(fileText)) !== null) {
-  //   fileText = fileText.replace(tx2a, tx2b)
-  // }
-  // console.log(`fileText ${fileText}`)
-
-
-
-
-  let cpsearchpattern = `.................. anitem`
-  let searchpattern = escapeRegExp(cpsearchpattern)   
-  let searchexp = RegExp(`${searchpattern}`, 'm')
-
-  // let findPattern2 = /.................. anitem/mg // filename
-
-  let tx3a = `.................. anitem`
-  let tx3b = `/* ******************************************
+  let newHeader = `/* ******************************************
    *    @${eonName}
    *
    */
@@ -105,24 +86,176 @@ for (let i = 0; i < indexfiles.length; i++) {
   }(this, function (exports) {
     'use strict'
   
-    // ... ** **
-    // .................. anitem`
+    async function anitem`
 
-    let findPattern2 = /anitem/mg // filename
-    let replacePattern2 = /tx2b/i // ignoring case
-    var nameArr2
-    while ((nameArr2 = findPattern2.exec(fileText)) !== null) {
-      fileText = fileText.replace(tx2a, tx3a)
-    }
-    console.log(`fileText ${fileText}`)
+  // .................. footer
+  let regexJsHeader = new RegExp(`^(.*async function anitem)`, 'si')
+  let partsJsHeader = text.match(regexJsHeader)
+  text = text.replace(partsJsHeader[0], newHeader)
 
+  let newFooter = `
+  exports.${eonName} = anitem
+}))`
+  let textFooter = '\n</script>'
+  textFooter = escapeRegExp(textFooter)
+  let regexJsFooter = new RegExp(`${textFooter}`, 'si')
+  let partsJsFooter = text.match(regexJsFooter)
+  text = text.replace(partsJsFooter[0], newFooter)
 
-
-    // console.log(`replace ${tx3a} with ${tx3b}`)
-    // console.log(`delete ${fileName}`)
-
+  const newJsText = text
+  return newJsText
 }
 
+// .................. htmlToJs
+function jsToJs (data) {
+  let {eonName, preEonName, text} = data
 
+  let topattern = eonName
+  let searchexp = RegExp(`${preEonName}`, 'g')
 
+  let arr
+  while ((arr = searchexp.exec(text)) !== null) {
+    let toreplace = arr[0]
+    text = text.replace(toreplace, topattern)
+  }
+
+  return text
+}
+
+function doit (data) {
+  let {action} = data
+
+  for (let i = 0; i < indexfiles.length; i++) {
+    let fileNameHtml = indexfiles[i]
+    let fileHtmlText = fs.readFileSync(fileNameHtml, 'utf8')
+    let fileHtmlParts = fileNameHtml.match(regexFileNameParts) // eg. [ 'eon-z-021a.html', 'eon-z', '-', '021a', 'html' ]
+
+    let eonPart = fileHtmlParts[1]
+    let interHyphenPart = fileHtmlParts[2]
+    let corePart = fileHtmlParts[3]
+    let htmlPart = fileHtmlParts[4]
+
+    const preFileHtml = `${fileHtmlParts[1]}${fileHtmlParts[2]}${fileHtmlParts[3]}.html`
+    const preFileJs = `${fileHtmlParts[1]}${fileHtmlParts[2]}${fileHtmlParts[3]}.js`
+
+    const newName = `${eonPart}${corePart}`
+    const newNameHtml = newName + '.html'
+    const newNameJs = newName + '.js'
+    const eonName = camelize(newName)
+    const preEonName = camelize(`z${corePart}`)
+
+    if (existsFile(preFileJs)) { // .html + .js
+      if (action === 'show' || action === 'debug') {
+        console.log(` *********** HTML + JS`)
+        console.log(`${preFileHtml}`) // eon-z-815e-d2bernoulli.html
+        console.log(`  +  ${preFileJs}`) // eon-z-815e-d2bernoulli.js
+
+        console.log(` ---- will create ${newNameHtml}`)
+
+      }
+
+      if (action === 'debug') {
+        console.log(` ---- text of ${newNameHtml}`)
+        console.log(`${newHtmlText}`)
+      }
+
+      if (action === 'doit') {
+        fs.writeFile(`${newNameHtml}`, `${newHtmlText}`, function (err) { // eon-z815e-d2bernoulli.html
+          if (err) throw err
+          console.log(` ----Updated ${newNameHtml}`)
+        })
+
+        fs.writeFile(`${newNameJs}`, '', function (err) { // eon-z815e-d2bernoulli.js
+          if (err) throw err
+          console.log(` ----Updated ${newNameJs}`)
+        })
+      }
+
+      let fileJsText = fs.readFileSync(preFileJs, 'utf8')
+      fileJsText = jsToJs({eonName, preEonName, text: fileJsText})
+
+      if (action === 'show' || action === 'debug') {
+        console.log(` ---- will create ${newNameJs}`)
+        console.log(` ----   from ${preFileJs}`)
+        console.log(` ---- replace pre-eno: ${preEonName}`) // z419ePacerNatEoloadAnify
+        console.log(` ----   by new eon name: ${eonName}`) // eonZ419ePacerNatEoloadAnify
+      }
+      if (action === 'debug') {
+        console.log(` ---- text of ${newNameJs}`)
+        console.log(`${fileJsText}`)
+      }
+
+      if (action === 'show' || action === 'debug') {
+        console.log(` ---- will delete ${preFileJs}`)
+        console.log(` ---- will delete ${preFileHtml}`)
+      }      
+
+      if (action === 'doit') {
+        fs.writeFile(`${newNameJs}`, `${fileJsText}`, function (err) { // eon-z815e-d2bernoulli.js
+          if (err) throw err
+          console.log(` ---- Updated ${newNameJs}`)
+        })
+        fs.unlinkSync(`${preFileJs}`, function (err) { // eon-z-815e-d2bernoulli.js
+          if (err) throw err
+          console.log(` ---- Deleted ${preFileJs}`)
+        })
+        fs.unlinkSync(`${preFileHtml}`, function (err) { // eon-z-815e-d2bernoulli.html
+          if (err) throw err
+          console.log(` ---- Deleted ${preFileHtml}`)
+        })
+      }
+    } else { // .html
+      if (action === 'show' || action === 'debug') {
+        console.log(` *********** HTML`)
+        console.log(`${preFileHtml}`) // eon-z-815e-d2bernoulli.html
+        console.log(` ---- will update ${newNameHtml}`)
+      }
+      if (action === 'debug') {      
+        console.log(` ---- new text of ${newNameHtml}:`)
+        console.log(newHtmlText)
+      }
+
+      if (action === 'doit') {
+        fs.writeFile(`${newNameHtml}`, `${newHtmlText}`, function (err) { // eon-z815e-d2bernoulli.html
+          if (err) throw err
+          console.log(` ---- Updated ${newNameHtml}`)
+        })
+
+      }
+
+      let fileHtmlText = fs.readFileSync(preFileHtml, 'utf8')
+      let fileJsText = htmlToJs({eonName, text: fileHtmlText})
+
+      if (action === 'show' || action === 'debug') {
+        console.log(` ---- will update ${newNameJs}`)
+      }
+      if (action === 'debug') {      
+        console.log(` ---- new text of ${newNameJs}:`)
+        console.log(fileJsText)
+      }
+
+      if (action === 'show' || action === 'debug') {
+        console.log(` ---- will delete ${preFileHtml}`)
+      }
+
+      if (action === 'doit') {
+        fs.writeFile(`${newNameJs}`, `${fileJsText}`, function (err) { // eon-z815e-d2bernoulli.js
+          if (err) throw err
+          console.log(` ---- Updated ${newNameJs}`)
+        })
+
+        fs.unlinkSync(`${preFileHtml}`, function (err) { // eon-z-815e-d2bernoulli.html
+          if (err) throw err
+          console.log(` ---- Deleted ${preFileHtml}`)
+        })
+      }
+    }
+  }
+}
 // fs.writeFileSync(outfile, outText)
+
+if (action === 'show' || action === 'doit' || action === 'debug') {
+  doit({action})
+} else if (action === 'help') {
+  console.log(`node ${prgname} [inScopePatter]`)
+}
