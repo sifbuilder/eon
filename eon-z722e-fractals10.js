@@ -119,7 +119,7 @@
     // ...  span data along [0, 1] interval
     // ...  and create FeatureCollection with trasform features
 
-    let geoData = muonProj3ct(data, muonProfier.formion(proform2, ani))
+    let geoData = muonProj3ct(data, muonProfier.formion(proform2, z))
     let transforms = muonFourier.transformedCoefs(geoData)
     transforms = muonGeoj.ntime(transforms, [0, 1])
 

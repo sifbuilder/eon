@@ -57,7 +57,7 @@
 
         geo.geometry.coordinates = geo.geometry.coordinates.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
 
-        geoData = muonGeoj.segtime(geo, ani.eotim)
+        let geoData = muonGeoj.segtime(geo, ani.eotim)
 
         return geoData
       },
