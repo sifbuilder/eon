@@ -17,7 +17,7 @@
       muonNatform,
       muonStace,
       muonGeoj,
-      ctlRayder,
+      // ctlRayder,
       eohalMars,
       eohalNatform,
       eohalPacer,
@@ -29,7 +29,7 @@
       __eo('xs').m('natform'),
       __eo('xs').m('stace'),
       __eo('xs').m('geoj'),
-      __eo('xs').c('rayder'),
+      // __eo('xs').c('rayder'),
       __eo('xs').e('mars'),
       __eo('xs').e('natform'),
       __eo('xs').e('pacer'),
@@ -40,8 +40,8 @@
 
     try { renderSvg.scenecolor('black') } catch (e) {}
     let muonStore = __eo('muonStore')
-    ctlRayder.control()
-    ctlRayder.showpos(true)
+    // ctlRayder.control()
+    // ctlRayder.showpos(true)
 
     // .................. animas
     let z = function () {
@@ -93,9 +93,7 @@
               if (props.key === 'init') { // INIT
                 let point = ani.eonode.geometry.coordinates
                 coords = Array.of(point) // eonode
-
               } else if (props.key === 'auto') { // AUTO
-
                 let point = ani.eoform
 
                 point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
@@ -117,7 +115,6 @@
                 } else {
                   coords = Array.of(point)
                 }
-
               } else if (props.key === 'event') { // EVENT
                 let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
 
@@ -216,7 +213,6 @@
         geoLined,
         textAni,
       }
-
       return scene
     }
 

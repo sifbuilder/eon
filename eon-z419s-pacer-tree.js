@@ -1,5 +1,5 @@
 /* ******************************************
- *    @eonZ419sPacerLine
+ *    @eonZ419sPacerTree
  *
  */
 ;(function (global, factory) {
@@ -7,7 +7,7 @@
     ? factory(exports)
     : typeof define === 'function' && define.amd
       ? define(['exports'], factory)
-      : factory((global.eonZ419sPacerLine = global.eonZ419sPacerLine || {}))
+      : factory((global.eonZ419sPacerTree = global.eonZ419sPacerTree || {}))
 })(this, function (exports) {
   'use strict'
 
@@ -236,5 +236,5 @@
     enty.z = z
     return enty
   }
-  exports.eonZ419sPacerLine = anitem
+  exports.eonZ419sPacerTree = anitem
 })

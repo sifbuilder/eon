@@ -10,8 +10,10 @@
 
   async function muonSoma (__eo = {}) {
     let [
+      eohalMars,
       muonProps,
     ] = await Promise.all([
+      __eo('xs').e('mars'),
       __eo('xs').m('props'),
     ])
 

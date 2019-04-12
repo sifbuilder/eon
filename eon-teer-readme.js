@@ -3,7 +3,6 @@
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
-
 const puppeteer = require('puppeteer')
 
 const waitInPromise = delay => arg =>
@@ -46,7 +45,7 @@ const state = {
   tspattern: new RegExp('(.*).ts.(.*)$', 'i'), //  ts
   zpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i'),
 
-  partsPattern: new RegExp(`^((eon-z-)([^-.]*))[-]?(.*).html$`, 'i'),
+  partsPattern: new RegExp(`^((eon-z)([^-.]*))[-]?(.*).html$`, 'i'),
 
   newLine: '\n',
   endOfLine: '  ',
@@ -67,9 +66,9 @@ const state = {
     width: 600,
     height: 400,
   },
-  prefix: `eon-z-`,
+  prefix: `eon-z`,
 
-  inScopePattern: new RegExp(`^eon-z-___none___.*.*$`, 'i'), // none pattern
+  inScopePattern: new RegExp(`^eon-z___none___.*.*$`, 'i'), // none pattern
   inScopeExt: 'html',
   inDir: './',
   indirpath: (dirname + '/').replace(/\\/g, '/'), // z-indexes
@@ -90,15 +89,18 @@ if (opts.length === 0) { // action: help
   action = 'debug'
 } else if (opts[optsnb - 1] === 'do') { // do
   action = 'doAction'
+} else if (opts[optsnb - 1] === 'dolist') { // dolist
+  action = 'doList'
 }
-if (action === 'doAction' || action === 'debug') {
+
+if (action === 'doAction' || action === 'doList' || action === 'debug') {
   let codepattern
   if (optsnb === 1) { // no pattern defined
     codepattern = '.*' // default to all
   } else { // optsnb > 1,  pattern is first opt
     codepattern = opts[0]
   }
-  state.inScopePattern = new RegExp(`^eon-z-.*${codepattern}.*\.${state.inScopeExt}$`, 'i')
+  state.inScopePattern = new RegExp(`^eon-z.*${codepattern}.*\.${state.inScopeExt}$`, 'i')
 
   if (optsnb === 2) { // where is opt 1
     state.where = opts[1] // {local | remote}
@@ -116,7 +118,7 @@ function getUri (p = {}) {
 }
 function getThumbnailUri (p = {}) {
   let pars = Object.assign({}, p)
-  pars.prefix = 'eon-z-'
+  pars.prefix = 'eon-z'
   pars.ext = 'png'
   pars.type = 'thumbnail'
   return getUri(pars)
@@ -124,7 +126,7 @@ function getThumbnailUri (p = {}) {
 
 function getGifUri (p = {}) {
   let pars = Object.assign({}, p)
-  pars.prefix = 'eon-z-'
+  pars.prefix = 'eon-z'
   pars.ext = 'gif'
   pars.type = ''
   return getUri(pars)
@@ -138,10 +140,17 @@ function getEonUri (p = {}) {
   return uri
 }
 
-function doAction (stat = {}) { // return outText
+function doAction (data) { // return outText
+  let {state, action} = data
   let outText = ''
 
-  let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, tspattern, mdpattern, inScopePattern, previewimg, previewext, prefix, previewview} = stat
+console.log(' ---- action', action)
+
+  let { qcols, partsPattern, outdirpath, tileimg, tileext, 
+    tileview, notile, where, contentUrl, user, repo, branch, 
+    hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, 
+    testpattern, tspattern, mdpattern, inScopePattern, previewimg, 
+    previewext, prefix, previewview} = state
 
   let erebody = ''
   let body = ''
@@ -171,7 +180,7 @@ function doAction (stat = {}) { // return outText
     let code = p.code
     let ext = 'png'
     let type = 'preview'
-    let file = 'eon-z-'
+    let file = 'eon-z'
     file = file.concat(code, '-', type, '.', ext)
     let path = outdirpath.concat(file)
     let url = rootMediaUrl.concat(file)
@@ -230,7 +239,7 @@ function doAction (stat = {}) { // return outText
                   let code = that.code || '10'
                   let ext = 'png'
                   let type = 'preview'
-                  let file = 'eon-z-'
+                  let file = 'eon-z'
                   file = file.concat(code, '-', type, '.', ext)
                   let path = outdirpath.concat(file)
                   let url = rootMediaUrl.concat(file)
@@ -244,10 +253,25 @@ function doAction (stat = {}) { // return outText
               that.src='${srcUri}'
             })(this);"`
 
-    outText += `[<img id="${i}" alt="${code}"
-          code="${code}" where="${where}" ext="png" type="preview" prefix="eon-z-"  outdirpath="${outdirpath}"  rootMediaUrl="${rootMediaUrl}"
+    if (action === 'doAction') {
+      outText += `[<img id="${i}" alt="${code}"
+          code="${code}" where="${where}" ext="png" type="preview" prefix="eon-z"  outdirpath="${outdirpath}"  rootMediaUrl="${rootMediaUrl}"
           src="${srcUri}"
           width="${tileview.width}px;" height="${tileview.height}px;"/>](${targetUri})`
+    } else {
+    
+      let root = './'
+      let preline = `${code}` //
+      let bodyline = `[${name}](${root}${fullname})` //
+
+      let mdfullname = `${name}.md` // mdfile
+      if (fs.existsSync(mdfullname)) { // eon has mdfile
+        preline = `**[${mdfullname}](${root}${mdfullname})**`
+      }
+
+      outText += `${preline} - ${bodyline}${endOfLine}${newLine}`
+
+    } 
 
     if (icol === qcols - 1) { // end row
       outText += `${endOfLine}${newLine}`
@@ -263,15 +287,23 @@ function doAction (stat = {}) { // return outText
 if (action === 'doAction') {
   console.log(`doAction ${state.where} eon files`)
   let outPath = `${state.outDir}${state.outFile}`
-  let outText = doAction(state)
+  let outText = doAction({state, action:'doAction'})
   fs.writeFileSync(outPath, outText)
+
+} else if (action === 'doList') {
+  console.log(`doList ${state.where} eon files`)
+  let outPath = `${state.outDir}${state.outFile}`
+  let outText = doAction({state, action:'doList'})
+  fs.writeFileSync(outPath, outText)
+
 } else if (action === 'debug') {
   console.log(`doAction ${state.where} eon files`)
   let outPath = `${state.outDir}${state.outFile}`
-  let outText = doAction(state)
+  let outText = doAction({state, action:'debug'})
   if (1 && 1) console.log('outText', outPath, outText)
+  
 } else if (action === 'help') {
-  console.log(`node ${prgname} {[pattern]} {local|remote} {[help], [debug], [do]}
+  console.log(`node ${prgname} {[pattern]} {local|remote} {[help], [debug], [do], [list]}
       eg: node eon-teer-readme . local do
       eg: node eon-teer-readme . remote do
       generate README.md file

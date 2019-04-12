@@ -130,8 +130,8 @@
       state.animas = muonStore.animasLive()
       state.anigrams = muonStore.anigrams()
 
-      if (1 && 1) console.log(` ================= ${parseInt(elapsed)} ${state.animas.length}`, state.animas)
-      if (1 && 1) console.log(` ----------------- ${parseInt(elapsed)} ${state.anigrams.length}`, state.anigrams)
+      if (0 && 1) console.log(` ================= ${parseInt(elapsed)} ${state.animas.length}`, state.animas)
+      if (0 && 1) console.log(` ----------------- ${parseInt(elapsed)} ${state.anigrams.length}`, state.anigrams)
 
       // ... TIME
       state.animas = a(muonStore.animasLive())

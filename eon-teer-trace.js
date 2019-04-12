@@ -112,7 +112,7 @@ function htmlToJs (data) {
   return newJsText
 }
 
-// .................. htmlToJs
+// .................. jsToJs
 function jsToJs (data) {
   let {eonName, preEonName, text} = data
 
@@ -155,9 +155,7 @@ function doit (data) {
         console.log(` *********** HTML + JS`)
         console.log(`${preFileHtml}`) // eon-z-815e-d2bernoulli.html
         console.log(`  +  ${preFileJs}`) // eon-z-815e-d2bernoulli.js
-
         console.log(` ---- will create ${newNameHtml}`)
-
       }
 
       if (action === 'debug') {

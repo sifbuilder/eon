@@ -194,7 +194,7 @@
       },
       eoload: {
         img: {
-          url: 'eon-z-img-triangulation.jpg',
+          url: 'eon-zimg-triangulation.jpg',
           style: {
             width: 400,
             height: 300,
