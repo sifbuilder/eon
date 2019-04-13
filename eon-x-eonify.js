@@ -393,7 +393,6 @@
       let [name, pres] = part // [name, prefix] eg.: [versor, muon]
 
       let ceon = ceonize(name, pres) // eg.: 'muonVersor' get from store
-
       let feon = feonize(name, pres) // eg.: './eon-muon-versor.js' get from file
       let xeon = xeonize(name, pres) // eg.: 'eon-muon-versor' get from cdn
 
@@ -496,9 +495,7 @@
   //
   let eonit = async function ({anitem, time}) {
     let __eo = await eostore()
-    console.log('*************anitem:', anitem)
     let aniset = await __eo('xs').z(anitem) // z eon
-    console.log('************* aniset:', aniset)
 
     let muonStore = __eo('muonStore')
 
@@ -608,8 +605,15 @@
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
   }
-
+  function getEonItem(input) {
+    const rfile = /^.*\/(?<filename>[^/]+)(?=.html).html(?:#)+(?<anchor>.*)$/u
+    let match = []
+    match = rfile.exec(input)
+    let {filename, anchor} = match.groups
+    return (anchor !== null) ? anchor : filename
+  }
   // ............................. exports
+  exports.getEonItem = getEonItem
   exports.eomap = eomap
   exports.eostore = eostore
   exports.eonit = eonit

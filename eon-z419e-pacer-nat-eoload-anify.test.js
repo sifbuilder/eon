@@ -8,7 +8,7 @@ global.urlPolyfill = require('url-polyfill')
 global.path = require('path')
 global.fs = require('fs')
 
-const xEonify = require('./eon-x-eonify.js')
+const xEonify = require('../eon-x-eonify.js')
 
 jest.useFakeTimers()
 

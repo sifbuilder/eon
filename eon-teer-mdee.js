@@ -23,7 +23,7 @@ let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
 
 // package version
-let xVersion = require('./eon-x-version.js')
+let xVersion = require('../eon-x-version.js')
 let xversion = xVersion.xVersion().version()
 let packver = (xversion) || '0.0.1-rc2'
 

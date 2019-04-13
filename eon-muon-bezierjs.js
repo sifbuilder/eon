@@ -234,7 +234,7 @@
       },
 
       makeline: function (p1, p2) {
-      // var Bezier = require('./bezier');
+      // var Bezier = require('../bezier');
         var x1 = p1.x, y1 = p1.y, x2 = p2.x, y2 = p2.y, dx = (x2 - x1) / 3, dy = (y2 - y1) / 3
         return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + 2 * dx, y1 + 2 * dy, x2, y2)
       },
@@ -627,10 +627,10 @@
       ZERO = {x: 0, y: 0, z: 0}
 
     // quite needed
-    // var utils = require('./utils.js');
+    // var utils = require('../utils.js');
 
     // not quite needed, but eventually this'll be useful...
-    // var PolyBezier = require('./poly-bezier.js');
+    // var PolyBezier = require('../poly-bezier.js');
 
     /**
    * Bezier curve constructor. The constructor argument can be one of three things:

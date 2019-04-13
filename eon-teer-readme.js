@@ -38,14 +38,14 @@ const state = {
   hostUrl: 'github.com/', //
   folder: 'blob', //
 
-  indexpattern: new RegExp(`^eon-z.*.html`, 'i'), // z.eons
+  indexpattern: new RegExp(`^eon-z.*.js`, 'i'), // z.eons
   eonpattern: new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i'), // eons
   testpattern: new RegExp('(.*).test.(.*)$', 'i'), //  test
   mdpattern: new RegExp('(.*).md.(.*)$', 'i'), //  md
   tspattern: new RegExp('(.*).ts.(.*)$', 'i'), //  ts
   zpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i'),
 
-  partsPattern: new RegExp(`^((eon-z)([^-.]*))[-]?(.*).html$`, 'i'),
+  partsPattern: new RegExp(`^(((eon-z)([^-.]*))[-]?(.*))(.js)$`, 'i'),
 
   newLine: '\n',
   endOfLine: '  ',
@@ -69,7 +69,7 @@ const state = {
   prefix: `eon-z`,
 
   inScopePattern: new RegExp(`^eon-z___none___.*.*$`, 'i'), // none pattern
-  inScopeExt: 'html',
+  inScopeExt: 'js',
   inDir: './',
   indirpath: (dirname + '/').replace(/\\/g, '/'), // z-indexes
 }
@@ -87,13 +87,13 @@ if (opts.length === 0) { // action: help
   action = 'help'
 } else if (opts[optsnb - 1] === 'debug') { // debug
   action = 'debug'
-} else if (opts[optsnb - 1] === 'do') { // do
-  action = 'doAction'
+} else if (opts[optsnb - 1] === 'doframe') { // doframe
+  action = 'doFrame'
 } else if (opts[optsnb - 1] === 'dolist') { // dolist
   action = 'doList'
 }
 
-if (action === 'doAction' || action === 'doList' || action === 'debug') {
+if (action === 'doFrame' || action === 'doList' || action === 'debug') {
   let codepattern
   if (optsnb === 1) { // no pattern defined
     codepattern = '.*' // default to all
@@ -140,11 +140,10 @@ function getEonUri (p = {}) {
   return uri
 }
 
-function doAction (data) { // return outText
+function doit (data) { // return outText
   let {state, action} = data
   let outText = ''
 
-console.log(' ---- action', action)
 
   let { qcols, partsPattern, outdirpath, tileimg, tileext, 
     tileview, notile, where, contentUrl, user, repo, branch, 
@@ -194,10 +193,13 @@ console.log(' ---- action', action)
 
     let parts = fileName.match(partsPattern)
     let fullname = parts[0] // eon
-    let prefixAndCode = parts[1]
-    let prefix = parts[2]
-    let code = parts[3] // thumb, gif
-    let name = parts[4] // thumb, gif
+    let prefixAndCodeAndName = parts[1]
+    let prefixAndCode = parts[2]
+    let prefix = parts[3]
+    let code = parts[4] // thumb, gif
+    let name = parts[5] // thumb, gif
+
+
 
     let p = {
       where: where,
@@ -253,22 +255,23 @@ console.log(' ---- action', action)
               that.src='${srcUri}'
             })(this);"`
 
-    if (action === 'doAction') {
+    if (action === 'doFrame') {
       outText += `[<img id="${i}" alt="${code}"
           code="${code}" where="${where}" ext="png" type="preview" prefix="eon-z"  outdirpath="${outdirpath}"  rootMediaUrl="${rootMediaUrl}"
           src="${srcUri}"
           width="${tileview.width}px;" height="${tileview.height}px;"/>](${targetUri})`
     } else {
     
-      let root = './'
-      let preline = `${code}` //
-      let bodyline = `[${name}](${root}${fullname})` //
+      let root = './index.html#'
+      let preline = '' // `${code}` //
+
+      let bodyline = `[${code} : ${name}](${root}${prefixAndCodeAndName})` //
 
       let mdfullname = `${name}.md` // mdfile
       if (fs.existsSync(mdfullname)) { // eon has mdfile
-        preline = `**[${mdfullname}](${root}${mdfullname})**`
+        bodyline = `**[${code} : ${name}](${root}${mdfullname})**`
       }
-
+      // '<a href="' + href + '">' + text + '</a>'
       outText += `${preline} - ${bodyline}${endOfLine}${newLine}`
 
     } 
@@ -284,26 +287,26 @@ console.log(' ---- action', action)
   return outText
 }
 
-if (action === 'doAction') {
-  console.log(`doAction ${state.where} eon files`)
+if (action === 'doFrame') {
+  console.log(`doFrame ${state.where} eon files`)
   let outPath = `${state.outDir}${state.outFile}`
-  let outText = doAction({state, action:'doAction'})
+  let outText = doit({state, action:'doFrame'})
   fs.writeFileSync(outPath, outText)
 
 } else if (action === 'doList') {
   console.log(`doList ${state.where} eon files`)
   let outPath = `${state.outDir}${state.outFile}`
-  let outText = doAction({state, action:'doList'})
+  let outText = doit({state, action:'doList'})
   fs.writeFileSync(outPath, outText)
 
 } else if (action === 'debug') {
-  console.log(`doAction ${state.where} eon files`)
+  console.log(`doFrame ${state.where} eon files`)
   let outPath = `${state.outDir}${state.outFile}`
-  let outText = doAction({state, action:'debug'})
+  let outText = doit({state, action:'debug'})
   if (1 && 1) console.log('outText', outPath, outText)
   
 } else if (action === 'help') {
-  console.log(`node ${prgname} {[pattern]} {local|remote} {[help], [debug], [do], [list]}
+  console.log(`node ${prgname} {[pattern]} {local|remote} {[help], [debug], [doframe], [dolist]}
       eg: node eon-teer-readme . local do
       eg: node eon-teer-readme . remote do
       generate README.md file
