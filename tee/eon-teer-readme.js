@@ -1,5 +1,3 @@
-// node <program>
-
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
@@ -79,6 +77,15 @@ state.picDirPath = `${state.rootdirpath}/pic`
 state.vidDirPath = `${state.rootdirpath}/vid`
 state.tstDirPath = `${state.rootdirpath}/tst`
 
+
+let col = coler(state.qcols)
+state.rooturl = `${state.contentUrl}${state.user}/${state.repo}/${state.branch}/`
+state.rootMediaUrl = `${state.contentUrl}${state.user}/${state.repo}/${state.folder}/${state.branch}/`
+state.rootRepoUrl = `https://${state.hostUrl}${state.user}/${state.repo}/`
+state.rootMediaUrl = `https://${state.user}.${state.hostUrl}/${state.repo}/`
+state.rootRepoUrl = `https://${state.user}.${state.hostUrl}/${state.repo}/`
+
+
 // args
 
 let args = process.argv
@@ -94,6 +101,8 @@ if (opts.length === 0) {
   action = 'debug'
 } else if (opts[optsnb - 1] === 'doframe') {
   action = 'doframe'
+} else if (opts[optsnb - 1] === 'dorows') {
+  action = 'dorows'
 } else if (opts[optsnb - 1] === 'dolist') {
   action = 'dolist'
 }
@@ -102,7 +111,7 @@ state.action = action
 if (
   action === 'doframe' ||
   action === 'dolist' ||
-  action === 'dorow' ||
+  action === 'dorows' ||
   action === 'debug'
 ) {
   let codepattern
@@ -127,6 +136,8 @@ function getUri (data) {
     : `${prefix}${code}.${ext}`
   let path = `${outdirpath}/${file}`
   let url = `${rootMediaUrl}/${file}`
+
+
   let uri = where === 'local' ? path : url
 
   return uri
@@ -139,7 +150,6 @@ function getEonHtmlUri (data) {
   let url = `${rootMediaUrl}${fileName}`
   let uri = where === 'local' ? path : url
 
-  console.log('getEonHtmlUri:', uri)
   return uri
 }
 
@@ -216,24 +226,6 @@ function getPreviewUri (data) {
   return res
 }
 
-function getRowItem (data) {
-  let {
-    i,
-    preline,
-    bodyline,
-    code,
-    where,
-    outdirpath,
-    rootMediaUrl,
-    srcUri,
-    tileview,
-    targetHtml,
-  } = data
-  // '<a href="' + href + '">' + text + '</a>'
-  // bodyline += `[${code} : ${name}](${root}${prefixAndCodeAndName})`
-  let res = `${preline} - ${bodyline}`
-  return res
-}
 
 function getTileItem (data) {
   let {
@@ -255,6 +247,25 @@ function getTileItem (data) {
   return res
 }
 
+function getRowsItem (data) {
+  let {
+    i,
+    preline,
+    bodyline,
+    code,
+    where,
+    outdirpath,
+    rootMediaUrl,
+    srcUri,
+    tileview,
+    targetHtml,
+    prefixAndCodeAndName,    
+  } = data
+  let outHtmlUri = getEonHtmlUri(data) // file:///E:/Dropbox/dBox/e/c/eons/eons/eon-z021a.html  
+  // '<a href="' + href + '">' + text + '</a>'
+  let res = `[${prefixAndCodeAndName}](${outHtmlUri})`
+  return res
+}
 function getListItem (data) {
 
   let {
@@ -357,13 +368,7 @@ function doit (data) {
     .filter(d => !testpattern.test(d))
     .filter(d => !mdpattern.test(d))
     .filter(d => !tspattern.test(d))
-
-  let col = coler(qcols)
-  let rooturl = `${contentUrl}${user}/${repo}/${branch}/`
-  let rootMediaUrl = `${contentUrl}${user}/${repo}/${folder}/${branch}/`
-  let rootRepoUrl = `https://${hostUrl}${user}/${repo}/`
-  rootMediaUrl = `https://${user}.${hostUrl}/${repo}/`
-  rootRepoUrl = `https://${user}.${hostUrl}/${repo}/`
+console.log('zfiles', inDir, zfiles)
 
   for (let i = 0; i < zfiles.length; i++) {
     let fileName = zfiles[i]
@@ -401,8 +406,8 @@ function doit (data) {
       console.log('dolist')
       outText += getListItem(fileData)
 
-    } else if (action === 'dorow') {
-      outText += getRowItem(fileData)
+    } else if (action === 'dorows') {
+      outText += getRowsItem(fileData)
 
     }
 
