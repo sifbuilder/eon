@@ -1,5 +1,5 @@
 /* ******************************************
- *    @eonZ620mShrubs
+ *    @eonZ620nShrubs
  *
  */
 ;(function (global, factory) {
@@ -7,7 +7,7 @@
     ? factory(exports)
     : typeof define === 'function' && define.amd
       ? define(['exports'], factory)
-      : factory((global.eonZ620mShrubs = global.eonZ620mShrubs || {}))
+      : factory((global.eonZ620nShrubs = global.eonZ620nShrubs || {}))
 })(this, function (exports) {
   'use strict'
 
@@ -49,7 +49,7 @@
       let eotim = { td: 24200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
       let eocrom = { csx: 0, cf: 777, cs: 555, cw: 0.9, co: 0.05, cp: 0.7 }
 
-      let lindenmayer1 = () => ({
+      let lindenmayer = () => ({
         linden: {
           axiom: 'F',
           loopq: 5,
@@ -71,6 +71,29 @@
         },
       })
 
+      let shrub = (data) => {
+        let {lindenmayer} = data
+
+
+        let geo = muonLindenmayer.multiFeature(lindenmayer())
+        geo.features = geo.features.sort(function (a, b) {
+          return ( 2 * a.properties.level +
+          a.properties.segment - (2 * b.properties.level + b.properties.segment)
+          )
+        })
+        geo.features = geo.features.map((f, i) => {
+          f.properties.eocrom = muonProps.clone(eocrom)
+          let level = f.properties.level || 0
+          let cs = f.properties.eocrom.cs
+          let newcs = cs + 200 * level
+
+          f.properties.eocrom.cs = newcs
+          return f
+        })
+        return geo
+      }
+
+
       // .................. aniForm
       let aniForm = {
         eohal: eohalMars,
@@ -91,13 +114,11 @@
             projection: 'uniwen',
             scale: 1,
             translate: [0, 0, 0],
-            prerotate: [[[ctl.rotation]]],
-            rotate: [0, [[[0, 0 * 360]]], 0],
+            rotate: [0, 0, 0],
           },
         },
         eocrom: eocrom,
         eoload: {
-          // lindenmayer: lindenmayer,
           tim: [[[0, 1]]],
         },
       }
@@ -123,37 +144,15 @@
           let htol = (0.5 - Math.random())
           let crom = Math.floor(0.5 + Math.random())
 
-          // anii.eoload.soma = muonProps.clone(soma)
-          // anii.eoload.soma.x0 = (hvar * htol) + dist * (hsep * ih)
-          // anii.eoload.soma.y0 = vmar - (vsep * iv)
-
           anii.eofold = function (ani) {
-            // let x0 = (hvar * htol) + dist * (hsep * ih)
-            // let y0 = vmar - (vsep * iv)
-            // let gj = {
-            //   type: 'Point',
-            //   coordinates: [x0,y0,0],
-            // }
-            // return gj
-
-            let geo = muonLindenmayer.multiFeature(lindenmayer1())
-            geo.features = geo.features.sort(function (a, b) {
-              return (
-                2 * a.properties.level +
-                a.properties.segment -
-                (2 * b.properties.level + b.properties.segment)
-              )
-            })
-            geo.features = geo.features.map((f, i) => {
-              f.properties.eocrom = muonProps.clone(eocrom)
-              let level = f.properties.level || 0
-              let cs = f.properties.eocrom.cs
-              let newcs = cs + 200 * level
-
-              f.properties.eocrom.cs = newcs
-              return f
-            })
+            
+            let x0 = (hvar * htol) + dist * (hsep * ih)
+            let y0 = vmar - (vsep * iv)
+            let geo = shrub({lindenmayer})
+            
             return geo
+
+
           }
           anii.eocrom = eocrom[crom]
 
@@ -171,5 +170,5 @@
     enty.z = z
     return enty
   }
-  exports.eonZ620mShrubs = anitem
+  exports.eonZ620nShrubs = anitem
 })

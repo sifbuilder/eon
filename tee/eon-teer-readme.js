@@ -20,15 +20,16 @@ const coler = q => n => n % q
 let filename = __filename // full path name of the current module
 let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
+let cwdname = process.cwd()
+
 
 // state
-
 const state = {
   outDir: './',
   outMdFile: 'README.md',
   outText: '',
-  rootdirpath: (__dirname + '/').replace(/\\/g, '/'),
-  outdirpath: (__dirname + '/').replace(/\\/g, '/'),
+  rootdirpath: (dirname + '/').replace(/\\/g, '/'),
+  outdirpath: ( dirname + '/../').replace(/\\/g, '/'),
   where: 'local',
   qcols: 1, // 3, // number of thumbnails per row
   contentUrl: 'https://raw.githubusercontent.com/', // rsc host
@@ -137,7 +138,6 @@ function getUri (data) {
   let path = `${outdirpath}/${file}`
   let url = `${rootMediaUrl}/${file}`
 
-
   let uri = where === 'local' ? path : url
 
   return uri
@@ -147,6 +147,7 @@ function getEonHtmlUri (data) {
   let { where, prefixAndCodeAndName, outdirpath, rootMediaUrl } = data
   let fileName =`index.html#${prefixAndCodeAndName}`
   let path = `${outdirpath}${fileName}`
+
   let url = `${rootMediaUrl}${fileName}`
   let uri = where === 'local' ? path : url
 
@@ -261,6 +262,7 @@ function getRowsItem (data) {
     targetHtml,
     prefixAndCodeAndName,    
   } = data
+
   let outHtmlUri = getEonHtmlUri(data) // file:///E:/Dropbox/dBox/e/c/eons/eons/eon-z021a.html  
   // '<a href="' + href + '">' + text + '</a>'
   let res = `[${prefixAndCodeAndName}](${outHtmlUri})`
@@ -368,7 +370,7 @@ function doit (data) {
     .filter(d => !testpattern.test(d))
     .filter(d => !mdpattern.test(d))
     .filter(d => !tspattern.test(d))
-console.log('zfiles', inDir, zfiles)
+
 
   for (let i = 0; i < zfiles.length; i++) {
     let fileName = zfiles[i]
@@ -403,7 +405,6 @@ console.log('zfiles', inDir, zfiles)
       outText += getTileItem(fileData)
 
     } else if (action === 'dolist') {
-      console.log('dolist')
       outText += getListItem(fileData)
 
     } else if (action === 'dorows') {
