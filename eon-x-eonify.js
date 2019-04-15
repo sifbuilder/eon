@@ -606,11 +606,19 @@
     }
   }
   function getEonItem(input) {
-    const rfile = /^.*\/(?<filename>[^/]+)(?=.html).html(?:#)+(?<anchor>.*)$/u
-    let match = []
-    match = rfile.exec(input)
-    let {filename, anchor} = match.groups
-    return (anchor !== null) ? anchor : filename
+    const rfile = /^.*\/(?<filename>[^/]+)(?=.html).html(?:#)?(?<anchor>.*)$/u
+    // const rfile = /.*\/(?<filename>[^/?#]+)(.html)?[^#]*(?==)v?=?(?<val>.*)(?:#)?#?(?<anchor>[^#]*)$/u
+    let match = rfile.exec(input) || {}
+
+
+    let {filename, anchor, val} = match.groups
+
+
+    let res = null
+    if (val) res = val
+    else if (anchor) res = anchor
+    else if (filename) res = filename
+    return res
   }
   // ............................. exports
   exports.getEonItem = getEonItem

@@ -49,11 +49,12 @@
       let eotim = { td: 24200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
       let eocrom = { csx: 0, cf: 777, cs: 555, cw: 0.9, co: 0.05, cp: 0.7 }
 
-      let lindenmayer = () => ({
+      // .................. lindenmayer
+      let lindenmayer = (data = {}) => ({
         linden: {
-          axiom: 'F',
-          loopq: 5,
-          rules: {
+          axiom: data.axiom || 'F',
+          loopq: data.loopq || 5,
+          rules: data.rules || {
             F: {
               probs: [33, 66, 100],
               vals: ['F[+F]F', 'F[-F]F', 'F[+F]F[-F]F'],
@@ -61,24 +62,27 @@
           },
         },
         mayer: {
-          side: 3.5,
-          angunit: 25.7,
-          angstart: 90,
-          start: [0, -175, 0],
-          cant: [[[0.1, 0.1]]],
-          randomize: 1,
-          randomfactor: 0.1,
+          side: data.side || 3.5,
+          angunit: data.angunit || 25.7,
+          angstart: data.angstart || 90,
+          start: data.start || [0, -175, 0],
+          cant: data.cant || [[[0.1, 0.1]]],
+          randomize: data.randomize || 1,
+          randomfactor: data.randomfactor || 0.1,
         },
       })
 
-      let shrub = (data) => {
-        let {lindenmayer} = data
+      // .................. shrub
+      let shrub = (data = {}) => {
+        let { lindenmayer } = data
+        data.start = [data.x0 || 0, data.y0 || 0, data.z0 || 0]
 
-
-        let geo = muonLindenmayer.multiFeature(lindenmayer())
+        let geo = muonLindenmayer.multiFeature(lindenmayer(data))
         geo.features = geo.features.sort(function (a, b) {
-          return ( 2 * a.properties.level +
-          a.properties.segment - (2 * b.properties.level + b.properties.segment)
+          return (
+            2 * a.properties.level +
+            a.properties.segment -
+            (2 * b.properties.level + b.properties.segment)
           )
         })
         geo.features = geo.features.map((f, i) => {
@@ -93,6 +97,28 @@
         return geo
       }
 
+      let qh = 4 // rows
+      let qv = 2 // columns
+      let treeanis = new Array(qh * qv)
+      let tidx = muonProps.tidx(qh, qv, 1, 1) // index from coords
+      let ridx = muonProps.ridx(qh, qv, 1, 1) // coords from index
+
+      let hvar = 10
+      let hsep = 40
+      let vmar = 0
+      let vsep = 50
+      let igeo = []
+      for (let iv = 0; iv < qv; iv++) {
+        for (let ih = 0; ih < qh; ih++) {
+          let dist = 0.5 - (ih % 2)
+          let htol = 0.5 - Math.random()
+
+          let idx = tidx(ih, iv)
+          let x0 = hvar * htol + dist * (hsep * ih)
+          let y0 = vmar - vsep * iv
+          igeo[idx] = shrub({ lindenmayer, x0, y0 })
+        }
+      }
 
       // .................. aniForm
       let aniForm = {
@@ -100,14 +126,7 @@
         eotim: eotim,
         eoric: { gid: 'ani', cid: 'ani', fid: 'ani1' },
 
-        eofold: ani => {
-          let gj = {
-            type: 'Point',
-            coordinates: [0, 0, 0],
-          }
-
-          return gj
-        },
+        eofold: ani => ({ type: 'Point', coordinates: [0, 0, 0] }),
 
         eomot: {
           proform: {
@@ -123,39 +142,29 @@
         },
       }
 
-      let qh = 4 // 10
-      let qv = 2 // 4
-      let treeanis = new Array(qh * qv)
-      let tidx = muonProps.tidx(qh, qv, 1, 1)
-
-      let hvar = 10
-      let hsep = 40
-      let vmar = 0
-      let vsep = 50
-
       for (let iv = 0; iv < qv; iv++) {
         for (let ih = 0; ih < qh; ih++) {
           let idx = tidx(ih, iv)
 
           let anii = muonProps.clone(aniForm)
           anii.eoric.fid = 'ani' + idx
+          anii.eofold = igeo[idx]
+          anii.eocrom = eocrom[Math.floor(0.5 + Math.random())]
+          anii.eomot = {
+            proform: {
 
-          let dist = (0.5 - ih % 2)
-          let htol = (0.5 - Math.random())
-          let crom = Math.floor(0.5 + Math.random())
+              projection: 'uniwen',
+              prerotate: [[[ ctl.rotation ]]],
+              translate: [ [0, 0, 0], [[[ {
+                'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+                'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360,
+              } ]]] ],
+              scale: 1,
+              rotate: [ 0, 0, 0 ],
+              lens: [0, 1, 12],
 
-          anii.eofold = function (ani) {
-            
-            let x0 = (hvar * htol) + dist * (hsep * ih)
-            let y0 = vmar - (vsep * iv)
-            let geo = shrub({lindenmayer})
-            
-            return geo
-
-
+            },
           }
-          anii.eocrom = eocrom[crom]
-
           treeanis[idx] = anii
         }
       }

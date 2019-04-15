@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
-
 const puppeteer = require('puppeteer')
 
 const waitInPromise = delay => arg =>
@@ -24,11 +23,12 @@ let args = process.argv
 let [cmd, scp, ...opts] = args
 
 let action = 'help' // {[help] pattern}
-let inScopePattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
+let qualiprefix = 'eon-z'
+let inScopePattern = new RegExp(`^eon-z___none___.*\.html$`, 'i') // none pattern
 
 if (opts.length === 0) { // action: help
   action = 'help'
-} else if (opts.length === 1 && opts[0] !== 'help') { // action:actView
+} else if (opts.length >= 1) { // action:actView
   action = 'actView'
   let codepattern = '.*' // default to all
   if (opts[0] === '.') {
@@ -36,8 +36,15 @@ if (opts.length === 0) { // action: help
   } else {
     codepattern = opts[0]
   }
-  inScopePattern = new RegExp(`^eon-z-${codepattern}.*\.html$`, 'i') // actView pattern
+  inScopePattern = new RegExp(`^${qualiprefix}${codepattern}.*\.html$`, 'i') // actView pattern
 }
+
+let state = {
+  action,
+  qualiprefix,
+  inScopePattern
+}
+
 
 const options = {
   headless: false, // puppeteer.launch
@@ -63,15 +70,19 @@ const options = {
   pageSelector: '#viewframe', // page.waitForSelector
 }
 
-let indir = './'
-let indirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
-let closebrowser = 0
-let tracing = 0
-let tracingpath = './___trace.json'
+stataeindir = './'
+stataeindirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
+stataeclosebrowser = 0
+stataetracing = 0
+stataetracingpath = './___trace.json'
 
 let files = fs.readdirSync(indir) // to actView
   .filter(file => isFile(file))
   .filter(d => inScopePattern.test(d))
+
+  
+console.log('***', state)
+return 
 
 // .................. actUponItems
 async function actUponItems (browser, fls, opts) {

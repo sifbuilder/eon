@@ -49,7 +49,7 @@ test('test capitalize', () => {
 
 test('test ceonize', () => {
   let r = xEonify.ceonize('eon-muon-test')
-  expect(r).toBe('muonTest')
+  expect(r).toBe('eonMuonTest')
 })
 
 test('test feonize', () => {
@@ -76,4 +76,22 @@ test('test getCell if e object', async () => {
   let m = xEonify.eomap()
   let r = await xEonify.getCell(e, n, m)
   expect(r).toBe(e)
+})
+
+test('test getEonItem anchor', async () => {
+  let href = "file:///E:/Dropbox/dBox/e/c/eons/eons/index.html#eon-z100a-anima"
+  let r = await xEonify.getEonItem(href)
+  expect(r).toBe("eon-z100a-anima")
+})
+
+test('test getEonItem filename', async () => {
+  let href = "file:///E:/Dropbox/dBox/e/c/eons/eons/eon-z100a-anima.html"
+  let r = await xEonify.getEonItem(href)
+  expect(r).toBe("eon-z100a-anima")
+})
+
+test('test getEonItem v param', async () => {
+  let href = "file:///E:/Dropbox/dBox/e/c/eons/eons?v=eon-z100a-anima"
+  let r = await xEonify.getEonItem(href)
+  expect(r).toBe("eon-z100a-anima")
 })
