@@ -29,7 +29,6 @@ let inScopePattern = new RegExp(`^eon-z___none___.*\.html$`, 'i') // none patter
 if (opts.length === 0) { // action: help
   action = 'help'
 } else if (opts.length >= 1) { // action:actView
-  action = 'actView'
   let codepattern = '.*' // default to all
   if (opts[0] === '.') {
     codepattern = '.*'
@@ -37,6 +36,14 @@ if (opts.length === 0) { // action: help
     codepattern = opts[0]
   }
   inScopePattern = new RegExp(`^${qualiprefix}${codepattern}.*\.html$`, 'i') // actView pattern
+  if (opts.length >= 2 && opts[1] === 'doit' ) {
+    action = 'doit'
+  } else {
+    action = 'debug'
+  }
+  
+
+
 }
 
 let state = {
@@ -70,19 +77,17 @@ const options = {
   pageSelector: '#viewframe', // page.waitForSelector
 }
 
-stataeindir = './'
-stataeindirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
-stataeclosebrowser = 0
-stataetracing = 0
-stataetracingpath = './___trace.json'
+state.indir = './'
+state.indirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
+state.closebrowser = 0
+state.tracing = 0
+state.tracingpath = './___trace.json'
+state.options = options
 
-let files = fs.readdirSync(indir) // to actView
+let files = fs.readdirSync(state.indir) // to actView
   .filter(file => isFile(file))
   .filter(d => inScopePattern.test(d))
-
-  
-console.log('***', state)
-return 
+state.files = files
 
 // .................. actUponItems
 async function actUponItems (browser, fls, opts) {
@@ -142,8 +147,8 @@ async function actUponItems (browser, fls, opts) {
   return actUponNext(0) // 0
 }
 
-// .................. actView
-async function actView (fls, opts) {
+// .................. doit
+async function doit (fls, opts) {
   const browser = await puppeteer.launch({
     headless: opts.headless,
     devtools: opts.devtools, // open DevTools when window launches
@@ -158,14 +163,17 @@ async function actView (fls, opts) {
   if (closebrowser) await browser.close()
 }
 
-if (action === 'help') {
-  console.log(`node ${prgname} {[help], actPattern} on eon-z- files`)
+if (state.action === 'help') {
+  console.log(`node ${state.prgname} {[help], actPattern} on eon-z- files`)
   console.log(`call puppeteer and show html eon`)
-  console.log(`eg.: node ${prgname} 793`)
-  console.log(`eg.: node ${prgname} 793d`)
-} else if (action === 'actView') {
-  console.log(`actView ${inScopePattern} eon files`)
-  actView(files, options)
-} else {
-  console.log(`node ${prgname} {[help], actPattern} on eon-z- files`)
+  console.log(`eg.: node ${state.prgname} 793`)
+  console.log(`eg.: node ${state.prgname} 793d`)
+} else if (state.action === 'doit') {
+  console.log(`doit ${state.inScopePattern} eon files`)
+  doit(state.files, state.options)
+} else if (state.action === 'debug') {
+  console.log(`will do: ${state.files}`)
+  console.log(state)
+ } else {
+  console.log(`node ${state.prgname} {[help], actPattern} on eon-z- files`)
 }

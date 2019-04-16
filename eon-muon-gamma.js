@@ -14,7 +14,7 @@
   async function anitem (__eo) {
 
     // ............................. pics
-    const fact  = op => gamma(op + 1)
+    const fact = op => gamma(op + 1)
 
     // let fact = n => (n === 0) ? 1 : n * fact( n - 1 )
     // https://stackoverflow.com/questions/3959211/what-is-the-fastest-factorial-function-in-javascript
