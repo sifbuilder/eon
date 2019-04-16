@@ -605,19 +605,24 @@
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
   }
-  function getEonItem(input) {
-    const rfile = /^.*\/(?<filename>[^/]+)(?=.html).html(?:#)?(?<anchor>.*)$/u
-    // const rfile = /.*\/(?<filename>[^/?#]+)(.html)?[^#]*(?==)v?=?(?<val>.*)(?:#)?#?(?<anchor>[^#]*)$/u
-    let match = rfile.exec(input) || {}
+  function getEonItem(input) {  // _e_
+    console.log('input:', input)
+    const rfile1 = /^.*\/(?<filename>[^/]+)(?=.html).html(?:#)?(?<anchor>.*)$/u
+    let match1 = rfile1.exec(input) || {}
+    let {filename, anchor} = (match1.groups || {})
+    console.log('match1.groups:', match1.groups)
 
-
-    let {filename, anchor, val} = match.groups
-
+    const rfile2 = /.*\/(?<filename>[^/?#]+)(.html)?[^#]*(?==)v?=?(?<val>.*)(?:#)?#?(?<anchor>[^#]*)$/u
+    let match2 = rfile2.exec(input) || {}
+    let {val} = (match2.groups || {})
+    console.log(' match2.groups:',  match2.groups)
 
     let res = null
     if (val) res = val
     else if (anchor) res = anchor
     else if (filename) res = filename
+    console.log('res:', res)
+
     return res
   }
   // ............................. exports

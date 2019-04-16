@@ -12,13 +12,9 @@
   // ... ** **
   // .................. anitem
   async function anitem (__eo) {
-    // .................. eons
-
-    function fact (op) {
-      return gamma(op + 1)
-    }
 
     // ............................. pics
+    const fact  = op => gamma(op + 1)
 
     // let fact = n => (n === 0) ? 1 : n * fact( n - 1 )
     // https://stackoverflow.com/questions/3959211/what-is-the-fastest-factorial-function-in-javascript
@@ -43,7 +39,6 @@
       }
 
       d = d1 * d2 * d3 * d4
-
       return d
     }
 
@@ -71,7 +66,6 @@
     }
 
     let enty = () => {}
-
     enty.gamma = gamma
     enty.fact = fact
     enty.bessel = bessel

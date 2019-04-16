@@ -45,9 +45,7 @@
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
-
     // ............................. pics
-
     let bernx = (e, c, d) => {
       let x = (c[1] * e[0]) / (2 * Math.PI) // range * [2 * Math.PI] / (2 * Math.PI)
       return x
@@ -65,107 +63,52 @@
     // .................. animas
     let z = function () {
       // .................. pics
-      let sin = Math.sin,
-        cos = Math.cos,
-        pi = Math.PI
-
+      let sin = Math.sin, cos = Math.cos, pi = Math.PI
       let summands = 23
       let level = [[[12, 0.0, 12]]]
       let range = 17
       let conformAni = {
         x: {
-          m1: 4,
-          m2: 4,
-          n1: 2,
-          n2: 2,
-          n3: 2,
-          a: 1,
-          b: 1, // circ
-          ra2: 1,
-          v0: 0,
-          v1: 1,
-          w4: 0,
-          seg5: 64,
-          pa6: 0,
-          pb7: -1,
-          dom3: [0, 45], //  [-90, 90], // [-90, 90]
+          m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
+          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 36, pa6: 0, pb7: -1,
+          dom3: [0, 360], // [0, 45], //
           c: [1, range, 1, 1], // . , range, ., .
-          fn0: (e, c, d) => {
-            // return cos(e[0]) * cos(e[2])
-            return cos(e[0])
-          }, //  bernx(e, d.c, d) * sin(e[0]) * cos(e[3]),
+          fn0: (e, c, d) => cos(e[0]) * cos(e[2]),
         },
         y: {
-          m1: 4,
-          m2: 4,
-          n1: 2,
-          n2: 2,
-          n3: 2,
-          a: 1,
-          b: 1, // circ
-          ra2: 1,
-          v0: 0,
-          v1: 1,
-          w4: 0,
-          seg5: 64,
-          pa6: 0,
-          pb7: -1,
-          dom3: [-180, 180],
+          m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
+          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 36, pa6: 0, pb7: -1,
+          dom3: [0, 360],
           c: [level, range, summands, 1], // order, range, summs, .
-          fn0: (e, c, d) => {
-            // return sin(e[1]) * cos(e[2])
-            return sin(e[1])
-          }, // muonGamma.bessel(e, d.c, d) * cos(e[0]),
+          fn0: (e, c, d) => sin(e[1]) * cos(e[2]),
         },
         z: {
-          m1: 4,
-          m2: 4,
-          n1: 2,
-          n2: 2,
-          n3: 2,
-          a: 1,
-          b: 1, // circ
-          ra2: 1,
-          v0: 0,
-          v1: 1,
-          w4: 0,
-          seg5: 64,
-          pa6: 0,
-          pb7: -1,
-          dom3: [-180, 180],
+          m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
+          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 36, pa6: 0, pb7: -1,
+          dom3: [-90, 90],
           c: [level, range, summands, [[[0, 1]]]], // order, range, summs, .
           fn0: (e, c, d) => {
-            // return  muonGamma.bessel(e, d.c, d)
-            return (
-              (cos(d.c[2] * pi) + sin(d.c[2] * pi)) *
-              muonGamma.bessel(e, d.c, d) *
-              (cos(e[2]) + sin(e[2]))
-            )
+            let t = d.c[0]
+            let r = cos(e[0]) * cos(e[0]) + sin(e[1]) * sin(e[1])
+            let a = Math.PI
+            let a00 = jnm[0][0]
+            let l00 = a00 / a
+            let J = muonGamma.bessel(e, d.c, d) || 0
+            let res 
+            res = (cos(a00 * t) + sin(a00 * t)) * J
+            return res
           }, // bernx(e, d.c, d) * sin(e[0]) * sin(e[3]),
         },
         w: {
-          m1: 4,
-          m2: 4,
-          n1: 2,
-          n2: 2,
-          n3: 2,
-          a: 1,
-          b: 1, // circ
-          ra2: 1,
-          v0: 0,
-          v1: 1,
-          w4: 0,
-          seg5: 64,
-          pa6: 0,
-          pb7: -1,
-          dom3:  [-180, 180],
+          m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
+          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 36, pa6: 0, pb7: -1,
+          dom3: [-90, 90],
           c: [level, range, summands, 1], // order, range, summs, .
           fn0: (e, c, d) => {
             return e[3] // cos(e[2]),
           },
         },
       }
-
       let eotim = { td: 9600, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
 
       // ............................. natAniRed
@@ -180,26 +123,14 @@
             gsa: 0, // asymetric distribution of geodesics around the origin
             gco: 0, // open line
           }
-
-          let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
-          // let res = muonNatform.natMultiPolygon(natipros) // Feature.LineString
-
-          return res
+          return muonNatform.natMultiLineString(natipros) // Feature.LineString
         },
         eomot: {
           ereform: {
-            projection: 'uniwen',
-            scale: [1, 1, 1],
-            translate: [0, 0, 0],
-            rotate: [-12, 0, -6],
-            lens: [0, 1, Infinity],
+            projection: 'uniwen', scale: [1, 1, 1], translate: [0, 0, 0], rotate: [90, 0, 0],
           },
           proform: {
-            projection: 'uniwen',
-            scale: [100, 100, 100],
-            translate: [0, 0, 0],
-            rotate: [[[ctl.rotation]]],
-            lens: [0, 1, Infinity],
+            projection: 'uniwen', scale: [100, 100, 100], translate: [0, 0, 0], rotate: [[[ctl.rotation]]],
           },
         },
         eoload: {
