@@ -168,8 +168,6 @@
 
       let newAnimas = []
       if (eohal) newAnimas = eohal.anify(anima)
-      console.log('m.store anify newItems:', newAnimas)
-
 
       return newAnimas
     }

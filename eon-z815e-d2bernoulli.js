@@ -50,8 +50,8 @@
       let x = (c[1] * e[0]) / (2 * Math.PI) // range * [2 * Math.PI] / (2 * Math.PI)
       return x
     }
-    let f = (num, h=2) => parseFloat(parseFloat(num).toFixed(h))
-    let fs = (arr,h=2) => arr.map(d => f(d,h))
+    let f = (num, h = 2) => parseFloat(parseFloat(num).toFixed(h))
+    let fs = (arr, h = 2) => arr.map(d => f(d, h))
 
     // http://mathworld.wolfram.com/BesselFunctionZeros.html
     // k	J_0(x)	J_1(x)	J_2(x)	J_3(x)	J_4(x)	J_5(x)
@@ -72,23 +72,23 @@
       let conformAni = {
         x: {
           m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
-          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 12, pa6: 0, pb7: -1,
+          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 48, pa6: 0, pb7: -1,
           dom3: [0, 360], // [0, 45], //
           c: [1, range, 1, 1], // . , range, ., .
           fn0: (e, c, d) => cos(e[0]) * cos(e[2]),
         },
         y: {
           m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
-          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 12, pa6: 0, pb7: -1,
+          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 48, pa6: 0, pb7: -1,
           dom3: [0, 360],
           c: [level, range, summands, 1], // order, range, summs, .
           fn0: (e, c, d) => sin(e[1]) * cos(e[2]),
         },
         z: {
           m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
-          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 12, pa6: 0, pb7: -1,
+          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 24, pa6: 0, pb7: -1,
           dom3: [0, 90],
-          c: [level, range, summands, [[[0, 1]]]], // order, range, summs, .
+          c: [level, range, summands, [[[-1, 1]]]], // order, range, summs, .
           fn0: (e, c, d) => {
             // seg5: 4 => e:
             // [0, 0, 0, 0]
@@ -101,24 +101,26 @@
             // [3.14, 3.14, 1.57, 1.57]
             // [4.71, 4.71, 1.57, 1.57]
             // [6.28, 6.28, 1.57, 1.57]
-
-            let t = d.c[0]
+            let [level, range, summs, t] = d.c
             // let r = Math.sqrt(cos(e[0]) * cos(e[0]) + sin(e[1]) * sin(e[1]))
             let a = 2 * Math.PI
             let r = e[2] / a
             let a00 = jnm[0][0]
             let l00 = a00 / a
-            let J = muonGamma.bessel(e, d.c) || 0
-            let res 
-            res = (cos(a00 * r) + sin(a00 * r)) * J
-            // console.log('e:', fs(e))
-            // console.log('r:', a00, t ,J, res)
+            let p = {
+              x: range * e[2] / a,
+              summs,
+              level,
+            }
+            let J = muonGamma.bessel(p) || 0
+            let res
+            res = (cos(a00 * r * t) + sin(a00 * r * t)) * J
             return res
           }, // bernx(e, d.c, d) * sin(e[0]) * sin(e[3]),
         },
         w: {
           m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
-          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 12, pa6: 0, pb7: -1,
+          ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 24, pa6: 0, pb7: -1,
           dom3: [0, 90],
           c: [level, range, summands, 1], // order, range, summs, .
           fn0: (e, c, d) => {
@@ -126,7 +128,7 @@
           },
         },
       }
-      let eotim = { td: 10000, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
+      let eotim = { td: 1000, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
 
       // ............................. natAniRed
       let natAniRed = {

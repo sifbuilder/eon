@@ -42,12 +42,12 @@
       return d
     }
 
-    let bessel = (e = [], c = [], d = {}) => {
-      let summs = c[2] // summands
+    let bessel = (data) => {
+      let {x, summs, level} = data
+
       let w = Array.from(new Array(summs), (d, i) => 1)
-      let v = c[0] // level
-      let r = (2 * Math.PI) // _e_
-      let x = c[1] * e[0] / r // range e[0]
+      let v = level
+
       let y = w.reduce((p, q, k) => {
         let f, f1, f2, f3, f4
         try {
