@@ -46,7 +46,8 @@
       let summs = c[2] // summands
       let w = Array.from(new Array(summs), (d, i) => 1)
       let v = c[0] // level
-      let x = c[1] * e[0] / (2 * Math.PI) // range e[0]
+      let r = (2 * Math.PI) // _e_
+      let x = c[1] * e[0] / r // range e[0]
       let y = w.reduce((p, q, k) => {
         let f, f1, f2, f3, f4
         try {

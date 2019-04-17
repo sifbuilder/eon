@@ -153,6 +153,7 @@
 
     // .................. anify
     function anify (anitem) { // ok trace
+
       let eohal = anitem.eohal
       if (typeof (eohal) === 'object') {
 
@@ -162,13 +163,15 @@
         eohal = __eo([eohal, 'eohal'])
       }
 
-      let anigram = anitem
       console.assert(eohal, `eohal not defined`)
+      let anima = anitem
 
-      let newItems = []
-      if (eohal) newItems = eohal.anify(anigram)
+      let newAnimas = []
+      if (eohal) newAnimas = eohal.anify(anima)
+      console.log('m.store anify newItems:', newAnimas)
 
-      return newItems
+
+      return newAnimas
     }
 
     // .................. gramifyDyn

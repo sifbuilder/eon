@@ -69,8 +69,8 @@
       return chain(items, 0)
     }
 
-    // ... getweens
-    function getweens (animas, elapsed) {
+    // ... genAnimasFromStore
+    function genAnimasFromStore (animas, elapsed) {
       return sequence(animas, anima => muonStore.anify(anima))
     }
 
@@ -96,7 +96,7 @@
 
     // ... collect
     function collect (animas, elapsed) {
-      getweens(state.animas, elapsed)
+      let promise = genAnimasFromStore(state.animas, elapsed)
 
       let animasLive = muonStore.animas()
 
@@ -127,10 +127,10 @@
     function animier (elapsed, s) {
 
       muonStore = __eo('muonStore')
-      state.animas = muonStore.animasLive()
+      state.animas = muonStore.animas()
       state.anigrams = muonStore.anigrams()
 
-      if (0 && 1) console.log(` ================= ${parseInt(elapsed)} ${state.animas.length}`, state.animas)
+      if (1 && 1) console.log(` ================= ${parseInt(elapsed)} ${state.animas.length}`, state.animas)
       if (0 && 1) console.log(` ----------------- ${parseInt(elapsed)} ${state.anigrams.length}`, state.anigrams)
 
       // ... TIME
@@ -139,8 +139,8 @@
         let anima = state.animas[i]
         anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time
 
-        if (anima.eotim.unElapsed > anima.eotim.unEnd) {
-          anima.eodelled = 1 // crop by time
+        if (anima.eotim.unElapsed > anima.eotim.unEnd && !anima.eotim.nostop) {
+          anima.eodelled = 1 // crop by time _e_
         }
       }
 
@@ -154,7 +154,9 @@
         maxlimit > 0 &&
         overtime // stop if spired
       ) { // stop if anigrams spired
+
         state.animationStop()
+
       }
 
       // ... @ANIFY SIM GRAMIFY RENDER
