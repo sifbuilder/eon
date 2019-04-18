@@ -104,17 +104,22 @@
             let [level, range, summs, t] = d.c
             // let r = Math.sqrt(cos(e[0]) * cos(e[0]) + sin(e[1]) * sin(e[1]))
             let a = 2 * Math.PI
-            let r = e[2] / a  // [0,1]
+            let r = e[2] / a // [0,1]
             let a00 = jnm[0][0]
             let l00 = a00 / a
-            let p = {
-              x: range * e[2] / a,
-              summs,
-              level,
-            }
-            let J = muonGamma.bessel(p) || 0
-            let res
-            res = (cos(a00 * r * t) + sin(a00 * r * t)) * J
+
+            // let R = c1 * Jm(λr)
+            // let Z = Am * cos(mθ) + Bm * sin(mθ)
+            // let T = a * cos(cλt) + b * sin(cλt)
+
+            let B = (sums, level) => (x) => muonGamma.bessel({x, summs, level}) || 0
+            let Jsl = B(summs, level)
+            let J = Jsl(e[2] / a)
+            let R = r => J
+            let Z = z => 1
+            let T = t => (cos(a00 * r * t) + sin(a00 * r * t))
+            let res = R() * Z() * T(t)
+ 
             return res
           }, // bernx(e, d.c, d) * sin(e[0]) * sin(e[3]),
         },

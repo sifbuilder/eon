@@ -610,12 +610,12 @@
     const rfile1 = /^.*\/(?<filename>[^/]+)(?=.html).html(?:#)?(?<anchor>.*)$/u
     let match1 = rfile1.exec(input) || {}
     let {filename, anchor} = (match1.groups || {})
-    console.log('match1.groups:', match1.groups)
+
 
     const rfile2 = /.*\/(?<filename>[^/?#]+)(.html)?[^#]*(?==)v?=?(?<val>.*)(?:#)?#?(?<anchor>[^#]*)$/u
     let match2 = rfile2.exec(input) || {}
     let {val} = (match2.groups || {})
-    console.log(' match2.groups:',  match2.groups)
+
 
     let res = null
     if (val) res = val
