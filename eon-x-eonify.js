@@ -280,18 +280,6 @@
 
   define.amd = {}
 
-  //
-  // eonify.eon(anitem)   load/map store, animation
-  // anitem(eonify.xEo)   run ani with mapper
-  //  eonify.xs(eons)      load/map eons
-  //    anitem
-  //
-
-  // let _d3 = d3 || {}
-
-  // let require = _d3.require // global d3
-  // let requireFrom = _d3.requireFrom // global d3
-
   const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1)
   const a = d => Array.isArray(d) ? d : Array.of(d)
 
@@ -301,8 +289,7 @@
 
   const ceonize = function (nome, pres = '') {
     let camelized
-    if (pres === '' || pres === 'eon') {
-      // camelized = camelize(nome.replace(/^eon-/, ''))
+    if (pres === '' || pres === 'eon' || pres === 'o') {
       camelized = camelize(nome)
     } else {
       camelized = camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
@@ -310,10 +297,10 @@
 
     return camelized
   }
-  const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js' // wen => ./muon-wen.js
+  const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js'
 
   const xeonize = (nome, pres = '') =>
-    (pres === '' || pres === 'eon') // wen => eon-muon-wen
+    (pres === '' || pres === 'eon' || pres === 'o') // wen => eon-muon-wen
       ? nome
       : 'eon' + '-' + pres + '-' + nome
 
@@ -429,8 +416,10 @@
       ['eohal', 'e', 'eohal'],
       ['force', 'f', 'force'],
       ['geo', 'g', 'geo'],
+      ['hal', 'h', 'hal'],
       ['lib', 'l', 'lib'],
       ['muon', 'm', 'muon'],
+      ['o', 'o', ''],
       ['proton', 'p', 'proton'],
       ['render', 'r', 'render'],
       ['zindex', 'z', 'z'],
@@ -551,39 +540,6 @@
   let eodebug = async function ({anitem, time}) {
     let __eo = await eonit({anitem, time})
     __eo = await eocharge(__eo)
-
-    // let state = {}
-    // state.animas = __eo('muonStore').animasLive()
-    // state.anigrams = __eo('muonStore').anigrams()
-    // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
-    // ;(function () {
-
-    // var nativeSetTimeout = window.setTimeout
-    // let step = 100, limit = 1000
-    // let bindTimeout = function (listener, interval) {
-    //   function _setTimeout (code, delay) {
-    //     var elapsed = 0,
-    //       h
-
-    //     h = setInterval(function () {
-    //       elapsed += interval
-    //       if (elapsed < delay) {
-    //         listener(delay - elapsed)
-    //       } else {
-    //         clearInterval(h)
-    //       }
-    //     }, interval)
-    //     return nativeSetTimeout(code, delay)
-    //   }
-    //   window.setTimeout = _setTimeout
-    //   _setTimeout._native = nativeSetTimeout
-    // }
-    // bindTimeout(function (t) {
-    //   state = __eo('muonAnimation').animier(t) // animier
-    //   console.log(t + 'ms remaining', state)
-    // }, step)
-    // setTimeout(function () {
-    // }, limit)
 
     let muonAnimation = await __eo('xs').m('animation')
 
