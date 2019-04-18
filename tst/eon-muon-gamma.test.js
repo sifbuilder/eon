@@ -37,15 +37,14 @@ test('test bern', async () => {
   let __eo = await eo()
   let ani = await __eo('xs').m('gamma')
 
-  let e = [
-    0.9817477042468103,
-    0.9817477042468103,
-    1.0799224746714915,
-    1.0799224746714915,
-  ]
-  let d = {}
+  let a = 2 * Math.PI
+  let t = 1
+  let summs = 23
+  let range = 17
 
-  expect(ani.bessel(e, [0, 17, 23, 1], d)).toBe(-0.12284023092514747)
-  expect(ani.bessel(e, [1, 17, 23, 1], d)).toBe(0.454729103538626)
-  expect(ani.bessel(e, [2, 17, 23, 1], d)).toBe(0.46522449711893754)
+  let x0 = 1.0799224746714915
+  let x = range * x0 / a
+  expect(ani.bessel({x, summs, level: 1})).toBe(0.36763936568047256)
+  expect(ani.bessel({x, summs, level: 2})).toBe(0.48408521542384175)
+  expect(ani.bessel({x, summs, level: 3})).toBe(0.295065528161791)
 })

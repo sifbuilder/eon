@@ -104,7 +104,7 @@
             let [level, range, summs, t] = d.c
             // let r = Math.sqrt(cos(e[0]) * cos(e[0]) + sin(e[1]) * sin(e[1]))
             let a = 2 * Math.PI
-            let r = e[2] / a
+            let r = e[2] / a  // [0,1]
             let a00 = jnm[0][0]
             let l00 = a00 / a
             let p = {
@@ -128,7 +128,7 @@
           },
         },
       }
-      let eotim = { td: 1000, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
+      let eotim = { td: 10000, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
 
       // ............................. natAniRed
       let natAniRed = {

@@ -87,6 +87,8 @@
         tf,
         inverse,
         common,
+        expanse,
+        nostop,
       } = eotim
 
       let
@@ -98,7 +100,6 @@
         unPeriod = t3, // 1
         timeFunction = tf, // t => t
         timeInverse = inverse,
-
         timeCommon = common,
         unSlot = [] // unSlot
 
@@ -116,35 +117,20 @@
         .range(unRange0) // [unBegin, unEnd]
       timeScales.push(timeScale0)
 
-      // let msDomain1 = [t0, t1]
-      // let unRange1 = [0, 1]
-      // let timeScale1 = scaleLinear()
-      // .domain(msDomain1)
-      // .range(unRange1)
-      // timeScales.push(timeScale1)
-
-      // let msDomain2 = [0, 1]
-      // let unRange2 = [1, 0]
-      // let timeScale2 = scaleLinear()
-      // .domain(msDomain2)
-      // .range(unRange2)
-      // if (timeInverse) timeScales.push(timeScale2)
-
-      // [0, msDuration]  =(timeScale)=>     [0,1]
-
-      //   [0, 1]         =(timeScale)=>     [0,1]
-      //   [0, 1]         =(timeScale)=>     [1,0]   domain inverse
-      //                                             domain translate
-      //                                             domain scale
-      // [0, 1]           =(snap)=>          [v0,v1]
-
       let timeScale = timeScales.reduce((prevFn, nextFn) =>
         (...args) => nextFn(prevFn(...args)), d => d)
 
-      // if (elapsedInMs !== undefined) {
       msElapsed = elapsedInMs
 
-      let unElapsedNew = timeScale(elapsedInMs)
+      let unElapsedNew
+      if (elapsedInMs <= msDomain0[0]) {
+        unElapsedNew = timeScale(msDomain0[0])
+      } else if (elapsedInMs >= msDomain0[1] && !expanse) {
+        unElapsedNew = unElapsed
+      } else {
+        unElapsedNew = timeScale(elapsedInMs)
+      }
+
       unStart = unStart !== undefined ? unStart : unElapsedNew
       let unPassed = unElapsedNew - unStart
       let unDelta = unElapsedNew - unElapsed
