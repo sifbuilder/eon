@@ -289,7 +289,7 @@
 
   const ceonize = function (nome, pres = '') {
     let camelized
-    if (pres === '' || pres === 'eon' || pres === 'o') {
+    if (pres === '' || pres === 'eon' || pres === 'u') {
       camelized = camelize(nome)
     } else {
       camelized = camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
@@ -300,7 +300,7 @@
   const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js'
 
   const xeonize = (nome, pres = '') =>
-    (pres === '' || pres === 'eon' || pres === 'o') // wen => eon-muon-wen
+    (pres === '' || pres === 'eon' || pres === 'u') // wen => eon-muon-wen
       ? nome
       : 'eon' + '-' + pres + '-' + nome
 
@@ -419,9 +419,9 @@
       ['hal', 'h', 'hal'],
       ['lib', 'l', 'lib'],
       ['muon', 'm', 'muon'],
-      ['o', 'o', ''],
       ['proton', 'p', 'proton'],
       ['render', 'r', 'render'],
+      ['u', 'u', ''],
       ['zindex', 'z', 'z'],
       ['zindex', 'z', 'eon'],
 

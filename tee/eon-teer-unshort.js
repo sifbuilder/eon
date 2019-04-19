@@ -13,8 +13,11 @@ const camelize = str => str
   .replace(/\s+/g, '') // remove white space
   .replace(/-+/g, '') // remove hyphen
 
-const snakefy = str => str  
+const snakefy = str => str
   .replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() })
+
+const capitalize = d => d.charAt(0).toUpperCase() + d.slice(1)
+let eonify = d => 'eon' + capitalize(d)
 
 function escapeRegExp (string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
@@ -32,7 +35,9 @@ let args = process.argv
 let [cmd, scp, ...opts] = args
 
 let action
+let eonPattern = new RegExp('^(eon-)(.*)(.js)', 'i')
 let inScopePattern = new RegExp('^(eon-)(.*)(.js)', 'i')
+let zPattern = new RegExp('^(eon-)z(.*)(.js)', 'i')
 
 if (opts.length === 0) { // action: help
   action = 'help'
@@ -51,30 +56,34 @@ if (opts.length === 0) { // action: help
   } else {
     argpattern = opts[0]
   }
-  inScopePattern = new RegExp(`^(eon-)(${argpattern}.*)(.js)`, 'i')
+  inScopePattern = new RegExp(`^(eon-)(.*${argpattern}.*)(.js)`, 'i')
 }
 
 const appdir = '.'
 
-let indexfiles = fs.readdirSync(appdir) // eon-z-.*.html files
+let eonFiles = fs.readdirSync(appdir)
+  .filter(d => eonPattern.test(d))
+  .filter(d => !zPattern.test(d))
+  
+let inScopeFiles = fs.readdirSync(appdir)
   .filter(d => inScopePattern.test(d))
+  .filter(d => !zPattern.test(d))
 
-console.log('indexfiles:', indexfiles)
+const regexEonFileNameParts = new RegExp('^(?<eon>eon)-(?<type>.*)-(?<name>.*)(.js)$')
 
-const regexFileNameParts = new RegExp('^(eon-z)(.*).(js)', 'i')
+console.log('inScopeFiles:', inScopeFiles)
 
-const newHtmlText = `-`
 
 // .................. jsToJs
 function rep (data) {
-  let {frompattern, topattern, text} = data
+  let {fromPattern, toPattern, text} = data
 
-  let searchexp = RegExp(escapeRegExp(`${frompattern}`), 'g')
+  let searchexp = RegExp(escapeRegExp(`${fromPattern}`), 'g')
 
   let arr
   while ((arr = searchexp.exec(text)) !== null) {
     let toreplace = arr[0]
-    text = text.replace(toreplace, topattern)
+    text = text.replace(toreplace, toPattern)
   }
 
   return text
@@ -83,70 +92,53 @@ function rep (data) {
 function doit (data) {
   let {action} = data
 
-  for (let i = 0; i < indexfiles.length; i++) {
-    let fileName = indexfiles[i]
+  let pairs = []
+  for (let i = 0; i < eonFiles.length; i++) {
+    let fileName = eonFiles[i]
+    console.log('fileName:', fileName)
+    let fileNameParts = fileName.match(regexEonFileNameParts)
+    let {eon, type, name} = fileNameParts.groups
+    pairs.push([type.charAt(0), name, type + capitalize(name) ])
+  }
+
+  for (let i = 0; i < inScopeFiles.length; i++) {
+    let fileName = inScopeFiles[i]
     let fileText = fs.readFileSync(fileName, 'utf8')
 
-    // const regexEonParts = []
-    let regexEonParts = new RegExp('renderSvg', 'i')
+    let text = fileText
+    for (let i = 0; i < pairs.length; i++) {
+      let pair = pairs[i]
+      let fromPattern, toPattern
 
-    // let fileTextParts = fileText.match(regexEonParts) // eg. [ 'eon-z-021a.html', 'eon-z', '-', '021a', 'html' ]
+      let eon = eonify(pair[2])
 
-    fileText = rep({frompattern: 'renderSvg', topattern: 'eonRenderSvg', text: fileText})
-    fileText = rep({frompattern: "r('svg')", topattern: "o('eonRenderSvg')", text: fileText})
-    console.log('fileText:', fileText)
-    return
+      fromPattern = pair[2] // renderSvg => eonRenderSvg
+      toPattern = eon
+      text = rep({fromPattern, toPattern, text})
 
-    const eonName = camelize(newName)
-    const preEonName = camelize(`z${corePart}`)
-
-    if (existsFile(preFileJs)) { // .html + .js
-
-      // if (action === 'show' || action === 'debug') {
-      //   console.log(` *********** HTML`)
-      //   console.log(`${preFileHtml}`) // eon-z-815e-d2bernoulli.html
-      //   console.log(` ---- will create ${newNameHtml}`)
-      // }
-      // if (action === 'debug') {
-      //   console.log(` ---- new text of ${newNameHtml}:`)
-      //   console.log(newHtmlText)
-      // }
-
-      // if (action === 'doit') {
-      //   fs.writeFile(`${newNameHtml}`, `${newHtmlText}`, function (err) { // eon-z815e-d2bernoulli.html
-      //     if (err) throw err
-      //     console.log(` ---- Updated ${newNameHtml}`)
-      //   })
-
-      // }
-
-      // let fileHtmlText = fs.readFileSync(preFileHtml, 'utf8')
-      // let fileJsText = htmlToJs({eonName, text: fileHtmlText})
-
-      // if (action === 'show' || action === 'debug') {
-      //   console.log(` ---- will create ${newNameJs}`)
-      // }
-      // if (action === 'debug') {
-      //   console.log(` ---- new text of ${newNameJs}:`)
-      //   console.log(fileJsText)
-      // }
-
-      // if (action === 'show' || action === 'debug') {
-      //   console.log(` ---- will delete ${preFileHtml}`)
-      // }
-
-      // if (action === 'doit') {
-      //   fs.writeFile(`${newNameJs}`, `${fileJsText}`, function (err) { // eon-z815e-d2bernoulli.js
-      //     if (err) throw err
-      //     console.log(` ---- Updated ${newNameJs}`)
-      //   })
-
-      //   fs.unlinkSync(`${preFileHtml}`, function (err) { // eon-z-815e-d2bernoulli.html
-      //     if (err) throw err
-      //     console.log(` ---- Deleted ${preFileHtml}`)
-      //   })
-      // }
+      fromPattern = `__eo('xs').${pair[0]}('${pair[1]}')` // __eo('xs').r('svg') => __eo('xs').u('eonRenderSvg')
+      toPattern = `__eo('xs').u('${eon}')`
+      text = rep({fromPattern, toPattern, text})
     }
+    console.log('fileText:', text)
+
+    if (action === 'show' || action === 'debug') {
+      console.log(` ---- will update ${fileName}`)
+    }
+    if (action === 'debug') {
+      console.log(` ---- new text of ${fileName}:`)
+      console.log(text)
+    }
+
+
+    if (action === 'doit') {
+      fs.writeFile(`${fileName}`, `${text}`, function (err) {
+        if (err) throw err
+        console.log(` ---- Updated ${fileName}`)
+      })
+    }
+
+   
   }
 }
 // fs.writeFileSync(outfile, outText)
