@@ -67,28 +67,27 @@
       // .................. pics
       let sin = Math.sin, cos = Math.cos, pi = Math.PI
       let summands = 23
-      let level = 0
-      let range = 17
+
       let conformAni = {
         x: {
           m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
           ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 48, pa6: 0, pb7: -1,
           dom3: [0, 360], // [0, 45], //
-          c: [1, range, 1, 1], // . , range, ., .
-          fn0: (e, c, d) => cos(e[0]) * cos(e[2]),
+
+          fn0: (e, c, d) => cos(e[0]) * cos(e[2]/4),  // [0, 360] => [0, 90]
         },
         y: {
           m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
           ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 48, pa6: 0, pb7: -1,
           dom3: [0, 360],
-          c: [level, range, summands, 1], // order, range, summs, .
-          fn0: (e, c, d) => sin(e[1]) * cos(e[2]),
+
+          fn0: (e, c, d) => sin(e[1]) * cos(e[2]/4),
         },
         z: {
           m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
           ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 24, pa6: 0, pb7: -1,
-          dom3: [0, 90],
-          c: [level, range, summands, [[[-1, 1]]]], // order, range, summs, .
+          dom3: [0, 360],
+          c: [0, 17, summands, [[[-1, 1]]]], // order, range, summs, .
           fn0: (e, c, d) => {
             // seg5: 4 => e:
             // [0, 0, 0, 0]
@@ -101,33 +100,42 @@
             // [3.14, 3.14, 1.57, 1.57]
             // [4.71, 4.71, 1.57, 1.57]
             // [6.28, 6.28, 1.57, 1.57]
-            let [level, range, summs, t] = d.c
-            // let r = Math.sqrt(cos(e[0]) * cos(e[0]) + sin(e[1]) * sin(e[1]))
+            let [m, range, summs, t] = d.c
+
             let a = 2 * Math.PI
-            let r = e[2] / a // [0,1]
-            let a00 = jnm[0][0]
-            let l00 = a00 / a
+            let r = e[2]
+
+            let z = e[0]
+
+            let amn = order => pos => jnm[order][pos] // BesselX(m,pos)
+
+            let pos = 0 // zero position
+            let hmn = amn(m)(pos) / a // order position / radius
 
             // let R = c1 * Jm(λr)
             // let Z = Am * cos(mθ) + Bm * sin(mθ)
             // let T = a * cos(cλt) + b * sin(cλt)
 
-            let B = (sums, level) => (x) => muonGamma.bessel({x, summs, level}) || 0
-            let Jsl = B(summs, level)
-            let J = Jsl(e[2] / a)
-            let R = r => J
-            let Z = z => 1
-            let T = t => (cos(a00 * r * t) + sin(a00 * r * t))
-            let res = R() * Z() * T(t)
- 
+            // let R = r => B(summs)(m)(e[2] / a)
+            // let Z = z => 1
+            // let T = t => (cos(a00 * r * t) + sin(a00 * r * t))
+
+            let B = summs => m => x => muonGamma.bessel({x, summs, level: m}) || 0
+
+            let R = _ => B(summs)(m)(hmn * _)
+            let Z = _ => cos(m * _)
+            let T = _ => cos(hmn * _) + sin(hmn * _)
+
+            let res = R(r) * Z(z) * T(t)
+
             return res
-          }, // bernx(e, d.c, d) * sin(e[0]) * sin(e[3]),
+          },
         },
         w: {
           m1: 4, m2: 4, n1: 2, n2: 2, n3: 2, a: 1, b: 1, // circ
           ra2: 1, v0: 0, v1: 1, w4: 0, seg5: 24, pa6: 0, pb7: -1,
           dom3: [0, 90],
-          c: [level, range, summands, 1], // order, range, summs, .
+
           fn0: (e, c, d) => {
             return e[3] // cos(e[2]),
           },
@@ -140,6 +148,7 @@
         eohal: eohalMars,
         eotim: eotim,
         eoric: { gid: 'q', cid: 'q', fid: 'qred' },
+
         eofold: ani => {
           let natipros = {
             eoform: ani.eoload.eoform,
