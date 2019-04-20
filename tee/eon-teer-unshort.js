@@ -97,7 +97,11 @@ function doit (data) {
     if (action === 'show' || action === 'debug') console.log('fileName:', fileName)
     let fileNameParts = fileName.match(regexEonFileNameParts)
     let {eon, type, name} = fileNameParts.groups
-    pairs.push([type.charAt(0), name, eonify(type + capitalize(name)), snakefy(eonify(type + capitalize(name))) ])
+    pairs.push([type.charAt(0),
+        name, 
+        type + capitalize(name), 
+        eonify(type + capitalize(name)), 
+        snakefy(eonify(type + capitalize(name))) ])
   }
   if (action === 'debug') console.log('pairs', pairs)
 
@@ -110,15 +114,29 @@ function doit (data) {
       let pair = pairs[i]
       let fromPattern, toPattern
 
-      let eon = pair[2]
+      let code = pair[0]
+      let name = pair[1]
+      let varname = pair[2]
+      let eonified = pair[3]
+      let snake = pair[4]
 
-      fromPattern = pair[2] // renderSvg => eonRenderSvg
-      toPattern = eon
+      
+      fromPattern = `async function ${varname}` //  async function eohalNatform
+      toPattern = `async function eon`  //  => async function eon
       text = rep({fromPattern, toPattern, text})
 
-      fromPattern = `__eo('xs').${pair[0]}('${pair[1]}')` // __eo('xs').r('svg') => __eo('xs').u('eonRenderSvg')
-      toPattern = `__eo('xs').u('${eon}')`
+      fromPattern = `exports.${varname} = ${varname}` //  exports.eohalNatform = eohalNatform
+      toPattern = `exports.${varname} = eon`  //  => exports.eohalNatform = eon
       text = rep({fromPattern, toPattern, text})
+
+      fromPattern = varname // renderSvg
+      toPattern = eonified  //  => eonRenderSvg
+      text = rep({fromPattern, toPattern, text})
+
+      fromPattern = `__eo('xs').${code}('${name}')` // __eo('xs').r('svg') 
+      toPattern = `__eo('xs').u('${snake}')` // => __eo('xs').u('eon-render-svg')
+      text = rep({fromPattern, toPattern, text})
+
     }
     console.log('fileText:', text)
 
