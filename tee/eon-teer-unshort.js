@@ -64,15 +64,14 @@ const appdir = '.'
 let eonFiles = fs.readdirSync(appdir)
   .filter(d => eonPattern.test(d))
   .filter(d => !zPattern.test(d))
-  
+
 let inScopeFiles = fs.readdirSync(appdir)
   .filter(d => inScopePattern.test(d))
   .filter(d => !zPattern.test(d))
 
 const regexEonFileNameParts = new RegExp('^(?<eon>eon)-(?<type>.*)-(?<name>.*)(.js)$')
 
-console.log('inScopeFiles:', inScopeFiles)
-
+if (action === 'debug') console.log('inScopeFiles:', inScopeFiles)
 
 // .................. jsToJs
 function rep (data) {
@@ -95,11 +94,12 @@ function doit (data) {
   let pairs = []
   for (let i = 0; i < eonFiles.length; i++) {
     let fileName = eonFiles[i]
-    console.log('fileName:', fileName)
+    if (action === 'show' || action === 'debug') console.log('fileName:', fileName)
     let fileNameParts = fileName.match(regexEonFileNameParts)
     let {eon, type, name} = fileNameParts.groups
-    pairs.push([type.charAt(0), name, type + capitalize(name) ])
+    pairs.push([type.charAt(0), name, eonify(type + capitalize(name)), snakefy(eonify(type + capitalize(name))) ])
   }
+  if (action === 'debug') console.log('pairs', pairs)
 
   for (let i = 0; i < inScopeFiles.length; i++) {
     let fileName = inScopeFiles[i]
@@ -110,7 +110,7 @@ function doit (data) {
       let pair = pairs[i]
       let fromPattern, toPattern
 
-      let eon = eonify(pair[2])
+      let eon = pair[2]
 
       fromPattern = pair[2] // renderSvg => eonRenderSvg
       toPattern = eon
@@ -130,21 +130,22 @@ function doit (data) {
       console.log(text)
     }
 
-
     if (action === 'doit') {
       fs.writeFile(`${fileName}`, `${text}`, function (err) {
         if (err) throw err
         console.log(` ---- Updated ${fileName}`)
       })
     }
-
-   
   }
 }
-// fs.writeFileSync(outfile, outText)
+function help (data = {}) {
+  console.log(`node ${prgname} [inScopePatter] {doit | show | debug }`)
+  console.log(`eg: `)
+  console.log(`   node tee/eon-teer-unshort natform debug`)
+}
 
 if (action === 'show' || action === 'doit' || action === 'debug') {
   doit({action})
 } else if (action === 'help') {
-  console.log(`node ${prgname} [inScopePatter]`)
+  help()
 }
