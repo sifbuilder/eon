@@ -60,8 +60,9 @@ let indexfiles = fs.readdirSync(appdir) // eon-z-.*.html files
 
 const regexFileNameParts = new RegExp('^(eon-z)(.*).(js)', 'i')
 
+//  <script>xEonify.eonify({ anitem: xEonify.getEonItem(location.href)})</script>`
 const newHtmlText = `<script src="./eon-x-eonify.js"></script>
-<script>xEonify.eonify({ anitem: xEonify.getEonItem(location.href)})</script>`
+<script>eonXEonify.eonify({ anitem: eonXEonify.getEonItem(location.href)})</script>`
 
 function doit (data) {
   let {action} = data
@@ -78,36 +79,41 @@ function doit (data) {
     const newFileHtmlPath = `${outdir}/${newFileHtmlName}`
     console.log('newFileHtmlPath:', newFileHtmlPath)
 
-    if (!existsFile(newFileHtmlPath)) { // .html + .js
-      if (action === 'show' || action === 'debug') {
-        console.log(` ---- will create ${newFileHtmlPath}`) // eon-z-815e-d2bernoulli.html
-      }
+    if (action === 'show' || action === 'debug') {
+      console.log(` ---- will create ${newFileHtmlPath}`) // eon-z-815e-d2bernoulli.html
+    }
 
-      if (action === 'debug') {
-        console.log(` ---- text of ${newFileHtmlPath}`)
-        console.log(`${newHtmlText}`)
-      }
+    if (action === 'debug') {
+      console.log(` ---- text of ${newFileHtmlPath}`)
+      console.log(`${newHtmlText}`)
+    }
 
-      if (action === 'doit') {
-        fs.writeFile(`${newFileHtmlPath}`, `${newHtmlText}`, function (err) { // eon-z815e-d2bernoulli.html
-          if (err) throw err
-          console.log(` ----Updated ${newFileHtmlPath}`)
-        })
-      }
+    if (action === 'doit') {
+      fs.writeFile(`${newFileHtmlPath}`, `${newHtmlText}`, function (err) { // eon-z815e-d2bernoulli.html
+        if (err) throw err
+        console.log(` ----Updated ${newFileHtmlPath}`)
+      })
+    }
 
-    } else {
-      if (action === 'delete') {
-        fs.unlinkSync(`${newFileHtmlPath}`, function (err) { // eon-z815e-d2bernoulli.html
-          if (err) throw err
-          console.log(` ----Deleted ${newFileHtmlPath}`)
-        })
-      }      
+    if (action === 'delete') {
+      fs.unlinkSync(`${newFileHtmlPath}`, function (err) { // eon-z815e-d2bernoulli.html
+        if (err) throw err
+        console.log(` ----Deleted ${newFileHtmlPath}`)
+      })
     }
   }
+}
+
+function help (data = {}) {
+  console.log(`create html file for eonitems`)
+  console.log(`html are identical. call eonitme from href`)
+  console.log(`node ${prgname} [inScopePatter] {show | debug | doit}`)
+  console.log(`eg:`)
+  console.log(`   node ${prgname} 813p show`)
 }
 
 if (action === 'show' || action === 'doit' || action === 'debug') {
   doit({action})
 } else if (action === 'help') {
-  console.log(`node ${prgname} [inScopePatter]`)
+  help()
 }

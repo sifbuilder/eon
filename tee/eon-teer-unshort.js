@@ -37,7 +37,7 @@ let [cmd, scp, ...opts] = args
 let action
 let eonPattern = new RegExp('^(eon-)(.*)(.js)', 'i')
 let inScopePattern = new RegExp('^(eon-)(.*)(.js)', 'i')
-let zPattern = new RegExp('^(eon-)z(.*)(.js)', 'i')
+let zPattern = new RegExp('^(eon-)(.*)(.html)', 'i')
 
 if (opts.length === 0) { // action: help
   action = 'help'
@@ -72,7 +72,7 @@ let inScopeFiles = fs.readdirSync(appdir)
 const regexEonFileNameParts = new RegExp('^(?<eon>eon)-(?<type>.*)-(?<name>.*)(.js)$')
 
 if (action === 'debug') console.log('inScopeFiles:', inScopeFiles)
-
+return
 // .................. jsToJs
 function rep (data) {
   let {fromPattern, toPattern, text} = data
