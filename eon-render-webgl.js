@@ -14,6 +14,7 @@
       THREE,
       ctlRaycaster,
       TrackballControls,
+
       muonEocrom,
       muonNets,
       renderPortview,
@@ -27,7 +28,7 @@
       __eo('xs').r('portview'),
 
     ])
-
+    console.log('TrackballControls:', TrackballControls)
     // .................. postmot
     function postmot (object) {
       let t, t1, r, t2, m, u, c, d

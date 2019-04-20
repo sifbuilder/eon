@@ -15,7 +15,7 @@
       muonVector2,
       muonVector3,
     ] = await Promise.all([
-      __eo('xs').m('eventDispatcher'),
+      __eo('xs').m('event-dispatcher'),
       __eo('xs').m('quaternion'),
       __eo('xs').m('vector2'),
       __eo('xs').m('vector3'),
