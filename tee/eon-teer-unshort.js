@@ -94,7 +94,7 @@ function doit (data) {
   let pairs = []
   for (let i = 0; i < eonFiles.length; i++) {
     let fileName = eonFiles[i]
-    if (action === 'show' || action === 'debug') console.log('fileName:', fileName)
+    if (action === 'debug') console.log('pair from:', fileName)
     let fileNameParts = fileName.match(regexEonFileNameParts)
     let {eon, type, name} = fileNameParts.groups
     pairs.push([type.charAt(0),
@@ -138,7 +138,7 @@ function doit (data) {
       text = rep({fromPattern, toPattern, text})
 
     }
-    console.log('fileText:', text)
+    if (action === 'debug') console.log('fileText:', text)
 
     if (action === 'show' || action === 'debug') {
       console.log(` ---- will update ${fileName}`)
