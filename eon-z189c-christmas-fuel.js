@@ -12,34 +12,34 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlRayder,
-    ctlWen,
-    eohalFuel,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
-    eohalMars,
-    muonGeoj,
-    muonNatform,
-    muonStace,
-    protonUniwen,
-    renderSvg,
+    eonCtlRayder,
+    eonCtlWen,
+    eonEohalFuel,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonEohalMars,
+    eonMuonGeoj,
+    eonMuonNatform,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('fuel'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-fuel'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -49,11 +49,11 @@
     // ....................... natTree
     let natTree = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natTree'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {type: 'Point', coordinates: [0, 0, 0]},
@@ -95,7 +95,7 @@
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natStar'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {

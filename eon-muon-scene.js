@@ -1,33 +1,33 @@
 /*******************************************
- *    @muonScene
+ *    @eonMuonScene
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonScene = global.muonScene || {})))
+      : (factory((global.eonMuonScene = global.eonMuonScene || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonScene (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      ctlEul,
-      ctlWen,
-      ctlVersor,
+      eonCtlEul,
+      eonCtlWen,
+      eonCtlVersor,
       ckey,
-      ctlTimer,
-      ctlRayder,
-      renderSvg,
+      eonCtlTimer,
+      eonCtlRayder,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').c('eul'),
-      __eo('xs').c('wen'),
-      __eo('xs').c('versor'),
-      __eo('xs').c('key'),
-      __eo('xs').c('timer'),
-      __eo('xs').c('rayder'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-eul'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-ctl-versor'),
+      __eo('xs').b('eon-ctl-key'),
+      __eo('xs').b('eon-ctl-timer'),
+      __eo('xs').b('eon-ctl-rayder'),
+      __eo('xs').b('eon-render-svg'),
     ])
 
-    let manimation = __eo('muonAnimation')
+    let manimation = __eo('eonMuonAnimation')
 
     let state = {}
     state.scene = {
@@ -51,8 +51,8 @@
       // if ray, add ray controls to svg
       if (p.ray && p.ray !== state.ray) {
         state.ray = 1
-        let svg = renderSvg.svg()
-        ctlRayder.control(svg)
+        let svg = eonRenderSvg.svg()
+        eonCtlRayder.control(svg)
       }
 
       // ............................. key control animation
@@ -64,10 +64,10 @@
           let controltimerLeftArrowAlt = () => { // LEFT ARROW
             if (manimation.animationStop !== undefined) {
               console.log('controltimerLeftArrowAlt')
-              if (ctlTimer.started()) {
-                ctlTimer.stop()
+              if (eonCtlTimer.started()) {
+                eonCtlTimer.stop()
               } else {
-                ctlTimer.resume()
+                eonCtlTimer.resume()
               }
             }
           }
@@ -77,17 +77,17 @@
         if (ckey !== undefined) {
           let controltimerUpArrowAlt = () => { // UP ARROW
             console.log('controltimerUpArrowAlt')
-            ctlWen.control(renderSvg.svg()) // SVG WEN
+            eonCtlWen.control(eonRenderSvg.svg()) // SVG WEN
           }
           ckey.subscribe(controltimerUpArrowAlt, 'upArrowAlt')
         }
 
         let controltimerRightArrowAlt = () => { // RIGHT ARROW
           if (manimation.animationStop !== undefined) {
-            if (ctlTimer.started()) {
-              ctlTimer.stop()
+            if (eonCtlTimer.started()) {
+              eonCtlTimer.stop()
             } else {
-              ctlTimer.resume()
+              eonCtlTimer.resume()
             }
           }
         }
@@ -101,5 +101,5 @@
     return enty
   }
 
-  exports.muonScene = muonScene
+  exports.eonMuonScene = eonitem
 }))

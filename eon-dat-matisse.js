@@ -1,14 +1,14 @@
 /**********************
- *      @datMatisse
+ *      @eonDatMatisse
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.datMatisse = global.datMatisse || {})))
+      : (factory((global.eonDatMatisse = global.eonDatMatisse || {})))
 }(this, function (exports) {
   'use strict'
 
-  var datMatisse = function (__eo = {}) {
+  var eonDatMatisse = function (__eo = {}) {
     let data = {
 
       width: '2.77778in', height: '3.45833in',
@@ -285,5 +285,5 @@
     return enty
   }
 
-  exports.datMatisse = datMatisse
+  exports.eonDatMatisse = eonitem
 }))

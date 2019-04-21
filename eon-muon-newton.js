@@ -1,16 +1,16 @@
 /*******************************************
- * 			@muonNewton
+ * 			@eonMuonNewton
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonNewton = global.muonNewton || {})))
+      : (factory((global.eonMuonNewton = global.eonMuonNewton || {})))
 }(this, function (exports) {
   'use strict'
 
-  // muonNewton muon
-  async function muonNewton (__eo = {}) {
+  // eonMuonNewton muon
+  async function eonitem (__eo = {}) {
     var abs = Math.abs, epsilon = 1e-6, halfPi = Math.PI / 2, sqrt = Math.sqrt
     var asin = Math.asin, atan2 = Math.atan2, cos = Math.cos, sin = Math.sin
 
@@ -290,5 +290,5 @@
     return enty
   }
 
-  exports.muonNewton = muonNewton
+  exports.eonMuonNewton = eonitem
 }))

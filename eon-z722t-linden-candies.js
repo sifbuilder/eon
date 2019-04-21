@@ -13,33 +13,33 @@
   // .................. eons
   let [
     d3,
-    ctlWen,
-    eohalMars,
-    muonCastel,
-    muonGeoj,
-    muonLindenmayer,
-    muonProps,
-    protonUniwen,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonCastel,
+    eonMuonGeoj,
+    eonMuonLindenmayer,
+    eonMuonProps,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('castel'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('props'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-castel'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
 
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -50,10 +50,10 @@
 
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2' },
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: ani => {
-        let geo = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
+        let geo = eonMuonLindenmayer.multiLine(ani.eoload.lindenmayer)
         return geo
       },
 

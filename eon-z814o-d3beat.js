@@ -12,25 +12,25 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    muonProps,
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    eohalNatform,
-    renderPortview,
-    renderWebgl,
+    eonMuonNatform,
+    eonMuonProps,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonEohalNatform,
+    eonRenderPortview,
+    eonRenderWebgl,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -78,11 +78,11 @@
     // .................. natAniB
     let natAniB = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natB'},
 
-      eofold: ani => muonNatform.natMultiPolygon({eoform: ani.eoload.conform, ghv: 1}),
+      eofold: ani => eonMuonNatform.natMultiPolygon({eoform: ani.eoload.conform, ghv: 1}),
       eomot: {
         proform: {
 
@@ -106,7 +106,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: ani => {
         let json = { // Feature
@@ -117,7 +117,7 @@
             type: 'PerspectiveCamera',
             name: 'Perspective',
             fov: 60, // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width() / renderPortview.height(),
+            aspect: eonRenderPortview.width() / eonRenderPortview.height(),
             near: 0.001,
             far: 2600,
 
@@ -139,7 +139,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => ({
         type: 'Feature',
@@ -166,7 +166,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'ambientLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => ({
         type: 'Feature',

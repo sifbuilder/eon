@@ -12,33 +12,33 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonGraticule,
-    muonGeoj,
+    eonMuonGraticule,
+    eonMuonGeoj,
     topojson,
     datWorldTopo110m,
     d3Geo,
-    ctlWen,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('graticule'),
-    __eo('xs').m('geoj'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-geoj'),
     __eo('xs').b('topojson'),
     __eo('xs').d('worldTopo110m'),
     __eo('xs').b('d3-geo'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -47,7 +47,7 @@
 
     let geoearth1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: () => {
         let gj = Object.assign({},
@@ -56,7 +56,7 @@
             datWorldTopo110m.data().objects.land
           )
         )
-        gj = muonGeoj.trim(gj)
+        gj = eonMuonGeoj.trim(gj)
         return gj
       },
 
@@ -82,11 +82,11 @@
     // .................. geograt1
     let geograt1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
 
-      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+      eofold: ani => eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe),
 
       eomot: {
         proform: {
@@ -117,7 +117,7 @@
     // .................. geosphere1
     let geosphere1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: {
         type: 'Feature',
@@ -146,7 +146,7 @@
     // .................. geoearth2
     let geoearth2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: () => {
         let gj = Object.assign({},
@@ -156,7 +156,7 @@
           )
         )
 
-        return muonGeoj.trim(gj)
+        return eonMuonGeoj.trim(gj)
       },
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth2'},
@@ -180,9 +180,9 @@
     // .................. geograt2
     let geograt2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt2'},
       eocrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
@@ -209,7 +209,7 @@
     // .................. geosphere2
     let geosphere2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: {
         type: 'Feature',

@@ -11,24 +11,24 @@
   
     async function anitem (__eo) {
   let [
-    ctlWen,
-    eohalMars,
-    muonGraticule,
-    protonNatform,
-    protonUniwen,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonGraticule,
+    eonProtonNatform,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('graticule'),
-    __eo('xs').p('natform'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -78,11 +78,11 @@
     // .................. gratiform
     let gratiform = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'grat', cid: 'grat', fid: 'gratiform'},
 
-      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+      eofold: ani => eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe),
 
       eomot: {
         conform: {

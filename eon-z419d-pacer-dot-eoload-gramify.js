@@ -12,31 +12,31 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    muonNatform,
-    muonStace,
-    ctlRayder,
-    eohalMars,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
-    protonUniwen,
-    renderSvg,
+    eonCtlWen,
+    eonMuonNatform,
+    eonMuonStace,
+    eonCtlRayder,
+    eonEohalMars,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('stace'),
-    __eo('xs').c('rayder'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
-  let muonStore = __eo('muonStore')
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -45,7 +45,7 @@
     // .................. pointTrace
     let pointTrace = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
 
       eofold: {
         type: 'Feature',
@@ -98,7 +98,7 @@
 
             let fidsuffix = ''
             if (props.key === 'event') {
-              let hm = muonStore.anigramsInClassHowMany(ani)
+              let hm = eonMuonStore.anigramsInClassHowMany(ani)
               let pacecount = hm + 1
               fidsuffix = `_${hm}`
             }
@@ -114,9 +114,9 @@
           eofold: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
               stace = props.count.grabbed
 

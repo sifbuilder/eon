@@ -12,28 +12,28 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalTextform,
-    muonNatform,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalTextform,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  ctlWen.control(renderSvg.svg())
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  eonCtlWen.control(eonRenderSvg.svg())
 
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -105,7 +105,7 @@
 
     // ............................. textAni0
     let textAni0 = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim,
       eoric: {gid: 'txtg', cid: 'txtc0', fid: 'txtf0'},
 
@@ -117,7 +117,7 @@
           gco: 0, // open line
         }
 
-        let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
+        let res = eonMuonNatform.natMultiLineString(natipros) // Feature.LineString
 
         return res
       },
@@ -149,7 +149,7 @@
 
     // ............................. textAni1
     let textAni1 = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim,
       eoric: {gid: 'txtg', cid: 'txtc1', fid: 'txtf1'},
       eofold: ani => {
@@ -160,7 +160,7 @@
           gco: 0, // open line
         }
 
-        let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
+        let res = eonMuonNatform.natMultiLineString(natipros) // Feature.LineString
 
         return res
       },
@@ -192,7 +192,7 @@
 
     // ............................. textAni2
     let textAni2 = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim,
       eoric: {gid: 'txtg', cid: 'txtc2', fid: 'txtf2'},
       eofold: ani => {
@@ -203,7 +203,7 @@
           gco: 0, // open line
         }
 
-        let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
+        let res = eonMuonNatform.natMultiLineString(natipros) // Feature.LineString
 
         return res
       },
@@ -235,7 +235,7 @@
     // .................. textAniA
     let textAniA = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
 
       eofold: ani => {
         let res = {

@@ -11,33 +11,33 @@
   
     async function anitem (__eo) {
   let [
-    ctlEul,
-    ctlWen,
-    eohalMars,
-    muonFibonat,
-    muonGeom,
-    muonGraticule,
-    muonProps,
-    protonNatform,
-    renderSvg,
+    eonCtlEul,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonFibonat,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonMuonProps,
+    eonProtonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('eul'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('fibonat'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('props'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-eul'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-fibonat'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlEul().control(renderSvg.svg())
+      ctl = eonCtlEul().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -64,7 +64,7 @@
     // .................. cubeAni anima
     let cubeAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -78,9 +78,9 @@
           let face = faces[i] // face pointsx position
           let geometry = {type: 'Polygon', coordinates: []}
           geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
-            .map(muonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-            .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
-            .map(muonGeom.to_degrees)
+            .map(eonMuonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+            .map(eonMuonGeom.spherical) // eg. [-0.7853, 0.6154]
+            .map(eonMuonGeom.to_degrees)
           geometry.coordinates = Array.of(geometry.coordinates)
 
           let _ric = {}

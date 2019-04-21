@@ -13,30 +13,30 @@
   // .................. eons
   let [
     topojson,
-    ctlWen,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalMars,
-    muonGeom,
-    muonGraticule,
-    protonNatform,
-    renderSvg,
+    eonEohalMars,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonProtonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('topojson'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -138,7 +138,7 @@
     // ............................. earthAni
     let earthAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
 
@@ -168,7 +168,7 @@
     // .............................  cubeAni
     let cubeAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: anitem => {
         let eoload = anitem.eoload,
@@ -181,9 +181,9 @@
           let face = faces[i] // face pointsx position
           let geometry = {type: 'Polygon', coordinates: []}
           geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
-            .map(muonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-            .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
-            .map(muonGeom.to_degrees)
+            .map(eonMuonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+            .map(eonMuonGeom.spherical) // eg. [-0.7853, 0.6154]
+            .map(eonMuonGeom.to_degrees)
           geometry.coordinates = Array.of(geometry.coordinates)
           let feature = {type: 'Feature', geometry: {}, properties: {}}
           feature.properties.eoric = eoric
@@ -251,11 +251,11 @@
     // .............................  graticubeAni
     let graticubeAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
 
-      eofold: anitem => muonGraticule.gjfMultiLineString(anitem.eoframe),
+      eofold: anitem => eonMuonGraticule.gjfMultiLineString(anitem.eoframe),
 
       eomot: {
         conform: { projection: 'natform', eoform: formGratiCube },
@@ -274,9 +274,9 @@
     // .............................  graticircAni
     let graticircAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
       eotim: eotim,
       eoric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
 

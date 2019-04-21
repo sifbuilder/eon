@@ -1,12 +1,12 @@
 // https://github.com/mikolalysenko/convex-minkowski-sum
 // (c) 2014 Mikola Lysenko. MIT License
 /***********
- *    @muonMinkowski
+ *    @eonMuonMinkowski
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonMinkowski = global.muonMinkowski || {})))
+      : (factory((global.eonMuonMinkowski = global.eonMuonMinkowski || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -66,8 +66,8 @@
     return hull
   }
 
-  // .................. muonMinkowski
-  async function muonMinkowski (__eo = {}) {
+  // .................. eonMuonMinkowski
+  async function eonitem (__eo = {}) {
     let [
       d3Polygon,
     ] = await Promise.all([
@@ -182,5 +182,5 @@
     return enty
   }
 
-  exports.muonMinkowski = muonMinkowski
+  exports.eonMuonMinkowski = eonitem
 }))

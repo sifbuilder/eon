@@ -13,30 +13,30 @@
   // .................. eons
   let [
     d3,
-    ctlWen,
-    eohalNatform,
-    eohalMars,
-    muonAnimas,
-    muonGraticule,
-    muonNatform,
-    renderSvg,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalMars,
+    eonMuonAnimas,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('animas'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-animas'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -61,12 +61,12 @@
 
     let geoGraticule0 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'g', fid: 'g0' },
       eocrom: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.7, 'co': 0.5, 'cp': 0.9},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -86,11 +86,11 @@
 
     let geoGraticule1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'g', fid: 'g1' },
       eocrom: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.7, 'co': 0.5, 'cp': 0.9},
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen', // d3.geoOrthographic(),
@@ -108,12 +108,12 @@
 
     let geoGraticule2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'g', fid: 'g2' },
       eocrom: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.7, 'co': 0.5, 'cp': 0.9},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
       eomot: {
         proform: {
           projection: d3.geoOrthographic(),

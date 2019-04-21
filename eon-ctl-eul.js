@@ -1,30 +1,30 @@
 /*******************************************
-   *    @ctlEul
+   *    @eonCtlEul
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlEul = global.ctlEul || {})))
+      : (factory((global.eonCtlEul = global.eonCtlEul || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function ctlEul (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3,
       d3Geo,
-      muonGeom,
-      renderPortview,
+      eonMuonGeom,
+      eonRenderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
-      __eo('xs').m('geom'),
-      __eo('xs').r('portview'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-render-portview'),
     ])
 
     let d3drag = d3
     let d3selection = d3
-    let getPos = renderPortview.getPos // event position
+    let getPos = eonRenderPortview.getPos // event position
 
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
@@ -138,20 +138,20 @@
       // screen rotation accumulation
 
       state.rotAccum_s_degrees =
-            muonGeom.add(
+            eonMuonGeom.add(
               state.rotAccum_s_degrees,
               state.rotInDrag_s_degrees) // rotation
 
       // cartesian coordinates
 
-      state.c2 = muonGeom.cartesian(state.s2)
+      state.c2 = eonMuonGeom.cartesian(state.s2)
       state.c1 = state.c2
       state.c0 = state.c2
 
       // cartesian rotation accumulation
 
       state.rotAccum_c_degrees =
-            muonGeom.add(
+            eonMuonGeom.add(
               state.rotAccum_c_degrees,
               state.rotInDrag_c_degrees) // rotation
 
@@ -192,7 +192,7 @@
 
       state.c0 = state.c0
       state.c1 = state.c2
-      state.c2 = muonGeom.cartesian(state.s2)
+      state.c2 = eonMuonGeom.cartesian(state.s2)
 
       let cd02 = [ // present
         state.c2[0] - state.c0[0],
@@ -310,7 +310,7 @@
     }
 
     enty.rotation = () => {
-      let res_c = muonGeom.add(state.rotAccum_c_degrees, state.rotInDrag_c_degrees)
+      let res_c = eonMuonGeom.add(state.rotAccum_c_degrees, state.rotInDrag_c_degrees)
       let res = res_c
       return res
     }
@@ -318,5 +318,5 @@
     return enty
   }
 
-  exports.ctlEul = ctlEul
+  exports.eonCtlEul = eonitem
 }))

@@ -12,29 +12,29 @@
     async function anitem (__eo) {
   let [
     d3Force3d,
-    ctlWen,
-    eohalCore,
-    eohalLinkform,
-    eohalMars,
-    muonEoric,
-    muonEoforces,
-    muonProps,
-    muonSim,
-    renderSvg,
+    eonCtlWen,
+    eonEohalCore,
+    eonEohalLinkform,
+    eonEohalMars,
+    eonMuonEoric,
+    eonMuonEoforces,
+    eonMuonProps,
+    eonMuonSim,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('core'),
-    __eo('xs').e('linkform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('props'),
-    __eo('xs').m('sim'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-core'),
+    __eo('xs').b('eon-eohal-linkform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-sim'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
   let d3_force = d3Force3d
 
   var data = {
@@ -218,14 +218,14 @@
   // ............................. nuid
   let nuid = i => {
     let eoric = { gid: 'node', cid: 'node', fid: 'node' + i }
-    eoric.uid = muonEoric.getuid(eoric)
+    eoric.uid = eonMuonEoric.getuid(eoric)
     return eoric
   }
 
   // ............................. luid
   let luid = i => {
     let eoric = { gid: 'link', cid: 'link', fid: 'link' + i }
-    eoric.uid = muonEoric.getuid(eoric)
+    eoric.uid = eonMuonEoric.getuid(eoric)
     return eoric
   }
 
@@ -243,8 +243,8 @@
         }
         nodes.push(node)
 
-        let ani = muonProps.cloneObj(anima)
-        ani.eohal = eohalMars
+        let ani = eonMuonProps.cloneObj(anima)
+        ani.eohal = eonEohalMars
         ani.eoric = nuid(i)
         ani.eonode.geometry.coordinates = Object.values(node)
         ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
@@ -261,8 +261,8 @@
           target: data.links[i][1],
         }
 
-        let ani = muonProps.cloneObj(anima)
-        ani.eohal = eohalLinkform
+        let ani = eonMuonProps.cloneObj(anima)
+        ani.eohal = eonEohalLinkform
         ani.eoric = luid(i)
         ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
         ani.eoload = {}
@@ -277,12 +277,12 @@
       // ... org anima is becomes gelded after halo anify
       // ... org anima is becomes delled after halo anify
 
-      let updanima = muonProps.cloneObj(anima)
+      let updanima = eonMuonProps.cloneObj(anima)
       updanima.eogelded = 1
       updanima.eodelled = 1
       animas.push(updanima)
 
-      muonStore.apply({
+      eonMuonStore.apply({
         type: 'UPDANIMA',
         caller: 'h.ineohal',
         animas: animas,
@@ -305,7 +305,7 @@
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -395,7 +395,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -458,14 +458,14 @@
 
         params.properties.payload.args = Array.of(links)
 
-        return muonEoforces.force(params)
+        return eonMuonEoforces.force(params)
       },
 
     }
     // .................... fieldAni
     let fieldAni = {
 
-      eohal: eohalCore,
+      eohal: eonEohalCore,
       eotim: eotim,
       eoric: {gid: 'field', cid: 'field', fid: 'field'},
 

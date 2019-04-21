@@ -13,30 +13,30 @@
     // .................. eons
     let [
       topojson,
-      ctlWen,
+      eonCtlWen,
       datWorldTopo110m,
-      eohalTextform,
-      eohalMars,
-      muonNatform,
-      muonGeom,
-      muonGraticule,
-      muonProps,
-      protonHedrals,
-      renderSvg,
+      eonEohalTextform,
+      eonEohalMars,
+      eonMuonNatform,
+      eonMuonGeom,
+      eonMuonGraticule,
+      eonMuonProps,
+      eonProtonHedrals,
+      eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('topojson'),
-      __eo('xs').c('wen'),
+      __eo('xs').b('eon-ctl-wen'),
       __eo('xs').d('worldTopo110m'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('textform'),
-      __eo('xs').m('natform'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('graticule'),
-      __eo('xs').m('props'),
-      __eo('xs').p('hedrals'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-textform'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-graticule'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-proton-hedrals'),
+      __eo('xs').b('eon-render-svg'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) { }
+    try { eonRenderSvg.scenecolor('black') } catch (e) { }
     // .................. animas
     let z = function () {
       let eotim = { 'td': 18200, 't0': 0, 't1': 1, 't2': 1, 't3': 1 }
@@ -73,9 +73,9 @@
           [1, -1, -1], // 4  // 5
           [1, 1, -1], // 7  // 6
           [-1, 1, -1], // 6  // 7
-        ].map(muonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-          .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
-          .map(muonGeom.to_degrees),
+        ].map(eonMuonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+          .map(eonMuonGeom.spherical) // eg. [-0.7853, 0.6154]
+          .map(eonMuonGeom.to_degrees),
 
         'faces': [
           [1, 0, 3, 2, 1], // N
@@ -91,9 +91,9 @@
       // ............................. geograt
       let geograt = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
-        eofold: anitem => muonGraticule.gjfMultiLineString(anitem.eoframe),
+        eofold: anitem => eonMuonGraticule.gjfMultiLineString(anitem.eoframe),
         eotim: eotim,
         eoric: { 'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt' },
         eocrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]] },
@@ -116,7 +116,7 @@
       // ............................. geoearth
       let geoearth = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
         eofold: p => {
           let geometry = Object.assign({},
@@ -141,7 +141,7 @@
       // -------------------------------  geoearth
       let geoshpere = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
         eofold: {
           type: 'Feature',
@@ -165,7 +165,7 @@
       // -------------------------------  text
       let text = {
 
-        eohal: eohalTextform,
+        eohal: eonEohalTextform,
         eotim: eotim,
         eoric: { 'gid': 'text', 'cid': 'text', 'fid': 'text' },
 

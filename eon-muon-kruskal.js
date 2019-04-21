@@ -1,15 +1,15 @@
 /*************************
-*     @muonKruskal
+*     @eonMuonKruskal
 *
 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonKruskal = global.muonKruskal || {})))
+      : (factory((global.eonMuonKruskal = global.eonMuonKruskal || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonKruskal (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Array,
     ] = await Promise.all([
@@ -127,5 +127,5 @@
     return enty
   }
 
-  exports.muonKruskal = muonKruskal
+  exports.eonMuonKruskal = eonitem
 }))

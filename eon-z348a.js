@@ -12,35 +12,35 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlRayder,
-    ctlWen,
-    eohalNatform,
-    eohalMars,
-    eohalPacer,
-    eohalTextform,
-    muonEoric,
-    muonNatform,
-    muonProps,
-    muonStace,
-    protonUniwen,
-    renderSvg,
+    eonCtlRayder,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalMars,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonMuonEoric,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
-  let muonStore = __eo('muonStore')
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -49,7 +49,7 @@
     // ....................... pacerNat
     let pacerNat = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
@@ -98,31 +98,31 @@
           basePaceOnAniView: '',
           addItemToPacer: 0,
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
 
           eoric: function (ani, props) {
-            let eoric = muonProps.clone(ani.eoric)
+            let eoric = eonMuonProps.clone(ani.eoric)
 
             if (props.key === 'init') { // INIT
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             } else if (props.key === 'auto') { // AUTO
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             } else if (props.key === 'event') { // EVENT
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             }
 
-            eoric.uid = muonEoric.getuid(eoric)
+            eoric.uid = eonMuonEoric.getuid(eoric)
             return eoric
           },
 
           eofold: function (ani, props) {
-            let neweofold = ani => muonNatform.natMultiLineString({eoform: ani.eoform})
+            let neweofold = ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform})
             return neweofold
           },
 
@@ -138,8 +138,8 @@
             } else if (props.key === 'auto') { // AUTO
               stace = [ 0 + 20 * Math.random(), 0 + 20 * Math.random(), 0]
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
@@ -162,7 +162,7 @@
 
     // .................. textAni
     let textAni = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eofold: ani => ({

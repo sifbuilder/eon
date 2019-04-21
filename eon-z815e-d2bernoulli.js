@@ -16,32 +16,32 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-      ctlWen,
-      eohalMars,
-      eohalSol,
-      muonNatform,
-      muonGamma,
-      muonGraticule,
-      renderPortview,
-      renderSvg,
-      // renderWebgl,
+      eonCtlWen,
+      eonEohalMars,
+      eonEohalSol,
+      eonMuonNatform,
+      eonMuonGamma,
+      eonMuonGraticule,
+      eonRenderPortview,
+      eonRenderSvg,
+      // eonRenderWebgl,
     ] = await Promise.all([
-      __eo('xs').c('wen'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('sol'),
-      __eo('xs').m('natform'),
-      __eo('xs').m('gamma'),
-      __eo('xs').m('graticule'),
-      __eo('xs').r('portview'),
-      __eo('xs').r('svg'),
-      // __eo('xs').r('webgl'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-sol'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-gamma'),
+      __eo('xs').b('eon-muon-graticule'),
+      __eo('xs').b('eon-render-portview'),
+      __eo('xs').b('eon-render-svg'),
+      // __eo('xs').b('eon-render-webgl'),
     ])
     try {
-      renderSvg.scenecolor('black')
+      eonRenderSvg.scenecolor('black')
     } catch (e) {}
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -120,7 +120,7 @@
             // let Z = z => 1
             // let T = t => (cos(a00 * r * t) + sin(a00 * r * t))
 
-            let B = summs => m => x => muonGamma.bessel({x, summs, level: m}) || 0
+            let B = summs => m => x => eonMuonGamma.bessel({x, summs, level: m}) || 0
 
             let R = _ => B(summs)(m)(hmn * _)
             let Z = _ => cos(m * _)
@@ -145,7 +145,7 @@
 
       // ............................. natAniRed
       let natAniRed = {
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: eotim,
         eoric: { gid: 'q', cid: 'q', fid: 'qred' },
 
@@ -156,7 +156,7 @@
             gsa: 0, // asymetric distribution of geodesics around the origin
             gco: 0, // open line
           }
-          return muonNatform.natMultiLineString(natipros) // Feature.LineString
+          return eonMuonNatform.natMultiLineString(natipros) // Feature.LineString
         },
         eomot: {
           ereform: {

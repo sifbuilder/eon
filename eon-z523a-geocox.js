@@ -12,38 +12,38 @@
     async function anitem (__eo) {
     // .................. eons
     let [
-      muonProps,
-      muonGeom,
-      muonGraticule,
+      eonMuonProps,
+      eonMuonGeom,
+      eonMuonGraticule,
       topojson,
       datWorldTopo110m,
-      muonNatform,
-      ctlWen,
-      ctlVersor,
+      eonMuonNatform,
+      eonCtlWen,
+      eonCtlVersor,
       d3Geo,
       d3Geoprojection,
-      protonCox,
-      eohalMars,
-      renderSvg,
+      eonProtonCox,
+      eonEohalMars,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').m('props'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('graticule'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-graticule'),
       __eo('xs').b('topojson'),
       __eo('xs').d('worldTopo110m'),
-      __eo('xs').m('natform'),
-      __eo('xs').c('wen'),
-      __eo('xs').c('versor'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-ctl-versor'),
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
-      __eo('xs').p('cox'),
-      __eo('xs').e('mars'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-proton-cox'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-render-svg'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) { }
+    try { eonRenderSvg.scenecolor('black') } catch (e) { }
     // .................. animas
     let z = function () {
-      let ctl = ctlVersor().control(renderSvg.svg())
+      let ctl = eonCtlVersor().control(eonRenderSvg.svg())
 
       // .................. pics
       let eotim = { 'td': 18200, 't0': 0, 't1': 1, 't2': 1, 't3': 1 }
@@ -80,17 +80,17 @@
       let geograt = {
 
         eotim,
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eoric: { 'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt' },
 
-        eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+        eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
         eomot: {
           proform: {
 
             projection: 'cox',
 
-            prerotate: [[[ctlVersor.rotation]]],
+            prerotate: [[[eonCtlVersor.rotation]]],
             scale: [100],
             translate: [0, 0],
             rotate: [[[[0, -60]]], [[[0, -60]]], [[[0, -60]]]],
@@ -112,7 +112,7 @@
       // ............................. geoearth
       let geoearth = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
         eofold: () => {
           return Object.assign({},
@@ -134,7 +134,7 @@
             prtrad: [[[2.0, 2.0]]],
 
             projection: 'cox',
-            prerotate: [[[ctlVersor.rotation]]],
+            prerotate: [[[eonCtlVersor.rotation]]],
             scale: [100],
             translate: [0, 0],
             rotate: [[[[0, -60]]], [[[0, -60]]], [[[0, -60]]]],

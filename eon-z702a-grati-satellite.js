@@ -12,25 +12,25 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonGraticule,
-    ctlWen,
-    protonNatform,
-    eohalMars,
-    renderSvg,
+    eonMuonGraticule,
+    eonCtlWen,
+    eonProtonNatform,
+    eonEohalMars,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('graticule'),
-    __eo('xs').c('wen'),
-    __eo('xs').p('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -56,8 +56,8 @@
     }
 
     let g1 = {
-      eohal: eohalMars,
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eohal: eonEohalMars,
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eoric: { gid: 'grat', cid: 'grat', fid: 'g1'},
       eocrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
@@ -86,8 +86,8 @@
     }
 
     let g2 = {
-      eohal: eohalMars,
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eohal: eonEohalMars,
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eoric: { gid: 'grat', cid: 'grat', fid: 'g2'},
       eocrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
@@ -111,8 +111,8 @@
     }
 
     let g3 = {
-      eohal: eohalMars,
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eohal: eonEohalMars,
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eoric: { gid: 'grat', cid: 'grat', fid: 'g3'},
       eocrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },

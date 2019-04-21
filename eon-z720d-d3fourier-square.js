@@ -15,54 +15,54 @@
     d3Geo,
     d3Force3d,
     THREE,
-    ctlWen,
-    eohalCore,
-    eohalMars,
-    eohalSol,
-    eohalPacer,
-    eohalFourier,
-    muonEoforces,
-    muonFourier,
-    muonGeoj,
-    muonGeom,
-    muonProps,
-    muonGeovoro,
-    muonNatform,
-    muonProfier,
-    muonProj3ct,
-    muonStace,
-    muonCastel,
-    renderPortview,
-    // renderSvg,
-    renderWebgl,
+    eonCtlWen,
+    eonEohalCore,
+    eonEohalMars,
+    eonEohalSol,
+    eonEohalPacer,
+    eonEohalFourier,
+    eonMuonEoforces,
+    eonMuonFourier,
+    eonMuonGeoj,
+    eonMuonGeom,
+    eonMuonProps,
+    eonMuonGeovoro,
+    eonMuonNatform,
+    eonMuonProfier,
+    eonMuonProj3ct,
+    eonMuonStace,
+    eonMuonCastel,
+    eonRenderPortview,
+    // eonRenderSvg,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-force-3d'),
     __eo('xs').b('three'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('core'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('fourier'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('fourier'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('props'),
-    __eo('xs').m('geovoro'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('profier'),
-    __eo('xs').m('proj3ct'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('castel'),
-    __eo('xs').r('portview'),
-    // __eo('xs').r('svg'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-core'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-fourier'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-fourier'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-geovoro'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-profier'),
+    __eo('xs').b('eon-muon-proj3ct'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-castel'),
+    __eo('xs').b('eon-render-portview'),
+    // __eo('xs').b('eon-render-svg'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
+  let eonMuonStore = __eo('eonMuonStore')
   let d3_force = d3Force3d
 
   let z = function () {
@@ -86,7 +86,7 @@
            C 100.00,0.00 200.00,0.00 300.00,0.00 Z`, // LineString
       }, // path
     }
-    let data = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
+    let data = eonMuonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
 
     let basicSquare = [ // svg
       [
@@ -117,15 +117,15 @@
     // ...  span data along [0, 1] interval
     // ...  and create FeatureCollection with trasform features
 
-    let geoData = muonProj3ct(data, muonProfier.formion(proform, z))
-    let transforms = muonFourier.transformedCoefs(geoData)
-    transforms = muonGeoj.ntime(transforms, [0, 1])
+    let geoData = eonMuonProj3ct(data, eonMuonProfier.formion(proform, z))
+    let transforms = eonMuonFourier.transformedCoefs(geoData)
+    transforms = eonMuonGeoj.ntime(transforms, [0, 1])
 
     // ... rayline LineString
 
     let rayline = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'pol', cid: 'pol', fid: 'pol'},
 
@@ -146,7 +146,7 @@
 
     let traceline = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: {gid: 'ava', cid: 'ava', fid: 'traceline'},
 
@@ -181,18 +181,18 @@
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'viewform',
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
 
           eofold: function (ani, props) {
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates
             } else if (props.key === 'auto') { // AUTO
-              let point = muonStace.getLocus([null, null, null], ani)
+              let point = eonMuonStace.getLocus([null, null, null], ani)
 
-              point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
+              point = eonMuonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
 
-              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) {
                 if (preani.eofold.type === 'FeatureCollection') {
                   let feature = preani.eofold.features[0]
@@ -215,7 +215,7 @@
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry), `geo ${geometry} not valid `)
+            console.assert(eonMuonGeoj.isValid(geometry), `geo ${geometry} not valid `)
             return {
               type: 'Feature',
               geometry: geometry,
@@ -226,11 +226,11 @@
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
@@ -300,7 +300,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -331,7 +331,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -362,7 +362,7 @@
 
       eotim: eotim,
       eoric: {gid: 'facesAniN', cid: 'facesAniN', fid: 'facesAniN'},
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -375,7 +375,7 @@
           properties: {
             sort: 'form',
             eoMultiPolygon: 1,
-            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...muonGeom.convextriang(q)], []),
+            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], []),
             lights: eoload.lights(eoload.pars),
           },
         }
@@ -437,7 +437,7 @@
 
       eotim: eotim,
       eoric: {gid: 'facesAniN', cid: 'facesAniN', fid: 'facesAniS'},
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -450,7 +450,7 @@
           properties: {
             sort: 'form',
             eoMultiPolygon: 1,
-            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...muonGeom.convextriang(q)], []),
+            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], []),
             lights: eoload.lights(eoload.pars),
           },
         }
@@ -526,7 +526,7 @@
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity, node)
+          let g = eonMuonProps.v(gravity, node)
           console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
 
           node.vy += g
@@ -540,7 +540,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -583,7 +583,7 @@
     // .................... fieldAni
     let fieldAni = {
 
-      eohal: eohalCore,
+      eohal: eonEohalCore,
       eotim: eotim,
       eoric: {gid: 'field', cid: 'field', fid: 'field'},
 

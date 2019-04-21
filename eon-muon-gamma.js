@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @muonGamma
+   *    @eonMuonGamma
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonGamma = global.muonGamma || {})))
+      : (factory((global.eonMuonGamma = global.eonMuonGamma || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -74,5 +74,5 @@
     enty.bessel = bessel
     return enty
   }
-  exports.muonGamma = anitem
+  exports.eonMuonGamma = anitem
 }))

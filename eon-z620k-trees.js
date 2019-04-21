@@ -12,35 +12,35 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    muonProps,
-    muonSoma,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonProps,
+    eonMuonSoma,
+    eonRenderSvg,
 
-    muonGeoj,
-    muonLacer,
-    muonLindenmayer,
-    muonSnap,
-    protonUniwen,
+    eonMuonGeoj,
+    eonMuonLacer,
+    eonMuonLindenmayer,
+    eonMuonSnap,
+    eonProtonUniwen,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('props'),
-    __eo('xs').m('soma'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-soma'),
+    __eo('xs').b('eon-render-svg'),
 
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lacer'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('snap'),
-    __eo('xs').p('uniwen'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lacer'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-snap'),
+    __eo('xs').b('eon-proton-uniwen'),
 
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -48,10 +48,10 @@
 
       eotim: { td: 24200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 },
       eoric: { gid: 'ani', cid: 'ani', fid: 'aniA' },
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: ani => {
-        let gj = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
+        let gj = eonMuonLindenmayer.multiLine(ani.eoload.lindenmayer)
         return gj
       },
 
@@ -93,14 +93,14 @@
     // .................. pics
     let aniForm = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: { td: 12800, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 0 },
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
 
       eofold: ani => {
         let t = ani.eotim.unElapsed
 
-        let gj1 = muonLindenmayer.multiLine(ani.eoload.lindenmayer1)
+        let gj1 = eonMuonLindenmayer.multiLine(ani.eoload.lindenmayer1)
         let coors1 = gj1.geometry.coordinates[0]
 
         return gj1
@@ -143,7 +143,7 @@
     // .................. somaAni
     let somaAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: {'td': 6800, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
 
@@ -179,13 +179,13 @@
     let q = 20
     let treeanis = []
     for (let i = 0; i < q; i++) {
-      let anii = muonProps.clone(somaAni)
+      let anii = eonMuonProps.clone(somaAni)
       anii.eoload.soma = p
       anii.eoload.soma.x0 = 100
       anii.eoload.soma.y0 = -100
       anii.eoric.fid = 'ani' + i
 
-      anii.eofold = muonSoma.somafold
+      anii.eofold = eonMuonSoma.somafold
 
       treeanis.push(anii)
     }

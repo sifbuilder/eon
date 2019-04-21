@@ -1,14 +1,14 @@
 /**********************
- *      @datPopart
+ *      @eonDatPopart
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.datPopart = global.datPopart || {})))
+      : (factory((global.eonDatPopart = global.eonDatPopart || {})))
 }(this, function (exports) {
   'use strict'
 
-  var datPopart = function (__eo = {}) {
+  var eonDatPopart = function (__eo = {}) {
     let data = {
 
       'width': '2.33333in', 'height': '1.75in',
@@ -517,5 +517,5 @@
     return enty
   }
 
-  exports.datPopart = datPopart
+  exports.eonDatPopart = eonitem
 }))

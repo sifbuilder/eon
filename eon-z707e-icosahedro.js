@@ -13,26 +13,26 @@
   let [
     d3,
     d3Geo,
-    ctlWen,
-    eohalMars,
-    muonGeom,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonGeom,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -47,7 +47,7 @@
     // .................. dotsAni
     let dotsAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: anitem => {
         let eoload = anitem.eoload,
@@ -108,7 +108,7 @@
             let phi = ((i * 36) + 180) % 360 - 180
             return [phi, i & 1 ? theta : -theta]
           }))
-          .map(muonGeom.cartesian),
+          .map(eonMuonGeom.cartesian),
 
         faces: [
 
@@ -141,7 +141,7 @@
     // .................. vertsAni
     let vertsAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: p => {
         let eoload = p.eoload,

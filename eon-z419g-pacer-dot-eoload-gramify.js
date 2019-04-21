@@ -14,31 +14,31 @@
 async function anitem (__eo) {
     // .................. eons
     let [
-      ctlRayder,
-      ctlWen,
-      eohalNatform,
-      eohalMars,
-      eohalPacer,
-      eohalTextform,
-      muonNatform,
-      muonStace,
-      protonUniwen,
-      renderSvg,
+      eonCtlRayder,
+      eonCtlWen,
+      eonEohalNatform,
+      eonEohalMars,
+      eonEohalPacer,
+      eonEohalTextform,
+      eonMuonNatform,
+      eonMuonStace,
+      eonProtonUniwen,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').c('rayder'),
-      __eo('xs').c('wen'),
-      __eo('xs').e('natform'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('pacer'),
-      __eo('xs').e('textform'),
-      __eo('xs').m('natform'),
-      __eo('xs').m('stace'),
-      __eo('xs').p('uniwen'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-rayder'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-natform'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-pacer'),
+      __eo('xs').b('eon-eohal-textform'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-stace'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-svg'),
     ])
   
-    let muonStore = __eo('muonStore')
-    try { renderSvg.scenecolor('black') } catch (e) {}
+    let eonMuonStore = __eo('eonMuonStore')
+    try { eonRenderSvg.scenecolor('black') } catch (e) {}
     // .................. animas
     let z = function () {
       // .................. pics
@@ -47,7 +47,7 @@ async function anitem (__eo) {
       // ............................. natAni
       let geoLined = {
   
-        eohal: eohalPacer,
+        eohal: eonEohalPacer,
         eotim: eotim,
         eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
   
@@ -86,7 +86,7 @@ async function anitem (__eo) {
             basePaceOnAniView: 'eoform',
             addItemToPacer: 1, // addItemToPacer for trace
   
-            eohal: eohalMars,
+            eohal: eonEohalMars,
   
             eofold: function (ani, props) {
   if (1 && 1) console.log('eofold', ani)            
@@ -120,8 +120,8 @@ async function anitem (__eo) {
                 coords = [0, 0, 0]
   
               } else if (props.key === 'event') { // EVENT
-                if (ctlRayder.grabbed() !== undefined) {
-                  let grabbed = ctlRayder.grabbed()
+                if (eonCtlRayder.grabbed() !== undefined) {
+                  let grabbed = eonCtlRayder.grabbed()
                   let x = grabbed[0]
                   let y = grabbed[1]
                   let z = 0

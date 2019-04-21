@@ -1,11 +1,11 @@
 /*******************************************
- *      @geoFuturi
+ *      @eonGeoFuturi
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.geoFuturi = global.geoFuturi || {})))
+      : (factory((global.eonGeoFuturi = global.eonGeoFuturi || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -19,14 +19,14 @@
   // forked from Fil's block: Furuti 3 - projection.clipPolygon()
   // LICENSE# Released under the The MIT License.
 
-  async function geoFuturi (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonGeom,
+      eonMuonGeom,
       mpolyhedral,
       d3,
     ] = await Promise.all([
-      __eo('xs').m('geom'),
-      __eo('xs').m('polyhedral'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-polyhedral'),
       __eo('xs').b('d3'),
     ])
 
@@ -61,9 +61,9 @@
         [ 1, -1, -1], // 4  // 5
         [ 1, 1, -1], // 7  // 6
         [-1, 1, -1], // 6  // 7
-      ].map(muonGeom.normalize)
-        .map(muonGeom.spherical)
-        .map(muonGeom.to_degrees)
+      ].map(eonMuonGeom.normalize)
+        .map(eonMuonGeom.spherical)
+        .map(eonMuonGeom.to_degrees)
 
       vertices = d3selection.merge([
         vertices,
@@ -98,5 +98,5 @@
     return enty
   }
 
-  exports.geoFuturi = geoFuturi
+  exports.eonGeoFuturi = eonitem
 }))

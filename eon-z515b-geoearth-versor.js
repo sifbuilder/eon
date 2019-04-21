@@ -14,27 +14,27 @@
   let [
     d3Geo,
     topojson,
-    ctlVersor,
+    eonCtlVersor,
     datWorldTopo110m,
-    eohalMars,
-    eohalTextform,
-    muonGraticule,
-    renderSvg,
+    eonEohalMars,
+    eonEohalTextform,
+    eonMuonGraticule,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('versor'),
+    __eo('xs').b('eon-ctl-versor'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('graticule'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
-    ctlVersor().control(renderSvg.svg())
+    eonCtlVersor().control(eonRenderSvg.svg())
 
     let eotim = {'td': 18800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
@@ -54,7 +54,7 @@
 
       projection: darkProjection,
       prerotate: [[[ t => {
-        let rot = ctlVersor
+        let rot = eonCtlVersor
           .projection({projection: darkProjection})
           .rotation()
         let res = [180 + rot[0], -rot[1], -rot[2]]
@@ -66,7 +66,7 @@
 
     let geoearthDark = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {gid: 'geo', cid: 'geo', fid: 'geoearthDark'},
 
@@ -103,7 +103,7 @@
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = ctlVersor
+        let rot = eonCtlVersor
           .projection({projection: frontProjection})
           .rotation()
         return rot
@@ -117,7 +117,7 @@
 
     let geoearthFront = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'geo', cid: 'geo', fid: 'geoearthFront'},
 
@@ -142,11 +142,11 @@
     // .................. graticuleFront
     let graticuleFront = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
       eomot: {
         proform: proformFront,
       },
@@ -164,7 +164,7 @@
     // .................. textAni1
     let textAni1 = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textAni1'},
       eotim: eotim,
 
@@ -185,9 +185,9 @@
             let rotMomentum = this.rotMomentum.map(d => Math.floor(10 * d) / 10)
             return `rotate:   λ = ${proRotation[0]}, φ = ${proRotation[1]}, γ = ${proRotation[2]}`
           },
-          rotInDrag: [[[ ctlVersor.rotInDrag ]]],
-          rotMomentum: [[[ ctlVersor.rotMomentum ]]],
-          proRotation: [[[ ctlVersor.proRotation ]]],
+          rotInDrag: [[[ eonCtlVersor.rotInDrag ]]],
+          rotMomentum: [[[ eonCtlVersor.rotMomentum ]]],
+          proRotation: [[[ eonCtlVersor.proRotation ]]],
           style: {
             rotate: [[[ 0, 0 ]]],
             'font-size': [[[12, 12]]],
@@ -200,7 +200,7 @@
     // .................. textAni2
     let textAni2 = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textAni2'},
       eotim: eotim,
 
@@ -221,9 +221,9 @@
             let rotMomentum = this.rotMomentum.map(d => Math.floor(10 * d) / 10)
             return `drag:     λ = ${rotInDrag[0]}, φ = ${rotInDrag[1]}, γ = ${rotInDrag[2]}`
           },
-          rotInDrag: [[[ ctlVersor.rotInDrag ]]],
-          rotMomentum: [[[ ctlVersor.rotMomentum ]]],
-          proRotation: [[[ ctlVersor.proRotation ]]],
+          rotInDrag: [[[ eonCtlVersor.rotInDrag ]]],
+          rotMomentum: [[[ eonCtlVersor.rotMomentum ]]],
+          proRotation: [[[ eonCtlVersor.proRotation ]]],
           style: {
             rotate: [[[ 0, 0 ]]],
             'font-size': [[[12, 12]]],
@@ -236,7 +236,7 @@
     // .................. textAni3
     let textAni3 = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textAni3'},
       eotim: eotim,
 
@@ -257,9 +257,9 @@
             let rotMomentum = this.rotMomentum.map(d => Math.floor(10 * d) / 10)
             return `momentum: λ = ${rotMomentum[0]}, φ = ${rotMomentum[1]}, γ = ${rotMomentum[2]}`
           },
-          rotInDrag: [[[ ctlVersor.rotInDrag ]]],
-          rotMomentum: [[[ ctlVersor.rotMomentum ]]],
-          proRotation: [[[ ctlVersor.proRotation ]]],
+          rotInDrag: [[[ eonCtlVersor.rotInDrag ]]],
+          rotMomentum: [[[ eonCtlVersor.rotMomentum ]]],
+          proRotation: [[[ eonCtlVersor.proRotation ]]],
           style: {
             rotate: [[[ 0, 0 ]]],
             'font-size': [[[12, 12]]],

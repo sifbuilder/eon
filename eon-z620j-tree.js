@@ -12,22 +12,22 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    muonProps,
-    muonSoma,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonProps,
+    eonMuonSoma,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('props'),
-    __eo('xs').m('soma'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-soma'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -57,8 +57,8 @@
     let q = 1
     let animas = []
     for (let i = 0; i < q; i++) {
-      let pi = muonProps.clone(p)
-      animas[i] = muonSoma.soma(i, pi)
+      let pi = eonMuonProps.clone(p)
+      animas[i] = eonMuonSoma.soma(i, pi)
     }
 
     return animas

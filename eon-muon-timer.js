@@ -1,16 +1,16 @@
 /***************************
- *        @muonTimer
+ *        @eonMuonTimer
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonTimer = global.muonTimer || {})))
+      : (factory((global.eonMuonTimer = global.eonMuonTimer || {})))
 }(this, function (exports) {
   'use strict'
 
   // copyright mbostock
   // https://github.com/d3/d3-timer/blob/master/src/timer.js
-  async function muonTimer (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let geoframe = 0, // is an animation geoframe pending?
       timeout = 0, // is a timeout pending?
       interval = 0, // are any timers active?
@@ -149,5 +149,5 @@
     return enty
   }
 
-  exports.muonTimer = muonTimer
+  exports.eonMuonTimer = eonitem
 }))

@@ -1,10 +1,10 @@
 /***********
- *    @muonGeoj
+ *    @eonMuonGeoj
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonGeoj = global.muonGeoj || {})))
+      : (factory((global.eonMuonGeoj = global.eonMuonGeoj || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -62,15 +62,15 @@
   // ... # license
   // ... MIT
 
-  async function muonGeoj (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3polygon,
-      muonProps,
+      eonMuonProps,
       Complex,
     ] = await Promise.all([
       __eo('xs').b('d3-polygon'),
-      __eo('xs').m('props'),
-      __eo('xs').l('complex'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-lib-complex'),
     ])
 
     let types = {
@@ -203,20 +203,20 @@
 
     // ...................... snip
     let snip = function (form) {
-      let dims = __eo('xs').m('anitem').dims()
+      let dims = __eo('xs').b('eon-muon-anitem').dims()
       let braids = []
       return function (gj) {
         let c = gj.coordinates
         for (let i = 0; i < c.length; i++) {
-          let braid = muonProps.unslide(c[i])
+          let braid = eonMuonProps.unslide(c[i])
 
           for (let j = 0; j < braid.length; j++) {
             let pa6 = (form[dims[j]] || {}).pa6
             let pb7 = (form[dims[j]] || {}).pb7
 
-            braids[j] = muonProps.streamRange(braid[j], pa6, pb7)
+            braids[j] = eonMuonProps.streamRange(braid[j], pa6, pb7)
           }
-          let coordinates = muonProps.slide(braids) // join dim threads
+          let coordinates = eonMuonProps.slide(braids) // join dim threads
           gj.coordinates = Array.of(coordinates)
         }
 
@@ -911,5 +911,5 @@
     return enty
   }
 
-  exports.muonGeoj = muonGeoj
+  exports.eonMuonGeoj = eonitem
 }))

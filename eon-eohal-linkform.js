@@ -1,27 +1,27 @@
 /**********************
- *    @eohalLinkform
+ *    @eonEohalLinkform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalLinkform = global.eohalLinkform || {})))
+      : (factory((global.eonEohalLinkform = global.eonEohalLinkform || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function eohalLinkform (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      eohalSol,
-      eohalMars,
-      muonEoric,
-      muonProps,
+      eonEohalSol,
+      eonEohalMars,
+      eonMuonEoric,
+      eonMuonProps,
     ] = await Promise.all([
-      __eo('xs').e('sol'),
-      __eo('xs').e('mars'),
-      __eo('xs').m('eoric'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-eohal-sol'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
-    let muonStore = __eo('muonStore')
+    let eonMuonStore = __eo('eonMuonStore')
     let state = {}
 
     // ........................ diagonalp
@@ -78,8 +78,8 @@
     function eohale (anitem) {
       let newItems = []
 
-      let fromAnima = muonStore.findAnimaFromUid(anitem.eoload.link.source)
-      let toAnima = muonStore.findAnimaFromUid(anitem.eoload.link.target)
+      let fromAnima = eonMuonStore.findAnimaFromUid(anitem.eoload.link.source)
+      let toAnima = eonMuonStore.findAnimaFromUid(anitem.eoload.link.target)
 
       if (fromAnima !== undefined && fromAnima !== undefined) {
         console.assert(fromAnima !== undefined, 'h.linkform fromAnima undefined')
@@ -109,8 +109,8 @@
           properties: {},
         }
 
-        let newItem = muonProps.clone(anitem)
-        newItem.eohal = eohalMars
+        let newItem = eonMuonProps.clone(anitem)
+        newItem.eohal = eonEohalMars
         newItem.eofold = eofold
         newItem.eonode = eonode
 
@@ -122,27 +122,27 @@
 
     // ....................... gramify
     let gramify = anitem => {
-      let newAnigrams = muonProps.a(eohale(anitem))
-      let newItems = newAnigrams.reduce((p, q) => [...p, ...muonProps.a(eohalMars.gramify(q))], [])
+      let newAnigrams = eonMuonProps.a(eohale(anitem))
+      let newItems = newAnigrams.reduce((p, q) => [...p, ...eonMuonProps.a(eonEohalMars.gramify(q))], [])
       return newItems
     }
 
     // ....................... anify
     let anify = anitem => {
       let newItems = eohale(anitem)
-      return muonProps.a(newItems)
+      return eonMuonProps.a(newItems)
     }
 
-    // ....................... eohalLinkform
-    let eohalLinkform = {
+    // ....................... eonEohalLinkform
+    let eonEohalLinkform = {
       anify: anitem => anify(anitem),
       gramify: anitem => gramify(anitem),
     }
 
     // ....................... enty
-    let enty = eohalLinkform
+    let enty = eonEohalLinkform
     return enty
   }
 
-  exports.eohalLinkform = eohalLinkform
+  exports.eonEohalLinkform = eonitem
 }))

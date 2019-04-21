@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.xEonify = global.xEonify || {})))
+      : (factory((global.eonXEonify = global.eonXEonify || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -288,31 +288,41 @@
   }
 
   const ceonize = function (nome, pres = '') {
+
     let camelized
-    if (pres === '' || pres === 'eon' || pres === 'u') {
+    if (pres === '' || pres === 'eon') {
       camelized = camelize(nome)
     } else {
-      camelized = camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
+      camelized = camelize('eon-' + pres + '-' + nome) // [uni-wen,muon] => muonUniWen
     }
-
     return camelized
   }
   const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js'
 
   const xeonize = (nome, pres = '') =>
-    (pres === '' || pres === 'eon' || pres === 'u') // wen => eon-muon-wen
+    (pres === '' || pres === 'eon') // wen => eon-muon-wen
       ? nome
       : 'eon' + '-' + pres + '-' + nome
 
-  const camelize = str => str
+  const precamelize = str => str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
     .replace(/\s+/g, '') // remove white space
     .replace(/-+/g, '') // remove hyphen
 
+
+  const snakefy = str => str
+    .replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() })
+  
+
+  const eonpre = d => 'eon' + capitalize(d)
+  
+  const camelize = str => precamelize(str)
+  
+
   async function getCell (e, n, m) { // eon, name, mapper returns enty
     console.assert(e !== undefined, `eon ${n} is undefined`)
     if (e[n] !== undefined && typeof e[n] === 'function') {
-      // n is eon with e[n] async constructor eg. async function muonNatform
+      // n is eon with e[n] async constructor eg. async function eonitem
       // n is ani with e[n] async constructor eg. async function anitem
       // e[n](m) is promise
       let cell = await e[n](m)
@@ -362,7 +372,7 @@
   }
 
   // ............................. getEon
-  // nome is partName: eg 'muonGraticule'
+  // nome is partName: eg 'eonMuonGraticule'
   async function getEon (inpart, __eo) {
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
@@ -379,7 +389,7 @@
     } else {
       let [name, pres] = part // [name, prefix] eg.: [versor, muon]
 
-      let ceon = ceonize(name, pres) // eg.: 'muonVersor' get from store
+      let ceon = ceonize(name, pres) // eg.: 'eonMuonVersor' get from store
       let feon = feonize(name, pres) // eg.: './eon-muon-versor.js' get from file
       let xeon = xeonize(name, pres) // eg.: 'eon-muon-versor' get from cdn
 
@@ -421,7 +431,6 @@
       ['muon', 'm', 'muon'],
       ['proton', 'p', 'proton'],
       ['render', 'r', 'render'],
-      ['u', 'u', ''],
       ['zindex', 'z', 'z'],
       ['zindex', 'z', 'eon'],
 
@@ -472,7 +481,7 @@
     __eo({'xs': xs(__eo)}) // map xs
     __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
 
-    await __eo('xs').m('store') // map store
+    await __eo('xs').b('eon-muon-store') // map store
     return __eo
   }
 
@@ -486,15 +495,15 @@
     let __eo = await eostore()
     let aniset = await __eo('xs').z(anitem) // z eon
 
-    let muonStore = __eo('muonStore')
+    let eonMuonStore = __eo('eonMuonStore')
 
     let animas = aniset
     if (aniset['z'] !== undefined) { // anitem comes from string
       animas = aniset.z()
     }
 
-    muonStore.apply({type: 'UPDANIMA', animas: animas})
-    await __eo('xs').m('animation') // map animation
+    eonMuonStore.apply({type: 'UPDANIMA', animas: animas})
+    await __eo('xs').b('eon-muon-animation') // map animation
 
     return __eo
   }
@@ -502,7 +511,7 @@
   // ............................. eon
   let eonify = async function ({anitem, time}) {
     let __eo = await eonit({anitem, time})
-    return __eo('muonAnimation').animate(time) // animate
+    return __eo('eonMuonAnimation').animate(time) // animate
   }
 
   // ............................. support debug
@@ -529,9 +538,9 @@
 
   // ............................. eoeocharge
   let eocharge = async function (__eo) {
-    await __eo('xs').c('timer')
-    await __eo('xs').e('sol')
-    await __eo('xs').r('svg')
+    await __eo('xs').b('eon-ctl-timer')
+    await __eo('xs').b('eon-eohal-sol')
+    await __eo('xs').b('eon-render-svg')
 
     return __eo
   }
@@ -541,7 +550,7 @@
     let __eo = await eonit({anitem, time})
     __eo = await eocharge(__eo)
 
-    let muonAnimation = await __eo('xs').m('animation')
+    let eonMuonAnimation = await __eo('xs').b('eon-muon-animation')
 
     let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 3
     // https://stackoverflow.com/questions/3144711/find-the-time-left-in-a-settimeout
@@ -550,7 +559,7 @@
       setTimeout(() => {
         t = times * dt
         ++times
-        gjfc = muonAnimation.animier(t) // animier
+        gjfc = eonMuonAnimation.animier(t) // animier
         aniTimer(callback)
       }, dt)
     }

@@ -1,14 +1,14 @@
 /**********************
-   *    @muonEotest
+   *    @eonMuonEotest
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEotest = global.muonEotest || {})))
+      : (factory((global.eonMuonEotest = global.eonMuonEotest || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonEotest (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let anivance = async function (data = {}, context = {}) {
       let times = data.times
       let dt = data.dt
@@ -48,5 +48,5 @@
     return enty
   }
 
-  exports.muonEotest = muonEotest
+  exports.eonMuonEotest = eonitem
 }))

@@ -1,32 +1,32 @@
 /*******************************************
-   *    @ctlWen
+   *    @eonCtlWen
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlWen = global.ctlWen || {})))
+      : (factory((global.eonCtlWen = global.eonCtlWen || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function ctlWen (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3,
       d3Geo,
-      muonGeom,
-      // muonVector2,
-      renderPortview,
+      eonMuonGeom,
+      // eonMuonVector2,
+      eonRenderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
-      __eo('xs').m('geom'),
-      // __eo('xs').m('vector2'),
-      __eo('xs').r('portview'),
+      __eo('xs').b('eon-muon-geom'),
+      // __eo('xs').b('eon-muon-vector2'),
+      __eo('xs').b('eon-render-portview'),
     ])
 
     let d3drag = d3
     let d3selection = d3
-    let getPos = renderPortview.getPos // event position
+    let getPos = eonRenderPortview.getPos // event position
 
     // .................. inits
     let inits = {
@@ -133,7 +133,7 @@
       // screen rotation accumulation
 
       state.rotAccum_s_degrees =
-            muonGeom.add(
+            eonMuonGeom.add(
               state.rotAccum_s_degrees,
               state.rotInDrag_s_degrees) // rotation
 
@@ -240,7 +240,7 @@
     }
 
     enty.rotation = () => {
-      let res = muonGeom.add(
+      let res = eonMuonGeom.add(
         state.rotAccum_s_degrees,
         state.rotInDrag_s_degrees
       )
@@ -252,5 +252,5 @@
     return enty
   }
 
-  exports.ctlWen = ctlWen
+  exports.eonCtlWen = eonitem
 }))

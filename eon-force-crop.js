@@ -1,14 +1,14 @@
 /***************************
- *        @forceCrop
+ *        @eonForceCrop
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forceCrop = global.forceCrop || {})))
+      : (factory((global.eonForceCrop = global.eonForceCrop || {})))
 }(this, function (exports) {
   'use strict'
 
-  let forceCrop = function (__eo = {}) {
+  let eonForceCrop = function (__eo = {}) {
     let constant = x => () => x
 
     // .................. force
@@ -30,7 +30,7 @@
           let ys = node.y + r + (node.vy || 0) // south
 
           if (xw < west || xe > east || yn < north || ys > south) {
-            __eo('muonStore').apply({'type': 'DELANIMA', 'caller': 'force crop', 'anima': node})
+            __eo('eonMuonStore').apply({'type': 'DELANIMA', 'caller': 'force crop', 'anima': node})
           }
         }
       }
@@ -64,5 +64,5 @@
     return enty
   }
 
-  exports.forceCrop = forceCrop
+  exports.eonForceCrop = eonitem
 }))

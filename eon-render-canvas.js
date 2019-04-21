@@ -1,27 +1,27 @@
 /***********
- *    @renderCanvas
+ *    @eonRenderCanvas
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.renderCanvas = global.renderCanvas || {})))
+      : (factory((global.eonRenderCanvas = global.eonRenderCanvas || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function renderCanvas (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      renderPortview, // viewScreenPrt
+      eonRenderPortview, // viewScreenPrt
       d3,
     ] = await Promise.all([
-      __eo('xs').r('portview'),
+      __eo('xs').b('eon-render-portview'),
       __eo('xs').b('d3'),
     ])
 
     let radians = Math.PI / 180
 
     let state = {
-      width: renderPortview.width(),
-      height: renderPortview.height(),
+      width: eonRenderPortview.width(),
+      height: eonRenderPortview.height(),
     }
 
     let canvas = d3.select('body')
@@ -113,5 +113,5 @@
     return enty
   }
 
-  exports.renderCanvas = renderCanvas
+  exports.eonRenderCanvas = eonitem
 }))

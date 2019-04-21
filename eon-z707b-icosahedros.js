@@ -12,26 +12,26 @@
     async function anitem (__eo) {
   let [
     d3,
-    ctlWen,
-    eohalMars,
-    muonGeom,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonGeom,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -46,7 +46,7 @@
     let facesGeofold = anitem => {
       let eoload = anitem.eoload,
         eoric = anitem.eoric,
-        faces = muonProps.v(eoload.faces) // eoload.faces
+        faces = eonMuonProps.v(eoload.faces) // eoload.faces
 
       let json = {type: 'FeatureCollection', features: []}
 
@@ -78,7 +78,7 @@
     // .................. facesAni
     let facesAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: facesGeofold,
       eotim: eotim,
@@ -123,7 +123,7 @@
                 [x + 1 * s, y]]
             )
           }
-          return faces.map(face => face.map(muonProps.cartesian))
+          return faces.map(face => face.map(eonMuonProps.cartesian))
         },
       },
     }
@@ -131,7 +131,7 @@
     // .................. dotsAni
     let dotsAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: anitem => {
         let eoload = anitem.eoload,
@@ -192,7 +192,7 @@
             let phi = ((i * 36) + 180) % 360 - 180
             return [phi, i & 1 ? theta : -theta]
           }))
-          .map(muonGeom.cartesian),
+          .map(eonMuonGeom.cartesian),
 
         faces: [
 

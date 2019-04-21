@@ -12,33 +12,33 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlRayder,
-    ctlWen,
-    eohalMars,
-    eohalNatform,
-    eohalPacer,
-    eohalImgform,
-    muonNatform,
-    muonStace,
-    muonGeoj,
-    protonUniwen,
-    renderSvg,
+    eonCtlRayder,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalImgform,
+    eonMuonNatform,
+    eonMuonStace,
+    eonMuonGeoj,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('imgform'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('geoj'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-imgform'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
-  let muonStore = __eo('muonStore')
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -47,7 +47,7 @@
     // ... geoLined is ani h.pacer
     let geoLined = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
 
       // ... eofold is LineString
       eofold: {
@@ -88,10 +88,10 @@
           basePaceOnAniView: '',
           addItemToPacer: 1, // addItemToPacer for trace
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
 
           eofold: function (ani, props) {
-            let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
+            let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid) // anigram
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
@@ -100,7 +100,7 @@
                 ? [...preani.eofold.geometry.coordinates, ani.eoform ]
                 : Array.of(ani.eoform) // LineString
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
+              if (eonCtlRayder.grabbed() !== undefined) {
                 let grabbed = props.count.grabbed
                 let x = grabbed[0]
                 let y = grabbed[1]
@@ -119,7 +119,7 @@
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry))
+            console.assert(eonMuonGeoj.isValid(geometry))
 
             return {
               type: 'Feature',
@@ -136,8 +136,8 @@
             } else if (props.key === 'auto') { // AUTO
               coords = [0, 0, 0]
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0

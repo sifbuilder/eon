@@ -15,47 +15,47 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-      ctlRayder,
-      ctlWen,
-      eohalNatform,
-      eohalMars,
-      eohalPacer,
-      eohalTextform,
-      muonEoric,
-      muonGeoj,
-      muonGraticule,
-      muonNatform,
-      muonProps,
-      muonStace,
-      protonUniwen,
-      renderSvg,
+      eonCtlRayder,
+      eonCtlWen,
+      eonEohalNatform,
+      eonEohalMars,
+      eonEohalPacer,
+      eonEohalTextform,
+      eonMuonEoric,
+      eonMuonGeoj,
+      eonMuonGraticule,
+      eonMuonNatform,
+      eonMuonProps,
+      eonMuonStace,
+      eonProtonUniwen,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').c('rayder'),
-      __eo('xs').c('wen'),
-      __eo('xs').e('natform'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('pacer'),
-      __eo('xs').e('textform'),
-      __eo('xs').m('eoric'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('graticule'),
-      __eo('xs').m('natform'),
-      __eo('xs').m('props'),
-      __eo('xs').m('stace'),
-      __eo('xs').p('uniwen'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-rayder'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-natform'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-pacer'),
+      __eo('xs').b('eon-eohal-textform'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-graticule'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-stace'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-svg'),
     ])
 
     try {
-      renderSvg.scenecolor('black')
+      eonRenderSvg.scenecolor('black')
     } catch (e) {}
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
-    let muonStore = __eo('muonStore')
+    let eonMuonStore = __eo('eonMuonStore')
     // .................. animas
     let z = function () {
       // .................. pics
@@ -63,7 +63,7 @@
 
       // ....................... pacerNat
       let pacerNat = {
-        eohal: eohalPacer,
+        eohal: eonEohalPacer,
         eoric: { gid: 'nat', cid: 'nat', fid: 'nat' },
         eoload: {
           pacer: {
@@ -82,7 +82,7 @@
 
             anigram: {
               eotim: eotim,
-              eohal: eohalMars,
+              eohal: eonEohalMars,
 
               eoric: function (ani, props) {
                 let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
@@ -95,8 +95,8 @@
                 let coords = [0, 0]
                 let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
 
-                // let preani = muonStore.findAnima(eoric)
-                let preani = muonStore.findAnigram(eoric) // _e_
+                // let preani = eonMuonStore.findAnima(eoric)
+                let preani = eonMuonStore.findAnigram(eoric) // _e_
 
                 let point = [
                   200 * (0.5 - Math.random()),
@@ -122,7 +122,7 @@
                   type: 'LineString',
                   coordinates: coords,
                 }
-                console.assert(muonGeoj.isValid(geometry), `gj coords not valid in ${geometry}`)
+                console.assert(eonMuonGeoj.isValid(geometry), `gj coords not valid in ${geometry}`)
 
                 let feature = {
                   type: 'Feature',

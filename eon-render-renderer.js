@@ -1,24 +1,24 @@
 /***************************
- *        @renderRenderer
+ *        @eonRenderRenderer
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.renderRenderer = global.renderRenderer || {})))
+      : (factory((global.eonRenderRenderer = global.eonRenderRenderer || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function renderRenderer (__eo = {}) {
-    let renderSvg = __eo('renderSvg')
-    let renderWebgl = __eo('renderWebgl')
+  async function eonitem (__eo = {}) {
+    let eonRenderSvg = __eo('eonRenderSvg')
+    let eonRenderWebgl = __eo('eonRenderWebgl')
 
-    if (!renderSvg && !renderWebgl) {
+    if (!eonRenderSvg && !eonRenderWebgl) {
       console.info('r.renderer no renderers')
     }
     // ............................. render
     const render = function (featurecollection, elapsed) {
-      if (renderSvg) renderSvg.render(featurecollection)
-      if (renderWebgl) renderWebgl.render(featurecollection)
+      if (eonRenderSvg) eonRenderSvg.render(featurecollection)
+      if (eonRenderWebgl) eonRenderWebgl.render(featurecollection)
     }
 
     // ............................. enty
@@ -27,5 +27,5 @@
     return enty
   }
 
-  exports.renderRenderer = renderRenderer
+  exports.eonRenderRenderer = eonitem
 }))

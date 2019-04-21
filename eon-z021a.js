@@ -12,18 +12,18 @@
     async function anitem (__eo) {
   // .................. animas
   let [
-    ctlWen,
-    eohalTextform,
-    renderSvg,
+    eonCtlWen,
+    eonEohalTextform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('textform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -35,7 +35,7 @@
     // .................. textAni
     let textAni = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
 

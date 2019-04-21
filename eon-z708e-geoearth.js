@@ -15,31 +15,31 @@
     d3Geo,
     d3Geoprojection,
     topojson,
-    ctlVersor,
-    ctlWen,
+    eonCtlVersor,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalMars,
-    muonGeom,
-    muonGraticule,
-    muonNatform,
-    renderSvg,
+    eonEohalMars,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('versor'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
-    let ctl = ctlVersor().control(renderSvg.svg())
+    let ctl = eonCtlVersor().control(eonRenderSvg.svg())
 
     // .................. pics
     let eotim = {'td': 10800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
@@ -57,7 +57,7 @@
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = ctlVersor
+        let rot = eonCtlVersor
           .projection({projection: frontProjection}) // versor projection
           .rotation()
         return rot
@@ -70,7 +70,7 @@
 
     let geoearth = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: () => {
         return Object.assign({},

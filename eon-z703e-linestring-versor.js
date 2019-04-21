@@ -12,28 +12,28 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('versor'),
-    __eo('xs').e('mars'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
 
     let aniForm = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: (p) => ({
         type: 'Feature',

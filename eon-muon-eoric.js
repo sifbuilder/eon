@@ -1,14 +1,14 @@
 /**********************
-   *    @muonEoric
+   *    @eonMuonEoric
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEoric = global.muonEoric || {})))
+      : (factory((global.eonMuonEoric = global.eonMuonEoric || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonEoric (__eo = {}) {
+  async function eonitem (__eo = {}) {
     // ... eoric.eohal: anima type
     // ... eoric.gid: group id
     // ... eoric.cid: class id
@@ -46,7 +46,7 @@
         eoric.cid = anigram.eoric.cid // cid set in anigram
       }
 
-      let itemsInClass = __eo('muonStore').anigrams().filter(d => d.eoric.gid === eoric.gid && d.eoric.cid === eoric.cid).length
+      let itemsInClass = __eo('eonMuonStore').anigrams().filter(d => d.eoric.gid === eoric.gid && d.eoric.cid === eoric.cid).length
 
       if (anigram.eoric.fid === undefined) { // no fid in anigram
         eoric.fid = eoric.cid + '_' + idx + itemsInClass
@@ -165,5 +165,5 @@
     return enty
   }
 
-  exports.muonEoric = muonEoric
+  exports.eonMuonEoric = eonitem
 }))

@@ -11,34 +11,34 @@
   
     async function anitem (__eo) {
   let [
-    muonProps,
-    muonEoforces,
-    muonNatform,
+    eonMuonProps,
+    eonMuonEoforces,
+    eonMuonNatform,
     d3Force3d,
-    renderPortview,
-    ctlRayder,
-    muonEoric,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonRenderPortview,
+    eonCtlRayder,
+    eonMuonEoric,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('props'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-natform'),
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').r('portview'),
-    __eo('xs').c('rayder'),
-    __eo('xs').m('eoric'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
+  let eonMuonStore = __eo('eonMuonStore')
   // .................. animas
   let z = function () {
-    let width = renderPortview.width(),
-      height = renderPortview.height()
+    let width = eonRenderPortview.width(),
+      height = eonRenderPortview.height()
 
     let eohalIsolation_anify = anima => { // eohal ANIFY
       let animas = (anima.eoinited !== 1) ? (anima.eoinited = anima.eogelded = 1, [anima]) : []
@@ -46,15 +46,15 @@
       let nbr = 12
 
       for (let i = 0; i < nbr; i++) {
-        let ani = muonProps.cloneObj(natAni) // clone of model anima
+        let ani = eonMuonProps.cloneObj(natAni) // clone of model anima
         ani.eoric.gid = 'nat'
         ani.eoric.cid = 'nat'
         ani.eoric.fid = 'item' + i // identify
 
-        let uid = muonEoric.getuid(ani.eoric)
+        let uid = eonMuonEoric.getuid(ani.eoric)
         ani.eoric.uid = uid
 
-        let preani = muonStore.findAnimaFromUid(ani.eoric.uid)
+        let preani = eonMuonStore.findAnimaFromUid(ani.eoric.uid)
 
         if (preani) {
           ani = preani
@@ -75,7 +75,7 @@
         animas.push(ani)
       }
 
-      muonStore.apply({type: 'UPDANIMA', animas: animas}) // live
+      eonMuonStore.apply({type: 'UPDANIMA', animas: animas}) // live
       return animas
     }
 
@@ -94,7 +94,7 @@
 
       eohal: isolation, // eohal defines anify and gramify behavior
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'natAni'},

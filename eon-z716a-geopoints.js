@@ -12,23 +12,23 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonProps,
-    ctlWen,
+    eonMuonProps,
+    eonCtlWen,
     msnap,
     mlacer,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('props'),
-    __eo('xs').c('wen'),
-    __eo('xs').m('snap'),
-    __eo('xs').m('lacer'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-muon-snap'),
+    __eo('xs').b('eon-muon-lacer'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
@@ -45,7 +45,7 @@
 
     // .................. animas
     let p1 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eofold,
       eotim,
       eocrom,
@@ -59,7 +59,7 @@
     }
 
     let p2 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -73,7 +73,7 @@
     }
 
     let p3 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -87,7 +87,7 @@
     }
 
     let p4 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -101,7 +101,7 @@
     }
 
     let p5 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -115,7 +115,7 @@
     }
 
     let p6 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -125,7 +125,7 @@
           projection: 'uniwen',
           translate: [[[ () => {
             let geo = {'type': 'LineString', 'coordinates': [ [300 - 300, 100, 0], [325 - 300, 100, 0], [300 - 300, 100 - 200, 0] ]}
-            return muonProps.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
+            return eonMuonProps.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
           } ]]],
         },
       },
@@ -134,7 +134,7 @@
     }
 
     let p7 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -162,7 +162,7 @@
     }
 
     let p8 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -189,7 +189,7 @@
     }
 
     let p10 = { // NOK
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -206,7 +206,7 @@
 
             }) => {
               let as = a
-              let bs = __eo('xs').m('snap')(b, t, 1).x
+              let bs = __eo('xs').b('eon-muon-snap')(b, t, 1).x
               return as + bs
             } ]]],
 
@@ -216,7 +216,7 @@
 
             }) => {
               let as = a
-              let bs = __eo('xs').m('snap')(b, t, 1).y
+              let bs = __eo('xs').b('eon-muon-snap')(b, t, 1).y
               return as + bs
             } ]]],
 
@@ -228,7 +228,7 @@
     }
 
     let p11 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -249,7 +249,7 @@
     }
 
     let p12 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -278,7 +278,7 @@
     }
 
     let p13 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -290,7 +290,7 @@
           translate: [
 
             [[[ t => {
-              let msnap = __eo('xs').m('snap')
+              let msnap = __eo('xs').b('eon-muon-snap')
               let fn = (a, b) => a + b.x
               let args = [
                 378,
@@ -309,7 +309,7 @@
               'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
             }) => {
-              let msnap = __eo('xs').m('snap')
+              let msnap = __eo('xs').b('eon-muon-snap')
               let as = a
               let bs = msnap(b, t, 1).y
               return as + bs
@@ -323,7 +323,7 @@
     }
 
     let p15 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,
@@ -345,7 +345,7 @@
     }
 
     let p16 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eofold,
       eocrom,

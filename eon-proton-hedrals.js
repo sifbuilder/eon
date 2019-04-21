@@ -1,21 +1,21 @@
 /***************************
- *        @protonHedrals
+ *        @eonProtonHedrals
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.protonHedrals = global.protonHedrals || {})))
+      : (factory((global.eonProtonHedrals = global.eonProtonHedrals || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function protonHedrals (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonProps,
+      eonMuonProps,
       mpolyhedral,
       d3,
     ] = await Promise.all([
-      __eo('xs').m('props'),
-      __eo('xs').m('polyhedral'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-polyhedral'),
       __eo('xs').b('d3'),
     ])
 
@@ -28,7 +28,7 @@
 
       if (!p.prtRaw) p.prtRaw = d3.geoGnomonicRaw // prtRaw
 
-      p.tree = muonProps.objxx('tree', 'trees', 'treeidx', p) // tree
+      p.tree = eonMuonProps.objxx('tree', 'trees', 'treeidx', p) // tree
 
       if (!p.tree) p.tree = [-1]									// root
 
@@ -42,7 +42,7 @@
           }) // eg. [-45, 35], [-135, 35], [135, 35], [45, 354], [-45, 35]
         })
       } else { // assume faces as degreed spherical polygons
-        faces = muonProps.v(faces)
+        faces = eonMuonProps.v(faces)
       }
 
       p.faces = faces
@@ -53,5 +53,5 @@
     return enty
   }
 
-  exports.protonHedrals = protonHedrals
+  exports.eonProtonHedrals = eonitem
 }))

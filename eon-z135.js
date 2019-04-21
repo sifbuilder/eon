@@ -12,11 +12,11 @@
     async function anitem (__eo) {
   // .................. animas
   let [
-    eohalTextform,
-    renderSvg,
+    eonEohalTextform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').e('textform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
   let z = function () {
@@ -26,7 +26,7 @@
     // .................. textAni
     let textAni = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
 
       eofold: null,
 

@@ -1,14 +1,14 @@
 /***************************
- *        @forceLink
+ *        @eonForceLink
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forceLink = global.forceLink || {})))
+      : (factory((global.eonForceLink = global.eonForceLink || {})))
 }(this, function (exports) {
   'use strict'
 
-  var forceLink = function forceLink (__eo = {}) {
+  var eonForceLink = function eonForceLink (__eo = {}) {
   // .................. force
     let force = function (params) {
       let d3_force = __eo('d3Force3d')
@@ -21,7 +21,7 @@
 
       let d3src = (params.src !== undefined) ? params.src : d3_force // d3
 
-      let d3force = d3src.forceLink(nodes)
+      let d3force = d3src.eonForceLink(nodes)
         .id(id)
         .distance(distance)
         .links(links)
@@ -37,5 +37,5 @@
     return enty
   }
 
-  exports.forceLink = forceLink
+  exports.eonForceLink = eonitem
 }))

@@ -13,14 +13,14 @@
   // .................. eons
   let [
     dlicht5,
-    eohalSol,
-    renderSvg,
+    eonEohalSol,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').d('licht5'),
-    __eo('xs').e('sol'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-dat-licht5'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -97,7 +97,7 @@
     // .................. treeAni
     let treeAni = {
 
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: ani => {
         let eoload = ani.eoload // eoload

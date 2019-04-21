@@ -12,47 +12,47 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlRayder,
-    ctlWen,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
-    eohalMars,
-    eohalFuel,
-    muonEoric,
-    muonGeoj,
-    muonLindenmayer,
-    muonNatform,
-    muonProps,
-    muonStace,
-    protonUniwen,
-    renderSvg,
+    eonCtlRayder,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonEohalMars,
+    eonEohalFuel,
+    eonMuonEoric,
+    eonMuonGeoj,
+    eonMuonLindenmayer,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('fuel'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-fuel'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -64,11 +64,11 @@
 
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: ani => {
-        let gj = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
-        let res = muonGeoj.timeSeg(gj, ani.eotim.unElapsed) // gj  //
+        let gj = eonMuonLindenmayer.multiLine(ani.eoload.lindenmayer)
+        let res = eonMuonGeoj.timeSeg(gj, ani.eotim.unElapsed) // gj  //
 
         return res
       },
@@ -107,11 +107,11 @@
     // ....................... aviStar
     let aviStar = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat' },
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eonode: {
         type: 'Feature',
@@ -155,26 +155,26 @@
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'viewform',
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
 
           eoric: function (ani, props) {
-            let eoric = muonProps.clone(ani.eoric)
+            let eoric = eonMuonProps.clone(ani.eoric)
 
             if (props.key === 'init') { // INIT
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             } else if (props.key === 'auto') { // AUTO
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             } else if (props.key === 'event') { // EVENT
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             }
 
-            eoric.uid = muonEoric.getuid(eoric)
+            eoric.uid = eonMuonEoric.getuid(eoric)
             return eoric
           },
 
@@ -182,7 +182,7 @@
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               let pid = ani.eoric.pid
-              let parentAnigram = muonStore.findAnigramFromUid(pid)
+              let parentAnigram = eonMuonStore.findAnigramFromUid(pid)
               let lines = parentAnigram.eofold.features[0].geometry.coordinates
               let verts = lines.map(d => d[d.length - 1])
 
@@ -202,10 +202,10 @@
               locus[1].pos = locus[1].pos + counter * sep
               locus[2].pos = locus[2].pos
 
-              stace = muonStace.getLocus(locus, ani)
+              stace = eonMuonStace.getLocus(locus, ani)
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0

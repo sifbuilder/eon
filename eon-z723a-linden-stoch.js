@@ -14,31 +14,31 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-      ctlWen,
-      eohalMars,
-      eohalTextform,
-      muonGeoj,
-      muonLindenmayer,
-      muonProps,
-      protonUniwen,
-      renderSvg,
+      eonCtlWen,
+      eonEohalMars,
+      eonEohalTextform,
+      eonMuonGeoj,
+      eonMuonLindenmayer,
+      eonMuonProps,
+      eonProtonUniwen,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').c('wen'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('textform'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('lindenmayer'),
-      __eo('xs').m('props'),
-      __eo('xs').p('uniwen'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-textform'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-lindenmayer'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-svg'),
     ])
 
     try {
-      renderSvg.scenecolor('black')
+      eonRenderSvg.scenecolor('black')
     } catch (e) {}
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -71,7 +71,7 @@
         },
       }
 
-      let geo = muonLindenmayer.multiFeature(lindenmayer1)
+      let geo = eonMuonLindenmayer.multiFeature(lindenmayer1)
       geo.features = geo.features.sort(function (a, b) {
         return (
           2 * a.properties.level +
@@ -80,7 +80,7 @@
         )
       })
       geo.features = geo.features.map((f, i) => {
-        f.properties.eocrom = muonProps.clone(eocrom)
+        f.properties.eocrom = eonMuonProps.clone(eocrom)
         let level = f.properties.level || 0
         let cs = f.properties.eocrom.cs
         let newcs = cs + 200 * level
@@ -90,7 +90,7 @@
       })
 
       let aniForm1 = {
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: eotim,
         eoric: { gid: 'ani', cid: 'ani', fid: 'ani1' },
 
@@ -127,7 +127,7 @@
       let text = `see the trees`
 
       let textAni = {
-        eohal: eohalTextform,
+        eohal: eonEohalTextform,
         eotim: eotim,
         eoric: { gid: 'text', cid: 'text', fid: 'text' },
         eofold: ani => ({
@@ -162,7 +162,7 @@
         let anis = {}
         let a = txt.split('\n')
         for (let i = 0; i < a.length; i++) {
-          let ani = muonProps.clone(textAni)
+          let ani = eonMuonProps.clone(textAni)
           ani.eoric.fid = textAni.eoric.fid + '_' + i
           ani.eoric.cid = textAni.eoric.cid + '_' + i
           ani.eomot.proform.translate = [160, -160 - 7 * i]

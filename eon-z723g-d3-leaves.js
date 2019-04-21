@@ -12,32 +12,32 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    eohalTextform,
-    muonGeoj,
-    muonLindenmayer,
-    muonProps,
-    renderPortview,
-    renderSvg,
-    // renderWebgl,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonEohalTextform,
+    eonMuonGeoj,
+    eonMuonLindenmayer,
+    eonMuonProps,
+    eonRenderPortview,
+    eonRenderSvg,
+    // eonRenderWebgl,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('props'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
-    // __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
+    // __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -83,14 +83,14 @@
         cant: 0.1,
       },
     }
-    let geo = muonLindenmayer.multiFeature(lindenmayer)
+    let geo = eonMuonLindenmayer.multiFeature(lindenmayer)
 
     geo.features = geo.features.sort(function (a, b) {
       return (2 * a.properties.level + a.properties.segment) -
             (2 * b.properties.level + b.properties.segment)
     })
     geo.features = geo.features.map((f, i) => {
-      f.properties.eocrom = muonProps.clone(eocrom)
+      f.properties.eocrom = eonMuonProps.clone(eocrom)
       let contextlevel = f.properties.contextlevel || 0
 
       let colorlevel = f.properties.colorlevel || 0
@@ -112,7 +112,7 @@
     // .................. aniForm
     let aniForm = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2' },
 
@@ -149,7 +149,7 @@
     let text = `plants dreams`
 
     let textAni = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'text', cid: 'text', fid: 'text'},
       eofold: ani => ({
@@ -176,7 +176,7 @@
 
     let getanis = function (txt = '') {
       return txt.split('\n').map((l, i) => {
-        let ani = muonProps.clone(textAni)
+        let ani = eonMuonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
         ani.eomot.proform.translate = [120, -160 - 7 * i]
@@ -190,7 +190,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -201,10 +201,10 @@
             sort: 'camera',
             type: 'OrthographicCamera',
             name: 'Orthographic',
-            left: -renderPortview.width() / 2,
-            right: renderPortview.width() / 2,
-            top: renderPortview.height() / 2,
-            bottom: -renderPortview.height() / 2,
+            left: -eonRenderPortview.width() / 2,
+            right: eonRenderPortview.width() / 2,
+            top: eonRenderPortview.height() / 2,
+            bottom: -eonRenderPortview.height() / 2,
             near: 0.001,
             far: 200,
 

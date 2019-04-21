@@ -1,14 +1,14 @@
 /***************************
- *        @muonProps
+ *        @eonMuonProps
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonProps = global.muonProps || {})))
+      : (factory((global.eonMuonProps = global.eonMuonProps || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonProps (__eo = () => {}) {
+  async function eonitem (__eo = () => {}) {
     let [
       d3Array,
       d3Scale,
@@ -541,5 +541,5 @@
     return enty
   }
 
-  exports.muonProps = muonProps
+  exports.eonMuonProps = eonitem
 }))

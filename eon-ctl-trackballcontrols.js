@@ -1,25 +1,24 @@
 /**********************
- *    @ctlTrackballcontrols
+ *    @eonCtlTrackballcontrols
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlTrackballcontrols = global.ctlTrackballcontrols || {})))
+      : (factory((global.eonCtlTrackballcontrols = global.eonCtlTrackballcontrols || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function ctlTrackballcontrols (__eo) {
+  async function eonitem (__eo = {}) {
     let [
-      muonEventDispatcher,
-      muonQuaternion,
-      muonVector2,
-      muonVector3,
+      eonMuonEventdispatcher,
+      EonMuonQuaternion,
+      EonMuonVector2,
+      EonMuonVector3,
     ] = await Promise.all([
-      __eo('xs').m('event-dispatcher'),
-      __eo('xs').m('quaternion'),
-      __eo('xs').m('vector2'),
-      __eo('xs').m('vector3'),
-
+      __eo('xs').b('eon-muon-eventdispatcher'),
+      __eo('xs').b('eon-muon-quaternion'),
+      __eo('xs').b('eon-muon-vector2'),
+      __eo('xs').b('eon-muon-vector3'),
     ]
     )
 
@@ -61,31 +60,31 @@
 
       // internals
 
-      this.target = new muonVector3()
+      this.target = new EonMuonVector3()
 
       var EPS = 0.000001
 
-      var lastPosition = new muonVector3()
+      var lastPosition = new EonMuonVector3()
 
       var _state = STATE.NONE,
         _prevState = STATE.NONE,
 
-        _eye = new muonVector3(),
+        _eye = new EonMuonVector3(),
 
-        _movePrev = new muonVector2(),
-        _moveCurr = new muonVector2(),
+        _movePrev = new EonMuonVector2(),
+        _moveCurr = new EonMuonVector2(),
 
-        _lastAxis = new muonVector3(),
+        _lastAxis = new EonMuonVector3(),
         _lastAngle = 0,
 
-        _zoomStart = new muonVector2(),
-        _zoomEnd = new muonVector2(),
+        _zoomStart = new EonMuonVector2(),
+        _zoomEnd = new EonMuonVector2(),
 
         _touchZoomDistanceStart = 0,
         _touchZoomDistanceEnd = 0,
 
-        _panStart = new muonVector2(),
-        _panEnd = new muonVector2()
+        _panStart = new EonMuonVector2(),
+        _panEnd = new EonMuonVector2()
 
       // for reset
 
@@ -119,7 +118,7 @@
       }
 
       var getMouseOnScreen = (function () {
-        var vector = new muonVector2()
+        var vector = new EonMuonVector2()
 
         return function getMouseOnScreen (pageX, pageY) {
           vector.set(
@@ -132,7 +131,7 @@
       }())
 
       var getMouseOnCircle = (function () {
-        var vector = new muonVector2()
+        var vector = new EonMuonVector2()
 
         return function getMouseOnCircle (pageX, pageY) {
           vector.set(
@@ -145,12 +144,12 @@
       }())
 
       this.rotateCamera = (function () {
-        var axis = new muonVector3(),
-          quaternion = new muonQuaternion(),
-          eyeDirection = new muonVector3(),
-          objectUpDirection = new muonVector3(),
-          objectSidewaysDirection = new muonVector3(),
-          moveDirection = new muonVector3(),
+        var axis = new EonMuonVector3(),
+          quaternion = new EonMuonQuaternion(),
+          eyeDirection = new EonMuonVector3(),
+          objectUpDirection = new EonMuonVector3(),
+          objectSidewaysDirection = new EonMuonVector3(),
+          moveDirection = new EonMuonVector3(),
           angle
 
         return function rotateCamera () {
@@ -214,9 +213,9 @@
       }
 
       this.panCamera = (function () {
-        var mouseChange = new muonVector2(),
-          objectUp = new muonVector3(),
-          pan = new muonVector3()
+        var mouseChange = new EonMuonVector2(),
+          objectUp = new EonMuonVector3(),
+          pan = new EonMuonVector3()
 
         return function panCamera () {
           mouseChange.copy(_panEnd).sub(_panStart)
@@ -520,7 +519,7 @@
       this.update()
     }
 
-    TrackballControls.prototype = Object.create(muonEventDispatcher.prototype)
+    TrackballControls.prototype = Object.create(eonMuonEventdispatcher.prototype)
     TrackballControls.prototype.constructor = TrackballControls
 
     // ....................... enty
@@ -528,5 +527,5 @@
     return enty
   }
 
-  exports.ctlTrackballcontrols = ctlTrackballcontrols
+  exports.eonCtlTrackballcontrols = eonitem
 }))

@@ -1,10 +1,10 @@
 /****************************
- *      @eohalNatform
+ *      @eonEohalNatform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalNatform = global.eohalNatform || {})))
+      : (factory((global.eonEohalNatform = global.eonEohalNatform || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -13,26 +13,26 @@
   // ... get natFeature geojson and uniwen project by nat [tx, ty, tz]
   // ... complete eocrom definition
 
-  async function eohalNatform (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      eohalMars,
-      muonNatform,
-      muonEocrom,
-      muonProfier,
-      muonProj3ct,
+      eonEohalMars,
+      eonMuonNatform,
+      eonMuonEocrom,
+      eonMuonProfier,
+      eonMuonProj3ct,
     ] = await Promise.all([
-      __eo('xs').e('mars'),
-      __eo('xs').m('natform'),
-      __eo('xs').m('eocrom'),
-      __eo('xs').m('profier'),
-      __eo('xs').m('proj3ct'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-eocrom'),
+      __eo('xs').b('eon-muon-profier'),
+      __eo('xs').b('eon-muon-proj3ct'),
     ])
 
     // eocrom definition
 
     let geteocrom = function (eoform) {
       let res = {}
-      let ref = muonEocrom.getdefault()
+      let ref = eonMuonEocrom.getdefault()
 
       if (eoform === undefined) {
         res = ref
@@ -78,13 +78,13 @@
         lens: [0, 1, Infinity],
       }
 
-      anitem.eofold = muonNatform.natMultiLineString({eoform: eoform})
+      anitem.eofold = eonMuonNatform.natMultiLineString({eoform: eoform})
 
-      anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(proton, anitem))
+      anitem.eofold = eonMuonProj3ct(anitem.eofold, eonMuonProfier.formion(proton, anitem))
 
       if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(eoform)
 
-      return eohalMars.gramify(anitem)
+      return eonEohalMars.gramify(anitem)
     }
 
     // .................... gramify
@@ -97,14 +97,14 @@
     }
 
     // .................... eohal
-    let eohalNatform = {}
-    eohalNatform.anify = anitem => anify(anitem)
-    eohalNatform.gramify = anitem => gramify(anitem)
+    let eonEohalNatform = {}
+    eonEohalNatform.anify = anitem => anify(anitem)
+    eonEohalNatform.gramify = anitem => gramify(anitem)
 
     // .................... enty
-    let enty = eohalNatform
+    let enty = eonEohalNatform
     return enty
   }
 
-  exports.eohalNatform = eohalNatform
+  exports.eonEohalNatform = eonitem
 }))

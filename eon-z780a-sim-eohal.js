@@ -13,46 +13,46 @@
   let [
     d3Geo,
     d3Force3d,
-    ctlWen,
-    eohalCore,
-    eohalLinkform,
-    eohalNatform,
-    eohalMars,
+    eonCtlWen,
+    eonEohalCore,
+    eonEohalLinkform,
+    eonEohalNatform,
+    eonEohalMars,
     muonAntiem,
-    muonEoric,
-    muonEoforces,
-    muonGeom,
-    muonNatform,
-    muonProps,
-    renderPortview,
-    renderSvg,
+    eonMuonEoric,
+    eonMuonEoforces,
+    eonMuonGeom,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderPortview,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('core'),
-    __eo('xs').e('linkform'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('anitem'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-core'),
+    __eo('xs').b('eon-eohal-linkform'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-anitem'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
   let d3_force = d3Force3d
 
-  let width = renderPortview.width(), height = renderPortview.height()
+  let width = eonRenderPortview.width(), height = eonRenderPortview.height()
 
   // ............................. nuid
   let nuid = i => {
     let eoric = { gid: 'node', cid: 'node', fid: 'node' + i }
-    eoric.uid = muonEoric.getuid(eoric)
+    eoric.uid = eonMuonEoric.getuid(eoric)
     return eoric
   }
 
@@ -61,7 +61,7 @@
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -77,8 +77,8 @@
         let count = 200
 
         for (let i = 0; i < count; i++) {
-          let ani = muonProps.cloneObj(anima)
-          ani.eohal = eohalMars
+          let ani = eonMuonProps.cloneObj(anima)
+          ani.eohal = eonEohalMars
           ani.eoric = nuid(i)
           ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.9, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
 
@@ -86,13 +86,13 @@
             ani.eocrom.cf = 999
 
             let eoric = { gid: 'gold', cid: 'c', fid: 'f' + i }
-            eoric.uid = muonEoric.getuid(eoric)
+            eoric.uid = eonMuonEoric.getuid(eoric)
             ani.eoric = eoric
           } else {
             ani.eocrom.cf = 333
 
             let eoric = { gid: 'red', cid: 'c', fid: 'f' + i }
-            eoric.uid = muonEoric.getuid(eoric)
+            eoric.uid = eonMuonEoric.getuid(eoric)
             ani.eoric = eoric
           }
 
@@ -117,12 +117,12 @@
         // ... org anima is becomes gelded after halo anify
         // ... org anima is becomes delled after halo anify
 
-        updanima = muonProps.cloneObj(anima)
+        updanima = eonMuonProps.cloneObj(anima)
         updanima.eogelded = 1
         updanima.eodelled = 1
         animas.push(updanima)
 
-        muonStore.apply({
+        eonMuonStore.apply({
           type: 'UPDANIMA',
           caller: 'h.ineohal',
           animas: animas,
@@ -235,7 +235,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -316,7 +316,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -380,7 +380,7 @@
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity, node)
+          let g = eonMuonProps.v(gravity, node)
           console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
 
           node.vy += g
@@ -394,7 +394,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -454,7 +454,7 @@
         key: 'collide',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceManyBody
     let force_manybody = { // aniForce
@@ -478,7 +478,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceRadial
     let force_radial = { // aniForce
@@ -508,7 +508,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceCenterGold
 
@@ -530,7 +530,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceCenterRed
@@ -553,7 +553,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceXGold
 
@@ -576,7 +576,7 @@
         key: 'x_gold',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
 
     }
     // ............................. forceXRed
@@ -600,7 +600,7 @@
         key: 'x_red',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceYGold
@@ -624,7 +624,7 @@
         key: 'y_gold',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceYRed
@@ -648,7 +648,7 @@
         key: 'y_red',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceZGold
@@ -672,7 +672,7 @@
         key: 'z_gold',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceZRed
@@ -695,10 +695,10 @@
         key: 'z_red',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
 
     }
-    // ............................. forceLink
+    // ............................. eonForceLink
     let force_link = {
 
       properties: {
@@ -723,7 +723,7 @@
         let linksfilter = d => (d.eoric.gid === 'link')
         let links = params.nodes.filter(linksfilter)
         params.properties.payload.args = Array.of(links) // links
-        return muonEoforces.force(params)
+        return eonMuonEoforces.force(params)
       },
 
     }
@@ -731,7 +731,7 @@
     // .................... fieldAni
     let fieldAni = {
 
-      eohal: eohalCore,
+      eohal: eonEohalCore,
       eotim: eotim,
       eoric: {gid: 'field', cid: 'field', fid: 'field'},
 

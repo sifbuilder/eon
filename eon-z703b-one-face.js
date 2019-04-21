@@ -12,25 +12,25 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    muonProps,
-    protonUniwen,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonProps,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('props'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -39,7 +39,7 @@
 
     let proformFaces = {
 
-      projection: protonUniwen(),
+      projection: eonProtonUniwen(),
       center: [ 0, 0 ],
       translate: [ 180 - 180, 200 - 200 ],
       scale: 90,
@@ -51,7 +51,7 @@
     let geoformFaces = ani => { // eofold creates geojson featurecollection
       let eoload = ani.eoload // eoload
 
-      let faces = muonProps.v(eoload.faces) // eoload.faces
+      let faces = eonMuonProps.v(eoload.faces) // eoload.faces
       let json = {type: 'FeatureCollection', features: []}
 
       // for (let i = 0, l = faces.length; i < l; i++) {
@@ -78,7 +78,7 @@
     // .................. aniOneFace
     let aniOneFace = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: geoformFaces, // eofold,
       eotim: eotim,

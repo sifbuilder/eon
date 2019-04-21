@@ -12,29 +12,29 @@
     async function anitem (__eo) {
     let [
       topojson,
-      ctlWen,
-      ctlVersor,
+      eonCtlWen,
+      eonCtlVersor,
       datWorldTopo110m,
-      muonGraticule,
-      eohalMars,
-      protonUnimercator,
-      renderSvg,
+      eonMuonGraticule,
+      eonEohalMars,
+      eonProtonUnimercator,
+      eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('topojson'),
-      __eo('xs').c('wen'),
-      __eo('xs').c('versor'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-ctl-versor'),
       __eo('xs').d('worldTopo110m'),
-      __eo('xs').m('graticule'),
-      __eo('xs').e('mars'),
-      __eo('xs').p('unimercator'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-muon-graticule'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-proton-unimercator'),
+      __eo('xs').b('eon-render-svg'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) { }
+    try { eonRenderSvg.scenecolor('black') } catch (e) { }
     let z = function () {
       // .................. pics
       let ctl
       try {
-        ctl = ctlVersor().control(renderSvg.svg())
+        ctl = eonCtlVersor().control(eonRenderSvg.svg())
       } catch (e) {
         ctl = () => [0, 0, 0]
       }
@@ -43,17 +43,17 @@
 
       let proform = {
 
-        projection: protonUnimercator(),
+        projection: eonProtonUnimercator(),
         scale: 100,
         translate: [0, 0],
         rotate: [[[[0, -60]]], [[[0, -60]]], [[[0, -60]]]],
-        prerotate: [[[ctlVersor.rotation]]],
+        prerotate: [[[eonCtlVersor.rotation]]],
       }
 
       // .................. geoearth
       let geoearth = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: eotim,
         eoric: { 'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth' },
 

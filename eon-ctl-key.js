@@ -1,14 +1,14 @@
 /**********************
-   *    @ctlKey
+   *    @eonCtlKey
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlKey = global.ctlKey || {})))
+      : (factory((global.eonCtlKey = global.eonCtlKey || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function ctlKey (__eo) {
+  async function eonitem (__eo) {
     let keys = []
 
     let currentListeners = []
@@ -206,5 +206,5 @@
     return enty
   }
 
-  exports.ctlKey = ctlKey
+  exports.eonCtlKey = eonitem
 }))

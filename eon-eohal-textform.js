@@ -1,10 +1,10 @@
 /***********
- *    @eohalTextform
+ *    @eonEohalTextform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalTextform = global.eohalTextform || {})))
+      : (factory((global.eonEohalTextform = global.eonEohalTextform || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -21,13 +21,13 @@
   // ... # license
   // ... MIT
 
-  async function eohalTextform (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonProps,
-      eohalMars,
+      eonMuonProps,
+      eonEohalMars,
     ] = await Promise.all([
-      __eo('xs').m('props'),
-      __eo('xs').e('mars'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-eohal-mars'),
     ])
 
     // .................. _geofold
@@ -96,12 +96,12 @@
 
     // .................. gramify
     function gramify (anitem) {
-      let newitem = muonProps.clone(anitem)
+      let newitem = eonMuonProps.clone(anitem)
 
       newitem.eofold = _geofold(anitem)
       newitem.eonode = _geofold(anitem)
 
-      return eohalMars.gramify(newitem)
+      return eonEohalMars.gramify(newitem)
     }
 
     // .................. anify
@@ -126,5 +126,5 @@
     return enty
   }
 
-  exports.eohalTextform = eohalTextform
+  exports.eonEohalTextform = eonitem
 }))

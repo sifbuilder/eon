@@ -1,10 +1,10 @@
 /****************************
- *      @muonProfier
+ *      @eonMuonProfier
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonProfier = global.muonProfier || {})))
+      : (factory((global.eonMuonProfier = global.eonMuonProfier || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -38,24 +38,24 @@
   // ... if `@projdef.control:versor` apply versor control rotation
   // ...
   // ... * ### projer_
-  // ... use: `muonProfier.projer_(prodef, anigram)(gj)
+  // ... use: `eonMuonProfier.projer_(prodef, anigram)(gj)
   // ... *get formion projector on gj*
 
-  async function muonProfier (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonProps,
-      muonWen,
-      muonStace,
-      muonProj3ct,
-      muonGeom,
-      protonUniwen,
+      eonMuonProps,
+      eonMuonWen,
+      eonMuonStace,
+      eonMuonProj3ct,
+      eonMuonGeom,
+      eonProtonUniwen,
     ] = await Promise.all([
-      __eo('xs').m('props'),
-      __eo('xs').m('wen'),
-      __eo('xs').m('stace'),
-      __eo('xs').m('proj3ct'),
-      __eo('xs').m('geom'),
-      __eo('xs').p('uniwen'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-wen'),
+      __eo('xs').b('eon-muon-stace'),
+      __eo('xs').b('eon-muon-proj3ct'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-proton-uniwen'),
 
     ])
 
@@ -66,7 +66,7 @@
       let geoproj = null
 
       if (projdef === undefined) {
-        geoproj = protonUniwen({})
+        geoproj = eonProtonUniwen({})
       } else if (typeof projdef === 'string') {
         let proton = __eo(projdef) || __eo([projdef, 'proton'])
         if (proton !== null) {
@@ -78,7 +78,7 @@
         if (typeof projdef.projection === 'string') { // if string
           let prtItem = projdef.projection
           let proton = __eo(prtItem) || __eo([prtItem, 'proton'])
-          if (proton !== null) { // try eg. protonUniwen
+          if (proton !== null) { // try eg. eonProtonUniwen
             geoproj = proton(projdef)
           } else {
             geoproj = null
@@ -106,25 +106,25 @@
       projection = getPrt(projdef)
 
       if (projdef.translate) { // TRANSLATE proj method
-        if (muonProps.isPureArray(projdef.translate)) {
+        if (eonMuonProps.isPureArray(projdef.translate)) {
           translation = projdef.translate
         } else if (Array.isArray(projdef.translate)) {
           let _trans = []
           for (let k = 0; k < projdef.translate.length; k++) {
-            _trans = muonGeom.add(_trans, projdef.translate[k])
+            _trans = eonMuonGeom.add(_trans, projdef.translate[k])
           }
           translation = _trans
-        } else if (typeof projdef.translate === 'object' && muonProps.isPosition(projdef.translate)) {
+        } else if (typeof projdef.translate === 'object' && eonMuonProps.isPosition(projdef.translate)) {
           translation = Object.values(projdef.translate)
         } else if (typeof projdef.translate === 'object') {
-          translation = muonStace.getTranspot(projdef.translate, anigram) // get transpot - anigram
+          translation = eonMuonStace.getTranspot(projdef.translate, anigram) // get transpot - anigram
         }
 
         if (projdef.addNodeToTranslate && eonode) {
           if (eonode.geometry && eonode.geometry.coordinates !== undefined) {
             let nodetranslate = eonode.geometry.coordinates // eonode coords
 
-            translation = muonGeom.add(translation, nodetranslate)
+            translation = eonMuonGeom.add(translation, nodetranslate)
           }
         }
       }
@@ -133,16 +133,16 @@
         let rot = [0, 0] // projection.rotate()
 
         let projrot = projdef.rotate || [0, 0, 0] // default to 3d
-        if (muonProps.isPureArray(projrot)) {
+        if (eonMuonProps.isPureArray(projrot)) {
           //
         } else { // if multi rotates
           let _rot = []
           for (let k = 0; k < projrot.length; k++) {
-            _rot = muonGeom.add(_rot, projrot[k])
+            _rot = eonMuonGeom.add(_rot, projrot[k])
           }
           projrot = _rot
         }
-        rot = muonGeom.add(rot, projrot)
+        rot = eonMuonGeom.add(rot, projrot)
         let control = projdef.control
 
         if (control !== undefined) {
@@ -150,14 +150,14 @@
             .projection(projection) // invert on projection
             .rotation() // rotation from control wen
 
-          if (controlRotation) rot = muonGeom.add(rot, controlRotation)
+          if (controlRotation) rot = eonMuonGeom.add(rot, controlRotation)
         }
 
         let prerotate = projdef.prerotate
-        if (prerotate) rot = muonGeom.add(rot, prerotate) // ADD prerotate
+        if (prerotate) rot = eonMuonGeom.add(rot, prerotate) // ADD prerotate
 
         let dims = projrot.length // planar or spherical geometry
-        if (dims === 2) rot = muonWen.cross([Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
+        if (dims === 2) rot = eonMuonWen.cross([Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
 
         rotation = rot
       }
@@ -172,7 +172,7 @@
         } else if (key === 'translate') { // translate translation
           projection.translate(translation)
         } else {
-          if (muonProps.isFunction(projection[key]) && value !== null) {
+          if (eonMuonProps.isFunction(projection[key]) && value !== null) {
             projection[key](value)
           }
         }
@@ -183,11 +183,11 @@
 
     // ............................. projer_
     function projer_ (prodef, anigram) { // projer_ is fenrir if no prodef
-      return json => muonProj3ct.project(json, formion(prodef))
+      return json => eonMuonProj3ct.project(json, formion(prodef))
     }
 
     // ............................. uniweon
-    let uniweon = projdef => protonUniwen(projdef)
+    let uniweon = projdef => eonProtonUniwen(projdef)
 
     // ............................. enty
     let enty = () => { }
@@ -199,5 +199,5 @@
     return enty
   }
 
-  exports.muonProfier = muonProfier
+  exports.eonMuonProfier = eonitem
 }))

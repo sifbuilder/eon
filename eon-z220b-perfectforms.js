@@ -12,17 +12,17 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonAnimas,
-    eohalNatform,
-    eohalMars,
-    renderSvg,
+    eonMuonAnimas,
+    eonEohalNatform,
+    eonEohalMars,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('animas'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-animas'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -33,7 +33,7 @@
     // ............................. natAni
 
     let natAni2 = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f2'},
       eoform: {

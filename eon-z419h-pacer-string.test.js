@@ -8,15 +8,15 @@ global.urlPolyfill = require('url-polyfill')
 global.path = require('path')
 global.fs = require('fs')
 
-const xEonify = require('../eon-x-eonify.js')
+const eonXEonify = require('../eon-x-eonify.js')
 
 jest.useFakeTimers()
 
 describe('results from animation', () => {
   test('aniTimer', async () => {
-    let __eo = await xEonify.eonit({anitem: '419h-pacer-string'})
-    __eo = await xEonify.eocharge(__eo)
-    let muonAnimation = await __eo('xs').m('animation')
+    let __eo = await eonXEonify.eonit({anitem: '419h-pacer-string'})
+    __eo = await eonXEonify.eocharge(__eo)
+    let eonMuonAnimation = await __eo('xs').b('eon-muon-animation')
 
     jest.useFakeTimers()
     const callback = jest.fn()    
@@ -26,7 +26,7 @@ describe('results from animation', () => {
       setTimeout(() => {
         t = times * dt
         ++times
-        gjfc = muonAnimation.animier(t) // animier
+        gjfc = eonMuonAnimation.animier(t) // animier
         //   console.log(`time: ${t}`)
         anitimer(callback)
       }, dt)

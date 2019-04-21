@@ -1,14 +1,14 @@
 /**********************
- *    @muonVector2
+ *    @eonMuonVector2
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonVector2 = global.muonVector2 || {})))
+      : (factory((global.eonMuonVector2 = global.eonMuonVector2 || {})))
 }(this, function (exports) {
   'use strict'
 
-  let muonVector2 = function (__eo) {
+  async function eonitem (__eo) {
     /**
 	 * @author mrdoob / http://mrdoob.com/
 	 * @author philogb / http://blog.thejit.org/
@@ -380,5 +380,5 @@
     return enty
   }
 
-  exports.muonVector2 = muonVector2
+  exports.eonMuonVector2 = eonitem
 }))

@@ -1,10 +1,10 @@
 /***************************
- *        @muonNatform
+ *        @eonMuonNatform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonNatform = global.muonNatform || {})))
+      : (factory((global.eonMuonNatform = global.eonMuonNatform || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -177,29 +177,29 @@
   // ... # license
   // ... MIT
 
-  async function muonNatform (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       glMatrix,
       // d3Scale,
       // d3Array,
       d3Geo,
-      muonLacer,
-      muonProps,
-      muonGeom,
-      muonGraticule,
-      muonProfier,
-      muonProj3ct,
+      eonMuonLacer,
+      eonMuonProps,
+      eonMuonGeom,
+      eonMuonGraticule,
+      eonMuonProfier,
+      eonMuonProj3ct,
     ] = await Promise.all([
       __eo('xs').b('gl-matrix'),
       // __eo('xs').b('d3'),
       // __eo('xs').b('d3-array'),
       __eo('xs').b('d3-geo'),
-      __eo('xs').m('lacer'),
-      __eo('xs').m('props'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('graticule'),
-      __eo('xs').m('profier'),
-      __eo('xs').m('proj3ct'),
+      __eo('xs').b('eon-muon-lacer'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-graticule'),
+      __eo('xs').b('eon-muon-profier'),
+      __eo('xs').b('eon-muon-proj3ct'),
     ])
     let cache = {} // feature, form
 
@@ -270,7 +270,35 @@
       [-90, 90],
       [-90, 90],
     ]
+    
+    // ............................. radion
+    let radion = function (c,d) {
+      let functor = d => Array.isArray(d) ? d : Array.of(d)
+      let tensorize = (d, dim = 4, defv = 0) => Array(dim)
+        .fill(defv)
+        .map((c, i) => functor(d)[i] !== undefined
+          ? functor(functor(d)[i])
+          : functor(defv))
 
+      let xc = c => c !== undefined ? c : 1
+      let xe = e => e !== undefined ? e : 0
+
+      let cf = tensorize(c)
+      let ef = tensorize(e)
+
+      let cp = c.map(d => xc(d))
+      let ep = e.map(d => xe(d))
+
+      let ft = p => v => p.reduce((acc, cur, i) => acc + cur * pow(v, i), 0)
+      let res = ft(cf[0])(cp[0]) * ft(ef[0])(ep[0]) *
+                ft(cf[1])(cp[1]) * ft(ef[1])(ep[1]) *
+                ft(cf[2])(cp[2]) * ft(ef[2])(ep[2]) *
+                ft(cf[3])(cp[3]) * ft(ef[3])(ep[3])
+
+      return res
+    }
+
+    // ............................. enformDax
     let enformDax = function (formDax) {
       formDax.c = (formDax.c === undefined) ? 1 : formDax.c
       formDax.e = (formDax.e === undefined) ? functor(1) : functor(formDax.e)
@@ -373,7 +401,6 @@
 
     // ............................. natMultiPolygon
     let natMultiPolygon = function (props = {}) {
-      console.log('natMultiPolygon:', props)
 
       let feature
 
@@ -384,7 +411,7 @@
         gco = 0, // get close line (border)
       } = props
 
-      if (muonProps.isSame(eoform, cache.eoform)) {
+      if (eonMuonProps.isSame(eoform, cache.eoform)) {
         feature = cache.feature
         return feature
       } else {
@@ -416,7 +443,7 @@
             gco: gco,
           }
 
-          vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
+          vertices = eonMuonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
         } else { // ___ 2d
           sx = 360
           sy = 360
@@ -440,14 +467,14 @@
             gco: gco,
           } // _e_ x, y
 
-          vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
+          vertices = eonMuonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
 
           vertices = vertices[1].slice(0, -1)
           vertices = Array.of(vertices)
         }
 
-        let quads = muonGraticule.qfaces(gratipros)
-        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+        let quads = eonMuonGraticule.qfaces(gratipros)
+        let faces = quads.reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], [])
 
         let gj = {
           type: 'Feature',
@@ -477,11 +504,10 @@
 
         let projection = natprojection(projDef)
 
-        let feature = muonProj3ct(gj, projection)
+        let feature = eonMuonProj3ct(gj, projection)
         cache.eoform = projDef.eoform
         cache.feature = feature
 
-        console.log('natMultiLineString feature:', feature)
         return feature
       }
     }
@@ -498,7 +524,7 @@
         gco = 0, // get close line (border)
       } = props
 
-      if (muonProps.isSame(eoform, cache.eoform)) {
+      if (eonMuonProps.isSame(eoform, cache.eoform)) {
         feature = cache.feature
         return feature
       } else {
@@ -530,7 +556,7 @@
             gco: gco,
           } // x, y
 
-          geometry = muonGraticule.gjfMultiLineString(gratipros).geometry
+          geometry = eonMuonGraticule.gjfMultiLineString(gratipros).geometry
         } else { // ___ 2d
           sx = 360
           sy = 360
@@ -556,7 +582,7 @@
 
           console.assert(ghv === 0 || ghv === 1, `2d forms have no meridians`)
 
-          geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
+          geometry = eonMuonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
 
           // let p = geometry.coordinates[0] // [[[[-180,0],[180,0]]]] , [[[[0,-180],[0,180]]]]
           // geometry.coordinates = Array.of(p)
@@ -583,7 +609,7 @@
         let projDef = { projection: 'natform', eoform: nformed }
         let projection = natprojection(projDef)
 
-        let feature = muonProj3ct(gj, projection)
+        let feature = eonMuonProj3ct(gj, projection)
         cache.eoform = projDef.eoform
         cache.feature = feature
         return feature
@@ -614,7 +640,7 @@
       const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = form
       const bform = {m1, m2, n1, n2, n3, a, b, v0, v1, seg5}
 
-      if (muonProps.isSame(bform, cache.bform)) {
+      if (eonMuonProps.isSame(bform, cache.bform)) {
         pts = cache.points
       } else {
         const angUnit = tau / seg5 // dots per period
@@ -656,7 +682,7 @@
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       console.assert((Array.isArray(s1extent) && s1extent.length === 2), `extent not supported`)
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
-      let eoformer = muonLacer.eoformer(s1extent, radorPts)
+      let eoformer = eonMuonLacer.eoformer(s1extent, radorPts)
       return p => eoformer(p)
     }
     // ............................. natVertex
@@ -727,6 +753,7 @@
     enty.natNform = natNform
     enty.closeFeature = closeFeature
     enty.natVertex = natVertex
+    enty.radion = radion
     enty.rador = rador
     enty.radorm = radorm
     enty.natprojection = natprojection
@@ -734,5 +761,5 @@
     return enty
   }
 
-  exports.muonNatform = muonNatform
+  exports.eonMuonNatform = eonitem
 }))

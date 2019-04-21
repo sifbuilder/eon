@@ -1,10 +1,10 @@
 /**********************
- *    @muonMatrix4
+ *    @eonMuonMatrix4
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonMatrix4 = global.muonMatrix4 || {})))
+      : (factory((global.eonMuonMatrix4 = global.eonMuonMatrix4 || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -23,14 +23,14 @@
  * @author WestLangley / http://github.com/WestLangley
  */
 
-  async function muonMatrix4 (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonVector3,
+      eonMuonVector3,
     ] = await Promise.all([
       __eo('xs').m('Vector3'),
     ])
 
-    let Vector3 = muonVector3
+    let Vector3 = eonMuonVector3
 
     function Matrix4 () {
       this.elements = [
@@ -834,6 +834,6 @@
     return enty
   }
 
-  exports.muonMatrix4 = muonMatrix4
+  exports.eonMuonMatrix4 = eonitem
 }))
 // export { Matrix4 };

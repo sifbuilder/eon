@@ -1,32 +1,32 @@
 /*******************************************
-   *    @ctlVersor
+   *    @eonCtlVersor
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlVersor = global.ctlVersor || {})))
+      : (factory((global.eonCtlVersor = global.eonCtlVersor || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function ctlVersor (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3,
       d3geo,
-      muonGeom,
-      muonVersor,
-      renderPortview,
+      eonMuonGeom,
+      eonMuonVersor,
+      eonRenderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('versor'),
-      __eo('xs').r('portview'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-versor'),
+      __eo('xs').b('eon-render-portview'),
     ])
 
     let d3drag = d3
     let d3selection = d3
-    let getPos = renderPortview.getPos // event position
+    let getPos = eonRenderPortview.getPos // event position
 
     function tick () {
       if (timer) timer = requestAnimationFrame(tick)
@@ -91,12 +91,12 @@
 
       r0 = projection.rotate() // projection rotation in degrees
       inv0 = projection.rotate(r0).invert(position) // spherical coordinates [λ, φ]
-      v0 = muonGeom.cartesian(inv0) // cartesian coordinates [x, y, z]
+      v0 = eonMuonGeom.cartesian(inv0) // cartesian coordinates [x, y, z]
 
       v1 = v0 // initialize drag cartesian
       inv = inv0 // initialize drag spherical
 
-      rotAccum_degrees = muonGeom.add( // ctl rotation since instance in z
+      rotAccum_degrees = eonMuonGeom.add( // ctl rotation since instance in z
         rotAccum_degrees,
         rotInDrag_degrees)
       rotInDrag_degrees = [0, 0, 0] // reset drag rotation
@@ -120,13 +120,13 @@
 
       inv = projection.rotate(r0).invert(position) // s
       if (isNaN(inv[0])) return
-      v1 = muonGeom.cartesian(inv) // update cartesian
-      q1 = muonVersor.delta(v1, v0) // quaternion to rotate between v0 and v1
-      r1 = muonVersor.rotation(q1) // euler rotation from quaternion
+      v1 = eonMuonGeom.cartesian(inv) // update cartesian
+      q1 = eonMuonVersor.delta(v1, v0) // quaternion to rotate between v0 and v1
+      r1 = eonMuonVersor.rotation(q1) // euler rotation from quaternion
 
       rotInDrag_degrees = r1 //  rotation from start for prerotation
 
-      q10 = muonVersor.delta(v1, v10) // quaternion from consecutive in drag for velocity
+      q10 = eonMuonVersor.delta(v1, v10) // quaternion from consecutive in drag for velocity
     }
 
     // .................. dragended
@@ -135,7 +135,7 @@
       position = false
       if (!moved) return
 
-      r2 = muonVersor.rotation(q10) // rotation from quaternion
+      r2 = eonMuonVersor.rotation(q10) // rotation from quaternion
       rotMomentum_degrees = r2
 
       timer = requestAnimationFrame(momentum)
@@ -143,9 +143,9 @@
 
     // .................. momentum
     function momentum () {
-      rotMomentum_degrees = muonGeom.mult(rotMomentum_degrees, decay)
+      rotMomentum_degrees = eonMuonGeom.mult(rotMomentum_degrees, decay)
 
-      rotInDrag_degrees = muonGeom.add(rotInDrag_degrees, rotMomentum_degrees)
+      rotInDrag_degrees = eonMuonGeom.add(rotInDrag_degrees, rotMomentum_degrees)
 
       if (timer) timer = requestAnimationFrame(momentum)
     }
@@ -178,10 +178,10 @@
     }
 
     enty.rotation = () => {
-      let r1 = muonGeom.add(
+      let r1 = eonMuonGeom.add(
         rotAccum_degrees,
         rotInDrag_degrees)
-      let res = muonGeom.add(
+      let res = eonMuonGeom.add(
         r1,
         rotMomentum_degrees)
 
@@ -191,5 +191,5 @@
     return enty
   }
 
-  exports.ctlVersor = ctlVersor
+  exports.eonCtlVersor = eonitem
 }))

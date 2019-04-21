@@ -13,30 +13,30 @@
   // .................. eons
   let [
     d3Polygon,
-    ctlWen,
-    eohalMars,
-    eohalNatform,
-    muonMinkowski,
-    muonNatform,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalNatform,
+    eonMuonMinkowski,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-polygon'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').m('minkowski'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-muon-minkowski'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -46,14 +46,14 @@
     // .................. natAni
     let natAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geoani', 'cid': 'geoani', 'fid': 'geoani'},
 
       eofold: ani => {
         let A = ani.eoload.A
         let B = ani.eoload.B
-        let sum = muonMinkowski(A, B)
+        let sum = eonMuonMinkowski(A, B)
         let sumring = [...sum, sum[0]]
 
         let res = {

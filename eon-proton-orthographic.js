@@ -1,14 +1,14 @@
 /***************************
- *        @protonOrthographic
+ *        @eonProtonOrthographic
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.protonOrthographic = global.protonOrthographic || {})))
+      : (factory((global.eonProtonOrthographic = global.eonProtonOrthographic || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function protonOrthographic (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Geo,
     ] = await Promise.all([
@@ -30,5 +30,5 @@
     return enty
   }
 
-  exports.protonOrthographic = protonOrthographic
+  exports.eonProtonOrthographic = eonitem
 }))

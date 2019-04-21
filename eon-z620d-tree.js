@@ -12,18 +12,18 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -118,7 +118,7 @@
     // .................. treeAni1
     let treeAni1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: ani => {
         let eoload = ani.eoload
@@ -143,7 +143,7 @@
           directions = eoload.tree.directions
 
         let uidPreitem = ani.eoric.uid
-        let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
+        let preAnigram = uidPreitem ? eonMuonStore.findAnigramFromUid(uidPreitem) : null
         let tree
         if (preAnigram) {
           tree = preAnigram.eofold

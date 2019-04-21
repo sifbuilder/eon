@@ -12,30 +12,30 @@
   async function anitem (__eo) {
   // .................. eons
     let [
-      datRhyno,
-      eohalMars,
-      eohalPacer,
-      eohalFourier,
-      muonFourier,
-      muonGeoj,
-      muonProj3ct,
-      muonProfier,
-      muonStace,
-      renderSvg,
+      eonDatRhyno,
+      eonEohalMars,
+      eonEohalPacer,
+      eonEohalFourier,
+      eonMuonFourier,
+      eonMuonGeoj,
+      eonMuonProj3ct,
+      eonMuonProfier,
+      eonMuonStace,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').d('rhyno'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('pacer'),
-      __eo('xs').e('fourier'),
-      __eo('xs').m('fourier'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('proj3ct'),
-      __eo('xs').m('profier'),
-      __eo('xs').m('stace'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-dat-rhyno'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-pacer'),
+      __eo('xs').b('eon-eohal-fourier'),
+      __eo('xs').b('eon-muon-fourier'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-proj3ct'),
+      __eo('xs').b('eon-muon-profier'),
+      __eo('xs').b('eon-muon-stace'),
+      __eo('xs').b('eon-render-svg'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) { }
-    let muonStore = __eo('muonStore')
+    try { eonRenderSvg.scenecolor('black') } catch (e) { }
+    let eonMuonStore = __eo('eonMuonStore')
 
     // .................. animas
     let z = function () {
@@ -43,7 +43,7 @@
       let eotim = {'td': 63800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
       // ...  ## rhyno data from m.animas('shapes').rhyno
-      let svgdata = JSON.parse(datRhyno.data())
+      let svgdata = JSON.parse(eonDatRhyno.data())
 
       // ...  define data as LineString
       let data = {
@@ -67,15 +67,15 @@
       // ...  span data along [0, 1] interval
       // ...  and create FeatureCollection with trasform features
 
-      let geoData = muonProj3ct(data, muonProfier.formion(proform, z))
-      let transforms = muonFourier.transformedCoefs(geoData)
-      transforms = muonGeoj.ntime(transforms, [0, 1])
+      let geoData = eonMuonProj3ct(data, eonMuonProfier.formion(proform, z))
+      let transforms = eonMuonFourier.transformedCoefs(geoData)
+      transforms = eonMuonGeoj.ntime(transforms, [0, 1])
 
       // ... rayline LineString
 
       let rayline = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: eotim,
         eoric: { gid: 'pol', cid: 'pol', fid: 'pol'},
 
@@ -96,7 +96,7 @@
 
       let traceline = {
 
-        eohal: eohalPacer,
+        eohal: eonEohalPacer,
         eotim: eotim,
         eoric: {gid: 'ava', cid: 'ava', fid: 'traceline'},
 
@@ -131,18 +131,18 @@
             pacedAnisort: 'anigram',
             basePaceOnAniView: 'viewform',
 
-            eohal: eohalMars,
+            eohal: eonEohalMars,
 
             eofold: function (ani, props) {
               let coords
               if (props.key === 'init') { // INIT
                 coords = ani.eonode.geometry.coordinates
               } else if (props.key === 'auto') { // AUTO
-                let point = muonStace.getLocus([null, null, null], ani)
+                let point = eonMuonStace.getLocus([null, null, null], ani)
 
-                point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
+                point = eonMuonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
 
-                let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+                let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
                 if (preani) {
                   if (preani.eofold.type === 'FeatureCollection') {
                     let feature = preani.eofold.features[0]
@@ -165,7 +165,7 @@
                 type: 'LineString',
                 coordinates: coords,
               }
-              console.assert(muonGeoj.isValid(geometry))
+              console.assert(eonMuonGeoj.isValid(geometry))
 
               return {
                 type: 'Feature',
@@ -177,11 +177,11 @@
             eonode: function (ani, props) {
               let stace = [0, 0, 0]
               if (props.key === 'init') { // INIT
-                stace = muonStace.getLocus([null, null, null], ani)
+                stace = eonMuonStace.getLocus([null, null, null], ani)
               } else if (props.key === 'auto') { // AUTO
               } else if (props.key === 'event') { // EVENT
-                if (ctlRayder.grabbed() !== undefined) {
-                  let grabbed = ctlRayder.grabbed()
+                if (eonCtlRayder.grabbed() !== undefined) {
+                  let grabbed = eonCtlRayder.grabbed()
                   let x = grabbed[0]
                   let y = grabbed[1]
                   let z = 0

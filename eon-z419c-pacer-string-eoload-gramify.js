@@ -12,31 +12,31 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    muonStace,
-    muonGeoj,
-    ctlRayder,
-    eohalMars,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
-    protonUniwen,
-    renderSvg,
+    eonMuonNatform,
+    eonMuonStace,
+    eonMuonGeoj,
+    eonCtlRayder,
+    eonEohalMars,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('geoj'),
-    __eo('xs').c('rayder'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
-  let muonStore = __eo('muonStore')
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -45,7 +45,7 @@
     // ... liner is ani h.pacer
     let liner = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f'},
 
@@ -77,7 +77,7 @@
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'viewform',
           addItemToPacer: 1, // addItemToPacer for trace
-          eohal: eohalMars,
+          eohal: eonEohalMars,
           geoaad: 1, // geoaad for trace
 
           eofold: function (ani, props) { // eofold from pacer
@@ -86,13 +86,13 @@
               coords = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
               console.log('ani:', ani)
-              let point = muonStace.getLocus([null, null, null], ani)
+              let point = eonMuonStace.getLocus([null, null, null], ani)
 
               // let point = [0,0,0]
 
-              point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
+              point = eonMuonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
 
-              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) { // if has parent
                 if (preani.eofold.type === 'FeatureCollection') {
                   let feature = preani.eofold.features[0]
@@ -116,7 +116,7 @@
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry), `gj coords not valid in ${geometry}`)
+            console.assert(eonMuonGeoj.isValid(geometry), `gj coords not valid in ${geometry}`)
 
             return {
               type: 'Feature',
@@ -132,8 +132,8 @@
             } else if (props.key === 'auto') { // AUTO
               stace = [0, 0, 0]
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0

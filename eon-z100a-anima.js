@@ -12,17 +12,17 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    eohalNatform,
-    muonAnimas,
-    muonLacer,
-    renderSvg,
+    eonEohalNatform,
+    eonMuonAnimas,
+    eonMuonLacer,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').e('natform'),
-    __eo('xs').m('animas'),
-    __eo('xs').m('lacer'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-muon-animas'),
+    __eo('xs').b('eon-muon-lacer'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -32,14 +32,14 @@
 
     // ............................. natAni
     let natAni = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
       eofold: ani => {
         let b = [10, 20, 21, 34, 24]
         let a = [3, 5]
-        let r = muonLacer.slide([a, b])
+        let r = eonMuonLacer.slide([a, b])
         if (1 && 1) console.log('r', r)
       },
 

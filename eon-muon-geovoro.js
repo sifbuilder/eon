@@ -1,10 +1,10 @@
 /**********************
- *    @muonGeovoro
+ *    @eonMuonGeovoro
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonGeovoro = global.muonGeovoro || {})))
+      : (factory((global.eonMuonGeovoro = global.eonMuonGeovoro || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -17,22 +17,22 @@
 
   // ref: https://visionscarto.net/the-state-of-d3-voronoi
 
-  // ............................. muonGeovoro
-  async function muonGeovoro (__eo = {}) {
+  // ............................. eonMuonGeovoro
+  async function eonitem (__eo = {}) {
     let [
       d3,
-      muonDelaunay,
-      muonGeom,
+      eonMuonDelaunay,
+      eonMuonGeom,
     ] = await Promise.all([
       __eo('xs').b('d3'),
-      __eo('xs').m('delaunay'),
-      __eo('xs').m('geom'),
+      __eo('xs').b('eon-muon-delaunay'),
+      __eo('xs').b('eon-muon-geom'),
     ])
 
     var state = Object.assign({})
 
     let voronoi = d3.voronoi
-    let FindDelaunayTriangulation = muonDelaunay.FindDelaunayTriangulation
+    let FindDelaunayTriangulation = eonMuonDelaunay.FindDelaunayTriangulation
 
     var radians = Math.PI / 180
 
@@ -70,7 +70,7 @@
       })
       voro.pos = pos
       voro.sites = sites
-      voro.DelaunayTriang = FindDelaunayTriangulation(pos.map(muonGeom.cartesian))
+      voro.DelaunayTriang = FindDelaunayTriangulation(pos.map(eonMuonGeom.cartesian))
 
       return voro
     }
@@ -133,7 +133,7 @@
           t.spherical = t.verts.map(function (v) {
             return voro.DelaunayTriang.positions[v]
           })
-            .map(muonGeom.spherical)
+            .map(eonMuonGeom.spherical)
 
           // correct winding order
           if (t.ccdsq < 0) {
@@ -154,7 +154,7 @@
                 return voro.sites[i]
               }),
               area: t.vol, // steradians
-              circumcenter: muonGeom.spherical(t.ccdir),
+              circumcenter: eonMuonGeom.spherical(t.ccdir),
               // ccdsq is *not* the geodesic distance
               /* circumradius: (2-t.ccdsq) * 53 */
             },
@@ -262,5 +262,5 @@
     return enty
   }
 
-  exports.muonGeovoro = muonGeovoro
+  exports.eonMuonGeovoro = eonitem
 }))

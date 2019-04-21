@@ -12,33 +12,33 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    muonGeoj,
-    muonLacer,
-    muonLindenmayer,
-    muonProps,
-    muonSnap,
-    protonUniwen,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonGeoj,
+    eonMuonLacer,
+    eonMuonLindenmayer,
+    eonMuonProps,
+    eonMuonSnap,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lacer'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('props'),
-    __eo('xs').m('snap'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lacer'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-snap'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -47,21 +47,21 @@
 
     let aniForm = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: { td: 12800, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 0 },
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
 
       eofold: ani => {
         let t = ani.eotim.unElapsed
 
-        let gj1 = muonLindenmayer.multiLine(ani.eoload.lindenmayer1)
+        let gj1 = eonMuonLindenmayer.multiLine(ani.eoload.lindenmayer1)
         let coors1 = gj1.geometry.coordinates[0]
 
-        let gj2 = muonLindenmayer.multiLine(ani.eoload.lindenmayer2)
+        let gj2 = eonMuonLindenmayer.multiLine(ani.eoload.lindenmayer2)
         let coors2 = gj2.geometry.coordinates[0]
 
         let coors = [[[ [ coors1, coors2 ] ]]] // tripleArray
-        let ws = muonSnap.snap(coors, t, 0, ani) // LineString
+        let ws = eonMuonSnap.snap(coors, t, 0, ani) // LineString
 
         let gj = {
           type: 'Feature',

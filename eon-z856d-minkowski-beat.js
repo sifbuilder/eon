@@ -12,25 +12,25 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    muonMinkowski,
-    muonProj3ct,
-    muonProfier,
-    muonCastel,
-    renderPortview,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonMinkowski,
+    eonMuonProj3ct,
+    eonMuonProfier,
+    eonMuonCastel,
+    eonRenderPortview,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('minkowski'),
-    __eo('xs').m('proj3ct'),
-    __eo('xs').m('profier'),
-    __eo('xs').m('castel'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-minkowski'),
+    __eo('xs').b('eon-muon-proj3ct'),
+    __eo('xs').b('eon-muon-profier'),
+    __eo('xs').b('eon-muon-castel'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let svgdata1 = {
     width: '364.815mm',
     height: '204.497mm',
@@ -171,7 +171,7 @@
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -179,8 +179,8 @@
     let eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
     let uniframe = {start: 0, stop: 0.9, step: 0.09}
-    let gjdata1 = muonCastel.castels(svgdata1, uniframe)
-    let svgprj1 = muonCastel.svgprj(svgdata1, renderPortview)
+    let gjdata1 = eonMuonCastel.castels(svgdata1, uniframe)
+    let svgprj1 = eonMuonCastel.svgprj(svgdata1, eonRenderPortview)
 
     let proformSvg1 = {
       projection: 'uniwen',
@@ -189,10 +189,10 @@
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],
     }
-    let geoData1 = muonProj3ct(gjdata1, muonProfier.uniweon(proformSvg1))
+    let geoData1 = eonMuonProj3ct(gjdata1, eonMuonProfier.uniweon(proformSvg1))
 
-    let gjdata2 = muonCastel.castels(svgdata2, uniframe)
-    let svgprj2 = muonCastel.svgprj(svgdata2, renderPortview)
+    let gjdata2 = eonMuonCastel.castels(svgdata2, uniframe)
+    let svgprj2 = eonMuonCastel.svgprj(svgdata2, eonRenderPortview)
     let proformSvg2 = {
       projection: 'uniwen',
       translate: svgprj2.translate,
@@ -200,12 +200,12 @@
       rotate: [ 0, 0, 0 ],
       lens: [ 0, 1, Infinity ],
     }
-    let geoData2 = muonProj3ct(gjdata2, muonProfier.uniweon(proformSvg2))
+    let geoData2 = eonMuonProj3ct(gjdata2, eonMuonProfier.uniweon(proformSvg2))
 
     // .................. lichtAni1
     let lichtAni1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
 
@@ -238,7 +238,7 @@
     // .................. lichtAni2
     let lichtAni2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
 
@@ -271,22 +271,22 @@
     // .................. natB
     let natAB = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natAB'},
 
       eofold: ani => {
         let uniframe = {start: 0, stop: 0.9, step: ani.eoload.step}
 
-        let gjdata1 = muonCastel.castels(svgdata1, uniframe)
-        let geoData1 = muonProj3ct(gjdata1, muonProfier.uniweon(proformSvg1))
+        let gjdata1 = eonMuonCastel.castels(svgdata1, uniframe)
+        let geoData1 = eonMuonProj3ct(gjdata1, eonMuonProfier.uniweon(proformSvg1))
         let A = geoData1.geometry.coordinates
 
-        let gjdata2 = muonCastel.castels(svgdata2, uniframe)
-        let geoData2 = muonProj3ct(gjdata2, muonProfier.uniweon(proformSvg2))
+        let gjdata2 = eonMuonCastel.castels(svgdata2, uniframe)
+        let geoData2 = eonMuonProj3ct(gjdata2, eonMuonProfier.uniweon(proformSvg2))
         let B = geoData2.geometry.coordinates
 
-        let sum = muonMinkowski(A, B, ani.eoload.sa, ani.eoload.sb)
+        let sum = eonMuonMinkowski(A, B, ani.eoload.sa, ani.eoload.sb)
         let sumring = [...sum, sum[0]]
 
         let res = {

@@ -12,23 +12,23 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    muonProps,
-    eohalMars,
-    renderSvg,
+    eonCtlWen,
+    eonMuonProps,
+    eonEohalMars,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').m('props'),
-    __eo('xs').e('mars'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -38,7 +38,7 @@
     // .................. wenPolygon anima
     let wenPolygon = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: (p) => {
         let points = [
@@ -123,7 +123,7 @@
     // .................. animas
     let animas = [
 
-      wenPolygon, // h.mars muonGeom.uniwen
+      wenPolygon, // h.mars eonMuonGeom.uniwen
 
     ]
     return animas

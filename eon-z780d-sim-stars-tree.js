@@ -12,41 +12,41 @@
     async function anitem (__eo) {
   let [
     d3Force3d,
-    ctlRayder,
-    ctlWen,
-    eohalSol,
-    eohalNatform,
-    eohalPacer,
-    eohalMars,
-    muonEoric,
-    muonEoforces,
-    muonNatform,
-    muonProps,
-    muonStace,
-    renderPortview,
-    renderSvg,
+    eonCtlRayder,
+    eonCtlWen,
+    eonEohalSol,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalMars,
+    eonMuonEoric,
+    eonMuonEoforces,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonStace,
+    eonRenderPortview,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('sol'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
   // .................. animas
   let z = function () {
-    let width = renderPortview.width(),
-      height = renderPortview.height()
+    let width = eonRenderPortview.width(),
+      height = eonRenderPortview.height()
 
     // .................... pics
     let eotim = {'td': 24800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
@@ -121,7 +121,7 @@
     // .................. treeAni
     let treeAni = {
 
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: ani => {
         let eoload = ani.eoload // eoload
@@ -174,7 +174,7 @@
     // .................... paceLine
     let paceLine = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim,
       eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
 
@@ -202,7 +202,7 @@
 
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'geo',
           addItemToPacer: 1,
@@ -220,13 +220,13 @@
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               // stace is ani's transformed eonode
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
               if (1 && 1) console.log('stace', stace, ani)
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0

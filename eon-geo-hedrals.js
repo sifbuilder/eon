@@ -1,16 +1,16 @@
 /***************************
- *        @geoHedrals
+ *        @eonGeoHedrals
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.geoHedrals = global.geoHedrals || {})))
+      : (factory((global.eonGeoHedrals = global.eonGeoHedrals || {})))
 }(this, function (exports) {
   'use strict'
 
-  let geoHedrals = function geoHedrals (__eo = {}) {
+  let eonGeoHedrals = function eonGeoHedrals (__eo = {}) {
     let f = __eo('props')(),
-      mpolyhedral = __eo('xs').m('polyhedral')
+      mpolyhedral = __eo('xs').b('eon-muon-polyhedral')
 
     const pi = Math.PI, degrees = 180 / pi, radians = pi / 180
 
@@ -49,5 +49,5 @@
     return enty
   }
 
-  exports.geoHedrals = geoHedrals
+  exports.eonGeoHedrals = eonitem
 }))

@@ -1,14 +1,14 @@
 /***************************
- *        @muonPolyhedral
+ *        @eonMuonPolyhedral
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonPolyhedral = global.muonPolyhedral || {})))
+      : (factory((global.eonMuonPolyhedral = global.eonMuonPolyhedral || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonPolyhedral (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Geo,
       d3Geoprojection,
@@ -70,5 +70,5 @@
     return enty
   }
 
-  exports.muonPolyhedral = muonPolyhedral
+  exports.eonMuonPolyhedral = eonitem
 }))

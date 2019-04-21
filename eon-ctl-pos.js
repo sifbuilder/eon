@@ -1,14 +1,14 @@
 /**********************
-   *    @ctlPos
+   *    @eonCtlPos
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlPos = global.ctlPos || {})))
+      : (factory((global.eonCtlPos = global.eonCtlPos || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function ctlPos (__eo) {
+  async function eonitem (__eo) {
     let [
       d3,
     ] = await Promise.all([
@@ -123,5 +123,5 @@
     return enty
   }
 
-  exports.ctlPos = ctlPos
+  exports.eonCtlPos = eonitem
 }))

@@ -1,22 +1,22 @@
 /***********
- *    @muonStore
+ *    @eonMuonStore
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonStore = global.muonStore || {})))
+      : (factory((global.eonMuonStore = global.eonMuonStore || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonStore (__eo) {
+  async function eonitem (__eo) {
     let [
-      muonAnitem,
-      muonEoric,
-      muonEotim,
+      eonMuonAnitem,
+      eonMuonEoric,
+      eonMuonEotim,
     ] = await Promise.all([
-      __eo('xs').m('anitem'),
-      __eo('xs').m('eoric'),
-      __eo('xs').m('eotim'),
+      __eo('xs').b('eon-muon-anitem'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-eotim'),
     ])
       .catch(function (err) {
         console.log('A m.store promise failed to resolve', err)
@@ -71,7 +71,7 @@
 
           let uid = (updAnima.eoric.uid !== undefined) // uid
             ? updAnima.eoric.uid
-            : muonEoric.getuid(updAnima)
+            : eonMuonEoric.getuid(updAnima)
 
           let anima = state.animas[uid] 
 
@@ -82,7 +82,7 @@
               state.animas[uid] = updAnima // replace
             }
           } else { // new anima
-            updAnima.eotim = muonEotim.timing(updAnima.eotim, elapsed) // set eotim elapsed
+            updAnima.eotim = eonMuonEotim.timing(updAnima.eotim, elapsed) // set eotim elapsed
             updAnima.eoric.uid = uid // set uid if new anima
             state.animas[updAnima.eoric.uid] = updAnima // set new anima by uid
           }
@@ -102,7 +102,7 @@
               newItem = newItem[0]  // _e_
             }
 
-            let uid = newItem.eoric.uid || muonEoric.getuid(newItem)
+            let uid = newItem.eoric.uid || eonMuonEoric.getuid(newItem)
             state.anigrams[uid] = newItem // replace anigram
           }
         }
@@ -115,7 +115,7 @@
     const getavatars = items => {
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
-          avatar.eoric.uid = muonEoric.getuid(avatar)
+          avatar.eoric.uid = eonMuonEoric.getuid(avatar)
           avatar.eotim = item.eotim
           avatar.eoric.pid = item.eoric.uid
           gramify(avatar)
@@ -174,8 +174,8 @@
 
     // .................. gramifyDyn
     function gramifyDyn (anitem) {
-      return muonAnitem.snapani(anitem)
-        .then(snapped => muonAnitem.functorize(snapped))
+      return eonMuonAnitem.snapani(anitem)
+        .then(snapped => eonMuonAnitem.functorize(snapped))
         .then(anigram => (typeof (anitem.eohal) === 'object') ? Promise.resolve(anitem.eohal) : __eo('xs').e(anigram.eohal)
           .then(eohal => Promise.resolve(eohal.gramify(anigram))
             .then(newItems => {
@@ -185,7 +185,7 @@
 
                 avatars.forEach(avatar => {
                   avatar.eotim = anigram.eotim // eotim from anigram
-                  avatar.eoric.uid = muonEoric.getuid(avatar) // uid from avatar
+                  avatar.eoric.uid = eonMuonEoric.getuid(avatar) // uid from avatar
                   avatar.eoric.pid = newItem.eoric.uid // pid from newItem
 
                   gramify(avatar)
@@ -196,8 +196,8 @@
         )
     }
     function gramify (anitem) {
-      let snapped = muonAnitem.snapani(anitem)
-      let anigram = muonAnitem.functorize(snapped)
+      let snapped = eonMuonAnitem.snapani(anitem)
+      let anigram = eonMuonAnitem.functorize(snapped)
       let eohal = (typeof (anitem.eohal) === 'object')
         ? anitem.eohal
         : __eo([anitem.eohal, 'eohal']) // expected in __eo
@@ -212,7 +212,7 @@
         let avatars = gavatars(newItem)
         avatars.forEach(avatar => {
           avatar.eotim = anigram.eotim // eotim from anigram
-          avatar.eoric.uid = muonEoric.getuid(avatar) // uid from avatar
+          avatar.eoric.uid = eonMuonEoric.getuid(avatar) // uid from avatar
           avatar.eoric.pid = newItem.eoric.uid // pid from newItem
 
           gramify(avatar)
@@ -225,14 +225,14 @@
       let uidSelf = anitem.eoric.uid
       let uidParent = anitem.eoric.pid
 
-      let selfAnigram = uidSelf ? muonStore.findAnigramFromUid(uidSelf) : null
-      let selfAnima = uidSelf ? muonStore.findAnimaFromUid(uidSelf) : null
+      let selfAnigram = uidSelf ? eonMuonStore.findAnigramFromUid(uidSelf) : null
+      let selfAnima = uidSelf ? eonMuonStore.findAnimaFromUid(uidSelf) : null
 
       if (selfAnima !== undefined) return selfAnima
 
       // there can be an anima without anigram
-      let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
-      let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
+      let parentAnigram = uidParent ? eonMuonStore.findAnigramFromUid(uidParent) : null
+      let parentAnima = uidParent ? eonMuonStore.findAnimaFromUid(uidParent) : null
 
       if (!parentAnigram && !parentAnima) return null
 
@@ -300,7 +300,7 @@
         } else if (typeof item === 'object' && item.uid !== undefined) {
           res = anitems[item.uid]
         } else if (typeof item === 'object' && item.gid !== undefined) {
-          let uid = muonEoric.idify(item.gid, item.cid, item.fid)
+          let uid = eonMuonEoric.idify(item.gid, item.cid, item.fid)
 
 
           res = anitems[uid]
@@ -351,5 +351,5 @@
     return enty
   }
 
-  exports.muonStore = muonStore
+  exports.eonMuonStore = eonitem
 }))

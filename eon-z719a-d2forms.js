@@ -12,17 +12,17 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonMuonNatform,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
@@ -75,8 +75,8 @@
  *    @animas
  */
     let p1 = {
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: f1}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: f1}),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
       eomot: {
@@ -86,9 +86,9 @@
       },
     }
     let p2 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
-      eofold: p => muonNatform.natMultiLineString({eoform: f2}),
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: f2}),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
       eomot: {
@@ -98,9 +98,9 @@
       },
     }
     let p3 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
-      eofold: p => muonNatform.natMultiLineString({eoform: f3}),
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: f3}),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
       eomot: {
@@ -110,9 +110,9 @@
       },
     }
     let p4 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
-      eofold: p => muonNatform.natMultiLineString({eoform: f4}),
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: f4}),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
       eomot: {
@@ -122,9 +122,9 @@
       },
     }
     let p5 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
-      eofold: p => muonNatform.natMultiLineString({eoform: f5}),
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: f5}),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
       eomot: {
@@ -134,9 +134,9 @@
       },
     }
     let p6 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
-      eofold: p => muonNatform.natMultiLineString({eoform: f6}),
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: f6}),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
       eomot: {
@@ -146,9 +146,9 @@
       },
     }
     let p7 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
-      eofold: p => muonNatform.natMultiLineString({eoform: f7}),
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: f7}),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p7'},
       eomot: {
@@ -158,9 +158,9 @@
       },
     }
     let p8 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
-      eofold: p => muonNatform.natMultiLineString({eoform: f8}),
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: f8}),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
       eomot: {

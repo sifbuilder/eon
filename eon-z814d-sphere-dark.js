@@ -15,36 +15,36 @@
     d3Geo,
     d3Geoprojection,
     topojson,
-    ctlVersor,
-    ctlWen,
+    eonCtlVersor,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalScene,
-    eohalMars,
-    muonGeom,
-    muonGraticule,
-    muonNatform,
-    renderSvg,
+    eonEohalScene,
+    eonEohalMars,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('versor'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('scene'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-scene'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -167,7 +167,7 @@
     let proformDark = {
       projection: darkProjection,
       prerotate: [[[ t => {
-        let rot = ctlVersor
+        let rot = eonCtlVersor
           .projection({projection: darkProjection}) // versor projection
           .rotation()
         return [180 + rot[0], -rot[1], -rot[2]]
@@ -178,8 +178,8 @@
     // ............................. lightAniDark
     let lightAniDark = {
 
-      eohal: eohalMars,
-      eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}, {ghv: 1}),
+      eohal: eonEohalMars,
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: p.eoform}, {ghv: 1}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
       eomot: {
@@ -209,7 +209,7 @@
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = ctlVersor
+        let rot = eonCtlVersor
           .projection({projection: frontProjection}) // versor projection
           .rotation()
         return rot
@@ -224,8 +224,8 @@
     // ............................. lightAniFront
     let lightAniFront = {
 
-      eohal: eohalMars,
-      eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}, {ghv: 1}),
+      eohal: eonEohalMars,
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: p.eoform}, {ghv: 1}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eomot: {
@@ -248,9 +248,9 @@
     // ............................. sphereAni
     let sphereAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim: eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q0'},
       eomot: {
@@ -274,9 +274,9 @@
     // ............................. mazeAni
     let mazeAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eofold: p => {
-        let res = muonNatform.natMultiLineString({eoform: p.eoform})
+        let res = eonMuonNatform.natMultiLineString({eoform: p.eoform})
         console.log('res', res)
         return res
       },
@@ -295,7 +295,7 @@
     // ............................. topoAni
     let topoAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eofold: p => {
         let res = Object.assign({},
           topojson.feature(

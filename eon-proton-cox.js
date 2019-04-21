@@ -1,11 +1,11 @@
 /*******************************************
- *      @protonCox
+ *      @eonProtonCox
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.protonCox = global.protonCox || {})))
+      : (factory((global.eonProtonCox = global.eonProtonCox || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -19,21 +19,21 @@
   // https://visionscarto.net/cox-conformal-projection
   // http://www.cs.dartmouth.edu/~doug/wallpaper.pdf
 
-  async function protonCox (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       Complex,
-      muonNewton,
+      eonMuonNewton,
       d3Geo,
       d3GeoProjection,
       d3Array,
-      muonGeom,
+      eonMuonGeom,
     ] = await Promise.all([
-      __eo('xs').l('complex'),
-      __eo('xs').m('newton'),
+      __eo('xs').b('eon-lib-complex'),
+      __eo('xs').b('eon-muon-newton'),
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
       __eo('xs').b('d3-array'),
-      __eo('xs').m('geom'),
+      __eo('xs').b('eon-muon-geom'),
     ])
 
     let cache = {},
@@ -83,7 +83,7 @@
             let w1 = 1.7666387502854533
 
             // McIlroy formula 5 p6 and table for F3 page 16
-            let F0 = muonGeom.coefsF0() // F0 coeficients
+            let F0 = eonMuonGeom.coefsF0() // F0 coeficients
             let F = Complex(0)
             for (let i = F0.length; i--;) F = Complex(F0[i]).add(F.mul(y))
 
@@ -115,7 +115,7 @@
         return ret
       }
 
-      prtRaw.invert = muonNewton.geoInverse(prtRaw)
+      prtRaw.invert = eonMuonNewton.geoInverse(prtRaw)
 
       return prtRaw
     }
@@ -149,5 +149,5 @@
     return enty
   }
 
-  exports.protonCox = protonCox
+  exports.eonProtonCox = eonitem
 }))

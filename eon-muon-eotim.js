@@ -1,10 +1,10 @@
 /**********************
-   *    @muonEotim
+   *    @eonMuonEotim
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEotim = global.muonEotim || {})))
+      : (factory((global.eonMuonEotim = global.eonMuonEotim || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -17,7 +17,7 @@
   // ... tf: t => (1 / Math.PI) * ((Math.PI / 2 ) +  Math.asin(-1 + 2 * t))
   // ... tf: t => 1 - 4 * (t - 0.5) * (t - 0.5) // return
 
-  async function muonEotim (__eo = {}) {
+  async function eonitem (__eo = {}) {
     // ...................... linear
     // https://d3js.org/d3-scale/ v2.2.2 Copyright 2019 Mike Bostock
     function linear () {
@@ -176,5 +176,5 @@
     return enty
   }
 
-  exports.muonEotim = muonEotim
+  exports.eonMuonEotim = eonitem
 }))

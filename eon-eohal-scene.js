@@ -1,18 +1,18 @@
 /*******************************************
- *    @eohalScene
+ *    @eonEohalScene
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalScene = global.eohalScene || {})))
+      : (factory((global.eonEohalScene = global.eonEohalScene || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function eohalScene (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       mscene,
     ] = await Promise.all([
-      __eo('xs').m('scene'),
+      __eo('xs').b('eon-muon-scene'),
     ])
 
     // .................... anify
@@ -38,5 +38,5 @@
     return enty
   }
 
-  exports.eohalScene = eohalScene
+  exports.eonEohalScene = eonitem
 }))

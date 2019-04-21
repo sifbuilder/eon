@@ -14,37 +14,37 @@
   let [
     d3Geo,
     topojson,
-    ctlVersor,
-    ctlWen,
+    eonCtlVersor,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalTextform,
-    eohalMars,
-    eohalNatform,
-    muonGraticule,
-    muonGeoj,
-    renderSvg,
-    // renderWebgl,
+    eonEohalTextform,
+    eonEohalMars,
+    eonEohalNatform,
+    eonMuonGraticule,
+    eonMuonGeoj,
+    eonRenderSvg,
+    // eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('versor'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('textform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('geoj'),
-    __eo('xs').r('svg'),
-    // __eo('xs').r('webgl'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-render-svg'),
+    // __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlVersor().control(renderSvg.svg())
+      ctl = eonCtlVersor().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -68,7 +68,7 @@
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = ctlVersor
+        let rot = eonCtlVersor
           .projection({projection: frontProjection})
           .rotation()
         return rot
@@ -98,7 +98,7 @@
       translate: [ 0, 0 ], // [ -150, 50 ],
       rotate: [ 0, 0, 0 ],
       prerotate: [[[ t => {
-        let rot = ctlVersor
+        let rot = eonCtlVersor
           .projection({projection: geoOrthographic})
           .rotation()
         let res = [180 + rot[0], -rot[1], -rot[2]]
@@ -111,7 +111,7 @@
 
     let geoearth1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth1'},
 
@@ -136,11 +136,11 @@
     // .................. geograt1
     let geograt1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
 
-      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+      eofold: ani => eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe),
 
       eomot: {
         proform: proformFront,
@@ -161,7 +161,7 @@
     // .................. textAni
     let textAni = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eotim: eotim,
 
@@ -194,7 +194,7 @@
             return res
           },
 
-          rotation: [[[ ctlVersor.rotation ]]],
+          rotation: [[[ eonCtlVersor.rotation ]]],
           style: {
             rotate: [[[ 0, 0 ]]],
             'font-size': [[[16, 16]]],
@@ -210,7 +210,7 @@
     // .................. geosphere1
     let geosphere1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: {
         type: 'Feature',
@@ -248,7 +248,7 @@
 
     let geoearth2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth2'},
       eotim: eotim,
 
@@ -260,7 +260,7 @@
           )
         )
 
-        return muonGeoj.trim(gj)
+        return eonMuonGeoj.trim(gj)
       },
       eocrom: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
       eomot: {
@@ -271,7 +271,7 @@
           translate: [ 400 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
           prerotate: [[[ function (t) {
-            let rot = ctlVersor
+            let rot = eonCtlVersor
               .projection({projection: geoMercator})
               .rotation()
             return rot
@@ -287,9 +287,9 @@
     // .................. geograt2
     let geograt2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt2'},
       eocrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
@@ -301,7 +301,7 @@
           translate: [ 100, 50 ],
           rotate: [ 0, 0, 0 ],
           prerotate: [[[ function (t) {
-            let rot = ctlVersor
+            let rot = eonCtlVersor
               .projection({projection: d3Geo.geoMercator()})
               .rotation()
             return rot
@@ -321,7 +321,7 @@
     // .................. geosphere2
     let geosphere2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: {
         type: 'Feature',
@@ -341,7 +341,7 @@
           rotate: [ [[[0, 0]]], 0, 0 ],
 
           prerotate: [[[ function (t) {
-            let rot = ctlVersor
+            let rot = eonCtlVersor
               .projection({projection: d3Geo.geoMercator()})
               .rotation()
             return rot

@@ -1,14 +1,14 @@
 /***********
- *    @muonGeom
+ *    @eonMuonGeom
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonGeom = global.muonGeom || {})))
+      : (factory((global.eonMuonGeom = global.eonMuonGeom || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonGeom (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3polygon,
     ] = await Promise.all([
@@ -341,5 +341,5 @@
     return enty
   }
 
-  exports.muonGeom = muonGeom
+  exports.eonMuonGeom = eonitem
 }))

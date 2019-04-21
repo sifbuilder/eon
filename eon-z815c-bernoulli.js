@@ -12,27 +12,27 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalTextform,
-    muonNatform,
-    muonProps,
-    muonSnap,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalTextform,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonSnap,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('snap'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-snap'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. pics
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -160,7 +160,7 @@ ref. wikipedia`
 
     // ............................. natAniRed
     let natAniRed = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qred'},
       eofold: ani => {
@@ -171,7 +171,7 @@ ref. wikipedia`
           gco: 0, // open line
         }
 
-        let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
+        let res = eonMuonNatform.natMultiLineString(natipros) // Feature.LineString
 
         return res
       },
@@ -216,13 +216,13 @@ ref. wikipedia`
     let eocromTA = { 'csx': 0, 'cf': 999, 'co': 0.19, 'cs': 999, 'cw': 0.39, 'cp': 0.99 }
 
     let textA = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtTA', fid: 'txtfA'},
 
       eofold: ani => {
         let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return muonNatform.natMultiLineString(natipros)
+        return eonMuonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformTA,
@@ -233,7 +233,7 @@ ref. wikipedia`
         eoform: conformAB,
         textform: {
           string: [[[function (t) {
-            let order = muonSnap.snap([[[0.1, 6, 0.1]]], t).toFixed(2)
+            let order = eonMuonSnap.snap([[[0.1, 6, 0.1]]], t).toFixed(2)
             let range = 17 // **
             let summands = 23 // **
 
@@ -256,13 +256,13 @@ ref. wikipedia`
 
     // .................. textAni
     let textAni = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtcT', fid: 'txtfT'},
 
       eofold: ani => {
         let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return muonNatform.natMultiLineString(natipros)
+        return eonMuonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: {
@@ -319,7 +319,7 @@ ref. wikipedia`
 
     let getanis = function (txt = '') {
       let anis = []
-      let ani = muonProps.clone(textAni)
+      let ani = eonMuonProps.clone(textAni)
       let a = txt.split('\n')
       let x0 = -275
       let xd = 0
@@ -328,7 +328,7 @@ ref. wikipedia`
       let fontSize = [[[11, 11]]]
       let linesep = 3
       for (let i = 0; i < a.length; i++) {
-        let anii = muonProps.clone(textAni)
+        let anii = eonMuonProps.clone(textAni)
         anii.eoric.fid = textAni.eoric.fid + '_' + i
         anii.eoric.cid = textAni.eoric.cid + '_' + i
         let ty = [[[y0 - (fontSize[0][0][0] + linesep) * i,

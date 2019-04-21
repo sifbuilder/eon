@@ -11,29 +11,29 @@
   
     async function anitem (__eo) {
   let [
-    ctlWen,
-    eohalMars,
-    muonFibonat,
-    muonGraticule,
-    muonProps,
-    protonNatform,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonFibonat,
+    eonMuonGraticule,
+    eonMuonProps,
+    eonProtonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('fibonat'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('props'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-fibonat'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -80,7 +80,7 @@
     // .................. fiboForm anima
     let wireAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: p => {
         let eoload = p.eoload || {}
@@ -106,10 +106,10 @@
         for (let i = 0; i < dots.length - 2; i++) { // -2
           lines.push(
 
-            muonProps.interlink(
+            eonMuonProps.interlink(
               [
-                muonProps.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
-                muonProps.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
+                eonMuonProps.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
+                eonMuonProps.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
               ]
             )
           )
@@ -151,9 +151,9 @@
 
     let sphereAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
       eotim: eotim,
       eoric: {gid: 'wire', cid: 'wire', fid: 'sphereAni'},

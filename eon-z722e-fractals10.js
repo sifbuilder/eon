@@ -12,56 +12,56 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    ctlVersor,
-    datRhyno,
-    eohalMars,
-    eohalSol,
-    eohalNatform,
-    eohalPacer,
-    eohalFourier,
+    eonCtlWen,
+    eonCtlVersor,
+    eonDatRhyno,
+    eonEohalMars,
+    eonEohalSol,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalFourier,
     Complex,
-    muonEoric,
-    muonFourier,
-    muonGeoj,
-    muonProj3ct,
-    muonProfier,
-    muonProps,
-    muonStace,
-    muonCastel,
-    protonOrthographic,
-    // renderSvg,
-    renderPortview,
-    renderWebgl,
+    eonMuonEoric,
+    eonMuonFourier,
+    eonMuonGeoj,
+    eonMuonProj3ct,
+    eonMuonProfier,
+    eonMuonProps,
+    eonMuonStace,
+    eonMuonCastel,
+    eonProtonOrthographic,
+    // eonRenderSvg,
+    eonRenderPortview,
+    eonRenderWebgl,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').c('versor'),
-    __eo('xs').d('rhyno'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('fourier'),
-    __eo('xs').l('complex'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('fourier'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('proj3ct'),
-    __eo('xs').m('profier'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('castel'),
-    __eo('xs').p('orthographic'),
-    // __eo('xs').r('svg'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-dat-rhyno'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-fourier'),
+    __eo('xs').b('eon-lib-complex'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-fourier'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-proj3ct'),
+    __eo('xs').b('eon-muon-profier'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-castel'),
+    __eo('xs').b('eon-proton-orthographic'),
+    // __eo('xs').b('eon-render-svg'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
-    // let ctl = ctlVersor().control(renderSvg.svg())
+    // let ctl = eonCtlVersor().control(eonRenderSvg.svg())
 
     // .................. pics
 
@@ -81,7 +81,7 @@
            C 100.00,0.00 200.00,0.00 300.00,0.00 Z`, // LineString
       }, // path
     }
-    let data = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
+    let data = eonMuonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
 
     let basicSquare = [
       [
@@ -102,10 +102,10 @@
     }
 
     let proform2 = { // proform in the geographic domain
-      projection: protonOrthographic,
-      // prerotate: [[[ protonOrthographic.rotation ]]],
-      // prerotate: [[[ ctlVersor
-      // .projection({projection: protonOrthographic })
+      projection: eonProtonOrthographic,
+      // prerotate: [[[ eonProtonOrthographic.rotation ]]],
+      // prerotate: [[[ eonCtlVersor
+      // .projection({projection: eonProtonOrthographic })
       // .rotation,
       // ]]],
       translate: [0, 0, 0],
@@ -119,9 +119,9 @@
     // ...  span data along [0, 1] interval
     // ...  and create FeatureCollection with trasform features
 
-    let geoData = muonProj3ct(data, muonProfier.formion(proform2, z))
-    let transforms = muonFourier.transformedCoefs(geoData)
-    transforms = muonGeoj.ntime(transforms, [0, 1])
+    let geoData = eonMuonProj3ct(data, eonMuonProfier.formion(proform2, z))
+    let transforms = eonMuonFourier.transformedCoefs(geoData)
+    transforms = eonMuonGeoj.ntime(transforms, [0, 1])
 
     if (1 && 1) console.log('transforms', transforms)
 
@@ -129,7 +129,7 @@
 
     let rayline = i => ({
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'pol', cid: 'pol', fid: 'pol'},
 
@@ -150,7 +150,7 @@
 
     let traceline = i => ({
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: {gid: 'ava', cid: 'ava', fid: 'traceline'},
 
@@ -185,7 +185,7 @@
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'viewform',
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
 
           eofold: function (ani, props) {
             let coords
@@ -196,11 +196,11 @@
               // ... Point avatar
               // ... the location is got from ani parentani
 
-              let point = muonStace.getLocus([{pos: 0}, {pos: 0}], ani)
+              let point = eonMuonStace.getLocus([{pos: 0}, {pos: 0}], ani)
 
-              point = muonGeoj.geotrim(point)
+              point = eonMuonGeoj.geotrim(point)
 
-              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) {
                 if (preani.eofold.type === 'FeatureCollection') {
                   let feature = preani.eofold.features[0]
@@ -223,7 +223,7 @@
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry), `pacer eofold geojson not valid`)
+            console.assert(eonMuonGeoj.isValid(geometry), `pacer eofold geojson not valid`)
 
             return {
               type: 'Feature',
@@ -235,12 +235,12 @@
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
 
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
@@ -280,7 +280,7 @@
 
       let fractalForm = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
         eofold: a => {
           let res = {
@@ -326,7 +326,7 @@
 
       // for each cycloid: anis or fractal
       for (let level = 0; level < _LEVEL; level++) {
-        anis[level] = muonProps.cloneObj(anis[level - 1] || fractalForm)
+        anis[level] = eonMuonProps.cloneObj(anis[level - 1] || fractalForm)
 
         //
         anis[level].eoric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
@@ -364,7 +364,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -395,7 +395,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -426,7 +426,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -438,7 +438,7 @@
             type: 'PerspectiveCamera',
             name: 'Perspective',
             fov: 60, // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width() / renderPortview.height(),
+            aspect: eonRenderPortview.width() / eonRenderPortview.height(),
             near: 0.001,
             far: 600,
 

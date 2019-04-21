@@ -15,34 +15,34 @@
     d3Geo,
     d3Geoprojection,
     topojson,
-    ctlVersor,
-    ctlWen,
+    eonCtlVersor,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalMars,
-    muonGeoj,
-    muonGeom,
-    muonGraticule,
-    muonNatform,
-    protonNatform,
-    protonOrthographic,
-    renderPortview,
-    renderWebgl,
+    eonEohalMars,
+    eonMuonGeoj,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonProtonNatform,
+    eonProtonOrthographic,
+    eonRenderPortview,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('versor'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').p('natform'),
-    __eo('xs').p('orthographic'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-proton-orthographic'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
   ])
   // .................. animas
   let z = function () {
@@ -157,7 +157,7 @@
     // ............................. geoearth
     let geoearth = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
 
@@ -198,13 +198,13 @@
     // ............................. geosphere
     let geosphere = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'geosphere', cid: 'geosphere', fid: 'geosphere'},
 
       eofold: ani => {
         let res
-        res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
+        res = eonMuonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
         res.properties.pointRadius = 0.1 // 3 multiPointToScene
         res.properties.pointColor = 0x88ff88 // 3 multiPointToScene
 
@@ -229,13 +229,13 @@
     // ............................. geograt
     let geograt = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
 
       eofold: ani => {
         let res
-        res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
+        res = eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe)
         return res
       },
 
@@ -260,7 +260,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -291,7 +291,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -322,7 +322,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -334,7 +334,7 @@
             type: 'PerspectiveCamera',
             name: 'Perspective',
             fov: 60, // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width() / renderPortview.height(),
+            aspect: eonRenderPortview.width() / eonRenderPortview.height(),
             near: 0.001,
             far: 600,
 

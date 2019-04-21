@@ -1,20 +1,20 @@
 /***********
- *    @eohalImgform
+ *    @eonEohalImgform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalImgform = global.eohalImgform || {})))
+      : (factory((global.eonEohalImgform = global.eonEohalImgform || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function eohalImgform (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      eohalMars,
-      muonProps,
+      eonEohalMars,
+      eonMuonProps,
     ] = await Promise.all([
-      __eo('xs').e('mars'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
     let _eofold = p => ({ // eofold
@@ -39,8 +39,8 @@
       let eohal = anigram.eohal, // eohal
         eoload = anigram.eoload // eoload
 
-      let newAnigram = muonProps.clone(anigram)
-      newAnigrams = [...newAnigrams, ...__eo('eohalMars').gramify(newAnigram)]
+      let newAnigram = eonMuonProps.clone(anigram)
+      newAnigrams = [...newAnigrams, ...__eo('eonEohalMars').gramify(newAnigram)]
       return newAnigrams
     }
     // ............................. anify
@@ -50,20 +50,20 @@
     let anify = anitem => {
       if (anitem.eoinited !== undefined) {
         anitem.eoinited = 1
-        return muonProps.a(anitem)
+        return eonMuonProps.a(anitem)
       } else {
         return []
       }
     }
-    // ............................. eohalImgform
-    let eohalImgform = {}
-    eohalImgform.anify = anima => Array.of(anima)
-    eohalImgform.gramify = anima => eohale(anima)
+    // ............................. eonEohalImgform
+    let eonEohalImgform = {}
+    eonEohalImgform.anify = anima => Array.of(anima)
+    eonEohalImgform.gramify = anima => eohale(anima)
 
     // .................. enty
-    let enty = eohalImgform
+    let enty = eonEohalImgform
     return enty
   }
 
-  exports.eohalImgform = eohalImgform
+  exports.eonEohalImgform = eonitem
 }))

@@ -1,14 +1,14 @@
 /***********
- *    @muonNets
+ *    @eonMuonNets
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonNets = global.muonNets || {})))
+      : (factory((global.eonMuonNets = global.eonMuonNets || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonNets (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       THREE,
     ] = await Promise.all([
@@ -327,5 +327,5 @@
     return enty
   }
 
-  exports.muonNets = muonNets
+  exports.eonMuonNets = eonitem
 }))

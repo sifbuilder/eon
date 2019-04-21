@@ -12,22 +12,22 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalTextform,
-    eohalMars,
-    muonNatform,
-    renderSvg,
+    eonCtlWen,
+    eonEohalTextform,
+    eonEohalMars,
+    eonMuonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('textform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -87,7 +87,7 @@
     // .................. text
     let textAni = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
 
@@ -128,11 +128,11 @@
     // .................. natAni
     let natAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
 
       eonode: {
         type: 'Feature',
@@ -155,11 +155,11 @@
     // .................. circAni
     let circAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'circ'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
 
       eonode: {
         type: 'Feature',

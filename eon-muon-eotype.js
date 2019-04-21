@@ -1,14 +1,14 @@
 /***********
- *    @muonEotype
+ *    @eonMuonEotype
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEotype = global.muonEotype || {})))
+      : (factory((global.eonMuonEotype = global.eonMuonEotype || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonEotype (__eo = {}) {
+  async function eonitem (__eo = {}) {
     const isArray = d => Array.isArray(d)
 
     // pure array: no object/funcion elements
@@ -44,5 +44,5 @@
     return enty
   }
 
-  exports.muonEotype = muonEotype
+  exports.eonMuonEotype = eonitem
 }))

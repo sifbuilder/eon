@@ -1,34 +1,34 @@
 /***************************
- *     @renderWebgl
+ *     @eonRenderWebgl
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.renderWebgl = global.renderWebgl || {})))
+      : (factory((global.eonRenderWebgl = global.eonRenderWebgl || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function renderWebgl (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3,
       THREE,
-      ctlRaycaster,
-      TrackballControls,
-
-      muonEocrom,
-      muonNets,
-      renderPortview,
+      eonCtlRaycaster,
+      eonCtlTrackballcontrols,
+      eonMuonEocrom,
+      eonMuonNets,
+      eonRenderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('three'),
-      __eo('xs').c('raycaster'),
-      __eo('xs').c('trackballcontrols'),
-      __eo('xs').m('eocrom'),
-      __eo('xs').m('nets'),
-      __eo('xs').r('portview'),
+      __eo('xs').b('eon-ctl-raycaster'),
+      __eo('xs').b('eon-ctl-trackballcontrols'),
+      __eo('xs').b('eon-muon-eocrom'),
+      __eo('xs').b('eon-muon-nets'),
+      __eo('xs').b('eon-render-portview'),
 
     ])
-    console.log('TrackballControls:', TrackballControls)
+    let TrackballControls = eonCtlTrackballcontrols
+
     // .................. postmot
     function postmot (object) {
       let t, t1, r, t2, m, u, c, d
@@ -307,7 +307,7 @@
         let {color } = item
         if (0) {
         } else {
-          color = muonEocrom.getColor(color)
+          color = eonMuonEocrom.getColor(color)
           color = 0xe4eef9
         }
 
@@ -343,8 +343,8 @@
         let {skyColor, groundColor, intensity} = item
         if (0) {
         } else {
-          skyColor = muonEocrom.getColor(skyColor)
-          groundColor = muonEocrom.getColor(groundColor)
+          skyColor = eonMuonEocrom.getColor(skyColor)
+          groundColor = eonMuonEocrom.getColor(groundColor)
           intensity = (intensity !== undefined) ? intensity : 1.0
         }
 
@@ -383,8 +383,8 @@
     }
 
     function resizeCanvas ({threeRenderer, camera}) {
-      let width = renderPortview.width()
-      let height = renderPortview.height()
+      let width = eonRenderPortview.width()
+      let height = eonRenderPortview.height()
 
       if (width && height) {
         threeRenderer.setSize(width, height)
@@ -684,9 +684,9 @@
             let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
             item.geometry.coordinates = coords
 
-            // tree calls muonNets.build_tree recursive
+            // tree calls eonMuonNets.build_tree recursive
             // build_tree builds geometry per face
-            object = muonNets.tree(item) // net
+            object = eonMuonNets.tree(item) // net
           }
         } else {
           object = item.properties.object
@@ -936,5 +936,5 @@
     return enty
   }
 
-  exports.renderWebgl = renderWebgl
+  exports.eonRenderWebgl = eonitem
 }))

@@ -13,32 +13,32 @@
   // .................. eons
   let [
     d3,
-    ctlWen,
-    eohalNatform,
-    eohalMars,
-    eohalSol,
-    muonNatform,
-    muonProps,
-    renderSvg,
-    renderWebgl,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderSvg,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -92,9 +92,9 @@
     // .................. natAni
     let natAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: ani => muonNatform.natMultiPolygon({eoform: ani.eoload.eoform}),
+      eofold: ani => eonMuonNatform.natMultiPolygon({eoform: ani.eoload.eoform}),
       eotim,
 
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
@@ -115,7 +115,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -146,7 +146,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload

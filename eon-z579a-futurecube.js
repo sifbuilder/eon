@@ -11,29 +11,29 @@
   
     async function anitem (__eo) {
     let [
-      muonNatform,
-      muonGraticule,
+      eonMuonNatform,
+      eonMuonGraticule,
       topojson,
       datWorldTopo110m,
       d3Geo,
       d3Geoprojection,
-      geoFuturi,
-      ctlWen,
-      eohalMars,
-      renderSvg,
+      eonGeoFuturi,
+      eonCtlWen,
+      eonEohalMars,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').m('natform'),
-      __eo('xs').m('graticule'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-graticule'),
       __eo('xs').b('topojson'),
       __eo('xs').d('worldTopo110m'),
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
-      __eo('xs').g('futuri'),
-      __eo('xs').c('wen'),
-      __eo('xs').e('mars'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-geo-futuri'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-render-svg'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) { }
+    try { eonRenderSvg.scenecolor('black') } catch (e) { }
     // .................. animas
     let z = function () {
       // .................... pics
@@ -57,7 +57,7 @@
 
       let proformFuture = {
 
-        projection: geoFuturi(),
+        projection: eonGeoFuturi(),
         scale: 30,
         translate: [0, 0, 0],
         rotate: [28, -4, 0],
@@ -69,7 +69,7 @@
 
       let geograt = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eofold: () => {
           return Object.assign({},
             topojson.feature(
@@ -93,7 +93,7 @@
 
       let geoearth = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eofold: () => {
           return Object.assign({},
             topojson.feature(
@@ -120,7 +120,7 @@
 
       let geosphere = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eofold: { type: 'Sphere' },
         eotim: eotim,
         eoric: { gid: 'geosphere', cid: 'geosphere', fid: 'geosphere' },

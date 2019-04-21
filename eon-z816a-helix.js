@@ -12,51 +12,51 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlRayder,
-    ctlWen,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
-    eohalMars,
-    eohalFuel,
-    muonEoric,
-    muonGeoj,
-    muonLindenmayer,
-    muonNatform,
-    muonProps,
-    muonStace,
-    protonUniwen,
-    renderSvg,
+    eonCtlRayder,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonEohalMars,
+    eonEohalFuel,
+    eonMuonEoric,
+    eonMuonGeoj,
+    eonMuonLindenmayer,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('fuel'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-fuel'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
 
-    let svgstate = renderSvg.scenecolor('Wheat')
+    let svgstate = eonRenderSvg.scenecolor('Wheat')
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -181,7 +181,7 @@
     // ............................. natAniA
     let natAniA = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: {'td': 6600, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)},
       eoric: {gid: 'q', cid: 'q', fid: 'q'},
 
@@ -193,8 +193,8 @@
           gco: 0, // closed line
         }
 
-        let gj = muonNatform.natMultiLineString(natipros)
-        let coords = muonGeoj.getCoords(gj)
+        let gj = eonMuonNatform.natMultiLineString(natipros)
+        let coords = eonMuonGeoj.getCoords(gj)
         let nb = coords.length
         let unElapsed = ani.eotim.unElapsed
         let t = unElapsed
@@ -208,10 +208,10 @@
         let pars = 1 // show partial from void to full
 
         if (inc === 1 || pars === 1) {
-          let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+          let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
           if (preani !== undefined) {
             let tgj = gj
-            tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.geometry = eonMuonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
             tgj.properties = tgj.properties === undefined ? {} : tgj.properties
             tgj.properties.eocrom = ani.eocrom
             tgj.properties.lastcoord = nbt
@@ -221,7 +221,7 @@
         }
 
         if (inc === 1) {
-          let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+          let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
 
           if (preani !== undefined) {
             let features = preani.eofold.features
@@ -229,14 +229,14 @@
             let lastFeature = features[features.length - 1]
             let lastFeatureProps = lastFeature.properties
             let lastcoord = lastFeatureProps.lastcoord
-            let prefeatures = preani.eofold.features.map(muonGeoj.deprop) // _e_
+            let prefeatures = preani.eofold.features.map(eonMuonGeoj.deprop) // _e_
 
             if (lastcoord !== undefined) {
               firstcoord = lastcoord
             }
 
             let tgj = gj
-            tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.geometry = eonMuonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
             tgj.properties = tgj.properties === undefined ? {} : tgj.properties
             tgj.properties.eocrom = ani.eocrom
             let intercept = 300
@@ -265,7 +265,7 @@
     // ............................. natAniV
     let natAniB = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: {'td': 6600, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)},
       eoric: {gid: 'q', cid: 'q2', fid: 'q2'},
 
@@ -277,8 +277,8 @@
           gco: 0, // closed line
         }
 
-        let gj = muonNatform.natMultiLineString(natipros)
-        let coords = muonGeoj.getCoords(gj)
+        let gj = eonMuonNatform.natMultiLineString(natipros)
+        let coords = eonMuonGeoj.getCoords(gj)
         let nb = coords.length
         let unElapsed = ani.eotim.unElapsed
         let t = unElapsed
@@ -292,10 +292,10 @@
         let pars = 0 // show partial from void to full
 
         if (inc === 1 || pars === 1) {
-          let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+          let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
           if (preani !== undefined) {
             let tgj = gj
-            tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.geometry = eonMuonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
             tgj.properties = tgj.properties === undefined ? {} : tgj.properties
             tgj.properties.eocrom = ani.eocrom
             tgj.properties.lastcoord = nbt
@@ -305,7 +305,7 @@
         }
 
         if (inc === 1) {
-          let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+          let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
 
           if (preani !== undefined) {
             let features = preani.eofold.features
@@ -313,14 +313,14 @@
             let lastFeature = features[features.length - 1]
             let lastFeatureProps = lastFeature.properties
             let lastcoord = lastFeatureProps.lastcoord
-            let prefeatures = preani.eofold.features.map(muonGeoj.deprop) // _e_
+            let prefeatures = preani.eofold.features.map(eonMuonGeoj.deprop) // _e_
 
             if (lastcoord !== undefined) {
               firstcoord = lastcoord
             }
 
             let tgj = gj
-            tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.geometry = eonMuonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
             tgj.properties = tgj.properties === undefined ? {} : tgj.properties
             tgj.properties.eocrom = ani.eocrom
             let intercept = 300

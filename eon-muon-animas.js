@@ -1,15 +1,15 @@
 /******************************************
-  *       @muonAnimas
+  *       @eonMuonAnimas
   *
   **/
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonAnimas = global.muonAnimas || {})))
+      : (factory((global.eonMuonAnimas = global.eonMuonAnimas || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonAnimas (__eo) {
+  async function eonitem (__eo) {
     let animas = {}
 
     animas.asterisk = {
@@ -67,5 +67,5 @@
     return enty
   }
 
-  exports.muonAnimas = muonAnimas
+  exports.eonMuonAnimas = eonitem
 }))

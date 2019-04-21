@@ -1,14 +1,14 @@
 /**********************
-   *    @muonEonode
+   *    @eonMuonEonode
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEonode = global.muonEonode || {})))
+      : (factory((global.eonMuonEonode = global.eonMuonEonode || {})))
 }(this, function (exports) {
   'use strict'
 
-  let muonEonode = function muonEonode (__eo = {}) {
+  let eonMuonEonode = function eonMuonEonode (__eo = {}) {
     // eonode definition
 
     let getdefault = function () {
@@ -49,5 +49,5 @@
     return enty
   }
 
-  exports.muonEonode = muonEonode
+  exports.eonMuonEonode = eonitem
 }))

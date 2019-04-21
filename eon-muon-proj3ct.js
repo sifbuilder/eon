@@ -1,10 +1,10 @@
 /***************************
- *        @muonProj3ct
+ *        @eonMuonProj3ct
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonProj3ct = global.muonProj3ct || {})))
+      : (factory((global.eonMuonProj3ct = global.eonMuonProj3ct || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -16,7 +16,7 @@
   // ... # license
   // ... MIT
 
-  async function muonProj3ct (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Geo,
     ] = await Promise.all([
@@ -196,5 +196,5 @@
     return enty
   }
 
-  exports.muonProj3ct = muonProj3ct
+  exports.eonMuonProj3ct = eonitem
 }))

@@ -11,19 +11,19 @@
   
     async function anitem (__eo) {
   let [
-    eohalMars,
-    eohalNatform,
-    muonGraticule,
-    protonNatform,
-    renderSvg,
+    eonEohalMars,
+    eonEohalNatform,
+    eonMuonGraticule,
+    eonProtonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').m('graticule'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let z = function () {
   // .................. pics
     let eotim = {'td': 19800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
@@ -60,10 +60,10 @@
 
     // -------------------------------  gratifaces11
     let gratifaces11 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoload.eoframe).geometry.coordinates
-        let faces = muonGraticule.gfaces(p.eoload.eoframe)
+        let vertices = eonMuonGraticule.gjfMultiPoint(p.eoload.eoframe).geometry.coordinates
+        let faces = eonMuonGraticule.gfaces(p.eoload.eoframe)
         faces = faces.map(face => [...face, face[0]])
         faces = faces.map(face => // faces : points => vertices
           face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
@@ -95,14 +95,14 @@
     }
     // -------------------------------  gratifaces12
     let gratifaces12 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces12'},
 
       eofold: ani => {
-        let vertices = muonGraticule.gjfMultiPoint(ani.eoload.eoframe).geometry.coordinates
+        let vertices = eonMuonGraticule.gjfMultiPoint(ani.eoload.eoframe).geometry.coordinates
 
-        let faces = muonGraticule.gfaces(ani.eoload.eoframe)
+        let faces = eonMuonGraticule.gfaces(ani.eoload.eoframe)
         faces = faces.map(face => [...face, face[0]])
         faces = faces.map(face => // faces : points => vertices
           face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
@@ -139,11 +139,11 @@
     }
     // -------------------------------  gratifaces11
     let gratilines21 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoload.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoload.eoframe),
       eomot: {
         conform: conform,
         proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400 - 300, 150 - 200 ], scale: 1},
@@ -164,11 +164,11 @@
     }
     // -------------------------------  gratilines22
     let gratilines22 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'gratis', cid: 'gratis', fid: 'gratilines22'},
 
-      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoframe),
+      eofold: ani => eonMuonGraticule.gjfMultiLineString(ani.eoframe),
 
       eomot: {
         conform: {

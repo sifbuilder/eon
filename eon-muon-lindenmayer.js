@@ -1,26 +1,26 @@
 /**********************
-   *    @muonLindenmayer
+   *    @eonMuonLindenmayer
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonLindenmayer = global.muonLindenmayer || {})))
+      : (factory((global.eonMuonLindenmayer = global.eonMuonLindenmayer || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonLindenmayer (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonProps,
-      muonMatrix4,
-      muonVector3,
+      eonMuonProps,
+      eonMuonMatrix4,
+      eonMuonVector3,
     ] = await Promise.all([
-      __eo('xs').m('props'),
-      __eo('xs').m('Matrix4'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-matrix4'),
       __eo('xs').m('Vector3'),
     ])
 
-    let Vector3 = muonVector3
-    let Matrix4 = muonMatrix4
+    let Vector3 = eonMuonVector3
+    let Matrix4 = eonMuonMatrix4
 
     let cache = {}
 
@@ -43,8 +43,8 @@
       }
 
       let linden = lindenmayer.linden
-      let axiom = muonProps.value(linden.axiom)
-      let rules = muonProps.value(linden.rules)
+      let axiom = eonMuonProps.value(linden.axiom)
+      let rules = eonMuonProps.value(linden.rules)
       let loopq = linden.loopq !== undefined ? Math.floor(linden.loopq) : linden.loopq
 
       // feet in each F step
@@ -313,7 +313,7 @@
 
           stat.segments[stat.segmentn] = newsegment
 
-          let newfeature = muonProps.clone(feature)
+          let newfeature = eonMuonProps.clone(feature)
           newfeature.geometry.coordinates.push(newsegment)
           let properties = newfeature.properties || {}
 
@@ -378,7 +378,7 @@
         return res
       }, [])
 
-      let geoData = muonProps.clone(feature) // Feature MultiLineString
+      let geoData = eonMuonProps.clone(feature) // Feature MultiLineString
       geoData.geometry.coordinates = lines
       return geoData
     }
@@ -409,5 +409,5 @@
     return enty
   }
 
-  exports.muonLindenmayer = muonLindenmayer
+  exports.eonMuonLindenmayer = eonitem
 }))

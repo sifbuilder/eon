@@ -12,25 +12,25 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    muonNatform,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -142,8 +142,8 @@
     // ............................. torusAni1
     let torusAni1 = {
 
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
       eomot: {
@@ -167,8 +167,8 @@
     // ............................. torusAni2 yellow
     let torusAni2 = {
 
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eomot: {
@@ -192,7 +192,7 @@
     // ............................. torusAni2 red
     let torusAni3 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3'},
       eomot: {
@@ -208,7 +208,7 @@
       },
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eoform: conformTorus3,
       eoload: {
       },

@@ -11,13 +11,13 @@
   
     async function anitem (__eo) {
   let [
-    eohalSol,
-    renderSvg,
+    eonEohalSol,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').e('sol'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   let z = function () {
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
@@ -25,7 +25,7 @@
     // .................. ani
     let ani = {
 
-      eohal: eohalSol,
+      eohal: eonEohalSol,
       eotim: {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani'},
 

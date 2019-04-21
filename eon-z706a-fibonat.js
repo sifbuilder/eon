@@ -12,26 +12,26 @@
     async function anitem (__eo) {
   let [
     d3,
-    ctlWen,
-    eohalMars,
-    muonFibonat,
-    muonGraticule,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonFibonat,
+    eonMuonGraticule,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('fibonat'),
-    __eo('xs').m('graticule'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-fibonat'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -42,9 +42,9 @@
 
     let fiboForm = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: p => muonFibonat.catesians(p.eoload),
+      eofold: p => eonMuonFibonat.catesians(p.eoload),
 
       eotim: {'td': 23800, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
 

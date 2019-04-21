@@ -1,14 +1,14 @@
 /***********
- *    @muonMath
+ *    @eonMuonMath
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonMath = global.muonMath || {})))
+      : (factory((global.eonMuonMath = global.eonMuonMath || {})))
 }(this, function (exports) {
   'use strict'
 
-  let muonMath = function (__eo = {}) {
+  let eonMuonMath = function (__eo = {}) {
     /**
  * @author alteredq / http://alteredqualia.com/
  * @author mrdoob / http://mrdoob.com/
@@ -132,5 +132,5 @@
     return enty
   }
 
-  exports.muonMath = muonMath
+  exports.eonMuonMath = eonitem
 }))

@@ -12,29 +12,29 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    muonProps,
-    ctlVersor,
+    eonMuonNatform,
+    eonMuonProps,
+    eonCtlVersor,
     d3Geo,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').c('versor'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-ctl-versor'),
     __eo('xs').b('d3-geo'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -43,8 +43,8 @@
 
     let anima = {
 
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
@@ -71,8 +71,8 @@
 
     let animatter = {
 
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eotim: eotim,
       eoric: {gid: 'animatter', cid: 'animatter', fid: 'animatter'},

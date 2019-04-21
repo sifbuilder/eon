@@ -13,44 +13,44 @@
   let [
     d3Geo,
     d3Force3d,
-    ctlWen,
-    eohalNatform,
-    eohalMars,
-    eohalPacer,
-    eohalTextform,
-    muonAnitem,
-    muonEoforces,
-    muonEoric,
-    muonGraticule,
-    muonNatform,
-    muonProps,
-    muonSnap,
-    muonStace,
-    protonUniwen,
-    renderSvg,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalMars,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonMuonAnitem,
+    eonMuonEoforces,
+    eonMuonEoric,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonSnap,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('anitem'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('snap'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-anitem'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-snap'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
-  let muonStore = __eo('muonStore')
+  let eonMuonStore = __eo('eonMuonStore')
   let d3_force = d3Force3d
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
 
   // .................. animas
   let z = function () {
@@ -64,7 +64,7 @@
     // ....................... pacerNat
     let pacerNat = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
@@ -141,31 +141,31 @@
           basePaceOnAniView: 'viewform',
           addItemToPacer: 0,
 
-          eohal: eohalNatform,
+          eohal: eonEohalNatform,
 
           eoric: function (ani, props) {
-            let eoric = muonProps.clone(ani.eoric)
+            let eoric = eonMuonProps.clone(ani.eoric)
 
             if (props.key === 'init') { // INIT
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             } else if (props.key === 'auto') { // AUTO
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             } else if (props.key === 'event') { // EVENT
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             }
 
-            eoric.uid = muonEoric.getuid(eoric)
+            eoric.uid = eonMuonEoric.getuid(eoric)
             return eoric
           },
 
           eofold: function (ani, props) {
-            let neweofold = ani => muonNatform.natMultiLineString({eoform: ani.eoform})
+            let neweofold = ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform})
             return neweofold
           },
 
@@ -193,8 +193,8 @@
                 Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2),
                 0]
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
@@ -217,7 +217,7 @@
           eoforces: function (ani, props) {
             let forces = {}
 
-            let forceGravity = muonProps.clone(force_gravity)
+            let forceGravity = eonMuonProps.clone(force_gravity)
             forceGravity.properties.key = d => d.eoric.uid
             forceGravity.properties.gravity = d => {
               let gravity = 0
@@ -225,7 +225,7 @@
               let tue = d.eotim.unElapsed
               let tup = d.eotim.unPassed
               let tud = d.eotim.unitDelta
-              let r = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tup), d)
+              let r = eonMuonProps.v(eonMuonSnap.snap(d.eoform.x.ra2, tup), d)
 
               console.assert(r !== Number.NaN)
               if (r > 36) gravity = 1.9
@@ -262,7 +262,7 @@
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity, node)
+          let g = eonMuonProps.v(gravity, node)
 
           node.vy += g
         }
@@ -275,7 +275,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -317,11 +317,11 @@
     }
     // ............................. natAni
     let natAni1 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eomot: {
         proform: {

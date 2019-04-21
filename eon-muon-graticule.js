@@ -1,24 +1,24 @@
 /***********
- *    @muonGraticule
+ *    @eonMuonGraticule
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonGraticule = global.muonGraticule || {})))
+      : (factory((global.eonMuonGraticule = global.eonMuonGraticule || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonGraticule (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Array,
-      muonGeoj,
-      muonGeom,
-      muonProps,
+      eonMuonGeoj,
+      eonMuonGeom,
+      eonMuonProps,
     ] = await Promise.all([
       __eo('xs').b('d3-array'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
     let d3Range = d3Array.range
@@ -35,8 +35,8 @@
     cache.gratiparams = {}
 
     // .................. tidx/ridx
-    let tidx = muonProps.tidx
-    let ridx = muonProps.ridx
+    let tidx = eonMuonProps.tidx
+    let ridx = eonMuonProps.ridx
 
     // .................. oneface
     let oneface = function (a, b, c, xn, yn) { //  xy,ru,ry
@@ -248,7 +248,7 @@
 
       // meridians
       let mms = { type: 'MultiLineString', coordinates: mmLines }
-      if (!muonGeoj.isValid(mms)) { console.error('mms not valid') }
+      if (!eonMuonGeoj.isValid(mms)) { console.error('mms not valid') }
 
       // include equator
       let bigpar = (params.bigpar !== undefined) ? params.bigpar : 1
@@ -265,7 +265,7 @@
 
       // parallels
       let pps = { type: 'MultiLineString', coordinates: ppLines }
-      if (!muonGeoj.isValid(pps)) { console.error('pps not valid') }
+      if (!eonMuonGeoj.isValid(pps)) { console.error('pps not valid') }
 
       let ret = {mms, pps}
       return ret
@@ -280,9 +280,9 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'LineString', coordinates: coords},
-        properties: {muonGraticule: 'equator'},
+        properties: {eonMuonGraticule: 'equator'},
       }
-      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
+      if (!eonMuonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }
@@ -312,7 +312,7 @@
         geometry: {type: 'MultiLineString', coordinates: coords},
         properties: {},
       }
-      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
+      if (!eonMuonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }
@@ -351,9 +351,9 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: lines},
-        properties: {muonGraticule: 'vhMultiLine'},
+        properties: {eonMuonGraticule: 'vhMultiLine'},
       }
-      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
+      if (!eonMuonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }
@@ -488,7 +488,7 @@
     let gjfMultiPolygon = function (params, range = null, tile = null, inPolygons = []) {
       let vertices = gjfMultiPoint(params).geometry.coordinates
       let quads = qfaces(params)
-      let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+      let faces = quads.reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], [])
 
       let gj = {
         type: 'Feature',
@@ -570,5 +570,5 @@
   // ... # license
   // ... MIT
 
-  exports.muonGraticule = muonGraticule
+  exports.eonMuonGraticule = eonitem
 }))

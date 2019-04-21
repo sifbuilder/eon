@@ -14,28 +14,28 @@
     d3,
     d3Geo,
     THREE,
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    muonGeom,
-    muonProps,
-    muonGeovoro,
-    renderPortview,
-    renderWebgl,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonGeom,
+    eonMuonProps,
+    eonMuonGeovoro,
+    eonRenderPortview,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('three'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('props'),
-    __eo('xs').m('geovoro'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-geovoro'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let z = function () {
   // .................. pics
 
@@ -52,7 +52,7 @@
 
       eotim: eotim,
       eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -65,7 +65,7 @@
           properties: {
             sort: 'form',
             eoMultiPolygon: 1,
-            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...muonGeom.convextriang(q)], []),
+            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], []),
             lights: eoload.lights(eoload.pars),
           },
         }
@@ -275,7 +275,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -306,7 +306,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -337,7 +337,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -348,10 +348,10 @@
             sort: 'camera',
             type: 'OrthographicCamera',
             name: 'Orthographic',
-            left: -renderPortview.width() / 2,
-            right: renderPortview.width() / 2,
-            top: renderPortview.height() / 2,
-            bottom: -renderPortview.height() / 2,
+            left: -eonRenderPortview.width() / 2,
+            right: eonRenderPortview.width() / 2,
+            top: eonRenderPortview.height() / 2,
+            bottom: -eonRenderPortview.height() / 2,
             near: -200,
             far: 200,
 
@@ -372,7 +372,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoHelper'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -383,10 +383,10 @@
             sort: 'cameraHelper',
             type: 'OrthographicCamera',
             name: 'Orthographic',
-            left: -renderPortview.width() / 2,
-            right: renderPortview.width() / 2,
-            top: renderPortview.height() / 2,
-            bottom: -renderPortview.height() / 2,
+            left: -eonRenderPortview.width() / 2,
+            right: eonRenderPortview.width() / 2,
+            top: eonRenderPortview.height() / 2,
+            bottom: -eonRenderPortview.height() / 2,
             near: -200,
             far: 200,
 
@@ -407,7 +407,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -425,7 +425,7 @@
           type: 'PerspectiveCamera',
           name: 'Perspective',
           fov: 100, // field of view
-          aspect: renderPortview.width() / renderPortview.height(),
+          aspect: eonRenderPortview.width() / eonRenderPortview.height(),
           near: 0.001,
           far: 300,
 
@@ -441,7 +441,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersHelper'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -460,7 +460,7 @@
           name: 'cameraPersHelper',
 
           fov: 90, // field of view
-          aspect: renderPortview.width() / renderPortview.height(),
+          aspect: eonRenderPortview.width() / eonRenderPortview.height(),
           near: -100,
           far: 100,
 
@@ -476,7 +476,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload

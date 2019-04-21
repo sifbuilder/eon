@@ -1,14 +1,14 @@
 /**********************
- *    @muonEventDispatcher
+ *    @eonMuonEventdispatcher
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEventDispatcher = global.muonEventDispatcher || {})))
+      : (factory((global.eonMuonEventdispatcher = global.eonMuonEventdispatcher || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonEventDispatcher (__eo) {
+  async function eonitem (__eo) {
     /**
 	 * https://github.com/mrdoob/eventdispatcher.js/
 	 */
@@ -83,5 +83,5 @@
     return enty
   }
 
-  exports.muonEventDispatcher = muonEventDispatcher
+  exports.eonMuonEventdispatcher = eonitem
 }))

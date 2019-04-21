@@ -1,10 +1,10 @@
 /***************************
- *        @muonBezierjs
+ *        @eonMuonBezierjs
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonBezierjs = global.muonBezierjs || {})))
+      : (factory((global.eonMuonBezierjs = global.eonMuonBezierjs || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -12,7 +12,7 @@
   // http://pomax.github.io/bezierjs/
   // https://pomax.github.io/bezierinfo/
 
-  let muonBezierjs = function (__eo = {}) {
+  let eonMuonBezierjs = function (__eo = {}) {
     // .................. utils
   // math-inlining.
     var abs = Math.abs,
@@ -1468,5 +1468,5 @@
     return enty
   }
 
-  exports.muonBezierjs = muonBezierjs
+  exports.eonMuonBezierjs = eonitem
 }))

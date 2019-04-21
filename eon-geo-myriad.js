@@ -1,11 +1,11 @@
 /*******************************************
- *      @geoMyriad
+ *      @eonGeoMyriad
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.geoMyriad = global.geoMyriad || {})))
+      : (factory((global.eonGeoMyriad = global.eonGeoMyriad || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -19,10 +19,10 @@
   // forked from Fil's block: Furuti 3 - projection.clipPolygon()
   // LICENSE# Released under the The MIT License.
 
-  let geoMyriad = function geoMyriad (__eo = {}) {
-    let mkruskal = __eo('xs').m('kruskal')
+  let eonGeoMyriad = function eonGeoMyriad (__eo = {}) {
+    let mkruskal = __eo('xs').b('eon-muon-kruskal')
 
-    let portview = __eo('renderPortview'),
+    let portview = __eo('eonRenderPortview'),
       width = portview.width(),
       height = portview.height(),
       scaleProj = Math.min(width / 2, height) / Math.PI
@@ -201,5 +201,5 @@
     return enty
   }
 
-  exports.geoMyriad = geoMyriad
+  exports.eonGeoMyriad = eonitem
 }))

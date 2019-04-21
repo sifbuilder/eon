@@ -15,37 +15,37 @@
     d3Geo,
     d3GeoProjection,
     topojson,
-    ctlVersor,
-    ctlWen,
+    eonCtlVersor,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalScene,
-    eohalMars,
-    muonGeom,
-    muonGraticule,
-    muonNatform,
-    protonNatform,
-    protonBase,
-    protonOrthographic,
-    renderSvg,
+    eonEohalScene,
+    eonEohalMars,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonProtonNatform,
+    eonProtonBase,
+    eonProtonOrthographic,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('versor'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('scene'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').p('natform'),
-    __eo('xs').p('base'),
-    __eo('xs').p('orthographic'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-scene'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-proton-base'),
+    __eo('xs').b('eon-proton-orthographic'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     let eotim = {'td': 10800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
@@ -53,10 +53,10 @@
     // ..................
     let proformEarth = {
 
-      projection: protonOrthographic,
-      prerotate: [[[ protonOrthographic.rotation ]]],
-      prerotate: [[[ ctlVersor
-        .projection({projection: protonOrthographic })
+      projection: eonProtonOrthographic,
+      prerotate: [[[ eonProtonOrthographic.rotation ]]],
+      prerotate: [[[ eonCtlVersor
+        .projection({projection: eonProtonOrthographic })
         .rotation,
       ]]],
       translate: [0, 0, 0],
@@ -94,7 +94,7 @@
 
     let geoearth = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: () => {
         return Object.assign({},
@@ -118,17 +118,17 @@
     // ............................. geograt
     let geograt = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'geograt', cid: 'geograt', fid: 'geograt'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eomot: {
         eoform: {
 
           projection: 'uniwen',
-          prerotate: [[[ ctlVersor.rotation ]]],
+          prerotate: [[[ eonCtlVersor.rotation ]]],
           scale: [[[1, 0.1, 1]]],
           translate: [ 0, 0 ],
           rotate: [ 0, 0, [[[0, -2 * 360]]] ],
@@ -137,7 +137,7 @@
         proform: {
 
           projection: d3Geo.geoOrthographic(),
-          prerotate: [[[ ctlVersor.rotation ]]],
+          prerotate: [[[ eonCtlVersor.rotation ]]],
           scale: [100],
           translate: [ 0, 0 ],
           rotate: [ [[[0, -2 * 360]]], 0, 0 ],

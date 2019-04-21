@@ -1,10 +1,10 @@
 /***********
- *    @muonLacer
+ *    @eonMuonLacer
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonLacer = global.muonLacer || {})))
+      : (factory((global.eonMuonLacer = global.eonMuonLacer || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -13,7 +13,7 @@
   // ... # license
   // ... MIT
 
-  async function muonLacer (__mapper = {}) {
+  async function eonitem (__mapper = {}) {
     // ...................... range
     // https://github.com/d3/d3-array/blob/master/src/range.js  Copyright 2019 Mike Bostock
     // The stop value is exclusive; it is not included in the result
@@ -351,5 +351,5 @@
     return enty
   }
 
-  exports.muonLacer = muonLacer
+  exports.eonMuonLacer = eonitem
 }))

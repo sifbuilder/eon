@@ -15,29 +15,29 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-      ctlWen,
-      ctlVersor,
-      eohalMars,
-      muonNatform,
-      renderWebgl,
-      renderSvg,
+      eonCtlWen,
+      eonCtlVersor,
+      eonEohalMars,
+      eonMuonNatform,
+      eonRenderWebgl,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').c('wen'),
-      __eo('xs').c('versor'),
-      __eo('xs').e('mars'),
-      __eo('xs').m('natform'),
-      __eo('xs').r('webgl'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-ctl-versor'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-render-webgl'),
+      __eo('xs').b('eon-render-svg'),
     ])
     try {
-      renderSvg.scenecolor('black')
+      eonRenderSvg.scenecolor('black')
     } catch (e) {}
     // .................. animas
     let z = function () {
       // .................. pics
       let ctl
       try {
-        ctl = ctlWen().control(renderSvg.svg())
+        ctl = eonCtlWen().control(eonRenderSvg.svg())
       } catch (e) {
         ctl = () => [0, 0, 0]
       }
@@ -167,8 +167,8 @@
 
       // ............................. lightAni
       let lightAni = {
-        eohal: eohalMars,
-        eofold: ani => muonNatform.natMultiLineString({ eoform: ani.eoform }),
+        eohal: eonEohalMars,
+        eofold: ani => eonMuonNatform.natMultiLineString({ eoform: ani.eoform }),
         eotim,
         eoric: { gid: 'q', cid: 'q', fid: 'q1' },
         eomot: {

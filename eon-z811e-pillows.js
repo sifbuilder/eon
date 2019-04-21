@@ -12,25 +12,25 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    muonNatform,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -173,8 +173,8 @@
 
     // ............................. natAniRed
     let natAniRed = {
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qred'},
       eomot: {
@@ -196,8 +196,8 @@
     }
     // ............................. natAniBlue
     let natAniBlue = {
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qblue'},
       eomot: {

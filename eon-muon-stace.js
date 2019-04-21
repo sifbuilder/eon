@@ -1,10 +1,10 @@
 /***********
- *    @muonStace
+ *    @eonMuonStace
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonStace = global.muonStace || {})))
+      : (factory((global.eonMuonStace = global.eonMuonStace || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -50,22 +50,22 @@
   // ...       get spot from `parentani.eofold.geometry.coordinates`
   // ... **eoload**, to get parent coords if spot is relative to parent geometry
 
-  async function muonStace (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonProps,
-      muonLacer,
-      muonGeoj,
+      eonMuonProps,
+      eonMuonLacer,
+      eonMuonGeoj,
     ] = await Promise.all([
-      __eo('xs').m('props'),
-      __eo('xs').m('lacer'),
-      __eo('xs').m('geoj'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-lacer'),
+      __eo('xs').b('eon-muon-geoj'),
     ])
 
     // ... getTranspots
     // ... call store to get current state
     let getTranspots = function (stace, anitem) {
       console.log('stace:', stace)
-      let muonStore = __eo('muonStore')
+      let eonMuonStore = __eo('eonMuonStore')
 
       let eoload = anitem.eoload
       console.assert(eoload !== undefined, `m.stace eoload undefined in ${anitem}`)
@@ -91,19 +91,19 @@
 
       // if stace is simple array, spot is stace
 
-      if (muonProps.isPureArray(stace)) { // [x,y,z] numbers
+      if (eonMuonProps.isPureArray(stace)) { // [x,y,z] numbers
         locations = Array.of(stace)
 
       // if stace is a multiarray, get stace interadding per dax
-      } else if (muonProps.isPureMultiArray(stace)) { // dax sum [[a1,a2,a3],[b1,b2]]
-        locations = muonProps.interadd(stace)
+      } else if (eonMuonProps.isPureMultiArray(stace)) { // dax sum [[a1,a2,a3],[b1,b2]]
+        locations = eonMuonProps.interadd(stace)
 
       // else, eg. if stace undefined, get stace from parent
       } else if (anitem.eoric.pid !== undefined) {
         let pid = anitem.eoric.pid
-        console.assert(pid, ` * error: muonStace.getTranspots:pid ${pid} in eoload ${eoload}`)
-        let parentani = muonStore.findAnigramFromUid(pid)
-        console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${pid}: ${parentani}`)
+        console.assert(pid, ` * error: eonMuonStace.getTranspots:pid ${pid} in eoload ${eoload}`)
+        let parentani = eonMuonStore.findAnigramFromUid(pid)
+        console.assert(parentani !== undefined, ` * error: eonMuonStace.getTranspots:parentani of ${pid}: ${parentani}`)
 
         let locationsPerDax = []
 
@@ -126,11 +126,11 @@
             if (v1.hasOwnProperty('mod')) { // eoform, conform, ereform, proform`
               // eofold transfomed are in the eofold.properties
 
-              coords = muonGeoj.getCoords(parentani.eofold.properties[v1.mod])
+              coords = eonMuonGeoj.getCoords(parentani.eofold.properties[v1.mod])
             } else {
               // if no mod, positions are the goefold geometry, after transforms
 
-              coords = muonGeoj.getCoords(parentani.eofold)
+              coords = eonMuonGeoj.getCoords(parentani.eofold)
             }
 
             // move idx to the coords domain
@@ -167,7 +167,7 @@
         }
 
         if (locationsPerDax.length > 0) {
-          locations = muonLacer.slide(locationsPerDax) // [300, 200]
+          locations = eonMuonLacer.slide(locationsPerDax) // [300, 200]
         }
       }
 
@@ -215,9 +215,9 @@
           let pos1 = Math.floor(c1) // last of positions array
 
           if (pos0 <= pos1) {
-            poses = muonLacer.range(pos0, pos1, step) // d3 create positional array
+            poses = eonMuonLacer.range(pos0, pos1, step) // d3 create positional array
           } else {
-            poses = muonLacer.range(pos1, pos0, step) // d3 create positional array
+            poses = eonMuonLacer.range(pos1, pos0, step) // d3 create positional array
           }
         }
       }
@@ -235,7 +235,7 @@
         if (parentCoordsDim.length > 0) {
           locations = []
           if (typeof staceDim.pos === 'number') { // number
-            let pos = muonProps.posInStream(staceDim.pos, parentCoordsDim)
+            let pos = eonMuonProps.posInStream(staceDim.pos, parentCoordsDim)
 
             let idx = Math.floor(pos)
 
@@ -253,14 +253,14 @@
             let step = Math.round(staceDim.step) || 1 // step between positions
 
             if (pos0 <= pos1) {
-              locations = muonLacer.range(pos0, pos1, step) // d3 create positional array
+              locations = eonMuonLacer.range(pos0, pos1, step) // d3 create positional array
                 .map(d => d + fas) // displace positions by phase
                 .map(d => d % parentCoordsDim.length) // mod (-1)
                 .map(d => Math.floor(d)) // integer position
                 .map(d => parentCoordsDim[d]) // location from parent coords
                 .map(d => d + dist) // sum dist to dim location
             } else {
-              locations = muonLacer.range(pos1, pos0, step) // d3 create positional array
+              locations = eonMuonLacer.range(pos1, pos0, step) // d3 create positional array
                 .map(d => d + fas) // displace positions by phase
                 .map(d => d % parentCoordsDim.length) // mod
                 .map(d => Math.floor(d))
@@ -314,5 +314,5 @@
     return enty
   }
 
-  exports.muonStace = muonStace
+  exports.eonMuonStace = eonitem
 }))

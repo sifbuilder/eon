@@ -12,27 +12,27 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalScene,
-    eohalMars,
-    muonNatform,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalScene,
+    eonEohalMars,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('scene'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-scene'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -138,8 +138,8 @@
     // ............................. lightAni
     let lightAni = {
 
-      eohal: eohalMars,
-      eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}, {h: 1}),
+      eohal: eonEohalMars,
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: p.eoform}, {h: 1}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
       eomot: {
@@ -162,8 +162,8 @@
     // ............................. sphereAni
     let sphereAni = {
 
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q0'},
       eomot: {

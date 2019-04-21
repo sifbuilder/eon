@@ -14,24 +14,24 @@
   let [
     d3Geo,
     topojson,
-    ctlWen,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalMars,
-    muonGraticule,
-    renderSvg,
+    eonEohalMars,
+    eonMuonGraticule,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('graticule'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -57,7 +57,7 @@
 
       projection: darkProjection,
       prerotate: [[[ t => {
-        let rot = ctlWen
+        let rot = eonCtlWen
           .projection({projection: darkProjection}) // versor projection
           .rotation()
         let res = [180 + rot[0], -rot[1], -rot[2]]
@@ -70,7 +70,7 @@
 
     let geoearthDark = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: () => {
         return Object.assign({},
@@ -108,7 +108,7 @@
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = ctlWen
+        let rot = eonCtlWen
           .projection({projection: frontProjection}) // versor projection
           .rotation()
         return rot
@@ -122,7 +122,7 @@
 
     let geoearthFront = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
 
@@ -149,11 +149,11 @@
     // .................. graticuleFront
     let graticuleFront = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
 
-      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+      eofold: ani => eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe),
       eomot: {
         proform: proformFront,
       },

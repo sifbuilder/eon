@@ -12,17 +12,17 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonAnimas,
-    eohalNatform,
-    eohalMars,
-    renderSvg,
+    eonMuonAnimas,
+    eonEohalNatform,
+    eonEohalMars,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('animas'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-animas'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -33,7 +33,7 @@
     // ............................. natAni2
 
     let natAni2 = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f2'},
 
@@ -61,7 +61,7 @@
 
     // ............................. natAni1
     let natAni1 = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f1'},
 
@@ -89,7 +89,7 @@
     // ............................. natAni5
 
     let natAni5 = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f5'},
 
@@ -117,7 +117,7 @@
     // ............................. natAni4
 
     let natAni4 = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f4'},
 
@@ -146,7 +146,7 @@
     // ............................. natAni3
 
     let natAni3 = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f3'},
 

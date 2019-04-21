@@ -12,42 +12,42 @@
   async function anitem (__eo) {
   // .................. eons
     let [
-      ctlWen,
-      eohalMars,
-      eohalSol,
-      muonProps,
-      muonSoma,
-      muonGeoj,
-      muonLacer,
-      muonLindenmayer,
-      muonSnap,
-      protonUniwen,
-      renderPortview,
-      renderSvg,
+      eonCtlWen,
+      eonEohalMars,
+      eonEohalSol,
+      eonMuonProps,
+      eonMuonSoma,
+      eonMuonGeoj,
+      eonMuonLacer,
+      eonMuonLindenmayer,
+      eonMuonSnap,
+      eonProtonUniwen,
+      eonRenderPortview,
+      eonRenderSvg,
 
     ] = await Promise.all([
-      __eo('xs').c('wen'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('sol'),
-      __eo('xs').m('props'),
-      __eo('xs').m('soma'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('lacer'),
-      __eo('xs').m('lindenmayer'),
-      __eo('xs').m('snap'),
-      __eo('xs').p('uniwen'),
-      __eo('xs').r('portview'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-sol'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-soma'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-lacer'),
+      __eo('xs').b('eon-muon-lindenmayer'),
+      __eo('xs').b('eon-muon-snap'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-portview'),
+      __eo('xs').b('eon-render-svg'),
 
     ])
-    try { renderSvg.scenecolor('black') } catch (e) {}
-    let muonStore = __eo('muonStore')
+    try { eonRenderSvg.scenecolor('black') } catch (e) {}
+    let eonMuonStore = __eo('eonMuonStore')
 
     // .................. animas
     let z = function () {
       let animas = []
 
-      let width = renderPortview.width(), height = renderPortview.height()
+      let width = eonRenderPortview.width(), height = eonRenderPortview.height()
 
       let eocrom = [
         {csx: 2, cf: 555, cs: 111, cw: 4.9, co: 0.0072, cp: 0.99},
@@ -57,7 +57,7 @@
       // .................. somaAni
       let somaAni = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1},
         eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
 
@@ -92,7 +92,7 @@
       let qh = 10
       let qv = 4
       let treeanis = new Array(qh * qv)
-      let tidx = muonProps.tidx(qh, qv, 1, 1)
+      let tidx = eonMuonProps.tidx(qh, qv, 1, 1)
 
       let hvar = 10
       let hsep = 40
@@ -103,18 +103,18 @@
         for (let ih = 0; ih < qh; ih++) {
           let idx = tidx(ih, iv)
 
-          let anii = muonProps.clone(somaAni)
+          let anii = eonMuonProps.clone(somaAni)
           anii.eoric.fid = 'ani' + idx
 
           let dist = (0.5 - ih % 2)
           let htol = (0.5 - Math.random())
           let crom = Math.floor(0.5 + Math.random())
 
-          anii.eoload.soma = muonProps.clone(soma)
+          anii.eoload.soma = eonMuonProps.clone(soma)
           anii.eoload.soma.x0 = (hvar * htol) + dist * (hsep * ih)
           anii.eoload.soma.y0 = vmar - (vsep * iv)
 
-          anii.eofold = muonSoma.somafold
+          anii.eofold = eonMuonSoma.somafold
           anii.eocrom = eocrom[crom]
 
           treeanis[idx] = anii

@@ -12,33 +12,33 @@
     async function anitem (__eo) {
   let [
     d3Force3d,
-    ctlRayder,
-    eohalCore,
-    eohalNatform,
-    eohalMars,
+    eonCtlRayder,
+    eonEohalCore,
+    eonEohalNatform,
+    eonEohalMars,
 
-    muonEoric,
-    muonEoforces,
-    muonNatform,
-    muonProps,
-    renderPortview,
-    renderSvg,
+    eonMuonEoric,
+    eonMuonEoforces,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderPortview,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('rayder'),
-    __eo('xs').e('core'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-eohal-core'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
 
-    __eo('xs').m('eoric'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -48,12 +48,12 @@
     // .................... natAni2
     let natAni2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
       eotim: eotim,
 
       eofold: function (p) {
-        return muonNatform.natMultiLineString({eoform: p.eoform})
+        return eonMuonNatform.natMultiLineString({eoform: p.eoform})
       },
 
       eonode: {

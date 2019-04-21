@@ -1,14 +1,14 @@
 /***********
-   *    @muonEoforces
+   *    @eonMuonEoforces
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEoforces = global.muonEoforces || {})))
+      : (factory((global.eonMuonEoforces = global.eonMuonEoforces || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonEoforces (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Force3d,
     ] = await Promise.all([
@@ -123,7 +123,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -202,7 +202,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -266,7 +266,7 @@
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity, node)
+          let g = eonMuonProps.v(gravity, node)
           console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
 
           node.vy += g
@@ -280,7 +280,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -340,7 +340,7 @@
         key: 'collide',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceManyBody
     let force_manybody = { // aniForce
@@ -364,7 +364,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceRadial
     let force_radial = { // aniForce
@@ -394,7 +394,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceCenterGold
 
@@ -416,7 +416,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceCenterRed
@@ -439,7 +439,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceXGold
 
@@ -462,7 +462,7 @@
         key: 'x_gold',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
 
     }
     // ............................. forceXRed
@@ -486,7 +486,7 @@
         key: 'x_red',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceYGold
@@ -510,7 +510,7 @@
         key: 'y_gold',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceYRed
@@ -534,7 +534,7 @@
         key: 'y_red',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceZGold
@@ -558,7 +558,7 @@
         key: 'z_gold',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. forceZRed
@@ -581,10 +581,10 @@
         key: 'z_red',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
 
     }
-    // ............................. forceLink
+    // ............................. eonForceLink
     let force_link = {
 
       properties: {
@@ -609,7 +609,7 @@
         let linksfilter = d => (d.eoric.gid === 'link')
         let links = params.nodes.filter(linksfilter)
         params.properties.payload.args = Array.of(links) // links
-        return muonEoforces.force(params)
+        return eonMuonEoforces.force(params)
       },
 
     }
@@ -621,5 +621,5 @@
     return enty
   }
 
-  exports.muonEoforces = muonEoforces
+  exports.eonMuonEoforces = eonitem
 }))

@@ -1,14 +1,14 @@
 /****************************
- *      @protonBase
+ *      @eonProtonBase
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.protonBase = global.protonBase || {})))
+      : (factory((global.eonProtonBase = global.eonProtonBase || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function protonBase (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Geo,
     ] = await Promise.all([
@@ -172,5 +172,5 @@
     return enty
   }
 
-  exports.protonBase = protonBase
+  exports.eonProtonBase = eonitem
 }))

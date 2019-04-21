@@ -15,35 +15,35 @@
     d3Geo,
     THREE,
     d3Force3d,
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    muonGraticule,
-    muonGeom,
-    protonNatform,
-    renderPortview,
-    renderWebgl,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonGraticule,
+    eonMuonGeom,
+    eonProtonNatform,
+    eonRenderPortview,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('three'),
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('geom'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -85,11 +85,11 @@
     // -------------------------------  circform1
     let circform1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: p => {
-        // indexer:       muonGraticule.tidx(4, 3)  : 2,1 (col,row) => 6
-        // reverindexer : muonGraticule.ridx(4, 3)  : 6 => [2, 1] (col,row)
+        // indexer:       eonMuonGraticule.tidx(4, 3)  : 2,1 (col,row) => 6
+        // reverindexer : eonMuonGraticule.ridx(4, 3)  : 6 => [2, 1] (col,row)
 
         // vertices ordinals
         // 8 _ 9 _ 10 _ 11    // [[-180, 90],[-90, 90],[0, 90],[90, 90],
@@ -124,9 +124,9 @@
         // [7,4,8,11]
       // ]
 
-        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoframe)
-        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+        let vertices = eonMuonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
+        let quads = eonMuonGraticule.qfaces(p.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
 
@@ -178,10 +178,10 @@
     // -------------------------------  vertsani148
     let vertsani148 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: ani => {
-        let vertices = muonGraticule.gjfMultiPoint(ani.eoload.eoframe).geometry.coordinates
+        let vertices = eonMuonGraticule.gjfMultiPoint(ani.eoload.eoframe).geometry.coordinates
 
         let featureMultiPoint = {
 
@@ -232,7 +232,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -244,7 +244,7 @@
             type: 'PerspectiveCamera',
             name: 'Perspective',
             fov: 100, // field of view
-            aspect: renderPortview.width() / renderPortview.height(),
+            aspect: eonRenderPortview.width() / eonRenderPortview.height(),
             near: -400,
             far: 400,
 
@@ -264,7 +264,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -294,7 +294,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -325,7 +325,7 @@
 
       eotim: eotim,
       eoric: {gid: 'light', cid: 'light', fid: 'AmbientLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload

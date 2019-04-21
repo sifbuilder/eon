@@ -1,14 +1,14 @@
 /**********************
- *      @datBeat
+ *      @eonDatBeat
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.datBeat = global.datBeat || {})))
+      : (factory((global.eonDatBeat = global.eonDatBeat || {})))
 }(this, function (exports) {
   'use strict'
 
-  var datBeat = function (__eo = {}) {
+  var eonDatBeat = function (__eo = {}) {
     let data = {
 
       'width': '505.82mm', 'height': '285.714mm',
@@ -4896,5 +4896,5 @@ M 515.00,0.00
     return enty
   }
 
-  exports.datBeat = datBeat
+  exports.eonDatBeat = eonitem
 }))

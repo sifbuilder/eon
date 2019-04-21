@@ -13,32 +13,32 @@
   // .................. eons
   let [
     d3Polygon,
-    ctlWen,
-    eohalMars,
-    eohalNatform,
-    muonGraticule,
-    muonMinkowski,
-    muonNatform,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalNatform,
+    eonMuonGraticule,
+    eonMuonMinkowski,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-polygon'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('minkowski'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-minkowski'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -106,14 +106,14 @@
     // .................. natAni
     let natAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geoani', 'cid': 'geoani', 'fid': 'geoani'},
 
       eofold: ani => {
         let A = ani.eoload.A
         let B = ani.eoload.B
-        let sum = muonMinkowski(A, B)
+        let sum = eonMuonMinkowski(A, B)
         let sumring = [...sum, sum[0]]
 
         let res = {
@@ -149,7 +149,7 @@
     // .................. natA
     let natA = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natA'},
 
@@ -160,7 +160,7 @@
           gsa: 0, // asymetric
           gco: 0, // open
         }
-        let nat = muonNatform.natMultiLineString(natipros)
+        let nat = eonMuonNatform.natMultiLineString(natipros)
         if (1 && 1) console.log('nat', nat)
 
         return nat
@@ -182,7 +182,7 @@
     // .................. natB
     let natB = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natB'},
 
@@ -193,7 +193,7 @@
           gsa: 0, // asymetric
           gco: 0, // open
         }
-        let nat = muonNatform.natMultiLineString(natipros)
+        let nat = eonMuonNatform.natMultiLineString(natipros)
 
         return nat
       },
@@ -214,18 +214,18 @@
     // .................. natB
     let natAB = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natAB'},
 
       eofold: ani => {
         let natA = {eoform: ani.eoload.eoformA, ghv: 1, gsa: 0, gco: 0}
-        let A = muonNatform.natMultiLineString(natA).geometry.coordinates
+        let A = eonMuonNatform.natMultiLineString(natA).geometry.coordinates
 
         let natB = {eoform: ani.eoload.eoformB, ghv: 1, gsa: 0, gco: 0}
-        let B = muonNatform.natMultiLineString(natB).geometry.coordinates
+        let B = eonMuonNatform.natMultiLineString(natB).geometry.coordinates
 
-        let sum = muonMinkowski(A, B)
+        let sum = eonMuonMinkowski(A, B)
         let sumring = [...sum, sum[0]]
 
         let res = {
@@ -257,11 +257,11 @@
     // -------------------------------  geograt1
     let geograt1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
 
-      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+      eofold: ani => eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe),
 
       eomot: {
         proform: proform,

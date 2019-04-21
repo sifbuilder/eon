@@ -1,14 +1,14 @@
 /**********************
- *    @muonQuaternion
+ *    @eonMuonQuaternion
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonQuaternion = global.muonQuaternion || {})))
+      : (factory((global.eonMuonQuaternion = global.eonMuonQuaternion || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonQuaternion (__eo) {
+  async function eonitem (__eo) {
     /**
 	 * @author mikael emtinger / http://gomo.se/
 	 * @author alteredq / http://alteredqualia.com/
@@ -484,5 +484,5 @@
     return enty
   }
 
-  exports.muonQuaternion = muonQuaternion
+  exports.eonMuonQuaternion = eonitem
 }))

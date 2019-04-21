@@ -12,35 +12,35 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalNatform,
-    eohalPacer,
-    muonProps,
-    muonNatform,
-    muonEoric,
-    muonStace,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonMuonProps,
+    eonMuonNatform,
+    eonMuonEoric,
+    eonMuonStace,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').m('props'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('stace'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -89,9 +89,9 @@
     // ....................... natAnitem anima
     let natAnitem = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
@@ -112,7 +112,7 @@
     // ....................... traceLine avatar
     let traceLine = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
 
       eofold: {
         type: 'Feature',
@@ -137,7 +137,7 @@
 
       eoload: {
         pacer: { // addItemToPacer for trace
-          eohal: eohalMars,
+          eohal: eonEohalMars,
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, addItemToPacer: 1,
@@ -147,7 +147,7 @@
             if (props.key === 'init') { // INIT
               stace = {x: 0, y: 0, z: 0 }
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus(ani.eoload.pacer.stace, ani) // AUTO
+              stace = eonMuonStace.getLocus(ani.eoload.pacer.stace, ani) // AUTO
             } else if (props.key === 'event') { // EVENT
               stace = {x: 0, y: 0, z: 0 }
             }
@@ -158,12 +158,12 @@
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               // stace is ani's transformed eonode
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
@@ -189,7 +189,7 @@
     // ....................... traceform
     let traceform = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
 
       eotim,
       eoric: {gid: 'trace', cid: 'trace', fid: 'traceform'},
@@ -234,9 +234,9 @@
             }
 
             let eoric = ani.eoric
-            let uid = muonEoric.getuid(eoric)
+            let uid = eonMuonEoric.getuid(eoric)
 
-            let anitem = muonStore.findAnigramFromUid(uid)
+            let anitem = eonMuonStore.findAnigramFromUid(uid)
             if (anitem !== undefined && anitem.eofold !== undefined) {
               eofold = anitem.eofold
 

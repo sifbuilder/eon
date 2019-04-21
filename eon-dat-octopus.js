@@ -1,20 +1,20 @@
 /**********************
- *      @datOctopus
+ *      @eonDatOctopus
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.datOctopus = global.datOctopus || {})))
+      : (factory((global.eonDatOctopus = global.eonDatOctopus || {})))
 }(this, function (exports) {
   'use strict'
 
-  var datOctopus = function (__eo = {}) {
+  var eonDatOctopus = function (__eo = {}) {
     let data = {
 
       'width': '2in', 'height': '2in',
       'viewBox': '0 0 600 600',
       'path': {
-        'id': 'datOctopus',
+        'id': 'eonDatOctopus',
         'fill': 'none', 'stroke': 'black', 'strokeWidth': '1',
         'd': `M 378.19,154.00
            C 373.73,162.23 369.99,170.65 368.33,180.00
@@ -299,5 +299,5 @@
     return enty
   }
 
-  exports.datOctopus = datOctopus
+  exports.eonDatOctopus = eonitem
 }))

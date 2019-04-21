@@ -1,18 +1,18 @@
 /**********************
- *      @ctlTimer
+ *      @eonCtlTimer
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlTimer = global.ctlTimer || {})))
+      : (factory((global.eonCtlTimer = global.eonCtlTimer || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function ctlTimer (__eo) {
+  async function eonitem (__eo) {
     let [
-      muonTimer,
+      eonMuonTimer,
     ] = await Promise.all([
-      __eo('xs').m('timer'),
+      __eo('xs').b('eon-muon-timer'),
     ])
 
     let now = performance.now()
@@ -111,7 +111,7 @@
       nextListeners.push(listener)
 
       d3timers[nextListeners.length - 1] =
-        muonTimer.timer(listener, wait, 0)
+        eonMuonTimer.timer(listener, wait, 0)
 
       return function unsubscribe () {
         if (!isSubscribed) {
@@ -136,5 +136,5 @@
 
     return enty
   }
-  exports.ctlTimer = ctlTimer
+  exports.eonCtlTimer = eonitem
 }))

@@ -12,25 +12,25 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonProps,
-    ctlWen,
-    muonNatform,
-    eohalMars,
-    renderSvg,
+    eonMuonProps,
+    eonCtlWen,
+    eonMuonNatform,
+    eonEohalMars,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('props'),
-    __eo('xs').c('wen'),
-    __eo('xs').m('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -193,10 +193,10 @@
 
     // ............................. hyperAni
     let hyperAni = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -214,8 +214,8 @@
 
     // ............................. sphereAni
     let sphereAni = {
-      eohal: eohalMars,
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eohal: eonEohalMars,
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eomot: {
@@ -236,10 +236,10 @@
 
     // ............................. sphereAni
     let lineAni = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q4'},
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -257,11 +257,11 @@
 
     // ............................. torusAni
     let torusAni = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',

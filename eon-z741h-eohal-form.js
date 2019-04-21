@@ -12,24 +12,24 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonProps,
-    muonStace,
-    muonNatform,
-    muonEoric,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonMuonProps,
+    eonMuonStace,
+    eonMuonNatform,
+    eonMuonEoric,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('eoric'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -84,17 +84,17 @@
 
       let nbr = 2
       for (let i = 0; i < nbr; i++) {
-        let ani = muonProps.cloneObj(natAni) // clone of model anima
+        let ani = eonMuonProps.cloneObj(natAni) // clone of model anima
         ani.eoric.gid = 'nat'
         ani.eoric.cid = (i % 2) ? 'orange' : 'gold'
         ani.eoric.fid = 'item' + i // identify
 
-        let uid = muonEoric.getuid(ani.eoric)
+        let uid = eonMuonEoric.getuid(ani.eoric)
         ani.uid = uid
         ani.eocrom.cf = (i % 2) ? 777 : 333
         ani.eocrom.cs = (i % 2) ? 777 : 333
 
-        let preani = muonStore.animas()[ani.eoric.ric]
+        let preani = eonMuonStore.animas()[ani.eoric.ric]
 
         if (preani) {
           ani = preani
@@ -125,7 +125,7 @@
 
       eohal: eohalIsolationHalo, // 'mars',
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},

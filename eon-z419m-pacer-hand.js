@@ -12,47 +12,47 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    // ctlRayder,
-    ctlWen,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
-    eohalMars,
-    muonAnitem,
-    muonGeoj,
-    muonNatform,
-    muonProfier,
-    muonProj3ct,
-    muonProps,
-    muonStace,
-    muonCastel,
-    protonUniwen,
-    renderPortview,
-    renderSvg,
+    // eonCtlRayder,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonEohalMars,
+    eonMuonAnitem,
+    eonMuonGeoj,
+    eonMuonNatform,
+    eonMuonProfier,
+    eonMuonProj3ct,
+    eonMuonProps,
+    eonMuonStace,
+    eonMuonCastel,
+    eonProtonUniwen,
+    eonRenderPortview,
+    eonRenderSvg,
   ] = await Promise.all([
-    // __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('anitem'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('profier'),
-    __eo('xs').m('proj3ct'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('castel'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
+    // __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-anitem'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-profier'),
+    __eo('xs').b('eon-muon-proj3ct'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-castel'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  let muonStore = __eo('muonStore')
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -119,19 +119,19 @@
 
     let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
     let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
-    let width = renderPortview.width(), height = renderPortview.height()
+    let width = eonRenderPortview.width(), height = eonRenderPortview.height()
     let r0 = width / (x1 - x0)
     let r1 = height / (y1 - y0)
     let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
     let ry = Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
     let dx = rx * (x1 - x0) / 2
     let dy = ry * (y1 - y0) / 2
-    let gjdata = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 0.41})
+    let gjdata = eonMuonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 0.41})
 
-    let invgjdata = muonProps.clone(gjdata) // Multiline - first line
+    let invgjdata = eonMuonProps.clone(gjdata) // Multiline - first line
     invgjdata.geometry.coordinates[0] = [...gjdata.geometry.coordinates[0]].reverse()
 
-    let nb = muonGeoj.getCoordsLength(gjdata)
+    let nb = eonMuonGeoj.getCoordsLength(gjdata)
 
     let proton = {
       projection: 'uniwen',
@@ -141,14 +141,14 @@
       lens: [0, 1, Infinity],
 
     }
-    let prtion = muonProfier.formion(proton)
-    let geoData = muonProj3ct(gjdata, prtion)
-    let invgeoData = muonProj3ct(invgjdata, prtion)
+    let prtion = eonMuonProfier.formion(proton)
+    let geoData = eonMuonProj3ct(gjdata, prtion)
+    let invgeoData = eonMuonProj3ct(invgjdata, prtion)
 
     // ............................. avaline
     let avaline = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: {gid: 'ava', cid: 'ava', fid: 'avaline'},
 
@@ -183,18 +183,18 @@
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'viewform',
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
 
           eofold: function (ani, props) {
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
-              let point = muonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unTime)
+              let point = eonMuonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unTime)
 
-              point = muonGeoj.geotrim(point)
+              point = eonMuonGeoj.geotrim(point)
 
-              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) {
                 if (preani.eofold.type === 'FeatureCollection') {
                   let feature = preani.eofold.features[0]
@@ -217,7 +217,7 @@
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry))
+            console.assert(eonMuonGeoj.isValid(geometry))
 
             return {
               type: 'Feature',
@@ -229,12 +229,12 @@
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
@@ -261,7 +261,7 @@
     // ............................. aniLine
     let aniLine = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'aniLine'},
 
@@ -278,10 +278,10 @@
 
         let geoData = ani.eoload.geoData
 
-        // let geotmp = muonProps.clone(ani.eoload.geoData)
+        // let geotmp = eonMuonProps.clone(ani.eoload.geoData)
         // geotmp.geometry.coordinates = ani.eoload.geoData.geometry.coordinates.slice().reverse()
 
-        let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
+        let csi = t => eonMuonGeoj.getCoordsInRange(geoData, nbt)
 
         let coords = csi(t).geometry.coordinates
 
@@ -293,7 +293,7 @@
           },
         }
 
-        // ... a single line generates a LineString from muonProj3ct(geoData)
+        // ... a single line generates a LineString from eonMuonProj3ct(geoData)
         if (ani.eoload.geoData.geometry.type === 'LineString') ngj.geometry.coordinates = coords
         else if (ani.eoload.geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
         else if (ani.eoload.geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
@@ -322,8 +322,8 @@
         let gj = newFeatureCollection
 
         if (eoload.proform) {
-          let proformion = muonProfier.proformion(anigram)
-          newFeatureCollection = muonProj3ct(gj, proformion)
+          let proformion = eonMuonProfier.proformion(anigram)
+          newFeatureCollection = eonMuonProj3ct(gj, proformion)
         }
 
         return newFeatureCollection

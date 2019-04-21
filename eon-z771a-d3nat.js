@@ -12,19 +12,19 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    ctlWen,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonMuonNatform,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -43,16 +43,16 @@
 
     // ............................. p3 anima
     let p3 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eocrom,
-      eofold: p => muonNatform.natMultiLineString({eoform: f3}),
+      eofold: p => eonMuonNatform.natMultiLineString({eoform: f3}),
       eoric: {gid: 'p', cid: 'p', fid: 'p3'},
 
       eomot: {
         proform: {
           projection: 'uniwen',
-          prerotate: ctlWen.rotation(),
+          prerotate: eonCtlWen.rotation(),
           scale: 1,
           rotate: [ 0, 0, 0 ],
           translate: [0, 0, 0],

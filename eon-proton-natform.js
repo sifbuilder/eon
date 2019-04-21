@@ -1,11 +1,11 @@
 /*******************************************
- *    @protonNatform
+ *    @eonProtonNatform
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.protonNatform = global.protonNatform || {})))
+      : (factory((global.eonProtonNatform = global.eonProtonNatform || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -16,16 +16,16 @@
   // ... # license
   // ... MIT
 
-  async function protonNatform (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonNatform,
+      eonMuonNatform,
     ] = await Promise.all([
-      __eo('xs').m('natform'),
+      __eo('xs').b('eon-muon-natform'),
     ])
 
-    let enty = prtdef => muonNatform.natprojection(prtdef)
+    let enty = prtdef => eonMuonNatform.natprojection(prtdef)
     return enty
   }
 
-  exports.protonNatform = protonNatform
+  exports.eonProtonNatform = eonitem
 }))

@@ -12,19 +12,19 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    eohalNatform,
-    eohalMars,
-    eohalSol,
-    muonAnimas,
-    muonNatform,
-    renderWebgl,
+    eonEohalNatform,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonAnimas,
+    eonMuonNatform,
+    eonRenderWebgl,
   ] = await Promise.all([
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('animas'),
-    __eo('xs').m('natform'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-animas'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-render-webgl'),
   ])
 
   // .................. animas
@@ -62,12 +62,12 @@
     // ............................. natAni4
 
     let natAni4 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f4'},
 
       eofold: ani => {
-        let f = muonNatform.natMultiLineString({
+        let f = eonMuonNatform.natMultiLineString({
           eoform: ani.eoform,
           ghv: 0,
           gsa: 0,
@@ -135,11 +135,11 @@
     // ............................. natAni4
 
     let natAni3 = {
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f3'},
 
-      eofold: ani => muonNatform.natMultiPolygon({eoform: ani.eoform, ghv: 1}),
+      eofold: ani => eonMuonNatform.natMultiPolygon({eoform: ani.eoform, ghv: 1}),
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -198,7 +198,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -229,7 +229,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload

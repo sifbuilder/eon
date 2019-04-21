@@ -14,34 +14,34 @@
     d3,
     d3Geo,
     THREE,
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    eohalTextform,
-    muonGeom,
-    muonNatform,
-    muonNets,
-    muonProps,
-    muonGeovoro,
-    renderPortview,
-    renderWebgl,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonEohalTextform,
+    eonMuonGeom,
+    eonMuonNatform,
+    eonMuonNets,
+    eonMuonProps,
+    eonMuonGeovoro,
+    eonRenderPortview,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('three'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('nets'),
-    __eo('xs').m('props'),
-    __eo('xs').m('geovoro'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-nets'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-geovoro'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let z = function () {
   // .................. pics
 
@@ -122,7 +122,7 @@ cube
     // .................. facesAni anima
     let facesAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
 
@@ -130,7 +130,7 @@ cube
         let tim = anitem.eoload.tim
         let colors = anitem.eoload.colors
 
-        let parts = muonNets.parse({text: def})
+        let parts = eonMuonNets.parse({text: def})
 
         let net = {
           type: 'Feature',
@@ -181,7 +181,7 @@ cube
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: ani => {
         let json = {
@@ -214,7 +214,7 @@ cube
       },
     }
     // .................. textAni
-    let net = muonNets.parse({text: def})
+    let net = eonMuonNets.parse({text: def})
 
     let text = `(${net.number}) ${net.name}
 symbol: ${net.symbol}
@@ -232,13 +232,13 @@ dual: ${net.dual}`
     }
 
     let textAni = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtcT', fid: 'txtfT'},
 
       eofold: ani => {
         let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return muonNatform.natMultiLineString(natipros)
+        return eonMuonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: {
@@ -298,7 +298,7 @@ dual: ${net.dual}`
       let anis = {}
       let a = txt.split('\n')
       for (let i = 0; i < a.length; i++) {
-        let ani = muonProps.clone(textAni)
+        let ani = eonMuonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
         ani.eomot.proform.translate = [75, -150 - 15 * i]
@@ -312,7 +312,7 @@ dual: ${net.dual}`
 
       eotim: eotim,
       eoric: {gid: 'light', cid: 'light', fid: 'AmbientLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload

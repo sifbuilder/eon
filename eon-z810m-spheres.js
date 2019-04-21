@@ -12,24 +12,24 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    muonGraticule,
-    muonNatform,
-    protonNatform,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonProtonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -136,9 +136,9 @@
     // ............................. natAni1
     let natAni1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
 
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -161,11 +161,11 @@
     // ............................. natAni2    
     let natAni2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eotim,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
       eomot: {
         conform: {

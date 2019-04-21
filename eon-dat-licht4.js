@@ -1,14 +1,14 @@
 /**********************
- *      @datLicht4
+ *      @eonDatLicht4
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.datLicht4 = global.datLicht4 || {})))
+      : (factory((global.eonDatLicht4 = global.eonDatLicht4 || {})))
 }(this, function (exports) {
   'use strict'
 
-  var datLicht4 = function (__eo = {}) {
+  var eonDatLicht4 = function (__eo = {}) {
     let data = {
 
       'width': '2.33333in', 'height': '1.75in',
@@ -686,5 +686,5 @@
     return enty
   }
 
-  exports.datLicht4 = datLicht4
+  exports.eonDatLicht4 = eonitem
 }))

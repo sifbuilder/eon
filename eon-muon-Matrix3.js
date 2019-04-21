@@ -1,10 +1,10 @@
 /**********************
- *    @muonMatrix3
+ *    @eonMuonMatrix3
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonMatrix3 = global.muonMatrix3 || {})))
+      : (factory((global.eonMuonMatrix3 = global.eonMuonMatrix3 || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -16,14 +16,14 @@
  * @author tschw
  */
 
-  async function muonMatrix3 (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonVector3,
+      eonMuonVector3,
     ] = await Promise.all([
       __eo('xs').m('Vector3'),
     ])
 
-    let Vector3 = muonVector3
+    let Vector3 = eonMuonVector3
 
     function Matrix3 () {
       this.elements = [
@@ -343,7 +343,7 @@
     return enty
   }
 
-  exports.muonMatrix3 = muonMatrix3
+  exports.eonMuonMatrix3 = eonitem
 }))
 
 // export { Matrix3 };

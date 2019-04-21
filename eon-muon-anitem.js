@@ -1,18 +1,18 @@
 /***********
- *    @muonAnitem
+ *    @eonMuonAnitem
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonAnitem = global.muonAnitem || {})))
+      : (factory((global.eonMuonAnitem = global.eonMuonAnitem || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonAnitem (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonSnap,
+      eonMuonSnap,
     ] = await Promise.all([
-      __eo('xs').m('snap'),
+      __eo('xs').b('eon-muon-snap'),
     ])
 
     // https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
@@ -32,7 +32,7 @@
       let r = Promise.resolve()
       if (ani !== undefined) {
         t = t || ani.eotim.unTime
-        r = Promise.resolve(muonSnap.snap(ani, t))
+        r = Promise.resolve(eonMuonSnap.snap(ani, t))
       }
       return r
     }
@@ -41,7 +41,7 @@
       let r
       if (ani !== undefined) {
         t = t || ani.eotim.unTime
-        r = muonSnap.snap(ani, t)
+        r = eonMuonSnap.snap(ani, t)
       }
       return r
     }
@@ -117,5 +117,5 @@
     return enty
   }
 
-  exports.muonAnitem = muonAnitem
+  exports.eonMuonAnitem = eonitem
 }))

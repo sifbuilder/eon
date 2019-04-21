@@ -17,36 +17,36 @@
       d3Geo,
       d3GeoProjection,
       topojson,
-      ctlVersor,
-      ctlWen,
+      eonCtlVersor,
+      eonCtlWen,
       datWorldTopo110m,
-      eohalMars,
-      muonGeom,
-      muonGraticule,
-      protonNatform,
-      protonBase,
-      renderSvg,
+      eonEohalMars,
+      eonMuonGeom,
+      eonMuonGraticule,
+      eonProtonNatform,
+      eonProtonBase,
+      eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
       __eo('xs').b('topojson'),
-      __eo('xs').c('versor'),
-      __eo('xs').c('wen'),
+      __eo('xs').b('eon-ctl-versor'),
+      __eo('xs').b('eon-ctl-wen'),
       __eo('xs').d('worldTopo110m'),
-      __eo('xs').e('mars'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('graticule'),
-      __eo('xs').p('natform'),
-      __eo('xs').p('base'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-graticule'),
+      __eo('xs').b('eon-proton-natform'),
+      __eo('xs').b('eon-proton-base'),
+      __eo('xs').b('eon-render-svg'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) { }
+    try { eonRenderSvg.scenecolor('black') } catch (e) { }
     // .................. animas
     let z = function () {
       // .................. pics
       let ctl
       try {
-        ctl = ctlWen().control(renderSvg.svg())
+        ctl = eonCtlWen().control(eonRenderSvg.svg())
       } catch (e) {
         ctl = () => [0, 0, 0]
       }
@@ -73,7 +73,7 @@
       // ............................. earthAni
       let earthAni = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: eotim,
         eoric: { gid: 'earthAni', cid: 'earthAni', fid: 'earthAni' },
 
@@ -89,7 +89,7 @@
         eomot: {
           conform: {
 
-            projection: protonBase
+            projection: eonProtonBase
               .projection(d3Geo.geoOrthographic())
               .transform(function (x, y) {
                 this.stream.point(x / 1, y / 4)
@@ -115,11 +115,11 @@
       // ............................. geoGraticule
       let geoGraticule = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: eotim,
         eoric: { gid: 'g', cid: 'g', fid: 'g2' },
 
-        eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+        eofold: ani => eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe),
         eomot: {
           proform: {
             projection: d3Geo.geoOrthographic(),

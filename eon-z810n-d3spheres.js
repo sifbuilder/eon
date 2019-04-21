@@ -12,30 +12,30 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    muonGraticule,
-    muonNatform,
-    protonNatform,
-    renderPortview,
-    renderWebgl,
-    // renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonProtonNatform,
+    eonRenderPortview,
+    eonRenderWebgl,
+    // eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
-    // __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
+    // __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
-    // let ctl = ctlWen().control(renderSvg.svg())
+    // let ctl = eonCtlWen().control(eonRenderSvg.svg())
 
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
@@ -136,9 +136,9 @@
     // ............................. natAni1
     let natAni1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
 
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -159,11 +159,11 @@
     // ............................. natAni2
     let natAni2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eotim,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
       eomot: {
         conform: {
@@ -190,7 +190,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -202,7 +202,7 @@
             type: 'PerspectiveCamera',
             name: 'Perspective',
             fov: 60, // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width() / renderPortview.height(),
+            aspect: eonRenderPortview.width() / eonRenderPortview.height(),
             near: 0.001,
             far: 1600,
 

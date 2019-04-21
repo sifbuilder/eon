@@ -1,14 +1,14 @@
 /**********************
- *      @datLine
+ *      @eonDatLine
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.datLine = global.datLine || {})))
+      : (factory((global.eonDatLine = global.eonDatLine || {})))
 }(this, function (exports) {
   'use strict'
 
-  var datLine = function (__eo = {}) {
+  var eonDatLine = function (__eo = {}) {
     let data = {
 
       width: '2.77778in', height: '3.45833in',
@@ -28,5 +28,5 @@
     return enty
   }
 
-  exports.datLine = datLine
+  exports.eonDatLine = eonitem
 }))

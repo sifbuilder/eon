@@ -12,30 +12,30 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalTextform,
-    muonGeoj,
-    muonLindenmayer,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalTextform,
+    eonMuonGeoj,
+    eonMuonLindenmayer,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
 
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -46,19 +46,19 @@
     // .................. aniForm1
     let aniForm1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani1' },
 
       eofold: ani => {
-        let geo = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
+        let geo = eonMuonLindenmayer.multiFeature(ani.eoload.lindenmayer)
 
         geo.features = geo.features.sort(function (a, b) {
           return (2 * a.properties.level + a.properties.segment) -
             (2 * b.properties.level + b.properties.segment)
         })
         geo.features = geo.features.map((f, i) => {
-          f.properties.eocrom = muonProps.clone(eocrom)
+          f.properties.eocrom = eonMuonProps.clone(eocrom)
           let contextlevel = f.properties.contextlevel || 0
 
           let colorlevel = f.properties.colorlevel || 0
@@ -157,12 +157,12 @@
 
     let aniForm2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2' },
 
       eofold: ani => {
-        let geo = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
+        let geo = eonMuonLindenmayer.multiFeature(ani.eoload.lindenmayer)
 
         geo.features = geo.features.sort(function (a, b) {
           return (2 * a.properties.level + a.properties.segment) -
@@ -210,10 +210,10 @@
 
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani2', fid: 'ani2' },
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
 
       eofold: ani => {
-        let geoData = muonLindenmayer.lineString(ani.eoload.lindenmayer)
+        let geoData = eonMuonLindenmayer.lineString(ani.eoload.lindenmayer)
 
         return geoData
       },

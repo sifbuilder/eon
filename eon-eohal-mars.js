@@ -1,12 +1,12 @@
 /**********************
- *    @eohalMars
+ *    @eonEohalMars
  */
 ;(function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined'
     ? factory(exports)
     : typeof define === 'function' && define.amd
       ? define(['exports'], factory)
-      : factory((global.eohalMars = global.eohalMars || {}))
+      : factory((global.eonEohalMars = global.eonEohalMars || {}))
 })(this, function (exports) {
   'use strict'
 
@@ -15,21 +15,21 @@
   // ... eoform, conform, ereform and proform anigrams
   // ... parse result through h.sol.gramify
 
-  async function eohalMars (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      eohalSol,
-      eohalPacer,
-      muonGeoj,
-      muonProfier,
-      muonProj3ct,
-      muonProps,
+      eonEohalSol,
+      eonEohalPacer,
+      eonMuonGeoj,
+      eonMuonProfier,
+      eonMuonProj3ct,
+      eonMuonProps,
     ] = await Promise.all([
-      __eo('xs').e('sol'),
-      __eo('xs').e('pacer'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('profier'),
-      __eo('xs').m('proj3ct'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-eohal-sol'),
+      __eo('xs').b('eon-eohal-pacer'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-profier'),
+      __eo('xs').b('eon-muon-proj3ct'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
     // ............................. eohale
@@ -37,9 +37,9 @@
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
 
-      let newAni = anitem // muonProps.clone(anitem) // _e_
+      let newAni = anitem // eonMuonProps.clone(anitem) // _e_
 
-      let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
+      let eonode = eonMuonProps.v(anitem.eonode, anitem) // newAni.eonode
 
       // apply eomot projections to
       //
@@ -54,15 +54,15 @@
             let geometry = eonode.geometry || {}
             let properties = eonode.properties || {}
 
-            let prtion = muonProfier.formion(proton, anitem)
-            let gjobj = muonGeoj.deprop(eonode) // remove properties from eonode
+            let prtion = eonMuonProfier.formion(proton, anitem)
+            let gjobj = eonMuonGeoj.deprop(eonode) // remove properties from eonode
 
             if (gjobj.geometry !== null) {
               // geometry has non null coordinates
               console.assert(gjobj.geometry.coordinates !== null)
             }
 
-            let projed = muonProj3ct(gjobj, prtion)
+            let projed = eonMuonProj3ct(gjobj, prtion)
             properties[mot] = projed
 
             let node = Object.assign({}, projed)
@@ -80,22 +80,22 @@
       // if eomot.addNodeToTranslate:1, the eoanod offset is added to the projection translate
       //
 
-      let eofold = muonProps.v(anitem.eofold, anitem) // newAni.eofold
-      let gjcollection = muonGeoj.featurecollect(eofold)
+      let eofold = eonMuonProps.v(anitem.eofold, anitem) // newAni.eofold
+      let gjcollection = eonMuonGeoj.featurecollect(eofold)
 
       if (eofold && anitem.eomot) {
         for (let [mot, proton] of Object.entries(anitem.eomot)) {
           gjcollection.features = gjcollection.features.map(feature => {
             let properties = feature.properties || {}
 
-            let prtion = muonProfier.formion(proton, anitem)
-            let gjobj = muonGeoj.deprop(feature)
+            let prtion = eonMuonProfier.formion(proton, anitem)
+            let gjobj = eonMuonGeoj.deprop(feature)
 
             if (gjobj.geometry !== null) {
               console.assert(gjobj.geometry.coordinates !== null)
             }
 
-            let projed = muonProj3ct(gjobj, prtion)
+            let projed = eonMuonProj3ct(gjobj, prtion)
             properties[mot] = projed
 
             let node = Object.assign({}, projed)
@@ -114,7 +114,7 @@
     // ............................. gramify
     let gramify = anitem => {
       let newItem = eohale(anitem)
-      let newAnitems = eohalSol.gramify(newItem)
+      let newAnitems = eonEohalSol.gramify(newItem)
 
       let pacedItems = []
       anitem.eoload = anitem.eoload || {}
@@ -122,7 +122,7 @@
         anitem.eoload.pacer !== undefined &&
         anitem.eoload.pacer.anigram !== undefined
       ) {
-        pacedItems = eohalPacer.eopace(anitem)
+        pacedItems = eonEohalPacer.eopace(anitem)
 
       }
 
@@ -131,7 +131,7 @@
 
     // ............................. anify
     let anify = anitem => {
-      let newAnitems = muonProps.a(anitem)
+      let newAnitems = eonMuonProps.a(anitem)
 
       let pacedItems = []
       anitem.eoload = anitem.eoload || {}
@@ -139,7 +139,7 @@
         anitem.eoload.pacer !== undefined &&
         anitem.eoload.pacer.anima !== undefined
       ) {
-        pacedItems = eohalPacer.eopace(anitem)
+        pacedItems = eonEohalPacer.eopace(anitem)
 
       }
 
@@ -147,14 +147,14 @@
     }
 
     // ............................. eohal
-    let eohalMars = {}
-    eohalMars.anify = anitem => anify(anitem)
-    eohalMars.gramify = anitem => gramify(anitem)
+    let eonEohalMars = {}
+    eonEohalMars.anify = anitem => anify(anitem)
+    eonEohalMars.gramify = anitem => gramify(anitem)
 
     // ............................. enty
-    let enty = eohalMars
+    let enty = eonEohalMars
     return enty
   }
 
-  exports.eohalMars = eohalMars
+  exports.eonEohalMars = eonitem
 })

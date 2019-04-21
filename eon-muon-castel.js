@@ -1,19 +1,19 @@
 /*******************************************
- *      @muonCastel
+ *      @eonMuonCastel
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonCastel = global.muonCastel || {})))
+      : (factory((global.eonMuonCastel = global.eonMuonCastel || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonCastel (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonBezierjs,
+      eonMuonBezierjs,
     ] = await Promise.all([
-      __eo('xs').m('bezierjs'),
+      __eo('xs').b('eon-muon-bezierjs'),
     ])
 
     // source: https://github.com/d3/d3-array/blob/master/src/range.js
@@ -97,7 +97,7 @@
         curverings[j] = []
         for (let k = 0; k < ringCas.length; k++) {
           let cas = ringCas[k]
-          let curve = new muonBezierjs.Bezier(cas)
+          let curve = new eonMuonBezierjs.Bezier(cas)
           curverings[j].push(curve)
         }
       }
@@ -147,7 +147,7 @@
       return gj
     }
 
-    let svgprj = function (svg, renderPortview) {
+    let svgprj = function (svg, eonRenderPortview) {
       let res = {}
 
       let extent = svg.viewBox.split(' ').map(d => parseInt(d))
@@ -157,7 +157,7 @@
         x1 = extent[2],
         y1 = extent[3]
 
-      let width = renderPortview.width(), height = renderPortview.height()
+      let width = eonRenderPortview.width(), height = eonRenderPortview.height()
 
       let r0 = width / (x1 - x0)
       let r1 = height / (y1 - y0)
@@ -191,5 +191,5 @@
     return enty
   }
 
-  exports.muonCastel = muonCastel
+  exports.eonMuonCastel = eonitem
 }))

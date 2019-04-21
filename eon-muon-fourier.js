@@ -1,10 +1,10 @@
 /***********
- *    @muonFourier
+ *    @eonMuonFourier
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonFourier = global.muonFourier || {})))
+      : (factory((global.eonMuonFourier = global.eonMuonFourier || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -14,13 +14,13 @@
   // https://www.youtube.com/watch?v=2hfoX51f6sg
 
   // ... m.fourier : fourier transform
-  async function muonFourier (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonGeoj,
+      eonMuonGeoj,
       lcomplex,
     ] = await Promise.all([
-      __eo('xs').m('geoj'),
-      __eo('xs').l('complex'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-lib-complex'),
     ])
 
     let Complex = lcomplex
@@ -122,7 +122,7 @@
     // ...    transformedCoefs(geojson)
     // ...    return geojson
     let transformedCoefs = function (gj) {
-      let gjc = muonGeoj.complexify(gj)
+      let gjc = eonMuonGeoj.complexify(gj)
       return fourierTransform(gjc)
     }
 
@@ -132,5 +132,5 @@
     return enty
   }
 
-  exports.muonFourier = muonFourier
+  exports.eonMuonFourier = eonitem
 }))

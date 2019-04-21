@@ -1,15 +1,15 @@
 /*******************************************
- *      @protonTetra
+ *      @eonProtonTetra
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.protonTetra = global.protonTetra || {})))
+      : (factory((global.eonProtonTetra = global.eonProtonTetra || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function protonTetra (__eo = {}) {
+  async function eonitem (__eo = {}) {
   // Philippe Rivière’s Block 1aafd8fa22b62243290674384c364dd0
   // Cox Projection
   // https://bl.ocks.org/fil/1aafd8fa22b62243290674384c364dd0
@@ -21,20 +21,20 @@
 
     let [
       Complex,
-      muonPolyhedral,
-      muonNewton,
+      eonMuonPolyhedral,
+      eonMuonNewton,
       d3Geo,
       d3GeoProjection,
       d3Array,
-      muonGeom,
+      eonMuonGeom,
     ] = await Promise.all([
-      __eo('xs').l('complex'),
-      __eo('xs').m('polyhedral'),
-      __eo('xs').m('newton'),
+      __eo('xs').b('eon-lib-complex'),
+      __eo('xs').b('eon-muon-polyhedral'),
+      __eo('xs').b('eon-muon-newton'),
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
       __eo('xs').b('d3-array'),
-      __eo('xs').m('geom'),
+      __eo('xs').b('eon-muon-geom'),
     ])
 
     let epsilon = 1e-6,
@@ -76,7 +76,7 @@
             // https://bl.ocks.org/Fil/1aeff1cfda7188e9fbf037d8e466c95c
             let w1 = 1.4021821053254548
 
-            let G0 = muonGeom.coefsG0() // G0 coeficients
+            let G0 = eonMuonGeom.coefsG0() // G0 coeficients
 
             let G = Complex(0)
             for (let i = G0.length; i--;) {
@@ -114,7 +114,7 @@
         return ret
       }
 
-      prtRaw.invert = muonNewton.geoInverse(prtRaw)
+      prtRaw.invert = eonMuonNewton.geoInverse(prtRaw)
 
       return prtRaw
     }
@@ -153,7 +153,7 @@
 
       if (!opts.prtRaw) opts.prtRaw = proton(prtlat, prtlagr, prtrad)
 
-      return muonPolyhedral(opts)
+      return eonMuonPolyhedral(opts)
     }
 
     let enty = function (prtdef = {}) {
@@ -163,5 +163,5 @@
     return enty
   }
 
-  exports.protonTetra = protonTetra
+  exports.eonProtonTetra = eonitem
 }))

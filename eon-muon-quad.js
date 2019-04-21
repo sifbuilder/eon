@@ -1,10 +1,10 @@
 /**********************
- *    @muonQuad
+ *    @eonMuonQuad
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonQuad = global.muonQuad || {})))
+      : (factory((global.eonMuonQuad = global.eonMuonQuad || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -15,17 +15,17 @@
   // http://bl.ocks.org/mbostock/6224050 Mitchell�s Best-Candidate
   // http://bl.ocks.org/mbostock/4218871 Circle-Polygon Intersection
 
-  // function muonQuad(x0,y0,x1,y1) { // ( x0= 0, y0= 0, x1= 100, y1= 100) {
-  async function muonQuad (__eo) {
+  // function eonMuonQuad(x0,y0,x1,y1) { // ( x0= 0, y0= 0, x1= 100, y1= 100) {
+  async function eonitem (__eo) {
     let [
       d3,
-      renderPortview,
-      renderSvg,
+      eonRenderPortview,
+      eonRenderSvg,
 
     ] = await Promise.all([
       __eo('xs').b('d3'),
-      __eo('xs').r('portview'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-render-portview'),
+      __eo('xs').b('eon-render-svg'),
 
     ])
 
@@ -33,7 +33,7 @@
     let d3Random = d3
     let d3Polygon = d3
 
-    let width = renderPortview.width(), height = renderPortview.height()
+    let width = eonRenderPortview.width(), height = eonRenderPortview.height()
 
     let x0 = 0, y0 = 0, x1 = width, y1 = height
     let extent = [[x0 - 1, y0 - 1], [x1 + 1, y1 + 1]]
@@ -247,5 +247,5 @@
     return enty
   }
 
-  exports.muonQuad = muonQuad
+  exports.eonMuonQuad = eonitem
 }))

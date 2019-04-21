@@ -1,11 +1,11 @@
 /*******************************************
- *      @geoTetra
+ *      @eonGeoTetra
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.geoTetra = global.geoTetra || {})))
+      : (factory((global.eonGeoTetra = global.eonGeoTetra || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -19,10 +19,10 @@
   // https://bl.ocks.org/fil/d5313cd939947169df5c37e896e5aa38
   // https://bl.ocks.org/fil/e5b449606ca1e3e120cda8d08a7f3351
 
-  let geoTetra = function geoTetra (__eo = {}) {
-    let mpolyhedral = __eo('xs').m('polyhedral')
+  let eonGeoTetra = function eonGeoTetra (__eo = {}) {
+    let mpolyhedral = __eo('xs').b('eon-muon-polyhedral')
 
-    let portview = __eo('renderPortview'),
+    let portview = __eo('eonRenderPortview'),
       width = portview.width(),
       height = portview.height(),
       scaleProj = Math.min(width / 2, height) / Math.PI
@@ -62,7 +62,7 @@
             // https://bl.ocks.org/Fil/1aeff1cfda7188e9fbf037d8e466c95c
             let w1 = 1.4021821053254548
 
-            let G0 = __eo('xs').m('geom').coefsG0() // G0 coeficients
+            let G0 = __eo('xs').b('eon-muon-geom').coefsG0() // G0 coeficients
 
             let G = Complex(0)
             for (let i = G0.length; i--;) {
@@ -100,7 +100,7 @@
         return ret
       }
 
-      prtRaw.invert = __eo('xs').m('newton').geoInverse(prtRaw)
+      prtRaw.invert = __eo('xs').b('eon-muon-newton').geoInverse(prtRaw)
 
       return prtRaw
     }
@@ -147,5 +147,5 @@
     return enty
   }
 
-  exports.geoTetra = geoTetra
+  exports.eonGeoTetra = eonitem
 }))

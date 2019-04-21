@@ -1,10 +1,10 @@
 /**********************
- *    @muonDelaunay
+ *    @eonMuonDelaunay
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonDelaunay = global.muonDelaunay || {})))
+      : (factory((global.eonMuonDelaunay = global.eonMuonDelaunay || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -14,7 +14,7 @@
   // const delaunay = Delaunay.from(points);
   // const voronoi = delaunay.voronoi([0, 0, 960, 500]);
 
-  async function muonDelaunay (__eo = {}) {
+  async function eonitem (__eo = {}) {
     var state = Object.assign({})
 
     //
@@ -1281,5 +1281,5 @@
     return enty
   }
 
-  exports.muonDelaunay = muonDelaunay
+  exports.eonMuonDelaunay = eonitem
 }))

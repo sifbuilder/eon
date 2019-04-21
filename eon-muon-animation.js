@@ -1,31 +1,31 @@
 /******************************************
-  *       @muonAnimation
+  *       @eonMuonAnimation
   *
   **/
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonAnimation = global.muonAnimation || {})))
+      : (factory((global.eonMuonAnimation = global.eonMuonAnimation || {})))
 }(this, function (exports) {
   'use strict'
 
-  // ... muonAnimation
+  // ... eonMuonAnimation
   // ... animas, simnodes, anigrams, viewnodes
   // ... render viewnodes
 
-  async function muonAnimation (__eo) {
+  async function eonitem (__eo) {
     let [
-      ctlTimer,
-      muonEotim,
-      renderRenderer,
+      eonCtlTimer,
+      eonMuonEotim,
+      eonRenderRenderer,
     ] = await Promise.all([
-      __eo('xs').c('timer'),
-      __eo('xs').m('eotim'),
-      __eo('xs').r('renderer'),
+      __eo('xs').b('eon-ctl-timer'),
+      __eo('xs').b('eon-muon-eotim'),
+      __eo('xs').b('eon-render-renderer'),
     ])
 
-    let muonStore
-    let muonSim
+    let eonMuonStore
+    let eonMuonSim
 
     let state = {}
     state.animas = [] // global animas
@@ -44,19 +44,19 @@
 
     // ... getsims
     const getsims = (animas, elapsed) => {
-      if (muonSim && typeof muonSim === 'object' && typeof muonSim.sim === 'function') {
-        console.assert(muonSim !== undefined, `muonSim undefined`)
+      if (eonMuonSim && typeof eonMuonSim === 'object' && typeof eonMuonSim.sim === 'function') {
+        console.assert(eonMuonSim !== undefined, `eonMuonSim undefined`)
 
-        let sim = muonSim.sim() // simulation on animas
+        let sim = eonMuonSim.sim() // simulation on animas
 
-        // let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
+        // let aninodes = animas.map(anitem => eonMuonAnitem.snapani(anitem))
         let aninodes = animas
 
-        muonSim.simulate(sim, aninodes, elapsed) // stored
+        eonMuonSim.simulate(sim, aninodes, elapsed) // stored
       } else {
 
       }
-      return muonStore.animasLive()
+      return eonMuonStore.animasLive()
     }
 
     // ... sequence
@@ -71,24 +71,24 @@
 
     // ... genAnimasFromStore
     function genAnimasFromStore (animas, elapsed) {
-      return sequence(animas, anima => muonStore.anify(anima))
+      return sequence(animas, anima => eonMuonStore.anify(anima))
     }
 
     // ... async animate
     function animate (time) {
 
-      muonStore = __eo('muonStore')
-      muonSim = __eo('muonSim')
-      renderRenderer = __eo('renderRenderer')
+      eonMuonStore = __eo('eonMuonStore')
+      eonMuonSim = __eo('eonMuonSim')
+      eonRenderRenderer = __eo('eonRenderRenderer')
 
-      state.animas = muonStore.animasLive()
+      state.animas = eonMuonStore.animasLive()
 
-      state.anigrams = muonStore.anigrams()
+      state.anigrams = eonMuonStore.anigrams()
       if (time !== undefined) {
         return animier(time)
       } else {
         if (state.animationStop === undefined) {
-          state.animationStop = ctlTimer.subscribe(animier)
+          state.animationStop = eonCtlTimer.subscribe(animier)
         }
         return state
       }
@@ -98,15 +98,15 @@
     function collect (animas, elapsed) {
       let promise = genAnimasFromStore(state.animas, elapsed)
 
-      let animasLive = muonStore.animas()
+      let animasLive = eonMuonStore.animas()
 
       // _e_ getsims snapani for force properties - tbf
       let anisimmed = getsims(animasLive, elapsed)
 
       // _e_ double snapani in getsims - tbf
-      anisimmed.map(ani => muonStore.gramify(ani))
+      anisimmed.map(ani => eonMuonStore.gramify(ani))
 
-      let anigrams = muonStore.anigrams()
+      let anigrams = eonMuonStore.anigrams()
 
       let featurecollection = {
         type: 'FeatureCollection',
@@ -126,18 +126,18 @@
     // ... ANIMIER
     function animier (elapsed, s) {
 
-      muonStore = __eo('muonStore')
-      state.animas = muonStore.animas()
-      state.anigrams = muonStore.anigrams()
+      eonMuonStore = __eo('eonMuonStore')
+      state.animas = eonMuonStore.animas()
+      state.anigrams = eonMuonStore.anigrams()
 
       if (0 && 1) console.log(` ================= ${parseInt(elapsed)} ${state.animas.length}`, state.animas)
       if (0 && 1) console.log(` ----------------- ${parseInt(elapsed)} ${state.anigrams.length}`, state.anigrams)
 
       // ... TIME
-      state.animas = a(muonStore.animasLive())
+      state.animas = a(eonMuonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
-        anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time
+        anima.eotim = eonMuonEotim.timing(anima.eotim, elapsed) // set time
 
         if (anima.eotim.unElapsed > anima.eotim.unEnd && !anima.eotim.nostop) {
           anima.eodelled = 1 // crop by time _e_
@@ -167,7 +167,7 @@
       state.elapsed = elapsed
 
       // ... then render by sort the features in the collection
-      renderRenderer.render(featurecollection, elapsed)
+      eonRenderRenderer.render(featurecollection, elapsed)
       
       return state
     }
@@ -180,5 +180,5 @@
     return enty
   }
 
-  exports.muonAnimation = muonAnimation
+  exports.eonMuonAnimation = eonitem
 }))

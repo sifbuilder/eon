@@ -1,14 +1,14 @@
 /**********************
- *      @datRachael
+ *      @eonDatRachael
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.datRachael = global.datRachael || {})))
+      : (factory((global.eonDatRachael = global.eonDatRachael || {})))
 }(this, function (exports) {
   'use strict'
 
-  var datRachael = function (__eo = {}) {
+  var eonDatRachael = function (__eo = {}) {
     let data = {
 
       'width': '2.33333in', 'height': '1.75in',
@@ -222,5 +222,5 @@
     return enty
   }
 
-  exports.datRachael = datRachael
+  exports.eonDatRachael = eonitem
 }))

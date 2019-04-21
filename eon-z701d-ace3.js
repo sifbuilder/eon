@@ -11,29 +11,29 @@
   
     async function anitem (__eo) {
   let [
-    muonGraticule,
-    ctlWen,
+    eonMuonGraticule,
+    eonCtlWen,
     d3Force3d,
-    renderPortview,
-    protonNatform,
-    eohalMars,
-    renderSvg,
+    eonRenderPortview,
+    eonProtonNatform,
+    eonEohalMars,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('graticule'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').r('portview'),
-    __eo('xs').p('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -178,9 +178,9 @@
     // -------------------------------  gratform1
     let gratform1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform1'},
@@ -217,9 +217,9 @@
     // -------------------------------  gratform2
     let gratform2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform2'},
@@ -254,9 +254,9 @@
     // -------------------------------  circform1
     let circform1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
@@ -291,11 +291,11 @@
     // -------------------------------  circform1
     let circform2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform2'},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
       eomot: {
         conform: {

@@ -1,14 +1,14 @@
 /***********
- *    @muonEocrom
+ *    @eonMuonEocrom
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEocrom = global.muonEocrom || {})))
+      : (factory((global.eonMuonEocrom = global.eonMuonEocrom || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonEocrom (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       // d3Scale,
       // d3Interpolate,
@@ -190,5 +190,5 @@
     return enty
   }
 
-  exports.muonEocrom = muonEocrom
+  exports.eonMuonEocrom = eonitem
 }))

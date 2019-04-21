@@ -12,20 +12,20 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -64,7 +64,7 @@
         }
       }
 
-      let neweocrom = muonProps.clone(eocrom) // eocrom //
+      let neweocrom = eonMuonProps.clone(eocrom) // eocrom //
       neweocrom.cs = eocrom.cs + colordelta * i
       neweocrom.cw = eocrom.cw * Math.pow(shrinkage, i)
 
@@ -86,7 +86,7 @@
     let updFeature = function (feature, props, i) {
       let { growunit, baseangle, depth, maxDepth, branchWidt, branchColor, maxAngleDelta, directions, eocrom, shrinkage, colordelta, subgrow, subgrowunit, subdirections, subangfact, subShrinkage } = props
 
-      let linesInFeature = muonProps.clone(feature.geometry.coordinates)
+      let linesInFeature = eonMuonProps.clone(feature.geometry.coordinates)
       let linesInNewFeature = []
 
       for (let j = 0; j < linesInFeature.length; j++) {
@@ -119,7 +119,7 @@
           linesInFeature[j] = updlines
         }
       }
-      let updfeature = muonProps.clone(feature)
+      let updfeature = eonMuonProps.clone(feature)
       updfeature.geometry.coordinates = linesInFeature
       return updfeature
     }
@@ -163,7 +163,7 @@
     // .................. treeAni1
     let treeAni1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
 
@@ -180,7 +180,7 @@
         soma.eocrom = eocrom
 
         let uidPreitem = ani.eoric.uid
-        let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
+        let preAnigram = uidPreitem ? eonMuonStore.findAnigramFromUid(uidPreitem) : null
         let tree
         if (preAnigram) {
           tree = preAnigram.eofold
@@ -247,7 +247,7 @@
     // .................. treeAni1
     let treeAni2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
 
@@ -264,7 +264,7 @@
         soma.eocrom = eocrom
 
         let uidPreitem = ani.eoric.uid
-        let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
+        let preAnigram = uidPreitem ? eonMuonStore.findAnigramFromUid(uidPreitem) : null
         let tree
         if (preAnigram) {
           tree = preAnigram.eofold

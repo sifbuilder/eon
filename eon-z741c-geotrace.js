@@ -12,21 +12,21 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonStace,
-    muonEoric,
-    eohalMars,
-    eohalPacer,
-    eohalNatform,
-    renderSvg,
+    eonMuonStace,
+    eonMuonEoric,
+    eonEohalMars,
+    eonEohalPacer,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('stace'),
-    __eo('xs').m('eoric'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -43,7 +43,7 @@
     // ............................. natAni
     let natAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: a => ({
         type: 'Feature',
@@ -86,7 +86,7 @@
     // ............................. traceLine
     let traceLine = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
 
       eofold: {
         type: 'Feature',
@@ -111,7 +111,7 @@
 
       eoload: {
         pacer: { // addItemToPacer for trace
-          eohal: eohalMars,
+          eohal: eonEohalMars,
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, addItemToPacer: 1,
@@ -121,7 +121,7 @@
             if (props.key === 'init') { // INIT
               stace = {x: 0, y: 0, z: 0 }
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus(ani.eoload.pacer.stace, ani) // AUTO
+              stace = eonMuonStace.getLocus(ani.eoload.pacer.stace, ani) // AUTO
             } else if (props.key === 'event') { // EVENT
               stace = {x: 0, y: 0, z: 0 }
             }
@@ -132,12 +132,12 @@
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               // stace is ani's transformed eonode
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0

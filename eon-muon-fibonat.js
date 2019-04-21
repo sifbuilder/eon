@@ -1,10 +1,10 @@
 /***************************
- *        @muonFibonat
+ *        @eonMuonFibonat
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonFibonat = global.muonFibonat || {})))
+      : (factory((global.eonMuonFibonat = global.eonMuonFibonat || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -16,15 +16,15 @@
   // ... # license
   // ... MIT
 
-  async function muonFibonat (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonProps,
-      muonGeom,
+      eonMuonProps,
+      eonMuonGeom,
       d3Scale,
       d3Array,
     ] = await Promise.all([
-      __eo('xs').m('props'),
-      __eo('xs').m('geom'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-geom'),
       __eo('xs').b('d3-scale'),
       __eo('xs').b('d3-array'),
     ])
@@ -63,8 +63,8 @@
               z = Math.sin(phi) * r
             return ([x, y, z]) // eg. [-0.63, -0.5, 0.58]
           })
-          .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
-          .map(muonGeom.to_degrees) // eg. [-141.93, 35.80]
+          .map(eonMuonGeom.spherical) // eg. [-0.7853, 0.6154]
+          .map(eonMuonGeom.to_degrees) // eg. [-141.93, 35.80]
 
         let string = []
 
@@ -156,10 +156,10 @@
       for (let i = 0; i < dots.length - 2; i++) { // -2
         lines.push(
 
-          muonProps.interlink(
+          eonMuonProps.interlink(
             [
-              muonProps.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
-              muonProps.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
+              eonMuonProps.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
+              eonMuonProps.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
             ]
           )
         )
@@ -184,5 +184,5 @@
     return enty
   }
 
-  exports.muonFibonat = muonFibonat
+  exports.eonMuonFibonat = eonitem
 }))

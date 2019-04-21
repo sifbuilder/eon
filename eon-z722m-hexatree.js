@@ -14,29 +14,29 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-      ctlWen,
-      eohalMars,
-      muonGeoj,
-      muonLindenmayer,
-      protonUniwen,
-      renderSvg,
+      eonCtlWen,
+      eonEohalMars,
+      eonMuonGeoj,
+      eonMuonLindenmayer,
+      eonProtonUniwen,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').c('wen'),
-      __eo('xs').e('mars'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('lindenmayer'),
-      __eo('xs').p('uniwen'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-lindenmayer'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-svg'),
     ])
     try {
-      renderSvg.scenecolor('black')
+      eonRenderSvg.scenecolor('black')
     } catch (e) {}
     // .................. animas
     let z = function () {
       // .................. pics
       let ctl
       try {
-        ctl = ctlWen().control(renderSvg.svg())
+        ctl = eonCtlWen().control(eonRenderSvg.svg())
       } catch (e) {
         ctl = () => [0, 0, 0]
       }
@@ -44,15 +44,15 @@
       let aniForm = {
         eotim: { td: 18200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 },
         eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
         eofold: ani => {
           let lindenmayers = ani.eoload.lindenmayers
           let qLindenmayers = lindenmayers.length
           let pointer = 0 // Math.floor( (qLindenmayers -1) * ani.eotim.unElapsed)
 
-          let gj = muonLindenmayer.multiLine(lindenmayers[pointer])
-          return muonGeoj.timeSeg(gj, ani.eotim.unElapsed)
+          let gj = eonMuonLindenmayer.multiLine(lindenmayers[pointer])
+          return eonMuonGeoj.timeSeg(gj, ani.eotim.unElapsed)
         },
 
         eocrom: {

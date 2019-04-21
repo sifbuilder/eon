@@ -1,26 +1,26 @@
 /**********************
- *    @eohalCore
+ *    @eonEohalCore
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalCore = global.eohalCore || {})))
+      : (factory((global.eonEohalCore = global.eonEohalCore || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function eohalCore (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonGeoj,
-      muonProfier,
-      muonProj3ct,
-      muonProps,
-      eohalSol,
+      eonMuonGeoj,
+      eonMuonProfier,
+      eonMuonProj3ct,
+      eonMuonProps,
+      eonEohalSol,
     ] = await Promise.all([
-      __eo('xs').m('geoj'),
-      __eo('xs').m('profier'),
-      __eo('xs').m('proj3ct'),
-      __eo('xs').m('props'),
-      __eo('xs').e('sol'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-profier'),
+      __eo('xs').b('eon-muon-proj3ct'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-eohal-sol'),
     ])
 
     // ....................... eohale
@@ -32,7 +32,7 @@
     let anify = anitem => {
       let newItem = eohale(anitem)
 
-      let newItems = muonProps.a(newItem)
+      let newItems = eonMuonProps.a(newItem)
 
       return newItems
     }
@@ -41,20 +41,20 @@
     let gramify = anitem => {
       let newItem = eohale(anitem)
 
-      let newItems = muonProps.a(newItem)
+      let newItems = eonMuonProps.a(newItem)
 
       return newItems
     }
 
-    let eohalCore = {
+    let eonEohalCore = {
       anify: anitem => anify(anitem),
       gramify: anitem => gramify(anitem),
     }
 
     // ....................... enty
-    let enty = eohalCore
+    let enty = eonEohalCore
     return enty
   }
 
-  exports.eohalCore = eohalCore
+  exports.eonEohalCore = eonitem
 }))

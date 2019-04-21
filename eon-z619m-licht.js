@@ -13,29 +13,29 @@
   // .................. eons
   let [
     dlicht5,
-    eohalSol,
-    muonGeoj,
-    muonProj3ct,
-    muonProfier,
-    muonStace,
-    muonEoric,
-    muonCastel,
-    renderPortview,
-    renderSvg,
+    eonEohalSol,
+    eonMuonGeoj,
+    eonMuonProj3ct,
+    eonMuonProfier,
+    eonMuonStace,
+    eonMuonEoric,
+    eonMuonCastel,
+    eonRenderPortview,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').d('licht5'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('proj3ct'),
-    __eo('xs').m('profier'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('castel'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-dat-licht5'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-proj3ct'),
+    __eo('xs').b('eon-muon-profier'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-castel'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('xs').m('store')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('xs').b('eon-muon-store')
 
   // .................. animas
   let z = function () {
@@ -46,7 +46,7 @@
     let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
     let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
 
-    let width = renderPortview.width(), height = renderPortview.height()
+    let width = eonRenderPortview.width(), height = eonRenderPortview.height()
 
     let r0 = width / (x1 - x0)
     let r1 = height / (y1 - y0)
@@ -56,15 +56,15 @@
     let dx = -(width - (x1 - x0)) / 2
     let dy = -(height - (y1 - y0)) / 2
 
-    let gjdata1 = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
-    let gjdata2 = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
-    let gjdata3 = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 9.091})
-    let gjdata4 = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 9.091})
+    let gjdata1 = eonMuonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
+    let gjdata2 = eonMuonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
+    let gjdata3 = eonMuonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 9.091})
+    let gjdata4 = eonMuonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 9.091})
 
-    let nb1 = muonGeoj.getCoordsLength(gjdata1) // will show (nb * t) dots,  eg. 894
-    let nb2 = muonGeoj.getCoordsLength(gjdata2) // will show (nb * t) dots,  eg. 894
-    let nb3 = muonGeoj.getCoordsLength(gjdata3) // will show (nb * t) dots,  eg. 894
-    let nb4 = muonGeoj.getCoordsLength(gjdata4) // will show (nb * t) dots,  eg. 894
+    let nb1 = eonMuonGeoj.getCoordsLength(gjdata1) // will show (nb * t) dots,  eg. 894
+    let nb2 = eonMuonGeoj.getCoordsLength(gjdata2) // will show (nb * t) dots,  eg. 894
+    let nb3 = eonMuonGeoj.getCoordsLength(gjdata3) // will show (nb * t) dots,  eg. 894
+    let nb4 = eonMuonGeoj.getCoordsLength(gjdata4) // will show (nb * t) dots,  eg. 894
 
     let proform1 = {
       projection: 'uniwen',
@@ -98,15 +98,15 @@
       lens: [0, 1, Infinity],
     }
 
-    let geoData1 = muonProj3ct(gjdata1, muonProfier.uniweon(proform1))
-    let geoData2 = muonProj3ct(gjdata2, muonProfier.uniweon(proform2))
-    let geoData3 = muonProj3ct(gjdata3, muonProfier.uniweon(proform3))
-    let geoData4 = muonProj3ct(gjdata4, muonProfier.uniweon(proform4))
+    let geoData1 = eonMuonProj3ct(gjdata1, eonMuonProfier.uniweon(proform1))
+    let geoData2 = eonMuonProj3ct(gjdata2, eonMuonProfier.uniweon(proform2))
+    let geoData3 = eonMuonProj3ct(gjdata3, eonMuonProfier.uniweon(proform3))
+    let geoData4 = eonMuonProj3ct(gjdata4, eonMuonProfier.uniweon(proform4))
 
     // .................. lichtAni1
     let lichtAni1 = {
 
-      eohal: eohalSol,
+      eohal: eonEohalSol,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
 
@@ -120,7 +120,7 @@
         let unElapsed = ani.eotim.unElapsed // unit time elapsed
         let t = ani.eoload.tf(unElapsed) || unElapsed // time function
         let nbt = Math.ceil(nb1 * t)
-        let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
+        let csi = t => eonMuonGeoj.getCoordsInRange(geoData, nbt)
         let coords = csi(t).geometry.coordinates
 
         let ngj = {
@@ -156,8 +156,8 @@
 
         newFeatureCollection.features = Array.of(ngj)
         if (eoload.proform) {
-          let proformion = muonProfier.proformion(anigram)
-          newFeatureCollection = muonProj3ct(newFeatureCollection, proformion)
+          let proformion = eonMuonProfier.proformion(anigram)
+          newFeatureCollection = eonMuonProj3ct(newFeatureCollection, proformion)
         }
 
         return newFeatureCollection
@@ -172,7 +172,7 @@
     // .................. lichtAni2
     let lichtAni2 = {
 
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: ani => {
         let anigram = ani, // anigram
@@ -184,7 +184,7 @@
         let unElapsed = ani.eotim.unElapsed // unit time elapsed
         let t = ani.eoload.tf(unElapsed) || unElapsed // time function
         let nbt = Math.ceil(nb2 * t)
-        let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
+        let csi = t => eonMuonGeoj.getCoordsInRange(geoData, nbt)
         let coords = csi(t).geometry.coordinates
 
         let ngj = {
@@ -220,8 +220,8 @@
 
         newFeatureCollection.features = Array.of(ngj)
         if (eoload.proform) {
-          let proformion = muonProfier.proformion(anigram)
-          newFeatureCollection = muonProj3ct(newFeatureCollection, proformion)
+          let proformion = eonMuonProfier.proformion(anigram)
+          newFeatureCollection = eonMuonProj3ct(newFeatureCollection, proformion)
         }
 
         return newFeatureCollection
@@ -237,7 +237,7 @@
     // .................. lichtAni3
     let lichtAni3 = {
 
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: ani => {
         let anigram = ani, // anigram
@@ -249,7 +249,7 @@
         let unElapsed = ani.eotim.unElapsed // unit time elapsed
         let t = ani.eoload.tf(unElapsed) || unElapsed // time function
         let nbt = Math.ceil(nb3 * t)
-        let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
+        let csi = t => eonMuonGeoj.getCoordsInRange(geoData, nbt)
         let coords = csi(t).geometry.coordinates
 
         let ngj = {
@@ -285,8 +285,8 @@
 
         newFeatureCollection.features = Array.of(ngj)
         if (eoload.proform) {
-          let proformion = muonProfier.proformion(anigram)
-          newFeatureCollection = muonProj3ct(newFeatureCollection, proformion)
+          let proformion = eonMuonProfier.proformion(anigram)
+          newFeatureCollection = eonMuonProj3ct(newFeatureCollection, proformion)
         }
 
         return newFeatureCollection
@@ -302,7 +302,7 @@
     // .................. lichtAni3
     let lichtAni4 = {
 
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: ani => {
         let anigram = ani, // anigram
@@ -314,7 +314,7 @@
         let unElapsed = ani.eotim.unElapsed // unit time elapsed
         let t = ani.eoload.tf(unElapsed) || unElapsed // time function
         let nbt = Math.ceil(nb4 * t)
-        let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
+        let csi = t => eonMuonGeoj.getCoordsInRange(geoData, nbt)
         let coords = csi(t).geometry.coordinates
 
         let ngj = {
@@ -350,8 +350,8 @@
 
         newFeatureCollection.features = Array.of(ngj)
         if (eoload.proform) {
-          let proformion = muonProfier.proformion(anigram)
-          newFeatureCollection = muonProj3ct(newFeatureCollection, proformion)
+          let proformion = eonMuonProfier.proformion(anigram)
+          newFeatureCollection = eonMuonProj3ct(newFeatureCollection, proformion)
         }
 
         return newFeatureCollection

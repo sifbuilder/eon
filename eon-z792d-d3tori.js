@@ -15,29 +15,29 @@
     d3Geo,
     THREE,
     d3Force3d,
-    ctlWen,
-    eohalMars,
-    eohalSol,
-    muonGraticule,
-    muonGeom,
-    protonNatform,
-    renderPortview,
-    renderWebgl,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonGraticule,
+    eonMuonGeom,
+    eonProtonNatform,
+    eonRenderPortview,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('three'),
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('geom'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -130,14 +130,14 @@
     // .................. torusAniA anima
     let torusAniA = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'torus', cid: 'torus', fid: 'torusA'},
 
       eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoframe)
-        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+        let vertices = eonMuonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
+        let quads = eonMuonGraticule.qfaces(p.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
           type: 'Feature',
@@ -180,14 +180,14 @@
     // .................. torusAniB anima
     let torusAniB = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'torus', cid: 'torus', fid: 'torusB'},
 
       eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoframe)
-        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+        let vertices = eonMuonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
+        let quads = eonMuonGraticule.qfaces(p.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
           type: 'Feature',

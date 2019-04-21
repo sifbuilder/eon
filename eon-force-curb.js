@@ -1,15 +1,15 @@
 /***************************
- *        @forceCurb
+ *        @eonForceCurb
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forceCurb = global.forceCurb || {})))
+      : (factory((global.eonForceCurb = global.eonForceCurb || {})))
 }(this, function (exports) {
   'use strict'
 
-  var forceCurb = function forceCurb (__eo = {}) {
-    let muonStore = __eo('muonStore')
+  var eonForceCurb = function eonForceCurb (__eo = {}) {
+    let eonMuonStore = __eo('eonMuonStore')
 
     let force = function (params) {
       let nodes = params.nodes
@@ -24,7 +24,7 @@
           if (unPassed === undefined) console.log(' unPassed undefined')
 
           if (unPassed > retention) {
-            muonStore.apply({type: 'DELANIMA', caller: 'force', anima: node})
+            eonMuonStore.apply({type: 'DELANIMA', caller: 'force', anima: node})
           }
         }
       }
@@ -42,5 +42,5 @@
     return enty
   }
 
-  exports.forceCurb = forceCurb
+  exports.eonForceCurb = eonitem
 }))

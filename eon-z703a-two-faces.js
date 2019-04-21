@@ -12,31 +12,31 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlEul,
-    ctlWen,
-    ctlVersor,
-    eohalMars,
-    eohalScene,
-    muonProps,
-    renderSvg,
-    // renderWebgl,
+    eonCtlEul,
+    eonCtlWen,
+    eonCtlVersor,
+    eonEohalMars,
+    eonEohalScene,
+    eonMuonProps,
+    eonRenderSvg,
+    // eonRenderWebgl,
   ] = await Promise.all([
-    __eo('xs').c('eul'),
-    __eo('xs').c('wen'),
-    __eo('xs').c('versor'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('scene'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
-    // __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-eul'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-scene'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
+    // __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -58,7 +58,7 @@
       let eoload = ani.eoload, // eoload
         eocrom = ani.eocrom // eocrom
 
-      let faces = muonProps.v(eoload.faces) // eoload.faces
+      let faces = eonMuonProps.v(eoload.faces) // eoload.faces
 
       let json = {type: 'FeatureCollection', features: []}
 
@@ -84,7 +84,7 @@
     // .................. aniTwoFaces
     let aniTwoFaces = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eofold: geoformFaces, // eofold,
       eotim: eotim,
       eoric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},

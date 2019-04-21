@@ -13,31 +13,31 @@
     // .................. eons
     let [
       dlicht5,
-      eohalMars,
-      eohalSol,
-      muonGeoj,
-      muonProj3ct,
-      muonProfier,
-      muonStace,
-      muonEoric,
-      muonCastel,
-      renderPortview,
-      renderSvg,
+      eonEohalMars,
+      eonEohalSol,
+      eonMuonGeoj,
+      eonMuonProj3ct,
+      eonMuonProfier,
+      eonMuonStace,
+      eonMuonEoric,
+      eonMuonCastel,
+      eonRenderPortview,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').d('licht5'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('sol'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('proj3ct'),
-      __eo('xs').m('profier'),
-      __eo('xs').m('stace'),
-      __eo('xs').m('eoric'),
-      __eo('xs').m('castel'),
-      __eo('xs').r('portview'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-dat-licht5'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-sol'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-proj3ct'),
+      __eo('xs').b('eon-muon-profier'),
+      __eo('xs').b('eon-muon-stace'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-castel'),
+      __eo('xs').b('eon-render-portview'),
+      __eo('xs').b('eon-render-svg'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) { }
-    let muonStore = __eo('xs').m('store')
+    try { eonRenderSvg.scenecolor('black') } catch (e) { }
+    let eonMuonStore = __eo('xs').b('eon-muon-store')
 
     // .................. animas
     let z = function () {
@@ -48,7 +48,7 @@
       let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
       let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
 
-      let width = renderPortview.width(), height = renderPortview.height()
+      let width = eonRenderPortview.width(), height = eonRenderPortview.height()
 
       let r0 = width / (x1 - x0)
       let r1 = height / (y1 - y0)
@@ -58,9 +58,9 @@
       let dx = -(width - (x1 - x0)) / 2
       let dy = -(height - (y1 - y0)) / 2
 
-      let gjdata = muonCastel.castels(svgdata, { start: 0, stop: 0.9, step: 0.091 })
+      let gjdata = eonMuonCastel.castels(svgdata, { start: 0, stop: 0.9, step: 0.091 })
 
-      let nb = muonGeoj.getCoordsLength(gjdata) // will show (nb * t) dots,  eg. 894
+      let nb = eonMuonGeoj.getCoordsLength(gjdata) // will show (nb * t) dots,  eg. 894
 
       let proform = {
         projection: 'uniwen',
@@ -70,13 +70,13 @@
         lens: [0, 1, Infinity],
       }
 
-      let project = muonProfier.uniweon(proform)
-      let geoData = muonProj3ct(gjdata, project)
+      let project = eonMuonProfier.uniweon(proform)
+      let geoData = eonMuonProj3ct(gjdata, project)
 
       // .................. polyForm
       let polyForm = {
 
-        eohal: eohalSol,
+        eohal: eonEohalSol,
 
         eofold: ani => {
           let anigram = ani, // anigram
@@ -88,7 +88,7 @@
           let t = ani.eoload.tf(unElapsed) || unElapsed // time function
 
           let nbt = Math.ceil(nb * t)
-          let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
+          let csi = t => eonMuonGeoj.getCoordsInRange(geoData, nbt)
 
           let coords = csi(t).geometry.coordinates
 
@@ -100,7 +100,7 @@
             },
           }
 
-          // ... a single line generates a LineString from muonProj3ct(geoData)
+          // ... a single line generates a LineString from eonMuonProj3ct(geoData)
           if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
           else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
           else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
@@ -129,8 +129,8 @@
           let geodata = newFeatureCollection
 
           if (eoload.proform) {
-            let proformion = muonProfier.proformion(anigram)
-            newFeatureCollection = muonProj3ct(geodata, proformion)
+            let proformion = eonMuonProfier.proformion(anigram)
+            newFeatureCollection = eonMuonProj3ct(geodata, proformion)
           }
 
           return newFeatureCollection

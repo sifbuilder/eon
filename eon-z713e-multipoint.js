@@ -12,33 +12,33 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalNatform,
-    eohalScene,
-    muonNatform,
-    muonProps,
-    muonGraticule,
-    protonNatform,
-    renderSvg,    
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalNatform,
+    eonEohalScene,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonGraticule,
+    eonProtonNatform,
+    eonRenderSvg,    
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('scene'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('graticule'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('svg'),    
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-scene'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-svg'),    
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -84,14 +84,14 @@
     // .................. natAni
     let natAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani'},
 
       eofold: function (p) {
         let graticule = p.eoframe
 
-        let gj = muonGraticule.gjfMultiPoint(graticule)
+        let gj = eonMuonGraticule.gjfMultiPoint(graticule)
         gj.properties = gj.properties || {}
         gj.properties.pointRadius = 4
 

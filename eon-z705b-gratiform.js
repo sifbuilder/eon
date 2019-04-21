@@ -11,25 +11,25 @@
   
     async function anitem (__eo) {
   let [
-    ctlWen,
-    eohalMars,
-    muonGraticule,
-    protonNatform,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonGraticule,
+    eonProtonNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('graticule'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -76,10 +76,10 @@
     let gratiForm = {
 
       eotim,
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratiForm'},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
+      eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
 
       eocrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': 0.01, 'cp': 0.9 },
 

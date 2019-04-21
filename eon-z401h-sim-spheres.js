@@ -14,47 +14,47 @@
   let [
     d3Geo,
     d3Force3d,
-    ctlWen,
-    eohalNatform,
-    eohalMars,
-    eohalPacer,
-    eohalTextform,
-    muonEoforces,
-    muonEoric,
-    muonGraticule,
-    muonNatform,
-    muonProps,
-    muonStace,
-    protonUniwen,
-    renderSvg,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalMars,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonMuonEoforces,
+    eonMuonEoric,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
-  let muonStore = __eo('muonStore')
+  let eonMuonStore = __eo('eonMuonStore')
   let d3_force = d3Force3d
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
 
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -68,7 +68,7 @@
     // ....................... pacerNat
     let pacerNat = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
@@ -145,20 +145,20 @@
           basePaceOnAniView: 'viewform',
           addItemToPacer: 0,
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
 
           eoric: function (ani, props) {
-            let eoric = muonProps.clone(ani.eoric)
-            let q = muonStore.animasInClassHowMany(eoric)
+            let eoric = eonMuonProps.clone(ani.eoric)
+            let q = eonMuonStore.animasInClassHowMany(eoric)
             let nextq = q + props.counter
 
-            eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
-            eoric.uid = muonEoric.getuid(eoric)
+            eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
+            eoric.uid = eonMuonEoric.getuid(eoric)
             return eoric
           },
 
           eofold: function (ani, props) {
-            let neweofold = ani => muonNatform.natMultiLineString({eoform: ani.eoform})
+            let neweofold = ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform})
             return neweofold
           },
 
@@ -167,7 +167,7 @@
             if (props.key === 'init') { // INIT
               let autocount = props.counter
 
-              let ridx = muonGraticule.ridx(4, 6, 1, 1)
+              let ridx = eonMuonGraticule.ridx(4, 6, 1, 1)
 
               let k = [40 + 20 * Math.random(), 40 + 20 * Math.random()]
               let d = [-140, -40]
@@ -178,8 +178,8 @@
             } else if (props.key === 'auto') { // AUTO
               coords = [0, 0, 0]
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
@@ -202,7 +202,7 @@
           eoforces: function (ani, props) {
             let forces = {}
 
-            let forceGravity = muonProps.clone(force_gravity)
+            let forceGravity = eonMuonProps.clone(force_gravity)
 
             forceGravity.properties.key = ani.eoric.uid
             forceGravity.properties.gravity = 0.1
@@ -237,7 +237,7 @@
           nodes: nodes,
         }
 
-        let force = muonEoforces.force(forceParams)
+        let force = eonMuonEoforces.force(forceParams)
         forces.push(force)
         return forces
       },
@@ -266,7 +266,7 @@
           key: 'collide',
         }
 
-        let force = muonEoforces.force(forceParams)
+        let force = eonMuonEoforces.force(forceParams)
         forces.push(force)
         return forces
       },
@@ -347,7 +347,7 @@
           key: key,
         }
 
-        let force = muonEoforces.force(forceParams)
+        let force = eonMuonEoforces.force(forceParams)
         forces.push(field)
         return forces
       },
@@ -378,7 +378,7 @@
           nodes: nodes,
         }
 
-        let force = muonEoforces.force(forceParams)
+        let force = eonMuonEoforces.force(forceParams)
         let field = {
           key: 'charge',
           force: force,
@@ -411,7 +411,7 @@
 
         let field = {
           key: 'viscosity',
-          force: muonEoforces.force(forceParams),
+          force: eonMuonEoforces.force(forceParams),
         }
 
         return Array.of(field)

@@ -1,10 +1,10 @@
 /**********************
- *    @eohalSol
+ *    @eonEohalSol
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalSol = global.eohalSol || {})))
+      : (factory((global.eonEohalSol = global.eonEohalSol || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -26,17 +26,17 @@
   // ... maintain eohal, eonode, avatar
   // ... the new anigrams are saved in m.animation and passed to renderer
 
-  async function eohalSol (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonEoric,
-      muonEocrom,
-      muonGeoj,
-      muonProps,
+      eonMuonEoric,
+      eonMuonEocrom,
+      eonMuonGeoj,
+      eonMuonProps,
     ] = await Promise.all([
-      __eo('xs').m('eoric'),
-      __eo('xs').m('eocrom'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-eocrom'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
     // ............................. eohale
@@ -47,24 +47,24 @@
 
       let ownProps = Object.getOwnPropertyNames(inani)
       for (let prop of ownProps) {
-        let newpropval = muonProps.v(inani[prop], inani)
+        let newpropval = eonMuonProps.v(inani[prop], inani)
         anitem[prop] = newpropval // functorize anitem
       }
 
       let eofold = anitem.eofold
-      let gjcollection = muonGeoj.featurecollect(eofold)
+      let gjcollection = eonMuonGeoj.featurecollect(eofold)
       console.assert(gjcollection.type === 'FeatureCollection')
 
-      gjcollection.features = muonGeoj.zorder(gjcollection.features)
+      gjcollection.features = eonMuonGeoj.zorder(gjcollection.features)
 
-      gjcollection = muonEoric.enric(anitem.eoric, anitem, gjcollection)
+      gjcollection = eonMuonEoric.enric(anitem.eoric, anitem, gjcollection)
 
       let newcollection = {type: 'FeatureCollection', features: []}
 
       let newfeatues = []
       for (let i = 0; i < gjcollection.features.length; i++) {
         let feature = gjcollection.features[i]
-        feature = muonEocrom.geocromer(anitem, feature)
+        feature = eonMuonEocrom.geocromer(anitem, feature)
         feature.properties.eotim = anitem.eotim
         feature.properties.sort = feature.properties.sort || 'feature'
         newfeatues.push(feature)
@@ -80,7 +80,7 @@
     let anify = anitem => {
       let newitems = []
 
-      newitems = muonProps.a(anitem)
+      newitems = eonMuonProps.a(anitem)
 
       return newitems
     }
@@ -95,15 +95,15 @@
       return newitems
     }
 
-    // ............................. eohalSol
-    let eohalSol = {}
-    eohalSol.anify = anima => anify(anima)
-    eohalSol.gramify = anima => gramify(anima)
+    // ............................. eonEohalSol
+    let eonEohalSol = {}
+    eonEohalSol.anify = anima => anify(anima)
+    eonEohalSol.gramify = anima => gramify(anima)
 
     // ............................. enty
-    let enty = eohalSol
+    let enty = eonEohalSol
     return enty
   }
 
-  exports.eohalSol = eohalSol
+  exports.eonEohalSol = eonitem
 }))

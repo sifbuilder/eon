@@ -13,37 +13,37 @@
   // .................. eons
   let [
     topojson,
-    ctlWen,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalMars,
-    eohalSol,
-    muonGeom,
-    muonGraticule,
-    muonNatform,
-    protonNatform,
-    renderPortview,
-    // renderSvg,
-    renderWebgl,
+    eonEohalMars,
+    eonEohalSol,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonProtonNatform,
+    eonRenderPortview,
+    // eonRenderSvg,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('topojson'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('sol'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('portview'),
-    // __eo('xs').r('svg'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-sol'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-portview'),
+    // __eo('xs').b('eon-render-svg'),
+    __eo('xs').b('eon-render-webgl'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -192,7 +192,7 @@
     // ............................. earthAni
     let earthAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
 
@@ -236,7 +236,7 @@
     // ............................. torusAni
     let torusAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
 
@@ -244,9 +244,9 @@
         let res, opt = 'MultiPolygon'
 
         if (opt === 'MultiLineString') {
-          res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
+          res = eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe)
         } else { // MultiPolygon
-          res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
+          res = eonMuonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
         }
         return res
       },
@@ -272,7 +272,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -303,7 +303,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -334,7 +334,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -346,7 +346,7 @@
             type: 'PerspectiveCamera',
             name: 'Perspective',
             fov: 60, // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width() / renderPortview.height(),
+            aspect: eonRenderPortview.width() / eonRenderPortview.height(),
             near: 0.001,
             far: 1600,
 

@@ -14,27 +14,27 @@
   async function anitem (__eo) {
   // .................. eons
     let [
-      ctlWen,
-      eohalMars,
-      eohalSol,
-      muonNatform,
-      muonGamma,
-      renderPortview,
-      renderSvg,
-      // renderWebgl,
+      eonCtlWen,
+      eonEohalMars,
+      eonEohalSol,
+      eonMuonNatform,
+      eonMuonGamma,
+      eonRenderPortview,
+      eonRenderSvg,
+      // eonRenderWebgl,
     ] = await Promise.all([
-      __eo('xs').c('wen'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('sol'),
-      __eo('xs').m('natform'),
-      __eo('xs').m('gamma'),
-      __eo('xs').r('portview'),
-      __eo('xs').r('svg'),
-      // __eo('xs').r('webgl'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-sol'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-gamma'),
+      __eo('xs').b('eon-render-portview'),
+      __eo('xs').b('eon-render-svg'),
+      // __eo('xs').b('eon-render-webgl'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) {}
+    try { eonRenderSvg.scenecolor('black') } catch (e) {}
     let ctl
-    try { ctl = ctlWen().control(renderSvg.svg()) } catch (e) { ctl = () => [0, 0, 0] }
+    try { ctl = eonCtlWen().control(eonRenderSvg.svg()) } catch (e) { ctl = () => [0, 0, 0] }
 
     // ............................. pics
 
@@ -64,7 +64,7 @@
           'ra2': 1 * 200, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 32, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
           c: [ level, range, summands, 1], // order, range, summs, .
-          fn0: (e, c, d) => muonGamma.bessel(e, d.c, d) * cos(e[0]),
+          fn0: (e, c, d) => eonMuonGamma.bessel(e, d.c, d) * cos(e[0]),
         },
         z: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -86,7 +86,7 @@
 
       // ............................. natAniRed
       let natAniRed = {
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: eotim,
         eoric: {gid: 'q', cid: 'q', fid: 'qred'},
         eofold: ani => {
@@ -97,8 +97,8 @@
             gco: 0, // open line
           }
 
-          let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
-          // let res = muonNatform.natMultiPolygon(natipros) // Feature.LineString
+          let res = eonMuonNatform.natMultiLineString(natipros) // Feature.LineString
+          // let res = eonMuonNatform.natMultiPolygon(natipros) // Feature.LineString
 
           return res
         },
@@ -129,7 +129,7 @@
 
         eotim: eotim,
         eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-        eohal: eohalSol,
+        eohal: eonEohalSol,
 
         eofold: ani => {
           let eoload = ani.eoload
@@ -141,7 +141,7 @@
               type: 'PerspectiveCamera',
               name: 'Perspective',
               fov: 60, // field of view s the field of view. angle in degrees.
-              aspect: renderPortview.width() / renderPortview.height(),
+              aspect: eonRenderPortview.width() / eonRenderPortview.height(),
               near: 0.001,
               far: 1600,
 
@@ -165,7 +165,7 @@
 
         eotim: eotim,
         eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-        eohal: eohalSol,
+        eohal: eonEohalSol,
 
         eofold: anitem => {
           let eoload = anitem.eoload
@@ -194,7 +194,7 @@
 
         eotim: eotim,
         eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-        eohal: eohalSol,
+        eohal: eonEohalSol,
 
         eofold: anitem => {
           let eoload = anitem.eoload

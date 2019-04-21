@@ -12,33 +12,33 @@
     async function anitem (__eo) {
   let [
     d3Force3d,
-    ctlRayder,
-    eohalCore,
-    eohalNatform,
-    eohalMars,
+    eonCtlRayder,
+    eonEohalCore,
+    eonEohalNatform,
+    eonEohalMars,
 
-    muonEoric,
-    muonEoforces,
-    muonNatform,
-    muonProps,
-    renderPortview,
-    renderSvg,
+    eonMuonEoric,
+    eonMuonEoforces,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderPortview,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('rayder'),
-    __eo('xs').e('core'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-eohal-core'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
 
-    __eo('xs').m('eoric'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
   let d3_force = d3Force3d
 
   // .................. animas
@@ -49,11 +49,11 @@
     // .................... natAni
     let natAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
       eotim: eotim,
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
 
       eonode: {
         type: 'Feature',
@@ -115,7 +115,7 @@
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity, node)
+          let g = eonMuonProps.v(gravity, node)
           console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
 
           node.vy += g
@@ -129,7 +129,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -173,7 +173,7 @@
     // .................... fieldAni
     let fieldAni = {
 
-      eohal: eohalCore,
+      eohal: eonEohalCore,
       eotim: eotim,
       eoric: {gid: 'core', cid: 'core', fid: 'core'},
 

@@ -1,10 +1,10 @@
 /****************************
- *      @eohalFourier
+ *      @eonEohalFourier
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalFourier = global.eohalFourier || {})))
+      : (factory((global.eonEohalFourier = global.eonEohalFourier || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -21,19 +21,19 @@
   // ... eoload.fourier.avatars.traceline  form trace
   // ... eoload.fourier.avatars.line  sinusoid ray
 
-  async function eohalFourier (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      eohalMars,
+      eonEohalMars,
       Complex,
-      muonEoric,
-      muonNatform,
-      muonProps,
+      eonMuonEoric,
+      eonMuonNatform,
+      eonMuonProps,
     ] = await Promise.all([
-      __eo('xs').e('mars'),
-      __eo('xs').l('complex'),
-      __eo('xs').m('eoric'),
-      __eo('xs').m('natform'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-lib-complex'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
     // ............................. eohale
@@ -68,8 +68,8 @@
       // ...   features are rendered simultaneously on time period
 
       let natAni1 = {
-        eohal: eohalMars,
-        eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}),
+        eohal: eonEohalMars,
+        eofold: p => eonMuonNatform.natMultiLineString({eoform: p.eoform}),
         eotim: eotim,
         eoric: {gid: 'g', cid: 'c', fid: 'f1'},
         eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.0099, 'cp': 0.999},
@@ -110,15 +110,15 @@
         for (let i = 0; i <= M; i++) {
           let gid = eoric.gid, // from ava eoric
             cid = eoric.cid,
-            fid = muonEoric.idify(eoric.fid, j, i),
-            uid = muonEoric.idify(gid, cid, fid),
+            fid = eonMuonEoric.idify(eoric.fid, j, i),
+            uid = eonMuonEoric.idify(gid, cid, fid),
             pid = eoric.uid
           let _ric = {gid, cid, fid, uid, pid} // is DELLED ?
 
           // ...  each newItem is cloned from the h.fourier anigram
 
-          let newItem = muonProps.cloneObj(anigram)
-          newItem.eohal = eohalMars
+          let newItem = eonMuonProps.cloneObj(anigram)
+          newItem.eohal = eonEohalMars
 
           // ...  del newitem if outside time period (eoric.eodelled = 1)
 
@@ -173,7 +173,7 @@
             if (i > 0 && eoload.fourier.avatars && eoload.fourier.avatars.rayline) {
               // ... add ray avatar
 
-              let rayline = muonProps.cloneObj(eoload.fourier.avatars.rayline) // rayline line
+              let rayline = eonMuonProps.cloneObj(eoload.fourier.avatars.rayline) // rayline line
               rayline.eofold.geometry.coordinates = [
                 [acci.re / N, acci.im / N], // from this cycloid
                 [xn[i - 1], yn[i - 1]], // to prevous cycloid
@@ -181,12 +181,12 @@
 
               let gid = rayline.eoric.gid // from ava eoric
               let cid = rayline.eoric.cid
-              let fid = muonEoric.idify(rayline.eoric.fid, j, i)
+              let fid = eonMuonEoric.idify(rayline.eoric.fid, j, i)
 
               // ... del item outside time period (eoric.eodelled = 1)
 
               let _ric = {gid, cid, fid} // is DELLED ?
-              _ric.uid = muonEoric.getuid(_ric) // uid
+              _ric.uid = eonMuonEoric.getuid(_ric) // uid
               rayline.eoric = _ric
               rayline.eodelled = tNotInPeriod
 
@@ -209,7 +209,7 @@
             // init PACER clonned from fourier avatar
             // traceline
 
-            let traceline = muonProps.cloneObj(eoload.fourier.avatars.traceline)
+            let traceline = eonMuonProps.cloneObj(eoload.fourier.avatars.traceline)
             console.assert(traceline !== undefined, 'traceline undefined')
             if (traceline) {
               // ... if pacer avatar
@@ -221,7 +221,7 @@
               //  traceline eoric
 
               traceline.eoric = riccer(newItem)
-              traceline.eoric.uid = muonEoric.getuid(traceline.eoric)
+              traceline.eoric.uid = eonMuonEoric.getuid(traceline.eoric)
 
               newItem.avatars = {
                 traceline: traceline,
@@ -246,12 +246,12 @@
           let nextPointRadius = iAnitems[i + 1].eofold.properties.pointRadius // _e_
           iAnitems[i].eofold.properties.pointRadius = nextPointRadius
 
-          let cycloid = muonProps.cloneObj(natAni1)
+          let cycloid = eonMuonProps.cloneObj(natAni1)
           let gid = cycloid.eoric.gid // from ava eoric
           let cid = cycloid.eoric.cid
-          let fid = muonEoric.idify(cycloid.eoric.fid, i)
+          let fid = eonMuonEoric.idify(cycloid.eoric.fid, i)
           let _ric = {gid, cid, fid} // is DELLED ?
-          _ric.uid = muonEoric.getuid(_ric) // uid
+          _ric.uid = eonMuonEoric.getuid(_ric) // uid
           cycloid.eoric = _ric
           cycloid.eoform.ra2 = iAnitems[i].eofold.properties.pointRadius
 
@@ -284,7 +284,7 @@
       if (anitem.eoload.fourier.pacedAnisort === 'anima') {
         let newItems = eohale(anitem)
 
-        let anilists = newItems.map(ani => eohalMars.anify(ani))
+        let anilists = newItems.map(ani => eonEohalMars.anify(ani))
         let anis = anilists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
 
         return anis
@@ -301,7 +301,7 @@
         newAnigrams = Array.of(anitem)
       } else {
         let newItems = eohale(anitem)
-        let anilists = newItems.map(ani => eohalMars.gramify(ani))
+        let anilists = newItems.map(ani => eonEohalMars.gramify(ani))
 
         for (let i = 0; i < anilists.length; i++) {
           let anilist = anilists[i]
@@ -325,5 +325,5 @@
     return enty
   }
 
-  exports.eohalFourier = eohalFourier
+  exports.eonEohalFourier = eonitem
 }))

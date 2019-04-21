@@ -12,31 +12,31 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalTextform,
-    muonGraticule,
-    muonMinkowski,
-    muonNatform,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalTextform,
+    eonMuonGraticule,
+    eonMuonMinkowski,
+    eonMuonNatform,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('minkowski'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-minkowski'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -186,7 +186,7 @@ all its admissible positions`
     // .................. natA
     let natA = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natA'},
 
@@ -197,7 +197,7 @@ all its admissible positions`
           gsa: 0, // asymetric
           gco: 0, // open
         }
-        let nat = muonNatform.natMultiLineString(natipros)
+        let nat = eonMuonNatform.natMultiLineString(natipros)
         return nat
       },
       eonode: {
@@ -217,7 +217,7 @@ all its admissible positions`
     // .................. natB
     let natB = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natB'},
 
@@ -228,7 +228,7 @@ all its admissible positions`
           gsa: 0, // asymetric
           gco: 0, // open
         }
-        let nat = muonNatform.natMultiLineString(natipros)
+        let nat = eonMuonNatform.natMultiLineString(natipros)
 
         return nat
       },
@@ -249,18 +249,18 @@ all its admissible positions`
     // .................. natB
     let natAB = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natAB'},
 
       eofold: ani => {
         let natA = {eoform: ani.eoload.eoformA, ghv: 1, gsa: 0, gco: 0}
-        let A = muonNatform.natMultiLineString(natA).geometry.coordinates
+        let A = eonMuonNatform.natMultiLineString(natA).geometry.coordinates
 
         let natB = {eoform: ani.eoload.eoformB, ghv: 1, gsa: 0, gco: 0}
-        let B = muonNatform.natMultiLineString(natB).geometry.coordinates
+        let B = eonMuonNatform.natMultiLineString(natB).geometry.coordinates
 
-        let sum = muonMinkowski(A, B)
+        let sum = eonMuonMinkowski(A, B)
         let sumring = [...sum, sum[0]]
 
         let res = {
@@ -292,11 +292,11 @@ all its admissible positions`
     // -------------------------------  geograt1
     let geograt1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
 
-      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+      eofold: ani => eonMuonGraticule.gjfMultiLineString(ani.eoload.eoframe),
 
       eomot: {
         proform: proformM,
@@ -316,13 +316,13 @@ all its admissible positions`
 
     // .................. textAni
     let textAni = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtcT', fid: 'txtfT'},
 
       eofold: ani => {
         let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return muonNatform.natMultiLineString(natipros)
+        return eonMuonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformT,
@@ -373,7 +373,7 @@ all its admissible positions`
       let anis = {}
       let a = txt.split('\n')
       for (let i = 0; i < a.length; i++) {
-        let ani = muonProps.clone(textAni)
+        let ani = eonMuonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
         ani.eomot.proform.translate = [-285, 160 - 35 * i]
@@ -385,13 +385,13 @@ all its admissible positions`
 
     // .................. textA
     let textA = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtTA', fid: 'txtfA'},
 
       eofold: ani => {
         let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return muonNatform.natMultiLineString(natipros)
+        return eonMuonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformTA,
@@ -425,13 +425,13 @@ all its admissible positions`
 
     // .................. textB
     let textB = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtcTB', fid: 'txtfB'},
 
       eofold: ani => {
         let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return muonNatform.natMultiLineString(natipros)
+        return eonMuonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformTB,
@@ -465,13 +465,13 @@ all its admissible positions`
 
     // .................. textAB
     let textAB = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtcTAB', fid: 'txtfAB'},
 
       eofold: ani => {
         let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return muonNatform.natMultiLineString(natipros)
+        return eonMuonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformTAB,

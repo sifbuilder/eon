@@ -1,38 +1,38 @@
 /***********
- *    @muonFuel
+ *    @eonMuonFuel
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonFuel = global.muonFuel || {})))
+      : (factory((global.eonMuonFuel = global.eonMuonFuel || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonFuel (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Polygon,
-      eohalNatform,
-      muonEoric,
-      muonGeoj,
-      muonGeom,
-      muonQuad,
-      renderPortview,
+      eonEohalNatform,
+      eonMuonEoric,
+      eonMuonGeoj,
+      eonMuonGeom,
+      eonMuonQuad,
+      eonRenderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3-polygon'),
-      __eo('xs').e('natform'),
-      __eo('xs').m('eoric'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('quad'),
-      __eo('xs').r('portview'),
+      __eo('xs').b('eon-eohal-natform'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-quad'),
+      __eo('xs').b('eon-render-portview'),
     ])
 
-    let muonStore = __eo('muonStore') // sync
+    let eonMuonStore = __eo('eonMuonStore') // sync
 
     let state = {}
     state.items = [] // fuel particles
 
-    let width = renderPortview.width(), height = renderPortview.height()
+    let width = eonRenderPortview.width(), height = eonRenderPortview.height()
 
     // ............................. getCandyCooords
     let getCandyCooords = function (anitem, fuelprops = {}) {
@@ -50,17 +50,17 @@
         fueltype = fuel.f
 
       let polygon
-      let parentAnigram = muonStore.findAnigramFromUid(pid)
+      let parentAnigram = eonMuonStore.findAnigramFromUid(pid)
 
       if (parentAnigram) {
         let gj = parentAnigram.eofold
-        console.assert(muonGeoj.isValid(gj), `parent eofold is not a valid geojson`)
-        polygon = muonGeoj.getPolygon(gj) // outer ring
+        console.assert(eonMuonGeoj.isValid(gj), `parent eofold is not a valid geojson`)
+        polygon = eonMuonGeoj.getPolygon(gj) // outer ring
       } else {
-        polygon = muonGeom.extentPolygon([[0, 0], [width, height]]) // viewport
+        polygon = eonMuonGeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
 
-      let foundcandies = muonQuad.geosearch(ra2, polygon, candidates, sample) // candies
+      let foundcandies = eonMuonQuad.geosearch(ra2, polygon, candidates, sample) // candies
 
       let remainCandies = []
       if (fueltype === 3) { // 3 - old and new all time _e_
@@ -80,5 +80,5 @@
     return enty
   }
 
-  exports.muonFuel = muonFuel
+  exports.eonMuonFuel = eonitem
 }))

@@ -12,13 +12,13 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalNatform,
-    renderSvg,
+    eonCtlWen,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
   // .................. animas
@@ -26,7 +26,7 @@
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -76,7 +76,7 @@
 
     // ............................. animas
     let nat = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       eofold: null,
@@ -89,7 +89,7 @@
     }
 
     let circ = {
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
       eofold: null,

@@ -1,36 +1,36 @@
 /**********************
- *    @eohalPacer
+ *    @eonEohalPacer
  */
 ;(function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined'
     ? factory(exports)
     : typeof define === 'function' && define.amd
       ? define(['exports'], factory)
-      : factory((global.eohalPacer = global.eohalPacer || {}))
+      : factory((global.eonEohalPacer = global.eonEohalPacer || {}))
 })(this, function (exports) {
   'use strict'
 
-  async function eohalPacer (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      ctlRayder,
-      muonAnitem,
-      muonEoric,
-      muonEotim,
-      muonGeom,
-      muonGeoj,
-      muonProps,
+      eonCtlRayder,
+      eonMuonAnitem,
+      eonMuonEoric,
+      eonMuonEotim,
+      eonMuonGeom,
+      eonMuonGeoj,
+      eonMuonProps,
     ] = await Promise.all([
-      __eo('xs').c('rayder'),
-      __eo('xs').m('anitem'),
-      __eo('xs').m('eoric'),
-      __eo('xs').m('eotim'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-ctl-rayder'),
+      __eo('xs').b('eon-muon-anitem'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-eotim'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
-    let muonStore = __eo('muonStore')
-    // ctlRayder.control()
+    let eonMuonStore = __eo('eonMuonStore')
+    // eonCtlRayder.control()
     let state = {}
     let epsilon = 1e-3
 
@@ -53,7 +53,7 @@
       let hostAnitem, pacedAnitem
       if (pacedAnisort === 'anima') {
         // is anima
-        let parentAnima = uidParent ? muonStore.findAnima(uidParent) : undefined
+        let parentAnima = uidParent ? eonMuonStore.findAnima(uidParent) : undefined
         if (parentAnima === undefined) {
           // anima has no parent
           hostAnitem = anitem // hostAnima is anitem (self)
@@ -64,7 +64,7 @@
       if (pacedAnisort === 'anigram') {
         // is anigram - avatar
         let parentAnitem = uidParent
-          ? muonStore.findAnima(uidParent)
+          ? eonMuonStore.findAnima(uidParent)
           : undefined
         if (parentAnitem === undefined) {
           // anigram has no parent
@@ -95,7 +95,7 @@
 
       let dist = !data.grabbed
         ? Infinity
-        : muonGeom.distance3d(data.grabbed, newgrabbed)
+        : eonMuonGeom.distance3d(data.grabbed, newgrabbed)
 
       if (newgrabbed !== false) {
         if (dist > geospan) {
@@ -146,13 +146,13 @@
 
       let counterProps = { count, key, counter }
 
-      let newItem = muonProps.clone(pacedAnitem)
+      let newItem = eonMuonProps.clone(pacedAnitem)
 
       let unElapsed = newItem.eotim.unElapsed
       newItem.eotim.t0 = unElapsed
       newItem.eotim.unStart = unElapsed
 
-      newItem.eotim = muonEotim.timing(newItem.eotim, newItem.eotim.msElapsed)
+      newItem.eotim = eonMuonEotim.timing(newItem.eotim, newItem.eotim.msElapsed)
 
       delete newItem.eoload.pacer
       delete newItem.avatars
@@ -160,7 +160,7 @@
       // properties in pacedItem
       let propertyNames = Object.getOwnPropertyNames(pacedfields)
       for (let propName of propertyNames) {
-        let newpropval = muonProps.v(
+        let newpropval = eonMuonProps.v(
           pacedfields[propName],
           pacedAnitem,
           counterProps
@@ -180,7 +180,7 @@
         newItems = eohal.gramify(newItem)
       }
 
-      return { newItems: muonProps.a(newItems) }
+      return { newItems: eonMuonProps.a(newItems) }
     }
 
     // ............................. eopace
@@ -224,7 +224,7 @@
 
       // -------------------  // COUNT getCounter
 
-      let newgrabbed = null // ctlRayder.getGrabbed()
+      let newgrabbed = null // eonCtlRayder.getGrabbed()
       let data = {
         newgrabbed,
         pacedby,
@@ -255,7 +255,7 @@
         }
       }
 
-      muonStore.apply({
+      eonMuonStore.apply({
         // if (pacedAnisort === 'anima') { // z.419b ani.ava(pacer)
         type: 'UPDANIMA',
         caller: 'h.pacer',
@@ -276,7 +276,7 @@
 
             // -------------------------- eostore paced
             if (pacedAnisort === 'anima') {
-              muonStore.apply({
+              eonMuonStore.apply({
                 type: 'UPDANIMA',
                 caller: 'h.pacer',
                 animas: newItemsInCount,
@@ -337,5 +337,5 @@
     return enty
   }
 
-  exports.eohalPacer = eohalPacer
+  exports.eonEohalPacer = eonitem
 })

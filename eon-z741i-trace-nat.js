@@ -12,24 +12,24 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    eohalMars,
-    eohalNatform,
-    eohalPacer,
-    muonStace,
-    muonNatform,
-    muonEoric,
-    renderSvg,
+    eonEohalMars,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonMuonStace,
+    eonMuonNatform,
+    eonMuonEoric,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('eoric'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-render-svg'),
   ])
 
-  let muonStore = __eo('muonStore')
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -72,7 +72,7 @@
     // ............................. pointerAni
     let pointerAni = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: {gid: 'pacer', cid: 'pacer', fid: 'pacer'},
 
@@ -107,8 +107,8 @@
 
           stacer: {
             initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-            eventSitus: d => ({x: ctlRayder.mouse().x, y: ctlRayder.mouse().y, z: 0 }),
-            autoSitus: d => muonStace.getLocus(d),
+            eventSitus: d => ({x: eonCtlRayder.mouse().x, y: eonCtlRayder.mouse().y, z: 0 }),
+            autoSitus: d => eonMuonStace.getLocus(d),
           },
 
           riccer: function (ani) { return ani.eoric },

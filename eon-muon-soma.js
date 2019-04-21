@@ -1,23 +1,23 @@
 /**********************
-   *    @muonSoma
+   *    @eonMuonSoma
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonSoma = global.muonSoma || {})))
+      : (factory((global.eonMuonSoma = global.eonMuonSoma || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonSoma (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      eohalMars,
-      muonProps,
+      eonEohalMars,
+      eonMuonProps,
     ] = await Promise.all([
-      __eo('xs').e('mars'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
-    let muonStore = __eo('muonStore')
+    let eonMuonStore = __eo('eonMuonStore')
     // soma: {
     // eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
     // x0: -40, y0: -100,
@@ -74,7 +74,7 @@
         }
       }
 
-      let neweocrom = muonProps.clone(eocrom) // eocrom //
+      let neweocrom = eonMuonProps.clone(eocrom) // eocrom //
       neweocrom.cs = eocrom.cs + colordelta * i
       neweocrom.cw = eocrom.cw * Math.pow(shrinkage, i)
 
@@ -97,7 +97,7 @@
       let { growunit, growthDir, depth, maxDepth, branchWidt, branchColor, maxSpreadAngle, mitoDirections,
         eocrom, shrinkage, colordelta, subgrow, subgrowunit, subMitoDirs, subSpreadAngle, subShrinkage, subgrowrate } = props
 
-      let somasInMito = muonProps.clone(feature.geometry.coordinates)
+      let somasInMito = eonMuonProps.clone(feature.geometry.coordinates)
 
       let qsomas = somasInMito.length
       for (let j = 0; j < qsomas; j++) {
@@ -145,7 +145,7 @@
           somasInMito[j] = updlines
         }
       }
-      let updfeature = muonProps.clone(feature)
+      let updfeature = eonMuonProps.clone(feature)
       updfeature.geometry.coordinates = somasInMito
       return updfeature
     }
@@ -229,7 +229,7 @@
       props.eocrom = eocrom
 
       let uidPreitem = ani.eoric.uid
-      let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
+      let preAnigram = uidPreitem ? eonMuonStore.findAnigramFromUid(uidPreitem) : null
 
       let soma
       if (preAnigram) {
@@ -244,7 +244,7 @@
     // .................. somaAni
     let somaAni = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: {'td': 6800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
 
@@ -256,7 +256,7 @@
 
     // .................. soma
     let soma = (i, p) => {
-      let ani = muonProps.clone(somaAni) // soma ani
+      let ani = eonMuonProps.clone(somaAni) // soma ani
       ani.eoload.soma = p // soma eoload
       ani.eoric.fid = 'ani' + i // i soma fid
 
@@ -274,5 +274,5 @@
     return enty
   }
 
-  exports.muonSoma = muonSoma
+  exports.eonMuonSoma = eonitem
 }))

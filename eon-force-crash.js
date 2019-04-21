@@ -1,15 +1,15 @@
 /***************************
- *        @forceCrash
+ *        @eonForceCrash
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forceCrash = global.forceCrash || {})))
+      : (factory((global.eonForceCrash = global.eonForceCrash || {})))
 }(this, function (exports) {
   'use strict'
 
-  var forceCrash = function (__eo = {}) {
-    let muonStore = __eo('muonStore')
+  var eonForceCrash = function (__eo = {}) {
+    let eonMuonStore = __eo('eonMuonStore')
 
     let constant = x => () => x
 
@@ -30,7 +30,7 @@
           let dd = Math.sqrt(d2)
 
           if (dd < r) {
-            muonStore.apply({type: 'DELANIMA', caller: 'force limit', anima: node})
+            eonMuonStore.apply({type: 'DELANIMA', caller: 'force limit', anima: node})
           }
         }
       }
@@ -60,5 +60,5 @@
     return enty
   }
 
-  exports.forceCrash = forceCrash
+  exports.eonForceCrash = eonitem
 }))

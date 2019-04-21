@@ -1,18 +1,18 @@
 /*******************************************
- *      @muonVersor
+ *      @eonMuonVersor
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonVersor = global.muonVersor || {})))
+      : (factory((global.eonMuonVersor = global.eonMuonVersor || {})))
 }(this, function (exports) {
   'use strict'
 
   // https://github.com/Fil/versor Version 0.0.3. Copyright 2017 Mike Bostock.
   // ref: http://codepen.io/jorin/pen/YNajXZ
 
-  async function muonVersor (__eo = {}) {
+  async function eonitem (__eo = {}) {
     var acos = Math.acos,
       asin = Math.asin,
       atan2 = Math.atan2,
@@ -97,5 +97,5 @@
     return enty
   }
 
-  exports.muonVersor = muonVersor
+  exports.eonMuonVersor = eonitem
 }))

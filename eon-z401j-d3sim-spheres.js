@@ -14,51 +14,51 @@
     d3Geo,
     d3Force3d,
     THREE,
-    ctlWen,
-    eohalNatform,
-    eohalMars,
-    eohalPacer,
-    eohalTextform,
-    muonEoforces,
-    muonEoric,
-    muonGeom,
-    muonGraticule,
-    muonNatform,
-    muonProps,
-    muonStace,
-    protonUniwen,
-    protonNatform,
-    renderPortview,
-    renderSvg,
-    renderWebgl,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalMars,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonMuonEoforces,
+    eonMuonEoric,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonProtonNatform,
+    eonRenderPortview,
+    eonRenderSvg,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-force-3d'),
     __eo('xs').b('three'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('natform'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
+    __eo('xs').b('eon-render-webgl'),
   ])
 
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
 
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -137,21 +137,21 @@
       },
     }
 
-    let muonStore = __eo('muonStore')
+    let eonMuonStore = __eo('eonMuonStore')
     let d3_force = d3Force3d
 
     // -------------------------------  circform1
     let circform1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
 
       eofold: ani => {
-        let vertices = muonGraticule.gjfMultiPoint(ani.eoload.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(ani.eoload.eoframe)
-        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+        let vertices = eonMuonGraticule.gjfMultiPoint(ani.eoload.eoframe).geometry.coordinates
+        let quads = eonMuonGraticule.qfaces(ani.eoload.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
 
@@ -211,7 +211,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -223,7 +223,7 @@
             type: 'PerspectiveCamera',
             name: 'Perspective',
             fov: 100, // field of view
-            aspect: renderPortview.width() / renderPortview.height(),
+            aspect: eonRenderPortview.width() / eonRenderPortview.height(),
             near: -900,
             far: 900,
 
@@ -244,7 +244,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -275,7 +275,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'AmbientLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -328,7 +328,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -400,7 +400,7 @@
         key: 'collide',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
     // ............................. forceGravity
     let forceGravity = function (params) { // force
@@ -421,7 +421,7 @@
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity, node)
+          let g = eonMuonProps.v(gravity, node)
           console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
 
           node.vy += g
@@ -435,7 +435,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -476,7 +476,7 @@
       },
     }
 
-    // ............................. forceLink
+    // ............................. eonForceLink
     let force_link = {
 
       properties: {
@@ -501,7 +501,7 @@
         let linksfilter = d => (d.eoric.gid === 'link')
         let links = params.nodes.filter(linksfilter)
         params.properties.payload.args = Array.of(links) // links
-        return muonEoforces.force(params)
+        return eonMuonEoforces.force(params)
       },
 
     }
@@ -527,7 +527,7 @@
 
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
     }
 
     // ............................. force_viscosity
@@ -558,7 +558,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,

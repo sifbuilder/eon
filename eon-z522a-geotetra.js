@@ -12,41 +12,41 @@
     async function anitem (__eo) {
     // .................. eons
     let [
-      muonProps,
-      muonGeom,
-      muonGraticule,
+      eonMuonProps,
+      eonMuonGeom,
+      eonMuonGraticule,
       topojson,
       datWorldTopo110m,
-      muonNatform,
-      ctlWen,
-      ctlVersor,
+      eonMuonNatform,
+      eonCtlWen,
+      eonCtlVersor,
       d3Geo,
       d3Geoprojection,
-      protonTetra,
-      eohalMars,
-      renderSvg,
+      eonProtonTetra,
+      eonEohalMars,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').m('props'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('graticule'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-graticule'),
       __eo('xs').b('topojson'),
       __eo('xs').d('worldTopo110m'),
-      __eo('xs').m('natform'),
-      __eo('xs').c('wen'),
-      __eo('xs').c('versor'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-ctl-versor'),
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
-      __eo('xs').p('tetra'),
-      __eo('xs').e('mars'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-proton-tetra'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-render-svg'),
     ])
-    try { renderSvg.scenecolor('black') } catch (e) { }
+    try { eonRenderSvg.scenecolor('black') } catch (e) { }
     // .................. animas
     let z = function () {
       // .................. pics
       let ctl
       try {
-        ctl = ctlVersor().control(renderSvg.svg())
+        ctl = eonCtlVersor().control(eonRenderSvg.svg())
       } catch (e) {
         ctl = () => [0, 0, 0]
       }
@@ -98,9 +98,9 @@
       // .............................  geograt
       let geograt = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
-        eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+        eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
 
         eotim,
 
@@ -120,7 +120,7 @@
       // .............................  geoearth
       let geoearth = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
         eofold: () => {
           return Object.assign({},
@@ -145,7 +145,7 @@
       // .............................  geosphere
       let geosphere = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
         eofold: {
           type: 'Feature',

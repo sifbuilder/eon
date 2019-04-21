@@ -1,24 +1,24 @@
 /***************************
- *        @muonSim
+ *        @eonMuonSim
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonSim = global.muonSim || {})))
+      : (factory((global.eonMuonSim = global.eonMuonSim || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonSim (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Force3d,
-      muonEonode,
-      muonSnap,
-      muonStore,
+      eonMuonEonode,
+      eonMuonSnap,
+      eonMuonStore,
     ] = await Promise.all([
       __eo('xs').b('d3-force-3d'),
-      __eo('xs').m('eonode'),
-      __eo('xs').m('snap'),
-      __eo('xs').m('store'),
+      __eo('xs').b('eon-muon-eonode'),
+      __eo('xs').b('eon-muon-snap'),
+      __eo('xs').b('eon-muon-store'),
     ])
 
     let d3_force = d3Force3d
@@ -93,7 +93,7 @@
 
         if (aniItem.eonode !== undefined) { // if simmable  ...
           // the eonode ports info of the simnode
-          let eonode = muonEonode.init(aniItem.eonode)
+          let eonode = eonMuonEonode.init(aniItem.eonode)
 
           // the simnode location is in the eonode geometry
           let nodeGeometry = eonode.geometry
@@ -174,7 +174,7 @@
           if (updItem !== undefined) {
             console.assert(updItem.eonode !== undefined)
 
-            let eonode = muonEonode.init(updItem.eonode)
+            let eonode = eonMuonEonode.init(updItem.eonode)
             eonode.properties.geodelta[0] = simNode.x - eonode.geometry.coordinates[0]
             eonode.properties.geodelta[1] = simNode.y - eonode.geometry.coordinates[1]
             eonode.properties.geodelta[2] = simNode.z - eonode.geometry.coordinates[2]
@@ -209,7 +209,7 @@
       let aniSims = []
       let numDims = 3
 
-      let aniNodes = initNodes(anitems, dim) // .map(d => muonAnitem.snapani(d, elapsed))
+      let aniNodes = initNodes(anitems, dim) // .map(d => eonMuonAnitem.snapani(d, elapsed))
 
       sim
         .stop()
@@ -226,7 +226,7 @@
             let aniForce = forces[j] // aniForce in anima.eoforces eg. force_gravity
 
             let tu = aniItem.eotim.unTime
-            aniForce = v(muonSnap.snap(aniForce, tu), aniItem)
+            aniForce = v(eonMuonSnap.snap(aniForce, tu), aniItem)
 
             let cttes = simConstants(sim, aniForce.properties)
 
@@ -241,7 +241,7 @@
 
                 aniSims = restoreNodes(aniNodes, anitems) // > aniNodes
 
-                muonStore.apply({type: 'UPDANIMA', caller: 'sim', animas: aniSims})
+                eonMuonStore.apply({type: 'UPDANIMA', caller: 'sim', animas: aniSims})
               })
 
             // ... field method in force
@@ -275,5 +275,5 @@
     return enty
   }
 
-  exports.muonSim = muonSim
+  exports.eonMuonSim = eonitem
 }))

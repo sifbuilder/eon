@@ -1,15 +1,15 @@
 /***************************
- *        @forceBox
+ *        @eonForceBox
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forceBox = global.forceBox || {})))
+      : (factory((global.eonForceBox = global.eonForceBox || {})))
 }(this, function (exports) {
   'use strict'
 
-  var forceBox = function forceBox (__eo = {}) {
-    let muonStore = __eo('muonStore')
+  var eonForceBox = function eonForceBox (__eo = {}) {
+    let eonMuonStore = __eo('eonMuonStore')
 
     let constant = x => () => x
 
@@ -38,7 +38,7 @@
             if (ys > south) node.vy *= -1 // south
           } else if (act === 'erase') {
             if (xw < west || xe > east || yn < north || ys > south) {
-              muonStore.apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
+              eonMuonStore.apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
             }
           }
         }
@@ -73,5 +73,5 @@
     return enty
   }
 
-  exports.forceBox = forceBox
+  exports.eonForceBox = eonitem
 }))

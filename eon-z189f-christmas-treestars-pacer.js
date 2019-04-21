@@ -12,42 +12,42 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    // ctlRayder,
-    ctlWen,
-    eohalFuel,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
-    eohalMars,
-    muonEoric,
-    muonFuel,
-    muonGeoj,
-    muonGraticule,
-    muonNatform,
-    muonProps,
-    muonStace,
-    protonUniwen,
-    renderSvg,
+    // eonCtlRayder,
+    eonCtlWen,
+    eonEohalFuel,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonEohalMars,
+    eonMuonEoric,
+    eonMuonFuel,
+    eonMuonGeoj,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    // __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('fuel'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('fuel'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    // __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-fuel'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-fuel'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
@@ -57,11 +57,11 @@
     // ....................... natTree
     let natTree = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natTree'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -104,7 +104,7 @@
     // ....................... natStar
     let natStar = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
@@ -161,18 +161,18 @@
           basePaceOnAniView: 'viewform',
           addItemToPacer: 0,
 
-          eohal: eohalNatform, // takes form from eoform
+          eohal: eonEohalNatform, // takes form from eoform
           eoric: function (ani, props) {
-            let eoric = muonProps.clone(ani.eoric)
+            let eoric = eonMuonProps.clone(ani.eoric)
             eoric.gid = 'paced'
             eoric.cid = 'paced'
-            eoric.fid = muonEoric.idify(eoric.fid, props.counter)
-            eoric.uid = muonEoric.getuid(eoric)
+            eoric.fid = eonMuonEoric.idify(eoric.fid, props.counter)
+            eoric.uid = eonMuonEoric.getuid(eoric)
             return eoric
           },
 
           eofold: function (ani, props) {
-            let neweofold = muonNatform.natMultiLineString({eoform: ani.eoform})
+            let neweofold = eonMuonNatform.natMultiLineString({eoform: ani.eoform})
 
             return neweofold
           },
@@ -187,7 +187,7 @@
               let hstep = 1
               let vstep = 1
 
-              let ridx = muonGraticule.ridx(rows, cols, hstep, vstep)
+              let ridx = eonMuonGraticule.ridx(rows, cols, hstep, vstep)
               let matrixCoord = ridx(autocount)
 
               let dRadX = 20
@@ -215,14 +215,14 @@
                 fueltype: 2,
               }
 
-              let candycoords = muonFuel.getCandyCooords(ani, fuel)
+              let candycoords = eonMuonFuel.getCandyCooords(ani, fuel)
 
               if (candycoords !== undefined && candycoords.length > 0) {
                 coords = [ ...candycoords[0], 0 ]
               }
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0

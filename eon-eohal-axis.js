@@ -1,28 +1,28 @@
 /****************************
- *    @eohalAxis
+ *    @eonEohalAxis
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalAxis = global.eohalAxis || {})))
+      : (factory((global.eonEohalAxis = global.eonEohalAxis || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function eohalAxis (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
-      muonProps,
+      eonMuonProps,
       d3Axis,
       d3Scale,
       d3Format,
-      eohalMars,
-      muonAnitem,
+      eonEohalMars,
+      eonMuonAnitem,
     ] = await Promise.all([
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-muon-props'),
       __eo('xs').b('d3-axis'),
       __eo('xs').b('d3'),
       __eo('xs').b('d3-format'),
-      __eo('xs').e('mars'),
-      __eo('xs').m('anitem'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-anitem'),
     ])
 
     // ............................. gramify
@@ -44,7 +44,7 @@
 
       let _scale = (scaleType) ? d3Scale[scaleType]() : d3Scale['scaleTime']()
 
-      let newAnigram = muonProps.clone(anigram) // clone
+      let newAnigram = eonMuonProps.clone(anigram) // clone
       newAnigram.eofold.properties = {
         sort: 'axis',
         eoric: eoric,
@@ -65,18 +65,18 @@
         }),
       }
       delete newAnigram.eoload.axis
-      return eohalMars.gramify(newAnigram)
+      return eonEohalMars.gramify(newAnigram)
     }
 
     // ............................. enty
-    let eohalAxis = {}
-    eohalAxis.anify = anima => Array.of(anima)
-    eohalAxis.gramify = anima => gramify(anima)
+    let eonEohalAxis = {}
+    eonEohalAxis.anify = anima => Array.of(anima)
+    eonEohalAxis.gramify = anima => gramify(anima)
 
-    let enty = eohalAxis
+    let enty = eonEohalAxis
 
     return enty
   }
 
-  exports.eohalAxis = eohalAxis
+  exports.eonEohalAxis = eonitem
 }))

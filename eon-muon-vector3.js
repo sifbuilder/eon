@@ -1,11 +1,11 @@
 
 /**********************
- *    @muonVector3
+ *    @eonMuonVector3
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonVector3 = global.muonVector3 || {})))
+      : (factory((global.eonMuonVector3 = global.eonMuonVector3 || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -18,7 +18,7 @@
 	 * @author WestLangley / http://github.com/WestLangley
 	 */
 
-  async function muonVector3 (__eo) {
+  async function eonitem (__eo) {
     function Vector3 (x, y, z) {
       this.x = x || 0
       this.y = y || 0
@@ -605,5 +605,5 @@
     return enty
   }
 
-  exports.muonVector3 = muonVector3
+  exports.eonMuonVector3 = eonitem
 }))

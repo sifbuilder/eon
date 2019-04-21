@@ -1,14 +1,14 @@
 /***********
- *    @renderSvg
+ *    @eonRenderSvg
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.renderSvg = global.renderSvg || {})))
+      : (factory((global.eonRenderSvg = global.eonRenderSvg || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function renderSvg (__eo = {}) {
+  async function eonitem (__eo = {}) {
     // ...
     // ... The viewport is the visible area of the SVG image
     // ... Default units are pixels
@@ -41,17 +41,17 @@
       // d3Collection,
       d3,
       d3Geo,
-      muonProj3ct,
-      protonUniwen,
-      renderPortview, // viewScreenPrt - _e_ to be defined in z.
+      eonMuonProj3ct,
+      eonProtonUniwen,
+      eonRenderPortview, // viewScreenPrt - _e_ to be defined in z.
     ] = await Promise.all([
       // __eo('xs').b('d3-selection'),
       // __eo('xs').b('d3-collection'),
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
-      __eo('xs').m('proj3ct'),
-      __eo('xs').p('uniwen'),
-      __eo('xs').r('portview'),
+      __eo('xs').b('eon-muon-proj3ct'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-portview'),
     ])
 
     let d3Selection = d3
@@ -212,9 +212,9 @@
 
       let svg = _svg()
 
-      let viewScreenPrt = renderPortview.viewScreenPrt()
-      let prtdef = renderPortview.prtdef()
-      let proton = protonUniwen(prtdef)
+      let viewScreenPrt = eonRenderPortview.viewScreenPrt()
+      let prtdef = eonRenderPortview.prtdef()
+      let proton = eonProtonUniwen(prtdef)
 
       viewScreenPrt = proton // view screen projection
 
@@ -291,7 +291,7 @@
                 let dy = style.dy || 0
 
                 let geometry = item.geometry
-                let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
+                let projgeo = eonMuonProj3ct.project(geometry, viewScreenPrt)
 
                 let translate = [dx, dy] // projgeo.coordinates
                 let rotate = item.properties.style['rotate']
@@ -351,7 +351,7 @@
 
                 let item = d
                 let geometry = item.geometry
-                let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
+                let projgeo = eonMuonProj3ct.project(geometry, viewScreenPrt)
 
                 let translate = projgeo.coordinates
                 let rotate = item.properties.style['rotate']
@@ -390,7 +390,7 @@
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
                 let item = d
                 let geometry = item.geometry
-                let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
+                let projgeo = eonMuonProj3ct.project(geometry, viewScreenPrt)
 
                 let translate = projgeo.coordinates
                 let rotate = item.properties.attr.rotate || 0
@@ -425,7 +425,7 @@
                   let item = d
                   let geometry = item.geometry
 
-                  // let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
+                  // let projgeo = eonMuonProj3ct.project(geometry, viewScreenPrt)
 
                   let geocoords = geometry.coordinates
                   let geooringin = geocoords[0]
@@ -500,5 +500,5 @@
     return enty
   }
 
-  exports.renderSvg = renderSvg
+  exports.eonRenderSvg = eonitem
 }))

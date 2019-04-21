@@ -12,33 +12,33 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonGeom,
-    muonGraticule,
+    eonMuonGeom,
+    eonMuonGraticule,
     topojson,
     datWorldTopo110m,
-    muonNatform,
-    ctlWen,
-    ctlVersor,
+    eonMuonNatform,
+    eonCtlWen,
+    eonCtlVersor,
     d3Geo,
     d3Geoprojection,
-    protonOrthographic,
-    eohalMars,
-    renderSvg,
+    eonProtonOrthographic,
+    eonEohalMars,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
     __eo('xs').b('topojson'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').m('natform'),
-    __eo('xs').c('wen'),
-    __eo('xs').c('versor'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-ctl-versor'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
-    __eo('xs').p('orthographic'),
-    __eo('xs').e('mars'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-proton-orthographic'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     let eotim = {'td': 10800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
@@ -46,10 +46,10 @@
     // ..................
     let proformEarth = {
 
-      projection: protonOrthographic,
-      // prerotate: [[[ protonOrthographic.rotation ]]],
-      prerotate: [[[ ctlVersor
-        .projection({projection: protonOrthographic})
+      projection: eonProtonOrthographic,
+      // prerotate: [[[ eonProtonOrthographic.rotation ]]],
+      prerotate: [[[ eonCtlVersor
+        .projection({projection: eonProtonOrthographic})
         .rotation,
       ]]],
       translate: [0, 0, 0],
@@ -60,7 +60,7 @@
 
     let geoearth = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: () => {
         return Object.assign({},

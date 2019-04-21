@@ -12,47 +12,47 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlRayder,
-    ctlWen,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
-    eohalMars,
-    eohalFuel,
-    muonEoric,
-    muonGeoj,
-    muonLindenmayer,
-    muonNatform,
-    muonProps,
-    muonStace,
-    protonUniwen,
-    renderSvg,
+    eonCtlRayder,
+    eonCtlWen,
+    eonEohalNatform,
+    eonEohalPacer,
+    eonEohalTextform,
+    eonEohalMars,
+    eonEohalFuel,
+    eonMuonEoric,
+    eonMuonGeoj,
+    eonMuonLindenmayer,
+    eonMuonNatform,
+    eonMuonProps,
+    eonMuonStace,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('rayder'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('fuel'),
-    __eo('xs').m('eoric'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').m('stace'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-pacer'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-fuel'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-stace'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
 
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -69,7 +69,7 @@
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natBall'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -109,14 +109,14 @@
 
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: ani => {
         let lindenmayers = ani.eoload.lindenmayers
         let qLindenmayers = lindenmayers.length
         let pointer = 0 // Math.floor( (qLindenmayers -1) * ani.eotim.unElapsed)
 
-        let gj = muonLindenmayer.multiLine(lindenmayers[pointer])
+        let gj = eonMuonLindenmayer.multiLine(lindenmayers[pointer])
         return gj
       },
 
@@ -160,11 +160,11 @@
     // ....................... natTriang
     let natTriang = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -204,11 +204,11 @@
     // ....................... natLeaform
     let natStar = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natMultiLineString({
+      eofold: ani => eonMuonNatform.natMultiLineString({
         eoform: ani.eoform,
         ghv: 0, // horizontal geodesics
         gsa: 0, // symetric distribution of geodesics around the origin
@@ -255,7 +255,7 @@
     // ............................. natSpiral
     let natSpiral = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q'},
 
@@ -267,8 +267,8 @@
           gco: 0, // closed line
         }
 
-        let gj = muonNatform.natMultiLineString(natipros)
-        let coords = muonGeoj.getCoords(gj)
+        let gj = eonMuonNatform.natMultiLineString(natipros)
+        let coords = eonMuonGeoj.getCoords(gj)
         let nb = coords.length
         let unElapsed = ani.eotim.unElapsed
         let t = unElapsed
@@ -284,7 +284,7 @@
         if (inc === 1 || pars === 1) {
           if (preani === undefined) {
             let tgj = gj
-            tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.geometry = eonMuonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
             tgj.properties = tgj.properties === undefined ? {} : tgj.properties
             tgj.properties.eocrom = ani.eocrom
             tgj.properties.lastcoord = nbt
@@ -294,7 +294,7 @@
         }
 
         if (inc === 1) {
-          let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+          let preani = eonMuonStore.findAnigramFromUid(ani.eoric.uid)
 
           if (preani !== undefined) {
             let features = preani.eofold.features
@@ -302,7 +302,7 @@
             let lastFeature = features[features.length - 1]
             let lastFeatureProps = lastFeature.properties
             let lastcoord = lastFeatureProps.lastcoord
-            let prefeatures = preani.eofold.features.map(muonGeoj.deprop) // _e_
+            let prefeatures = preani.eofold.features.map(eonMuonGeoj.deprop) // _e_
 
             if (lastcoord !== undefined) {
               firstcoord = 0 // lastcoord
@@ -311,7 +311,7 @@
             }
 
             let tgj = gj
-            tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.geometry = eonMuonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
             tgj.properties = tgj.properties === undefined ? {} : tgj.properties
             tgj.properties.eocrom = ani.eocrom
             tgj.properties.eocrom.cs = 300 + 700 * unElapsed
@@ -454,11 +454,11 @@
     // ....................... aviStar
     let aviStar = {
 
-      eohal: eohalPacer,
+      eohal: eonEohalPacer,
       eotim: eotim,
       eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat' },
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eonode: {
         type: 'Feature',
@@ -502,33 +502,33 @@
           pacedAnisort: 'anigram',
           basePaceOnAniView: 'viewform',
 
-          eohal: eohalMars,
+          eohal: eonEohalMars,
 
           eoric: function (ani, props) {
-            let eoric = muonProps.clone(ani.eoric)
+            let eoric = eonMuonProps.clone(ani.eoric)
 
             if (props.key === 'init') { // INIT
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             } else if (props.key === 'auto') { // AUTO
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             } else if (props.key === 'event') { // EVENT
-              let q = muonStore.animasInClassHowMany(eoric)
+              let q = eonMuonStore.animasInClassHowMany(eoric)
               let nextq = q + props.counter
-              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+              eoric.fid = eonMuonEoric.idify(eoric.fid, props.key, nextq)
             }
 
-            eoric.uid = muonEoric.getuid(eoric)
+            eoric.uid = eonMuonEoric.getuid(eoric)
             return eoric
           },
 
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              stace = muonStace.getLocus([null, null, null], ani)
+              stace = eonMuonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               let sep = Math.floor(10 * (1 + Math.random()))
               let counter = props.counter
@@ -538,10 +538,10 @@
               locus[1].pos = locus[1].pos + counter * sep
               locus[2].pos = locus[2].pos
 
-              stace = muonStace.getLocus(locus, ani)
+              stace = eonMuonStace.getLocus(locus, ani)
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              if (eonCtlRayder.grabbed() !== undefined) {
+                let grabbed = eonCtlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
@@ -578,7 +578,7 @@
     // .................. textAniA
     let textAniA = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'text', cid: 'text', fid: 'texta'},
 
@@ -619,7 +619,7 @@
     // .................. textAniB
     let textAniB = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textb'},
 
@@ -662,7 +662,7 @@
     // .................. textAniC
     let textAniC = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
 
       eofold: ani => {
         let res = {
@@ -704,7 +704,7 @@
     // .................. textAniD
     let textAniD = {
 
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
 
       eofold: ani => {
         let res = {

@@ -1,10 +1,10 @@
 /***************************
- *        @forceBowl
+ *        @eonForceBowl
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forceBowl = global.forceBowl || {})))
+      : (factory((global.eonForceBowl = global.eonForceBowl || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -16,7 +16,7 @@
   * https://bl.ocks.org/fil/18ef9696f217cd242f6fb8ec776dc3e3
   */
 
-  var forceBowl = function (__eo = {}) {
+  var eonForceBowl = function (__eo = {}) {
     let constant = x => () => x
 
     // .................. force
@@ -49,7 +49,7 @@
               node.vx = norm * Math.cos(angle2)
               node.vy = norm * Math.sin(angle2)
             } else if (act === 'erase') {
-              __eo('muonStore').apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
+              __eo('eonMuonStore').apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
             }
           } else if (d2 > r * r && dd2 <= r * r) {
             var angle = Math.atan2(dy, dx),
@@ -89,5 +89,5 @@
     return enty
   }
 
-  exports.forceBowl = forceBowl
+  exports.eonForceBowl = eonitem
 }))

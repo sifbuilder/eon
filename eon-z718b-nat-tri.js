@@ -12,19 +12,19 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonProps,
-    ctlWen,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonMuonProps,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('props'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) { }
+  try { eonRenderSvg.scenecolor('black') } catch (e) { }
   // .................. animas
   let z = function () {
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
@@ -83,7 +83,7 @@
  */
     let nat = {
 
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
@@ -98,7 +98,7 @@
     }
     let circ = {
 
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
 

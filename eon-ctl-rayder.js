@@ -1,10 +1,10 @@
 /***********
-   *    @ctlRayder
+   *    @eonCtlRayder
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlRayder = global.ctlRayder || {})))
+      : (factory((global.eonCtlRayder = global.eonCtlRayder || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -12,25 +12,25 @@
   // ... ### refs
   // ... * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
 
-  async function ctlRayder (__eo) {
+  async function eonitem (__eo) {
     let [
-      // renderSvg,
-      renderPortview,
+      // eonRenderSvg,
+      eonRenderPortview,
     ] = await Promise.all([
-      // __eo('xs').r('svg'),
-      __eo('xs').r('portview'),
+      // __eo('xs').b('eon-render-svg'),
+      __eo('xs').b('eon-render-portview'),
     ])
 
-    let renderSvg = __eo('renderSvg')
+    let eonRenderSvg = __eo('eonRenderSvg')
 
 
     let state = {
       showpos: false,
       grabbed: false,
-      domNode: undefined, // renderSvg.svg()
+      domNode: undefined, // eonRenderSvg.svg()
     }
 
-    let getPos = renderPortview.getPos // event position
+    let getPos = eonRenderPortview.getPos // event position
 
     // ............................. mouseDownListener
     function mouseDownListener (event) {
@@ -80,7 +80,7 @@
 
     // ............................. controlrayder
     let control = function (domNode) {
-      state.domNode = renderSvg.svg() // _e_
+      state.domNode = eonRenderSvg.svg() // _e_
       enty.domNode(domNode)
 
       subscribe(mouseDownListener, state.domNode, 'mousedown')
@@ -121,5 +121,5 @@
     return enty
   }
 
-  exports.ctlRayder = ctlRayder
+  exports.eonCtlRayder = eonitem
 }))

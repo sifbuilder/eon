@@ -1,30 +1,30 @@
 /**********************
- *    @eohalGeovoro
+ *    @eonEohalGeovoro
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalGeovoro = global.eohalGeovoro || {})))
+      : (factory((global.eonEohalGeovoro = global.eonEohalGeovoro || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function eohalGeovoro (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3,
-      eohalSol,
-      muonDelaunay,
-      muonGeoj,
-      muonProfier,
-      muonProj3ct,
-      muonProps,
+      eonEohalSol,
+      eonMuonDelaunay,
+      eonMuonGeoj,
+      eonMuonProfier,
+      eonMuonProj3ct,
+      eonMuonProps,
     ] = await Promise.all([
       __eo('xs').b('d3'),
-      __eo('xs').e('sol'),
+      __eo('xs').b('eon-eohal-sol'),
       __eo('xs').m('delaynay'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('profier'),
-      __eo('xs').m('proj3ct'),
-      __eo('xs').m('props'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-profier'),
+      __eo('xs').b('eon-muon-proj3ct'),
+      __eo('xs').b('eon-muon-props'),
     ])
 
     let state = Object.assign({})
@@ -32,7 +32,7 @@
     const color = t => d3.hsl(280 + (40 * t), 0.18, 0.4)
 
     const voronoi = d3.voronoi
-    const FindDelaunayTriangulation = muonDelaunay.FindDelaunayTriangulation
+    const FindDelaunayTriangulation = eonMuonDelaunay.FindDelaunayTriangulation
 
     // ............................. eohal
     let eohale = function eohale (anitem) {
@@ -85,14 +85,14 @@
     // ............................. gramify
     let gramify = anitem => {
       let newItem = eohale(anitem)
-      let newAnitems = eohalSol.gramify(newItem)
+      let newAnitems = eonEohalSol.gramify(newItem)
       return newAnitems
     }
 
     // ............................. anify
     let anify = anitem => {
       if (anitem.eoinited === undefined) {
-        return muonProps.v(anitem)
+        return eonMuonProps.v(anitem)
       } else {
         return []
       }
@@ -100,11 +100,11 @@
 
     // ............................. enty
     var enty = function enty () {}
-    enty.offspring = (anima, avatar) => muonProps.a(avatar)
+    enty.offspring = (anima, avatar) => eonMuonProps.a(avatar)
     enty.breed = (anima, avatar) => breed(anima, avatar)
 
     return enty
   }
 
-  exports.eohalGeovoro = eohalGeovoro
+  exports.eonEohalGeovoro = eonitem
 }))

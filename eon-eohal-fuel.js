@@ -1,32 +1,32 @@
 /***********
- *    @eohalFuel
+ *    @eonEohalFuel
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalFuel = global.eohalFuel || {})))
+      : (factory((global.eonEohalFuel = global.eonEohalFuel || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function eohalFuel (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       d3Polygon,
-      eohalNatform,
-      muonEoric,
-      muonFuel,
-      muonGeoj,
-      muonGeom,
-      muonQuad,
-      renderPortview,
+      eonEohalNatform,
+      eonMuonEoric,
+      eonMuonFuel,
+      eonMuonGeoj,
+      eonMuonGeom,
+      eonMuonQuad,
+      eonRenderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3-polygon'),
-      __eo('xs').e('natform'),
-      __eo('xs').m('eoric'),
-      __eo('xs').m('fuel'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('geom'),
-      __eo('xs').m('quad'),
-      __eo('xs').r('portview'),
+      __eo('xs').b('eon-eohal-natform'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-fuel'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-quad'),
+      __eo('xs').b('eon-render-portview'),
     ])
 
     let state = {}
@@ -36,13 +36,13 @@
     let gramify = function (anitem, newAnigrams = []) {
       let eoric = anitem.eoric // eoric
 
-      let remainCandies = muonFuel.getCandyCooords(anitem)
+      let remainCandies = eonMuonFuel.getCandyCooords(anitem)
 
       for (let i = 0; i < remainCandies.length; i++) { // for each candy ...
         let gid = eoric.gid, // from ava eoric
           cid = eoric.cid,
-          fid = muonEoric.idify(eoric.fid, i),
-          uid = muonEoric.idify(gid, cid, fid),
+          fid = eonMuonEoric.idify(eoric.fid, i),
+          uid = eonMuonEoric.idify(gid, cid, fid),
           pid = eoric.uid
         let _ric = {gid, cid, fid, uid, pid} // is DELLED ?
 
@@ -67,7 +67,7 @@
 
         newAnigram.eomot = eomot // proform of each fuel nat
 
-        let avaAnigrams = eohalNatform.gramify(newAnigram) // async
+        let avaAnigrams = eonEohalNatform.gramify(newAnigram) // async
         newAnigrams = [...newAnigrams, ...avaAnigrams]
       }
 
@@ -75,13 +75,13 @@
     }
 
     // .................... enty
-    let eohalFuel = {}
-    eohalFuel.anify = anima => [anima]
-    eohalFuel.gramify = anima => gramify(anima)
+    let eonEohalFuel = {}
+    eonEohalFuel.anify = anima => [anima]
+    eonEohalFuel.gramify = anima => gramify(anima)
 
-    let enty = eohalFuel
+    let enty = eonEohalFuel
     return enty
   }
 
-  exports.eohalFuel = eohalFuel
+  exports.eonEohalFuel = eonitem
 }))

@@ -12,30 +12,30 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalTextform,
-    muonGeoj,
-    muonLindenmayer,
-    muonProps,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalTextform,
+    eonMuonGeoj,
+    eonMuonLindenmayer,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
 
   // .................. animas
   let z = function () {
     // .................. pics
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -44,16 +44,16 @@
 
     let aniForm2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2' },
 
       eofold: ani => {
-        let geo = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
+        let geo = eonMuonLindenmayer.multiLine(ani.eoload.lindenmayer)
 
-        geo.geometry.coordinates = geo.geometry.coordinates.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
+        geo.geometry.coordinates = geo.geometry.coordinates.map(ring => eonMuonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
 
-        let geoData = muonGeoj.segtime(geo, ani.eotim)
+        let geoData = eonMuonGeoj.segtime(geo, ani.eotim)
 
         return geoData
       },
@@ -95,7 +95,7 @@
 
     // .................. textAni
     let textAni = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eofold: ani => ({

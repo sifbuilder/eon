@@ -12,31 +12,31 @@
     async function anitem (__eo) {
   let [
     d3Force3d,
-    ctlRayder,
-    eohalCore,
-    eohalNatform,
-    eohalMars,
-    muonProps,
-    muonEoforces,
-    muonNatform,
-    muonEoric,
-    renderPortview,
-    renderSvg,
+    eonCtlRayder,
+    eonEohalCore,
+    eonEohalNatform,
+    eonEohalMars,
+    eonMuonProps,
+    eonMuonEoforces,
+    eonMuonNatform,
+    eonMuonEoric,
+    eonRenderPortview,
+    eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('rayder'),
-    __eo('xs').e('core'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('props'),
-    __eo('xs').m('eoforces'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('eoric'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-rayder'),
+    __eo('xs').b('eon-eohal-core'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-muon-eoforces'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-eoric'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('muonStore')
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
+  let eonMuonStore = __eo('eonMuonStore')
   let d3_force = d3Force3d
 
   // .................. animas
@@ -47,7 +47,7 @@
     // .................... natAni1
     let natAni1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
@@ -96,12 +96,12 @@
     // .................... natAni2
     let natAni2 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
 
       eotim: eotim,
       eofold: function (ani) {
-        return muonNatform.natMultiLineString({eoform: ani.eoform})
+        return eonMuonNatform.natMultiLineString({eoform: ani.eoform})
       },
 
       eonode: {
@@ -167,7 +167,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -248,7 +248,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -310,7 +310,7 @@
         key: 'collide',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => eonMuonEoforces.force(params),
 
     }
 
@@ -345,7 +345,7 @@
         force: fforce,
       }
 
-      let ffforce = muonEoforces.isolate(sys)
+      let ffforce = eonMuonEoforces.isolate(sys)
       console.assert(key || type !== null)
       let field = {
         key: key || type,
@@ -391,7 +391,7 @@
     // .................... fieldAni
     let fieldAni = {
 
-      eohal: eohalCore,
+      eohal: eonEohalCore,
       eotim: eotim,
       eoric: {gid: 'core', cid: 'core', fid: 'core'},
 

@@ -12,25 +12,25 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    ctlWen,
-    eohalMars,
-    eohalTextform,
-    muonLindenmayer,
-    muonNatform,
-    muonProps,
-    protonUniwen,
-    renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonEohalTextform,
+    eonMuonLindenmayer,
+    eonMuonNatform,
+    eonMuonProps,
+    eonProtonUniwen,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('textform'),
-    __eo('xs').m('lindenmayer'),
-    __eo('xs').m('natform'),
-    __eo('xs').m('props'),
-    __eo('xs').p('uniwen'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-textform'),
+    __eo('xs').b('eon-muon-lindenmayer'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-proton-uniwen'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   let sin = Math.sin
 
   let conformT = {
@@ -70,7 +70,7 @@ purchased a printing press. ref. wikipedia`
 
   let ctl
   try {
-    ctl = ctlWen().control(renderSvg.svg())
+    ctl = eonCtlWen().control(eonRenderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
@@ -123,10 +123,10 @@ purchased a printing press. ref. wikipedia`
 
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani1', fid: 'ani1' },
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: ani => {
-        let geoData = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
+        let geoData = eonMuonLindenmayer.multiFeature(ani.eoload.lindenmayer)
 
         return geoData
       },
@@ -146,10 +146,10 @@ purchased a printing press. ref. wikipedia`
 
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani2', fid: 'ani2' },
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
 
       eofold: ani => {
-        let geoData = muonLindenmayer.lineString(ani.eoload.lindenmayer)
+        let geoData = eonMuonLindenmayer.lineString(ani.eoload.lindenmayer)
 
         return geoData
       },
@@ -184,13 +184,13 @@ purchased a printing press. ref. wikipedia`
 
     // .................. textAni
     let textAni = {
-      eohal: eohalTextform,
+      eohal: eonEohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtcT', fid: 'txtfT'},
 
       eofold: ani => {
         let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return muonNatform.natMultiLineString(natipros)
+        return eonMuonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformT,
@@ -240,7 +240,7 @@ purchased a printing press. ref. wikipedia`
       let y0 = 150
       let yd = -18
       for (let i = 0; i < a.length; i++) {
-        let ani = muonProps.clone(textAni)
+        let ani = eonMuonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
         ani.eomot.proform.translate = [x0 + xd * i, y0 + yd * i]

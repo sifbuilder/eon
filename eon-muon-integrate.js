@@ -1,15 +1,15 @@
 // https://d3js.org/d3-geo-projection/ Version 2.4.0. Copyright 2018 Mike Bostock.
 /***********
- *    @muonIntegrate
+ *    @eonMuonIntegrate
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonIntegrate = global.muonIntegrate || {})))
+      : (factory((global.eonMuonIntegrate = global.eonMuonIntegrate || {})))
 }(this, function (exports) {
   'use strict'
 
-  let muonIntegrate = function (__eo = {}) {
+  let eonMuonIntegrate = function (__eo = {}) {
     // https://github.com/scijs/integrate-adaptive-simpson
 
     // This algorithm adapted from pseudocode in:
@@ -126,5 +126,5 @@
     return enty
   }
 
-  exports.muonIntegrate = muonIntegrate
+  exports.eonMuonIntegrate = eonitem
 }))

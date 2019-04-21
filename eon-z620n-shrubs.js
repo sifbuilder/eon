@@ -14,31 +14,31 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-      ctlWen,
-      eohalMars,
-      eohalTextform,
-      muonGeoj,
-      muonLindenmayer,
-      muonProps,
-      protonUniwen,
-      renderSvg,
+      eonCtlWen,
+      eonEohalMars,
+      eonEohalTextform,
+      eonMuonGeoj,
+      eonMuonLindenmayer,
+      eonMuonProps,
+      eonProtonUniwen,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').c('wen'),
-      __eo('xs').e('mars'),
-      __eo('xs').e('textform'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('lindenmayer'),
-      __eo('xs').m('props'),
-      __eo('xs').p('uniwen'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-textform'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-lindenmayer'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-svg'),
     ])
 
     try {
-      renderSvg.scenecolor('black')
+      eonRenderSvg.scenecolor('black')
     } catch (e) {}
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -77,7 +77,7 @@
         let { lindenmayer } = data
         data.start = [data.x0 || 0, data.y0 || 0, data.z0 || 0]
 
-        let geo = muonLindenmayer.multiFeature(lindenmayer(data))
+        let geo = eonMuonLindenmayer.multiFeature(lindenmayer(data))
         geo.features = geo.features.sort(function (a, b) {
           return (
             2 * a.properties.level +
@@ -86,7 +86,7 @@
           )
         })
         geo.features = geo.features.map((f, i) => {
-          f.properties.eocrom = muonProps.clone(eocrom)
+          f.properties.eocrom = eonMuonProps.clone(eocrom)
           let level = f.properties.level || 0
           let cs = f.properties.eocrom.cs
           let newcs = cs + 200 * level
@@ -100,8 +100,8 @@
       let qh = 4 // rows
       let qv = 2 // columns
       let treeanis = new Array(qh * qv)
-      let tidx = muonProps.tidx(qh, qv, 1, 1) // index from coords
-      let ridx = muonProps.ridx(qh, qv, 1, 1) // coords from index
+      let tidx = eonMuonProps.tidx(qh, qv, 1, 1) // index from coords
+      let ridx = eonMuonProps.ridx(qh, qv, 1, 1) // coords from index
 
       let hvar = 10
       let hsep = 40
@@ -122,7 +122,7 @@
 
       // .................. aniForm
       let aniForm = {
-        eohal: eohalMars,
+        eohal: eonEohalMars,
         eotim: eotim,
         eoric: { gid: 'ani', cid: 'ani', fid: 'ani1' },
 
@@ -146,7 +146,7 @@
         for (let ih = 0; ih < qh; ih++) {
           let idx = tidx(ih, iv)
 
-          let anii = muonProps.clone(aniForm)
+          let anii = eonMuonProps.clone(aniForm)
           anii.eoric.fid = 'ani' + idx
           anii.eofold = igeo[idx]
           anii.eocrom = eocrom[Math.floor(0.5 + Math.random())]

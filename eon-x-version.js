@@ -1,14 +1,14 @@
 /*******************************************
-*      @xVersion
+*      @eonXVersion
 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.xVersion = global.xVersion || {})))
+      : (factory((global.eonXVersion = global.eonXVersion || {})))
 }(this, function (exports) {
   'use strict'
 
-  let xVersion = function () {
+  let eonXVersion = function () {
     let version = '0.0.1-rc1'
 
     // ............................. enty
@@ -17,5 +17,5 @@
     return enty
   }
 
-  exports.xVersion = xVersion
+  exports.eonXVersion = eonitem
 }))

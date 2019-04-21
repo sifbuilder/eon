@@ -12,21 +12,21 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    eohalImgform,
-    eohalNatform,
-    eohalMars,
-    muonAnimas,
-    muonProps,
-    renderSvg,
+    eonEohalImgform,
+    eonEohalNatform,
+    eonEohalMars,
+    eonMuonAnimas,
+    eonMuonProps,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').e('imgform'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('animas'),
-    __eo('xs').m('props'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-eohal-imgform'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-animas'),
+    __eo('xs').b('eon-muon-props'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -56,7 +56,7 @@
         let wi = w / m
         let hi = h / n
 
-        let xy = muonProps.ridx(2, 2)(i)
+        let xy = eonMuonProps.ridx(2, 2)(i)
 
         let p = [
           dx + xy[0] * wi,
@@ -70,7 +70,7 @@
         let wi = w / m
         let hi = h / n
 
-        let xy = muonProps.ridx(2, 2)(i)
+        let xy = eonMuonProps.ridx(2, 2)(i)
 
         let p = [
           dx + xy[0] * wi,

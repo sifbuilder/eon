@@ -15,34 +15,34 @@
     d3Geo,
     d3Geoprojection,
     topojson,
-    ctlVersor,
-    ctlWen,
+    eonCtlVersor,
+    eonCtlWen,
     datWorldTopo110m,
-    eohalMars,
-    muonGeoj,
-    muonGeom,
-    muonGraticule,
-    muonNatform,
-    protonNatform,
-    protonOrthographic,
-    renderPortview,
-    renderWebgl,
+    eonEohalMars,
+    eonMuonGeoj,
+    eonMuonGeom,
+    eonMuonGraticule,
+    eonMuonNatform,
+    eonProtonNatform,
+    eonProtonOrthographic,
+    eonRenderPortview,
+    eonRenderWebgl,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('versor'),
-    __eo('xs').c('wen'),
+    __eo('xs').b('eon-ctl-versor'),
+    __eo('xs').b('eon-ctl-wen'),
     __eo('xs').d('worldTopo110m'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('geoj'),
-    __eo('xs').m('geom'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').p('natform'),
-    __eo('xs').p('orthographic'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-geoj'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-proton-orthographic'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
   ])
   // .................. animas
   let z = function () {
@@ -95,7 +95,7 @@
     // ............................. geoearth
     let geoearth = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
 
@@ -121,11 +121,11 @@
     // ............................. geofaces
     let geofaces = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: p => {
-        let gvertsFeature = muonGraticule.gjfMultiPoint(p.eoframe)
-        let gfaces = muonGraticule.gfaces(p.eoframe)
+        let gvertsFeature = eonMuonGraticule.gjfMultiPoint(p.eoframe)
+        let gfaces = eonMuonGraticule.gfaces(p.eoframe)
 
         let res = gvertsFeature
 
@@ -155,10 +155,10 @@
     // ............................. geograt
     let geograt = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
 
       eofold: p => {
-        let vhmls = muonGraticule.gjfMultiLineString(p.eoframe)
+        let vhmls = eonMuonGraticule.gjfMultiLineString(p.eoframe)
 
         return vhmls
       },
@@ -184,7 +184,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -215,7 +215,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -246,7 +246,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -257,10 +257,10 @@
             sort: 'camera',
             type: 'OrthographicCamera',
             name: 'Orthographic',
-            left: -renderPortview.width() / 2,
-            right: renderPortview.width() / 2,
-            top: renderPortview.height() / 2,
-            bottom: -renderPortview.height() / 2,
+            left: -eonRenderPortview.width() / 2,
+            right: eonRenderPortview.width() / 2,
+            top: eonRenderPortview.height() / 2,
+            bottom: -eonRenderPortview.height() / 2,
             near: -200,
             far: 200,
 
@@ -281,7 +281,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoHelper'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -292,10 +292,10 @@
             sort: 'cameraHelper',
             type: 'OrthographicCamera',
             name: 'Orthographic',
-            left: -renderPortview.width() / 2,
-            right: renderPortview.width() / 2,
-            top: renderPortview.height() / 2,
-            bottom: -renderPortview.height() / 2,
+            left: -eonRenderPortview.width() / 2,
+            right: eonRenderPortview.width() / 2,
+            top: eonRenderPortview.height() / 2,
+            bottom: -eonRenderPortview.height() / 2,
             near: -200,
             far: 200,
 
@@ -316,7 +316,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload

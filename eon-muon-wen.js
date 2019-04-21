@@ -1,11 +1,11 @@
 /*******************************************
-   *    @muonWen
+   *    @eonMuonWen
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonWen = global.muonWen || {})))
+      : (factory((global.eonMuonWen = global.eonMuonWen || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -17,7 +17,7 @@
   // ... # license
   // ... MIT
 
-  async function muonWen (__eo = {}) {
+  async function eonitem (__eo = {}) {
     function clip (n, m, M) { return n < M ? n > m ? n : m : M }
     function comeCloser (n, goal, factor, limit) {
       return (limit && Math.abs(goal - n) < limit) ? goal : n + (goal - n) / (factor || 10)
@@ -146,5 +146,5 @@
     return enty
   }
 
-  exports.muonWen = muonWen
+  exports.eonMuonWen = eonitem
 }))

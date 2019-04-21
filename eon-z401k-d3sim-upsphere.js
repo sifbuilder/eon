@@ -15,33 +15,33 @@
     d3Geo,
     THREE,
     d3Force3d,
-    ctlWen,
-    eohalMars,
-    muonGraticule,
-    muonGeom,
-    protonNatform,
-    renderPortview,
-    renderWebgl,
-    // renderSvg,
+    eonCtlWen,
+    eonEohalMars,
+    eonMuonGraticule,
+    eonMuonGeom,
+    eonProtonNatform,
+    eonRenderPortview,
+    eonRenderWebgl,
+    // eonRenderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('three'),
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').m('graticule'),
-    __eo('xs').m('geom'),
-    __eo('xs').p('natform'),
-    __eo('xs').r('portview'),
-    __eo('xs').r('webgl'),
-    // __eo('xs').r('svg'),
+    __eo('xs').b('eon-ctl-wen'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-muon-graticule'),
+    __eo('xs').b('eon-muon-geom'),
+    __eo('xs').b('eon-proton-natform'),
+    __eo('xs').b('eon-render-portview'),
+    __eo('xs').b('eon-render-webgl'),
+    // __eo('xs').b('eon-render-svg'),
   ])
 
   // ... **3 sim**
   // ... proform addNodeToTranslate
 
-  let muonStore = __eo('muonStore')
+  let eonMuonStore = __eo('eonMuonStore')
   let d3_force = d3Force3d
 
   // .................. animas
@@ -123,7 +123,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -135,7 +135,7 @@
             type: 'PerspectiveCamera',
             name: 'Perspective',
             fov: 100, // field of view
-            aspect: renderPortview.width() / renderPortview.height(),
+            aspect: eonRenderPortview.width() / eonRenderPortview.height(),
             near: -900,
             far: 900,
 
@@ -156,7 +156,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -187,7 +187,7 @@
 
       eotim: eotim,
       eoric: {gid: 'camera', cid: 'camera', fid: 'AmbientLight'},
-      eohal: eohalSol,
+      eohal: eonEohalSol,
 
       eofold: anitem => {
         let eoload = anitem.eoload
@@ -235,7 +235,7 @@
 
         let field = {
           key: 'energy',
-          force: muonEoforces.force(forceParams),
+          force: eonMuonEoforces.force(forceParams),
         }
 
         return Array.of(field)
@@ -264,7 +264,7 @@
           nodes: nodes,
         }
 
-        let force = muonEoforces.force(forceParams)
+        let force = eonMuonEoforces.force(forceParams)
         let field = {
           key: 'collide',
           force: force,
@@ -353,7 +353,7 @@
           key: key,
         }
 
-        let force = muonEoforces.force(forceParams)
+        let force = eonMuonEoforces.force(forceParams)
 
         let field = {
           key: 'link',
@@ -390,7 +390,7 @@
           nodes: nodes,
         }
 
-        let force = muonEoforces.force(forceParams)
+        let force = eonMuonEoforces.force(forceParams)
         let field = {
           key: 'charge',
           force: force,
@@ -423,7 +423,7 @@
 
         let field = {
           key: 'viscosity',
-          force: muonEoforces.force(forceParams),
+          force: eonMuonEoforces.force(forceParams),
         }
 
         return Array.of(field)
@@ -433,16 +433,16 @@
     // ............................. circform1
     let circform1 = {
 
-      eohal: eohalMars,
+      eohal: eonEohalMars,
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'circform1'},
 
       basePaceOnAniView: '',
 
       eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoload.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoload.eoframe)
-        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+        let vertices = eonMuonGraticule.gjfMultiPoint(p.eoload.eoframe).geometry.coordinates
+        let quads = eonMuonGraticule.qfaces(p.eoload.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
 

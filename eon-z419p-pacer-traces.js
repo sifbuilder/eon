@@ -13,37 +13,37 @@
   async function anitem (__eo) {
   // .................. eons
     let [
-      ctlRayder,
-      ctlWen,
-      eohalNatform,
-      eohalPacer,
-      eohalTextform,
-      eohalMars,
-      muonGeoj,
-      muonNatform,
-      muonStace,
-      protonUniwen,
-      renderSvg,
+      eonCtlRayder,
+      eonCtlWen,
+      eonEohalNatform,
+      eonEohalPacer,
+      eonEohalTextform,
+      eonEohalMars,
+      eonMuonGeoj,
+      eonMuonNatform,
+      eonMuonStace,
+      eonProtonUniwen,
+      eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').c('rayder'),
-      __eo('xs').c('wen'),
-      __eo('xs').e('natform'),
-      __eo('xs').e('pacer'),
-      __eo('xs').e('textform'),
-      __eo('xs').e('mars'),
-      __eo('xs').m('geoj'),
-      __eo('xs').m('natform'),
-      __eo('xs').m('stace'),
-      __eo('xs').p('uniwen'),
-      __eo('xs').r('svg'),
+      __eo('xs').b('eon-ctl-rayder'),
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-natform'),
+      __eo('xs').b('eon-eohal-pacer'),
+      __eo('xs').b('eon-eohal-textform'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-stace'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-svg'),
     ])
 
-    let muonStore = __eo('muonStore')
-    try { renderSvg.scenecolor('black') } catch (e) {}
+    let eonMuonStore = __eo('eonMuonStore')
+    try { eonRenderSvg.scenecolor('black') } catch (e) {}
 
     let ctl
     try {
-      ctl = ctlWen().control(renderSvg.svg())
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -57,7 +57,7 @@
       // .................. pointTrace
       let pointTrace = {
 
-        eohal: eohalPacer,
+        eohal: eonEohalPacer,
 
         eofold: {
           type: 'Feature',
@@ -110,7 +110,7 @@
 
               let fidsuffix = ''
               if (props.key === 'event') {
-                let hm = muonStore.anigramsInClassHowMany(ani)
+                let hm = eonMuonStore.anigramsInClassHowMany(ani)
                 let pacecount = hm + 1
                 fidsuffix = `_${hm}`
               }
@@ -126,12 +126,12 @@
             eofold: function (ani, props) {
               let stace = [0, 0, 0]
               if (props.key === 'init') { // INIT
-                stace = muonStace.getLocus([null, null, null], ani)
+                stace = eonMuonStace.getLocus([null, null, null], ani)
               } else if (props.key === 'auto') { // AUTO
-                stace = muonStace.getLocus([null, null, null], ani)
+                stace = eonMuonStace.getLocus([null, null, null], ani)
               } else if (props.key === 'event') { // EVENT
-                if (ctlRayder.grabbed() !== undefined) {
-                  let grabbed = ctlRayder.grabbed()
+                if (eonCtlRayder.grabbed() !== undefined) {
+                  let grabbed = eonCtlRayder.grabbed()
                   let x = grabbed[0]
                   let y = grabbed[1]
                   let z = 0
@@ -157,13 +157,13 @@
       // ....................... natLeaform
       let natLeaform = {
 
-        eohal: eohalMars,
+        eohal: eonEohalMars,
 
         // ... eonode reflects the geometry of the form
         // ... updated by transforms
         // ... relative to eonode
         // ... as eonode, properties keep transformed views
-        eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+        eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
         eotim: eotim,
         eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
@@ -215,9 +215,9 @@
 
         eoric: { gid: 'nattrace', cid: 'nattrace', fid: 'traceNat', },
         eotim: eotim,
-        eohal: eohalPacer,
+        eohal: eonEohalPacer,
 
-        eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+        eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
 
         eonode: {
           type: 'Feature',
@@ -251,7 +251,7 @@
 
         eoload: {
           pacer: {
-            eohal: eohalMars,
+            eohal: eonEohalMars,
             pacedAnisort: 'anigram',
             basePaceOnAniView: 'viewform',
             initN: 0, eventN: 0, autoN: 1, autoP: 0.01, 
@@ -266,14 +266,14 @@
 
               if (props.key === 'init') { // INIT
               // stace is ani's transformed eonode
-                stace = muonStace.getLocus([null, null, null], ani)
+                stace = eonMuonStace.getLocus([null, null, null], ani)
 
               } else if (props.key === 'auto') { // AUTO
-                stace = muonStace.getLocus([null, null, null], ani)
+                stace = eonMuonStace.getLocus([null, null, null], ani)
 
               } else if (props.key === 'event') { // EVENT
-                if (ctlRayder.grabbed() !== undefined) {
-                  let grabbed = ctlRayder.grabbed()
+                if (eonCtlRayder.grabbed() !== undefined) {
+                  let grabbed = eonCtlRayder.grabbed()
                   let x = grabbed[0]
                   let y = grabbed[1]
                   let z = 0

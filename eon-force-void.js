@@ -1,14 +1,14 @@
 /***************************
- *        @forceVoid
+ *        @eonForceVoid
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forceVoid = global.forceVoid || {})))
+      : (factory((global.eonForceVoid = global.eonForceVoid || {})))
 }(this, function (exports) {
   'use strict'
 
-  var forceVoid = function (__eo = {}) {
+  var eonForceVoid = function (__eo = {}) {
     // .................. force
     let force = function (params) {
       let nodes = params.nodes
@@ -26,5 +26,5 @@
     return enty
   }
 
-  exports.forceVoid = forceVoid
+  exports.eonForceVoid = eonitem
 }))

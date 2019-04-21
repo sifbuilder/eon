@@ -12,19 +12,19 @@
     async function anitem (__eo) {
   // .................. eons
   let [
-    muonNatform,
-    eohalFuel,
-    eohalMars,
-    eohalNatform,
-    renderSvg,
+    eonMuonNatform,
+    eonEohalFuel,
+    eonEohalMars,
+    eonEohalNatform,
+    eonRenderSvg,
   ] = await Promise.all([
-    __eo('xs').m('natform'),
-    __eo('xs').e('fuel'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').r('svg'),
+    __eo('xs').b('eon-muon-natform'),
+    __eo('xs').b('eon-eohal-fuel'),
+    __eo('xs').b('eon-eohal-mars'),
+    __eo('xs').b('eon-eohal-natform'),
+    __eo('xs').b('eon-render-svg'),
   ])
-  try { renderSvg.scenecolor('black') } catch (e) {}
+  try { eonRenderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let z = function () {
     // .................. pics
@@ -91,7 +91,7 @@
     // .................. animas
     let nat = {
 
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
       eotim,
 
@@ -108,7 +108,7 @@
 
     let natFlat = {
 
-      eohal: eohalNatform,
+      eohal: eonEohalNatform,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
       eotim,
 
@@ -126,7 +126,7 @@
     let fuelnat = {
 
       eohal: 'fuel',
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {'gid': 'fuel', 'cid': 'fuel'},
       eocrom: eocromFuel,

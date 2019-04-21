@@ -1,11 +1,11 @@
 /*******************************************
- *      @protonMyriad
+ *      @eonProtonMyriad
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.protonMyriad = global.protonMyriad || {})))
+      : (factory((global.eonProtonMyriad = global.eonProtonMyriad || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -19,14 +19,14 @@
   // forked from Fil's block: Furuti 3 - projection.clipPolygon()
   // LICENSE# Released under the The MIT License.
 
-  async function protonMyriad (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let [
       mkruskal,
       d3GeoVoronoi,
       d3Array,
       d3Geo,
     ] = await Promise.all([
-      __eo('xs').m('kruskal'),
+      __eo('xs').b('eon-muon-kruskal'),
       __eo('xs').b('d3-geo-voronoi'),
       __eo('xs').b('d3-array'),
       __eo('xs').b('d3-geo'),
@@ -192,5 +192,5 @@
     return enty
   }
 
-  exports.protonMyriad = protonMyriad
+  exports.eonProtonMyriad = eonitem
 }))
