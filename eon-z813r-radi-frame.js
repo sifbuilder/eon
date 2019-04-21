@@ -45,6 +45,7 @@
     // .................. animas
     let z = function () {
     // .................. pics
+      let eotim = {'td': 20000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tf: t => t}
 
       let radians = Math.PI / 180, degrees = 180 / Math.PI,
         sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
@@ -54,105 +55,129 @@
       let fact = x => eonMuonGamma.fact(x)
       let infact = x => 1 / fact(x)
 
-      let cost = [infact(0), 0, -infact(2), 0, infact(4), 0, -infact(6), 0, infact(8)]
-      let sint = [0, infact(1), 0, -infact(3), 0, infact(5), 0, -infact(7), 0, infact(9)]
-      let exp = [infact(0), infact(1), infact(2), infact(3), infact(4), infact(5), infact(6), infact(7), infact(8), infact(9)]
-
-      // ............................. pics
-      let eotim = {'td': 20000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tf: t => t}
-
-      let ponder = d => t => Math.min(1 + Math.floor(d * t), d)
-
-      let radion = (_c, _e, _t, c, e) => {
-        //  c: [1, 1, 1, 1]
-        //  e: [-1.5707963267948966, -1.5707963267948966, 0, 0]
-        //  dax.e: [Array(9), 1, 1, Array(9)]
-
-        let functor = d => Array.isArray(d) ? d : Array.of(d)
-        let tensorize = (d, dim = 4, defv = 0) => Array(dim)
-          .fill(defv)
-          .map((c, i) => functor(d)[i] !== undefined
-            ? functor(functor(d)[i])
-            : functor(defv))
-
-        let xc = c => c !== undefined ? c : 1
-        let xe = e => e !== undefined ? e : 0
-
-        let cf = tensorize(_c) // _c
-        let ef = tensorize(_e) // _e
-
-        let cp = c.map(d => xc(d)) // c
-        let ep = e.map(d => xe(d)) // e
-
-        let ft = p => v => {
-          let res = 0
-          let n = 1 // p.length
-          let t = _t
-
-          let pondered = n * t
-          for (let i = 0; i < n; i++) {
-            if (i < pondered) {
-              res = res + infact(pondered) * (pow(Math.abs(v), pondered) || 0)
-            }
-          }
-          return res
-        }
+      // let cost = [
+      //   [[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, -1, -1, -1, -1]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 1, 1, 1]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, -1, -1]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      // ]
+      // let sint = [
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, -1, -1, -1, -1]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 1, 1, 1]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, -1, -1]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]],
+      //   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]],
+      // ]
 
 
-        let res = ft(cf[0])(cp[0]) * ft(ef[0])(ep[0]) *
-                  ft(cf[1])(cp[1]) * ft(ef[1])(ep[1]) *
-                  ft(cf[2])(cp[2]) * ft(ef[2])(ep[2]) *
-                  ft(cf[3])(cp[3]) * ft(ef[3])(ep[3])
-
-        return res
-      }
+      let cost = [
+        1,
+        [[[0, 0]]],
+        [[[0, 0, -1]]],
+        [[[0, 0, 0]]],
+        [[[0, 0, 0, 1]]],
+        [[[0, 0, 0, 0]]],
+        [[[0, 0, 0, 0, -1]]],
+        [[[0, 0, 0, 0, 0]]],
+        [[[0, 0, 0, 0, 0, 1, 1]]],
+        [[[0, 0, 0, 0, 0, 0]]]
+      ]
+      let sint = [
+        0,
+        [[[1, 1, 1]]],
+        [[[0, 0]]],
+        [[[0, 0, -1]]],
+        [[[0, 0, 0]]],
+        [[[0, 0, 0, 1]]],
+        [[[0, 0, 0, 0]]],
+        [[[0, 0, 0, 0, -1]]],
+        [[[0, 0, 0, 0, 0]]],
+        [[[0, 0, 0, 0, 0, 1, 1]]],
+      ]
 
       let conform2 = {
         x: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
+          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          t: [[[0, 0, Math.PI]]],
-          c: [ 1, 1, 1, 1],
+          t: [[[0, Math.PI]]],
           e: [ cost, 1, 1, cost ],
 
-          fn0: (e, c, dax) => {
-            let _e = dax.e
-            let _c = dax.c
-            let _t = dax.t
+          //  c: [1, 1, 1, 1]
+          //  e: [-1.5707963267948966, -1.5707963267948966, 0, 0]
+          //  _e: [Array(9), 1, 1, Array(9)]
 
-            let res
-            res = radion(_c, _e, _t, c, e)
+          // value described as series of powers
+          // eg. cost: [infact(0), 0, -infact(2), 0, infact(4)]
+          // in  [ cost, 1, 1, cost ]
+          fn0: (e, c, dax) => {
+            let series = eonMuonNatform.daxify(dax.e) // to dax
+            let _t = dax.t
+            let x = e
+            let res = 1
+
+            let taylor = eonMuonNatform.taylor
+            for (let i = 0; i < x.length; i++) {
+              res = res * c[i] * taylor(series[i])(x[i])
+            }
+
             return res
           },
 
         },
         y: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
+          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          t: [[[0, 0, Math.PI]]],
+          t: [[[0, Math.PI]]],
           c: [ 1, 1, 1, 1],
           e: [ 1, sint, 1, cost ],
           fn0: (e, c, dax) => {
-            let _e = dax.e
+            let series = eonMuonNatform.daxify(dax.e) // to dax
             let _c = dax.c
             let _t = dax.t
+            let x = e
+            let res = 1
 
-            let res
-            res = radion(_c, _e, _t, c, e)
+            let taylor = eonMuonNatform.taylor
+            for (let i = 0; i < x.length; i++) {
+              res = res * c[i] * taylor(series[i])(x[i])
+            }
+
             return res
           },
 
         },
         z: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
+          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
           'dom3': [-90, 90],
+          t: [[[0, Math.PI]]],
           c: [],
           e: [ 1, 1, 1, sint ],
           fn0: (e, c, dax) => {
-            let res = e[2] // sin(e[2])
+            let series = eonMuonNatform.daxify(dax.e) // to dax
+            let _c = dax.c
+            let _t = dax.t
+            let x = e
+            let res = 1
+
+            let taylor = eonMuonNatform.taylor
+            for (let i = 0; i < x.length; i++) {
+              res = res * c[i] * taylor(series[i])(x[i])
+            }
+
             return res
           },
         },
@@ -189,7 +214,9 @@
 
         eomot: {
           ereform: {
-            projection: 'uniwen', scale: [1, 0.1, 0.5], translate: [0, -175, 0], rotate: [0, 90, 0],
+            projection: 'uniwen', scale: [ [[[0.5, 0.5, 0.7, 1.5]]], [[[0.5, 0.5, 0.7, 1.5]]], [[[0.5, 0.5, 0.7, 1.5]]]],
+            translate: [0, 0, 0],
+            rotate: [ [[[-0, -6, -12, -18, -24]]], [[[-60, -54, -48, -42, -36]]], 0 ],
           },
           proform: {
             projection: 'uniwen', scale: [1, 1, 1], translate: [0, 0, 0], rotate: [[[ctl.rotation]]],

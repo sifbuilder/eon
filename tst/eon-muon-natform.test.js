@@ -8,9 +8,9 @@ global.fs = require('fs')
 
 const xEonify = require('../eon-x-eonify.js')
 
-test.only('test natMultiLineString', async () => {
+test('test natMultiLineString', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {
@@ -50,7 +50,7 @@ test.only('test natMultiLineString', async () => {
 
 test('test natMultiPolygon', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -116,10 +116,12 @@ test('test natMultiPolygon', async () => {
   expect(feat.properties.eoMultiPolygon).toBe(1)
   expect(feat.properties.faces).toEqual(faces)
 })
-
-test('test nat with functions ', async () => {
+//
+// test nat with functions
+//
+test('test nat with functions', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {
@@ -162,10 +164,12 @@ test('test nat with functions ', async () => {
   expect(feat.geometry.type).toEqual('LineString')
   expect(feat.geometry.coordinates).toEqual(coords)
 })
-
-test('test nat with functions ', async () => {
+//
+// test nat with functions
+//
+test('test nat with functions', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {
@@ -209,10 +213,12 @@ test('test nat with functions ', async () => {
   expect(feat.geometry.type).toEqual('LineString')
   expect(feat.geometry.coordinates).toEqual(coords)
 })
-
+//
+// test nat with functions 3D
+//
 test('test nat with functions 3D', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {
@@ -273,10 +279,12 @@ test('test nat with functions 3D', async () => {
   expect(feat.geometry.type).toEqual('MultiLineString')
   expect(feat.geometry.coordinates).toEqual(coords)
 })
-
+//
+// test nat with functions 3D
+//
 test('test nat with functions 3D', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {
@@ -326,10 +334,12 @@ test('test nat with functions 3D', async () => {
   expect(feat.geometry.type).toEqual('LineString')
   expect(feat.geometry.coordinates).toEqual(coords)
 })
-
+//
+// test nat with functions 2D
+//
 test('test nat with functions 2D', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {
@@ -372,10 +382,12 @@ test('test nat with functions 2D', async () => {
   expect(feat.geometry.type).toEqual('LineString')
   expect(feat.geometry.coordinates).toEqual(coords)
 })
-
+//
+// test nat with functions 2D
+//
 test('test nat with functions 2D', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {
@@ -416,10 +428,12 @@ test('test nat with functions 2D', async () => {
   expect(feat.geometry.type).toEqual('LineString')
   expect(feat.geometry.coordinates).toEqual(coords)
 })
-
+//
+// test nat with functions 2D
+//
 test('test nat with functions 2D', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
-  __eo = await xEonify.eocharge(__eo) 
+  __eo = await xEonify.eocharge(__eo)
 
   let eoform = {
     x: {
@@ -456,3 +470,49 @@ test('test nat with functions 2D', async () => {
   expect(feat.geometry.type).toEqual('LineString')
   expect(feat.geometry.coordinates).toEqual(coords)
 })
+//
+// test daxify
+//
+test('test daxify', async () => {
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo)
+  let muonNatform = await __eo('xs').m('natform')
+
+  let predax = [ 1, [0, 1], 1, [1, 0], ]
+  let daxified = muonNatform.daxify(predax)
+
+  let daxed = [ [ 1 ], [ 0, 1 ], [ 1 ], [ 1, 0 ] ]
+
+  expect(daxified).toEqual(daxed)
+})
+//
+// test daxify
+//
+test('test daxify', async () => {
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo)
+  let muonNatform = await __eo('xs').m('natform')
+
+  let predax = [ 1, [0, 1], 1]
+  let daxified = muonNatform.daxify(predax)
+
+  let daxed = [ [ 1 ], [ 0, 1 ], [ 1 ], [ 0 ] ]
+
+  expect(daxified).toEqual(daxed)
+})
+
+//
+// test taylor
+//
+test.only('test taylor', async () => {
+  let __eo = await xEonify.eonit({anitem: undefined})
+  __eo = await xEonify.eocharge(__eo)
+  let muonNatform = await __eo('xs').m('natform')
+  let taylor = muonNatform.taylor
+
+  expect(taylor([1, 0, -1, 0, 1])(0)).toBeCloseTo(1, 6) // cos(0) ~ 1
+  expect(taylor([1, 0, -1, 0, 1])(1)).toBeCloseTo(0.5403023058681398, 2) //
+  expect(taylor([1, 0, -1, 0, 1, 0, -1, 0, 1, 0, -1, 0, 1, 0, -1, 0])(Math.PI)).toBeCloseTo(-1, 2) //
+
+})
+

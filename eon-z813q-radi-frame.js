@@ -10,7 +10,7 @@
   'use strict'
 
   async function anitem (__eo) {
-  // .................. eons
+    // .................. eons
     let [
       eonCtlWen,
       eonEohalMars,
@@ -44,13 +44,14 @@
 
     // .................. animas
     let z = function () {
-    // .................. pics
+      // .................. pics
+      let eotim = {'td': 20000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tf: t => t}
 
       let radians = Math.PI / 180, degrees = 180 / Math.PI,
         sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
         pow = Math.pow
 
-      // let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
+        // let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
       let fact = x => eonMuonGamma.fact(x)
       let infact = x => 1 / fact(x)
 
@@ -58,32 +59,21 @@
       let sint = [0, infact(1), 0, -infact(3), 0, infact(5), 0, -infact(7), 0, infact(9)]
       let exp = [infact(0), infact(1), infact(2), infact(3), infact(4), infact(5), infact(6), infact(7), infact(8), infact(9)]
 
-      // ............................. pics
-      let eotim = {'td': 20000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tf: t => t}
-
-      let ponder = d => t => Math.min(1 + Math.floor(d * t), d)
-
       let radion = (_c, _e, _t, c, e) => {
         //  c: [1, 1, 1, 1]
         //  e: [-1.5707963267948966, -1.5707963267948966, 0, 0]
         //  dax.e: [Array(9), 1, 1, Array(9)]
 
-        let functor = d => Array.isArray(d) ? d : Array.of(d)
-        let tensorize = (d, dim = 4, defv = 0) => Array(dim)
-          .fill(defv)
-          .map((c, i) => functor(d)[i] !== undefined
-            ? functor(functor(d)[i])
-            : functor(defv))
 
-        let xc = c => c !== undefined ? c : 1
-        let xe = e => e !== undefined ? e : 0
 
-        let cf = tensorize(_c) // _c
-        let ef = tensorize(_e) // _e
+        // turn each dimension into array
+        let cf = eonMuonNatform.daxify(_c) // _c
+        let ef = eonMuonNatform.daxify(_e) // _e
 
-        let cp = c.map(d => xc(d)) // c
-        let ep = e.map(d => xe(d)) // e
 
+        // value described as series of powers
+        // eg. cost: [infact(0), 0, -infact(2), 0, infact(4)]
+        // in  [ cost, 1, 1, cost ]
         let ft = p => v => {
           let res = 0
           let n = 1 // p.length
@@ -97,12 +87,10 @@
           }
           return res
         }
-
-
-        let res = ft(cf[0])(cp[0]) * ft(ef[0])(ep[0]) *
-                  ft(cf[1])(cp[1]) * ft(ef[1])(ep[1]) *
-                  ft(cf[2])(cp[2]) * ft(ef[2])(ep[2]) *
-                  ft(cf[3])(cp[3]) * ft(ef[3])(ep[3])
+        let res = ft(cf[0])(c[0]) * ft(ef[0])(e[0]) *
+                    ft(cf[1])(c[1]) * ft(ef[1])(e[1]) *
+                    ft(cf[2])(c[2]) * ft(ef[2])(e[2]) *
+                    ft(cf[3])(c[3]) * ft(ef[3])(e[3])
 
         return res
       }
@@ -112,7 +100,7 @@
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
           'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          t: [[[0, 0, Math.PI]]],
+          t: [[[0, Math.PI]]],
           c: [ 1, 1, 1, 1],
           e: [ cost, 1, 1, cost ],
 
@@ -131,7 +119,7 @@
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
           'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          t: [[[0, 0, Math.PI]]],
+          t: [[[0, Math.PI]]],
           c: [ 1, 1, 1, 1],
           e: [ 1, sint, 1, cost ],
           fn0: (e, c, dax) => {
@@ -219,3 +207,4 @@
   }
   exports.eonZ813qRadiFrame = anitem
 }))
+

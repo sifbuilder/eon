@@ -183,6 +183,7 @@
       // d3Scale,
       // d3Array,
       d3Geo,
+      eonMuonGamma,      
       eonMuonLacer,
       eonMuonProps,
       eonMuonGeom,
@@ -194,6 +195,7 @@
       // __eo('xs').b('d3'),
       // __eo('xs').b('d3-array'),
       __eo('xs').b('d3-geo'),
+      __eo('xs').b('eon-muon-gamma'),      
       __eo('xs').b('eon-muon-lacer'),
       __eo('xs').b('eon-muon-props'),
       __eo('xs').b('eon-muon-geom'),
@@ -208,19 +210,39 @@
       pos = x => x > 0 || (x === 0 && (1 / x > 0)),
       radians = Math.PI / 180,
       degrees = 180 / Math.PI,
-      tau = 2 * Math.PI
-
-    let pow = Math.pow
-
+      tau = 2 * Math.PI,
+      pow = Math.pow
+      
+    let _fact = n => n - 1 > 0 ? n * fact(n - 1) : n      
+    let fact = x => eonMuonGamma.fact(x)
+    let infact = x => 1 / fact(x)
+    let ponder = d => t => Math.min(1 + Math.floor(d * t), d)
     let functor = d => Array.isArray(d) ? d : Array.of(d)
 
     let xc = c => c !== undefined ? c : 1
     let xe = e => e !== undefined ? e : 0
 
     // p:[0,n], v => p[i] * v**i
-    let ft = p => v => p.reduce((acc, cur, i) => acc + cur * pow(v, i), 0)
-
-    let tensorize = (d, dim = 4, defv = 0) => Array(dim).fill(defv).map((c, i) => functor(d)[i] !== undefined ? functor(functor(d)[i]) : functor(defv))
+    let taylor = v => x => {
+      console.assert(Array.isArray(v))
+      let res = 0
+      let n = v.length
+      for (let i = 0; i < n; i++) {
+        let c1 = v[i]
+        let c2 = fact(i)
+        let c3 =  (Math.pow(x, i) || 0)
+        let sum = (c1 / c2) * c3
+        res = res + sum
+      }
+      return res
+    }    
+    let rtaylor = x => taylor(Math.abs(x))
+   
+    let daxify = (d, dim = 4, defv = 0) => Array(dim)
+      .fill(defv)
+      .map((c, i) => functor(d)[i] !== undefined
+        ? functor(functor(d)[i])
+        : functor(defv))
 
     // c[0],c[1],c[2],c[3]: radius (default to 1)
     // e[1] [-2pi,2pi],e[2][-2pi,2pi],e[3][-pi,pi],e4[-pi,pi]: radian-angles (default to 0)
@@ -237,18 +259,18 @@
         dax.c[2] = dax.c[2] !== undefined ? dax.c[2] : 1
         dax.c[3] = dax.c[3] !== undefined ? dax.c[3] : 1
 
-        let cf = tensorize(dax.c)
-        let ef = tensorize(dax.e)
+        let cf = daxify(dax.c)
+        let ef = daxify(dax.e)
 
         let cp = c.map(d => xc(d))
         let ep = e.map(d => xe(d))
 
-        let ret = ft(cf[0])(cp[0]) * ft(ef[0])(ep[0]) *
-                  ft(cf[1])(cp[1]) * ft(ef[1])(ep[1]) *
-                  ft(cf[2])(cp[2]) * ft(ef[2])(ep[2]) *
-                  ft(cf[3])(cp[3]) * ft(ef[3])(ep[3])
+        let ret = taylor(cf[0])(cp[0]) * taylor(ef[0])(ep[0]) *
+                  taylor(cf[1])(cp[1]) * taylor(ef[1])(ep[1]) *
+                  taylor(cf[2])(cp[2]) * taylor(ef[2])(ep[2]) *
+                  taylor(cf[3])(cp[3]) * taylor(ef[3])(ep[3])
 
-        // let tensor = glMatrix.mat4.fromValues(...tensorize(e[0]), ...tensorize(e[1]), ...tensorize(e[2]), ...tensorize(e[3]) )
+        // let tensor = glMatrix.mat4.fromValues(...daxify(e[0]), ...daxify(e[1]), ...daxify(e[2]), ...daxify(e[3]) )
         // let vector = glMatrix.vec4.fromValues(xe(e[0]), xe(e[1]), xe(e[2]), xe(e[3]) )
         // let position = glMatrix.vec4.transformMat4(glMatrix.vec4.create(), vector, tensor)
 
@@ -270,33 +292,8 @@
       [-90, 90],
       [-90, 90],
     ]
-    
-    // ............................. radion
-    let radion = function (c,d) {
-      let functor = d => Array.isArray(d) ? d : Array.of(d)
-      let tensorize = (d, dim = 4, defv = 0) => Array(dim)
-        .fill(defv)
-        .map((c, i) => functor(d)[i] !== undefined
-          ? functor(functor(d)[i])
-          : functor(defv))
 
-      let xc = c => c !== undefined ? c : 1
-      let xe = e => e !== undefined ? e : 0
 
-      let cf = tensorize(c)
-      let ef = tensorize(e)
-
-      let cp = c.map(d => xc(d))
-      let ep = e.map(d => xe(d))
-
-      let ft = p => v => p.reduce((acc, cur, i) => acc + cur * pow(v, i), 0)
-      let res = ft(cf[0])(cp[0]) * ft(ef[0])(ep[0]) *
-                ft(cf[1])(cp[1]) * ft(ef[1])(ep[1]) *
-                ft(cf[2])(cp[2]) * ft(ef[2])(ep[2]) *
-                ft(cf[3])(cp[3]) * ft(ef[3])(ep[3])
-
-      return res
-    }
 
     // ............................. enformDax
     let enformDax = function (formDax) {
@@ -743,17 +740,24 @@
       return geoProj
     }
 
+
     // ............................. enty
     let enty = function () {}
+
+    enty.multidv = d => d.map(v => v !== undefined ? v : 1)
+    enty.addidv = d => d.map(v => v !== undefined ? v : 0)
+
+    enty.taylor = taylor
+    enty.rtaylor = rtaylor
 
     enty.natMultiLineString = natMultiLineString
     enty.natMultiPolygon = natMultiPolygon
 
+    enty.daxify = daxify
     enty.isNatform = isNatform
     enty.natNform = natNform
     enty.closeFeature = closeFeature
     enty.natVertex = natVertex
-    enty.radion = radion
     enty.rador = rador
     enty.radorm = radorm
     enty.natprojection = natprojection
