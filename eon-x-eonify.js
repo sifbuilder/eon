@@ -288,7 +288,7 @@
   }
 
   const ceonize = function (nome, pres = '') {
-
+    // console.log('ceonize pres:', pres, nome)
     let camelized
     if (pres === '' || pres === 'eon') {
       camelized = camelize(nome)
@@ -297,12 +297,28 @@
     }
     return camelized
   }
-  const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js'
 
-  const xeonize = (nome, pres = '') =>
-    (pres === '' || pres === 'eon') // wen => eon-muon-wen
-      ? nome
-      : 'eon' + '-' + pres + '-' + nome
+  const feonize = function (nome, pres = '') {
+    // console.log('feonize pres:', pres, nome)    
+    let xeonized
+    if (pres === '' || pres === 'eon') {
+      xeonized = './' + nome + '.js'
+    } else {
+      xeonized = './' + 'eon-' + pres + '-' + nome + '.js'
+    }
+    return xeonized
+  }
+
+  const xeonize = function (nome, pres = '') {
+    // console.log('xeonize pres:', pres, nome)    
+    let xeonized
+    if (pres === '' || pres === 'eon') {
+      xeonized = nome
+    } else {
+      xeonized = 'eon-' + pres + '-' + nome
+    }
+    return xeonized
+  }
 
   const precamelize = str => str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
@@ -374,6 +390,8 @@
   // ............................. getEon
   // nome is partName: eg 'eonMuonGraticule'
   async function getEon (inpart, __eo) {
+  // console.log('getEon inpart:', inpart)
+
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
     let res = []
@@ -384,6 +402,7 @@
     } else if (typeof part[0] === 'function') {
       let [eonfn, pres] = part
       let x = await eonfn(__eo)
+      console.log('x:', pres, x)
 
       res = await x[pres]() // in eon-z expect the z function
     } else {
@@ -432,7 +451,6 @@
       ['proton', 'p', 'proton'],
       ['render', 'r', 'render'],
       ['zindex', 'z', 'z'],
-      ['zindex', 'z', 'eon'],
 
     ]
 
@@ -482,6 +500,7 @@
     __eo({'xD3Require': { require: d3Require, requireFrom: requireFrom } })
 
     await __eo('xs').b('eon-muon-store') // map store
+    await __eo('xs').b('eon-eohal-core') // hal core
     return __eo
   }
 
@@ -492,10 +511,17 @@
   // xEo gets xs from the state to retrive eons
   //
   let eonit = async function ({anitem, time}) {
-    let __eo = await eostore()
-    let aniset = await __eo('xs').z(anitem) // z eon
 
+    let __eo = await eostore()
     let eonMuonStore = __eo('eonMuonStore')
+
+    let getter //
+    if (typeof anitem === 'string') {
+      getter = await __eo('xs').b
+    } else {
+      getter = await __eo('xs').z
+    }
+    let aniset = await getter(anitem) // z eon
 
     let animas = aniset
     if (aniset['z'] !== undefined) { // anitem comes from string
@@ -576,11 +602,9 @@
     let match1 = rfile1.exec(input) || {}
     let {filename, anchor} = (match1.groups || {})
 
-
     const rfile2 = /.*\/(?<filename>[^/?#]+)(.html)?[^#]*(?==)v?=?(?<val>.*)(?:#)?#?(?<anchor>[^#]*)$/u
     let match2 = rfile2.exec(input) || {}
     let {val} = (match2.groups || {})
-
 
     let res = null
     if (val) res = val

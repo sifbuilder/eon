@@ -9,41 +9,20 @@
   'use strict'
 
   async function eonitem (__eo = {}) {
-    let [
-      eonMuonGeoj,
-      eonMuonProfier,
-      eonMuonProj3ct,
-      eonMuonProps,
-      eonEohalSol,
-    ] = await Promise.all([
-      __eo('xs').b('eon-muon-geoj'),
-      __eo('xs').b('eon-muon-profier'),
-      __eo('xs').b('eon-muon-proj3ct'),
-      __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-eohal-sol'),
-    ])
 
     // ....................... eohale
-    let eohale = function (anitem) {
-      return anitem
-    }
+    let eohale = anitem => anitem
 
     // ....................... anify
     let anify = anitem => {
       let newItem = eohale(anitem)
-
-      let newItems = eonMuonProps.a(newItem)
-
-      return newItems
+      return Array.isArray(newItem) ? newItem : Array.of(newItem)
     }
 
     // ....................... gramify
     let gramify = anitem => {
       let newItem = eohale(anitem)
-
-      let newItems = eonMuonProps.a(newItem)
-
-      return newItems
+      return Array.isArray(newItem) ? newItem : Array.of(newItem)
     }
 
     let eonEohalCore = {

@@ -58,12 +58,12 @@ describe('results from animation', () => {
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
 
-
     let td = state.featurecollection.features[0].properties.eotim.td //  1000
 
     expect(callback).toHaveBeenCalledTimes(ntimes + 1) //  4
     expect(t).toBe((ntimes - 1) * dt) //  200
-    expect(state.featurecollection.features[0].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td) // 0.1 
+    expect(state.featurecollection.features[0].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td) // 0.1
     expect(state.featurecollection.features[0].geometry.coordinates).toEqual([40, 0])
+    // expect(1).toBe(1)
   })
 })
