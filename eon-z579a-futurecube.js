@@ -14,7 +14,7 @@
       eonMuonNatform,
       eonMuonGraticule,
       topojson,
-      datWorldTopo110m,
+      eonDatWorldTopo110m,
       d3Geo,
       d3Geoprojection,
       eonGeoFuturi,
@@ -25,7 +25,7 @@
       __eo('xs').b('eon-muon-natform'),
       __eo('xs').b('eon-muon-graticule'),
       __eo('xs').b('topojson'),
-      __eo('xs').d('worldTopo110m'),
+      __eo('xs').b('eon-dat-world-topo110m'),
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
       __eo('xs').b('eon-geo-futuri'),
@@ -73,8 +73,8 @@
         eofold: () => {
           return Object.assign({},
             topojson.feature(
-              datWorldTopo110m.data(),
-              datWorldTopo110m.data().objects.land
+              eonDatWorldTopo110m.data(),
+              eonDatWorldTopo110m.data().objects.land
             )
           )
         },
@@ -97,8 +97,8 @@
         eofold: () => {
           return Object.assign({},
             topojson.feature(
-              datWorldTopo110m.data(),
-              datWorldTopo110m.data().objects.land
+              eonDatWorldTopo110m.data(),
+              eonDatWorldTopo110m.data().objects.land
             )
           )
         },

@@ -1,17 +1,17 @@
 /**********************
- *      @datWorldTopo110m
+ *      @eonDatWorldTopo110m
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.datWorldTopo110m = global.datWorldTopo110m || {})))
+      : (factory((global.eonDatWorldTopo110m = global.eonDatWorldTopo110m || {})))
 }(this, function (exports) {
   'use strict'
 
-  // datWorldTopo110m ref. https://github.com/topojson/world-atlas
+  // eonDatWorldTopo110m ref. https://github.com/topojson/world-atlas
   // Copyright (c) 2013-2016, Michael Bostock All rights reserved.
 
-  async function datWorldTopo110m (__eo = {}) {
+  async function eonDatWorldTopo110m (__eo = {}) {
     let data = {
       'type': 'Topology',
       'objects': {
@@ -18458,5 +18458,5 @@
     return enty
   }
 
-  exports.datWorldTopo110m = datWorldTopo110m
+  exports.eonDatWorldTopo110m = eonDatWorldTopo110m
 }))

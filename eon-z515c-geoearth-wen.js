@@ -17,7 +17,7 @@
       d3Geoprojection,
       eonCtlWen,
       eonCtlVersor,
-      datWorldTopo110m,
+      eonDatWorldTopo110m,
       eonEohalMars,
       eonMuonGeom,
       eonMuonGraticule,
@@ -30,7 +30,7 @@
       __eo('xs').b('d3-geo-projection'),
       __eo('xs').b('eon-ctl-wen'),
       __eo('xs').b('eon-ctl-versor'),
-      __eo('xs').d('worldTopo110m'),
+      __eo('xs').b('eon-dat-world-topo110m'),
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-muon-geom'),
       __eo('xs').b('eon-muon-graticule'),
@@ -158,8 +158,8 @@
         eofold: () => {
           return Object.assign({},
             topojson.feature(
-              datWorldTopo110m.data(),
-              datWorldTopo110m.data().objects.land
+              eonDatWorldTopo110m.data(),
+              eonDatWorldTopo110m.data().objects.land
             )
           )
         },
@@ -214,8 +214,8 @@
         eofold: () => {
           return Object.assign({},
             topojson.feature(
-              datWorldTopo110m.data(),
-              datWorldTopo110m.data().objects.land
+              eonDatWorldTopo110m.data(),
+              eonDatWorldTopo110m.data().objects.land
             )
           )
         },
@@ -312,8 +312,8 @@
         eofold: ani => {
           let geometry = Object.assign({},
             topojson.mesh(
-              datWorldTopo110m.data(),
-              datWorldTopo110m.data().objects.land
+              eonDatWorldTopo110m.data(),
+              eonDatWorldTopo110m.data().objects.land
             )
           )
           let gj = {

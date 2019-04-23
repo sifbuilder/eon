@@ -14,7 +14,7 @@
   let [
     topojson,
     eonCtlWen,
-    datWorldTopo110m,
+    eonDatWorldTopo110m,
     eonEohalMars,
     eonEohalSol,
     eonMuonGeom,
@@ -27,7 +27,7 @@
   ] = await Promise.all([
     __eo('xs').b('topojson'),
     __eo('xs').b('eon-ctl-wen'),
-    __eo('xs').d('worldTopo110m'),
+    __eo('xs').b('eon-dat-world-topo110m'),
     __eo('xs').b('eon-eohal-mars'),
     __eo('xs').b('eon-eohal-sol'),
     __eo('xs').b('eon-muon-geom'),
@@ -200,8 +200,8 @@
         let res, opt = 'MultiLineString'
         if (opt === 'MultiLineString') { // MultiLineString topojson.mesh
           let gjMultiLineString = topojson.mesh(
-            datWorldTopo110m.data(),
-            datWorldTopo110m.data().objects.land
+            eonDatWorldTopo110m.data(),
+            eonDatWorldTopo110m.data().objects.land
           )
           res = {
             type: 'Feature',
@@ -210,8 +210,8 @@
           }
         } else { // MultiPolygon topojson.feature
           let gjFCMultiPolygon = topojson.feature(
-            datWorldTopo110m.data(),
-            datWorldTopo110m.data().objects.land
+            eonDatWorldTopo110m.data(),
+            eonDatWorldTopo110m.data().objects.land
           )
           res = gjFCMultiPolygon
         }

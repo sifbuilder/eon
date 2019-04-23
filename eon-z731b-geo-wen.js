@@ -15,7 +15,7 @@
     eonMuonGraticule,
     eonMuonGeoj,
     topojson,
-    datWorldTopo110m,
+    eonDatWorldTopo110m,
     d3Geo,
     eonCtlWen,
     eonEohalMars,
@@ -25,7 +25,7 @@
     __eo('xs').b('eon-muon-graticule'),
     __eo('xs').b('eon-muon-geoj'),
     __eo('xs').b('topojson'),
-    __eo('xs').d('worldTopo110m'),
+    __eo('xs').b('eon-dat-world-topo110m'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('eon-ctl-wen'),
     __eo('xs').b('eon-eohal-mars'),
@@ -52,8 +52,8 @@
       eofold: () => {
         let gj = Object.assign({},
           topojson.feature(
-            datWorldTopo110m.data(),
-            datWorldTopo110m.data().objects.land
+            eonDatWorldTopo110m.data(),
+            eonDatWorldTopo110m.data().objects.land
           )
         )
         gj = eonMuonGeoj.trim(gj)
@@ -151,8 +151,8 @@
       eofold: () => {
         let gj = Object.assign({},
           topojson.feature(
-            datWorldTopo110m.data(),
-            datWorldTopo110m.data().objects.land
+            eonDatWorldTopo110m.data(),
+            eonDatWorldTopo110m.data().objects.land
           )
         )
 

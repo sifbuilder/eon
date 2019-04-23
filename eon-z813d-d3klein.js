@@ -14,7 +14,7 @@
   let [
     topojson,
     eonCtlWen,
-    datWorldTopo110m,
+    eonDatWorldTopo110m,
     eonEohalMars,
     eonEohalSol,
     eonMuonGeom,
@@ -27,7 +27,7 @@
   ] = await Promise.all([
     __eo('xs').b('topojson'),
     __eo('xs').b('eon-ctl-wen'),
-    __eo('xs').d('worldTopo110m'),
+    __eo('xs').b('eon-dat-world-topo110m'),
     __eo('xs').b('eon-eohal-mars'),
     __eo('xs').b('eon-eohal-sol'),
     __eo('xs').b('eon-muon-geom'),

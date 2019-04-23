@@ -14,7 +14,7 @@
     let [
       topojson,
       eonCtlWen,
-      datWorldTopo110m,
+      eonDatWorldTopo110m,
       eonEohalTextform,
       eonEohalMars,
       eonMuonNatform,
@@ -26,7 +26,7 @@
     ] = await Promise.all([
       __eo('xs').b('topojson'),
       __eo('xs').b('eon-ctl-wen'),
-      __eo('xs').d('worldTopo110m'),
+      __eo('xs').b('eon-dat-world-topo110m'),
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-textform'),
       __eo('xs').b('eon-muon-natform'),
@@ -121,8 +121,8 @@
         eofold: p => {
           let geometry = Object.assign({},
             topojson.mesh(
-              datWorldTopo110m.data(),
-              datWorldTopo110m.data().objects.land
+              eonDatWorldTopo110m.data(),
+              eonDatWorldTopo110m.data().objects.land
             )
           )
           return { type: 'Feature', geometry: geometry, properties: {} }

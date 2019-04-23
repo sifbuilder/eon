@@ -15,7 +15,7 @@
     d3Geo,
     topojson,
     eonCtlVersor,
-    datWorldTopo110m,
+    eonDatWorldTopo110m,
     eonEohalMars,
     eonEohalTextform,
     eonMuonGraticule,
@@ -24,7 +24,7 @@
     __eo('xs').b('d3-geo'),
     __eo('xs').b('topojson'),
     __eo('xs').b('eon-ctl-versor'),
-    __eo('xs').d('worldTopo110m'),
+    __eo('xs').b('eon-dat-world-topo110m'),
     __eo('xs').b('eon-eohal-mars'),
     __eo('xs').b('eon-eohal-textform'),
     __eo('xs').b('eon-muon-graticule'),
@@ -73,8 +73,8 @@
       eofold: () => {
         return Object.assign({},
           topojson.feature(
-            datWorldTopo110m.data(),
-            datWorldTopo110m.data().objects.land
+            eonDatWorldTopo110m.data(),
+            eonDatWorldTopo110m.data().objects.land
           )
         )
       },
@@ -124,8 +124,8 @@
       eofold: () => {
         return Object.assign({},
           topojson.feature(
-            datWorldTopo110m.data(),
-            datWorldTopo110m.data().objects.land
+            eonDatWorldTopo110m.data(),
+            eonDatWorldTopo110m.data().objects.land
           )
         )
       },
