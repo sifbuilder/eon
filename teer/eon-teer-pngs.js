@@ -8,6 +8,7 @@ const waitInPromise = delay => arg =>
     ? new Promise(resolve => setTimeout(() => resolve(arg), delay))
     : Promise.resolve(arg)
 
+const includes = (a, b) => a.includes(b) // is element b in array a
 
 // fs
 
@@ -19,21 +20,54 @@ let filename = __filename // full path name of the current module
 let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
 let cwdir = process.cwd() // directory of invocation
-let prgdir = __dirname // directory of calling js
+let prgdir = __dirname // directory of calling js file
+
+// options
+
+const options = {
+  qualiprefix: 'eon-z',
+  closebrowser: 0,
+  tracing: 0,
+  tracingpath: './___trace.json',
+  // ((eon-z-)([^-.]*))[-]?(.*)  
+  zpattern: new RegExp('^(((eon-z)(.*))-([^-.]*))[-]?(.*).(html)', 'i'),
+  inScopeExt: 'html',
+  outext: 'png',
+  imgtypes: ['preview'], // ['thumbnail'], // ['preview', 'thumbnail'],
+}
 
 // state
 
 const state = {
-  closebrowser: false,
-  headless: true, // puppeteer.launch
+  imgdirpath: (__dirname + '/images/').replace(/\\/g, '/'),
+  outdirpath: (__dirname + '/').replace(/\\/g, '/'),
+  // imgdirpath: (cwdir + '/img/').replace(/\\/g, '/'),
+  // outdirpath: (cwdir + '/img/').replace(/\\/g, '/'),
+
+  prgname,
+  actions: [],
+  inDir: './',
+  indirpath: (cwdir + '/').replace(/\\/g, '/'),
+  inScopePattern: new RegExp(`^eon-z___none___.*\.html$`, 'i'), // none pattern
+}
+
+options.browseopts = {
+  headless: false, // puppeteer.launch
   devtools: false, // puppeteer.launch
   debuggingPort: 9222, // puppeteer.launch
-  window: { // puppeteer.launch
+  window: {
+    // puppeteer.launch
     width: 1200,
     height: 900,
   },
   fullPage: false,
-  viewPort: {
+  clip: {
+    x: 0,
+    y: 0,
+    width: 600,
+    height: 400,
+  },
+  viewPort: { // page.setViewport
     preview: { // page.setViewport
       width: 600,
       height: 400,
@@ -43,19 +77,9 @@ const state = {
       height: 120,
     },
   },
-  delay: 9000, // waitInPromise
+  delay: 3000, // waitInPromise
   timeout: 50000, // page.goto
   pageSelector: '#viewframe', // page.waitForSelector
-  outext: 'png',
-  imgdirpath: (__dirname + '/images/').replace(/\\/g, '/'),
-  outdirpath: (__dirname + '/').replace(/\\/g, '/'),
-  imgtypes: ['preview'], // ['thumbnail'], // ['preview', 'thumbnail'],
-  inScopeExt: 'html', // {html | gif} src file
-  inScopePattern: new RegExp(`^eon-z-___none___.*.*$`, 'i'), // none pattern
-  inDir: './',
-  indirpath: (dirname + '/').replace(/\\/g, '/'), // z-indexes
-  tracing: 0,
-  tracingpath: './___trace.json',
 }
 
 // args
@@ -63,83 +87,110 @@ const state = {
 let args = process.argv
 let [cmd, scp, ...opts] = args
 
-let action = 'help' // {[help] pattern}
-
-if (opts.length === 0) { // action: help
-  action = 'help'
-} else if (opts.length >= 1 && opts[0] !== 'help') { // action:doAction
-  action = 'doAction'
+if (opts.length === 0) {
+  state.actions.push('help')
+} else if (opts.length >= 1) {
   let codepattern = '.*' // default to all
   if (opts[0] === '.') {
-    codepattern = '.*' // include all
+    codepattern = '.*'
   } else {
     codepattern = opts[0]
   }
+  state.inScopePattern = new RegExp(
+    `^${options.qualiprefix}${codepattern}.*.${options.inScopeExt}$`,
+    'i'
+  ) // actView pattern
 
-  if (opts[1] !== undefined) state.inScopeExt = opts[1] // set src ext
-  state.inScopePattern = new RegExp(`^eon-z-${codepattern}.*\.${state.inScopeExt}$`, 'i')
+  if (opts.length >= 2 && opts[1] === 'doit') {
+    state.actions.push('doit')
+  } else if (opts.length >= 2 && opts[1] === 'dodebug') {
+    state.actions.push('doit')
+    state.actions.push('debug')
+  } else {
+    state.actions.push('debug')
+  }
 }
 
-let files = fs.readdirSync(state.inDir) // to doAction
+state.files = fs
+  .readdirSync(state.inDir) // to doit
   .filter(file => isFile(file))
   .filter(d => state.inScopePattern.test(d))
 
-// .................. actScreenShots
-async function actScreenShots (browser, fls, opts) {
-  async function actUponNext (current) { // n+1
-    if (current >= fls.length) { return }
+// .................. actUponItems
+async function actUponItems (data) {
+  let { state, options } = data
+  let { files, indirpath, browser } = state
+  let { browseopts, tracing, tracingpath, zpattern } = options
+  let { viewPort, timeout, pageSelector, delay } = browseopts
 
-    let inFileName = fls[current]
-    let inFullPath = `${state.indirpath}${inFileName}`
+  let imgtypes = { options } // 'preview', 'thumbnail'
 
-    // ------
-    let filePartsPattern = new RegExp(`^((eon-z-)([^-.]*))[-]?(.*).${state.inScopeExt}$`, 'i')
-    let parts = inFileName.match(filePartsPattern)
-    let fullname = parts[0]
-    let prefixAndCode = parts[1]
-    let prefix = parts[2]
-    let code = parts[3]
-    let name = parts[4]
+  async function actUponNext (current) {
+    // n+1
+    if (current >= files.length) return
+    let inFileName = files[current]
+    let inPathName = path.resolve(indirpath, inFileName)
+    console.assert(existsFile(inPathName), `file ${inPathName} does not exist`)
+    if (includes(state.actions, 'debug')) console.log(`doing:  ${inPathName}`)
+
+    let parts = inFileName.match(zpattern)
+    console.log('parts:', parts)
+    let fullnamewithext = parts[0]
+    let fullname = parts[1]
+    let rootname = parts[2]
+    let prefix = parts[3]
+    let code = parts[4]
+    let name = parts[5]
+    let vide = parts[6]
+    let exten = parts[7]
+
 
     // ------ show
 
-    let viewPort, outfile, outpathname, itemOpts, typeimg
-    let imgtypes = opts.imgtypes // 'preview', 'thumbnail'
+    let outfile, outpathname, itemOpts
+    let typeimg // preview, thumbnail
 
     const pageSrc = await browser.newPage()
-    await pageSrc.goto(`file:///${inFullPath}`, {waitUntil: 'domcontentloaded'})
+    await pageSrc.goto(`file:///${inPathName}`, {
+      waitUntil: 'domcontentloaded',
+    })
 
-    await waitInPromise(opts.delay)(pageSrc.content())
+    await waitInPromise(options.browseopts.delay)(pageSrc.content())
 
     typeimg = 'preview'
     console.assert(typeimg !== undefined, `screenshot type undefined`)
-    viewPort = opts.viewPort[typeimg]
+    viewPort = options.browseopts.viewPort[typeimg]
     console.assert(viewPort !== undefined, `viewPort size undefined`)
     await pageSrc.setViewport(viewPort) // viewport
-    outfile = `${prefixAndCode}-${typeimg}.${opts.outext}` // preview, thumbnail
-    outpathname = `${opts.outdirpath}${outfile}`
-    itemOpts = Object.assign({}, opts)
+    outfile = `${rootname}-${typeimg}.${options.outext}` // preview, thumbnail
+    outpathname = `${state.outdirpath}${outfile}`
+    itemOpts = Object.assign({}, options)
     itemOpts.path = outpathname
     await pageSrc.screenshot(itemOpts)
 
+ 
     // ------ show preview
 
     const pagePreview = await browser.newPage()
-    await pagePreview.goto(`file:///${outpathname}`, {waitUntil: 'domcontentloaded'})
+    await pagePreview.goto(`file:///${outpathname}`, {
+      waitUntil: 'domcontentloaded',
+    })
 
     typeimg = 'thumbnail'
-    viewPort = opts.viewPort[typeimg]
+    viewPort = options.browseopts.viewPort[typeimg]
     await pagePreview.setViewport(viewPort) // viewport
-    outfile = `${prefixAndCode}-${typeimg}.${opts.outext}` // preview, thumbnail
-    outpathname = `${opts.outdirpath}${outfile}`
-    itemOpts = Object.assign({}, opts)
+    outfile = `${rootname}-${typeimg}.${options.outext}` // preview, thumbnail
+    outpathname = `${state.outdirpath}${outfile}`
+    itemOpts = Object.assign({}, options)
     itemOpts.path = outpathname
-    console.log('screenshot: ', inFullPath, outpathname)
+    console.log('screenshot: ', inPathName, outpathname)
     await pagePreview.screenshot(itemOpts)
 
     // ------ show thumbnail
     const pageThumbnail = await browser.newPage()
-    await pageThumbnail.goto(`file:///${outpathname}`, {waitUntil: 'domcontentloaded'})
+    await pageThumbnail.goto(`file:///${outpathname}`, {
+      waitUntil: 'domcontentloaded',
+    })
 
     // ------
 
@@ -149,34 +200,54 @@ async function actScreenShots (browser, fls, opts) {
   return actUponNext(0) // 0
 }
 
-// .................. doAction
-async function doAction (fls, opts) {
+// .................. doit
+async function doit (data) {
+  let { state, options } = data
+  let { browseopts, closebrowser } = options
+  let { headless, devtools, debuggingPort, window } = browseopts
+  let { actions } = state
+  if (includes(actions, 'debug')) console.log('doit data', data)
+
   const browser = await puppeteer.launch({
-    headless: opts.headless,
-    devtools: opts.devtools, // open DevTools when window launches
-    args: [`--remote-debugging-port=${opts.debuggingPort}`,
-      `--window-size=${opts.window.width},${opts.window.height}`, // Window size
-      '--trace-to-console',
+    headless: headless,
+    devtools: devtools, // open DevTools when window launches
+    args: [
+      `--remote-debugging-port=${debuggingPort}`,
+      `--window-size=${window.width},${window.height}`, // Window size
     ],
   })
 
   await browser.pages()
-  await actScreenShots(browser, fls, opts) // actScreenShots preview
-  if (opts.closebrowser) await browser.close()
+  state.browser = browser
+  data.state = state
+  await actUponItems(data) // actUponItems
+  if (closebrowser) await browser.close()
 }
 
-
 // .................. help
-async function help (fls, opts) {
+async function help (data) {
+  let { state, options } = data
+  let { prgname } = state
   console.log(`generate preview.png [600x400] and thumbnail.png [230x120]
       node ${prgname} {[pattern], [ext]}
       from eon-z-...{pattern}...{ext}, where ext in {html, gif, mov}
-      eg. node eon-teer-pngs 714 html`)  
+      eg. node eon-teer-pngs 714 html`)
 }
 
-if (action === 'doAction') {
-  console.log(`doAction ${state.inScopePattern} eon files`)
-  doAction(files, state)
-} else {
-  help()
+// .................. debug
+function debug (data) {
+  let { state, options } = data
+  console.log(state)
+  console.log(options)
+  console.log(`will do: ${state.files}`)
+}
+
+if (includes(state.actions, 'help')) {
+  help({ state, options })
+}
+if (includes(state.actions, 'doit')) {
+  doit({ state, options })
+}
+if (includes(state.actions, 'debug')) {
+  debug({ state, options })
 }

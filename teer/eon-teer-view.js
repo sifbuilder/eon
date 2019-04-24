@@ -30,6 +30,7 @@ const options = {
   tracing: 0,
   tracingpath: './___trace.json',
   zpattern: new RegExp('^((eon-z)(.*)-(.*)).(html)', 'i'),
+  inScopeExt: 'html',
 }
 
 // state
@@ -37,16 +38,15 @@ const options = {
 const state = {
   prgname,
   actions: [],
-  indir: './',
+  inDir: './',
   indirpath: (cwdir + '/').replace(/\\/g, '/'),
+  inScopePattern: new RegExp(`^eon-z___none___.*\.html$`, 'i'), // none pattern
 }
 
 // args
 
 let args = process.argv
 let [cmd, scp, ...opts] = args
-
-let inScopePattern = new RegExp(`^eon-z___none___.*\.html$`, 'i') // none pattern
 
 if (opts.length === 0) {
   state.actions.push('help')
@@ -57,8 +57,8 @@ if (opts.length === 0) {
   } else {
     codepattern = opts[0]
   }
-  inScopePattern = new RegExp(
-    `^${options.qualiprefix}${codepattern}.*\.html$`,
+  state.inScopePattern = new RegExp(
+    `^${options.qualiprefix}${codepattern}.*.${options.inScopeExt}$`,
     'i'
   ) // actView pattern
 
@@ -89,19 +89,19 @@ options.browseopts = {
     height: 400,
   },
   viewPort: {
-    // page.setViewport
+    // pageSrc.setViewport
     width: 600,
     height: 400,
   },
   delay: 3000, // waitInPromise
-  timeout: 50000, // page.goto
-  pageSelector: '#viewframe', // page.waitForSelector
+  timeout: 50000, // pageSrc.goto
+  pageSelector: '#viewframe', // pageSrc.waitForSelector
 }
 
 state.files = fs
-  .readdirSync(state.indir) // to actView
+  .readdirSync(state.inDir) // to actView
   .filter(file => isFile(file))
-  .filter(d => inScopePattern.test(d))
+  .filter(d => state.inScopePattern.test(d))
 
 // .................. actUponItems
 async function actUponItems (data) {
@@ -113,52 +113,52 @@ async function actUponItems (data) {
   async function actUponNext (current) {
     // n+1
     if (current >= files.length) return
-    let infileName = files[current]
+    let inFileName = files[current]
+    let inPathName = path.resolve(indirpath, inFileName)
+    console.assert(existsFile(inPathName), `file ${inPathName} does not exist`)
+    if (includes(state.actions, 'debug')) console.log(`doing:  ${inPathName}`)
 
-    let inpathname = path.resolve(indirpath, infileName)
-    console.assert(existsFile(inpathname), `file ${inpathname} does not exist`)
-    if (includes(state.actions, 'debug')) console.log(`doing:  ${inpathname}`)
-
-    let parts = infileName.match(zpattern)
+    let parts = inFileName.match(zpattern)
     let fullname = parts[0]
     let rootname = parts[1]
     let code = parts[2]
     let name = parts[3]
     let type = parts[4]
 
-    const page = await browser.newPage()
-    page.setViewport(viewPort) // viewport
+
+    const pageSrc = await browser.newPage()
+    pageSrc.setViewport(viewPort) // viewport
 
     if (tracing) {
-      await page.tracing.start({
+      await pageSrc.tracing.start({
         path: tracingpath,
         screenshots: true,
       })
     }
 
-    await page.goto(`file:///${inpathname}`, {
+    await pageSrc.goto(`file:///${inPathName}`, {
       waitUntil: 'domcontentloaded',
       timeout: timeout, // timeout
     })
-    await page.waitForSelector(pageSelector)
-    await waitInPromise(delay)(page.content())
+    await pageSrc.waitForSelector(pageSelector)
+    await waitInPromise(delay)(pageSrc.content())
 
-    page.on('pageerror', function (err) {
+    pageSrc.on('pageerror', function (err) {
       let theTempValue = err.toString()
-      console.log('Page error: ' + theTempValue)
+      console.log('pageSrc error: ' + theTempValue)
     })
-    page.on('error', function (err) {
+    pageSrc.on('error', function (err) {
       let theTempValue = err.toString()
       console.log('Error: ' + theTempValue)
     })
-    page.on('console', msg => {
+    pageSrc.on('console', msg => {
       for (let i = 0; i < msg.args.length; ++i) {
         console.log(`${i}: ${msg.args[i]}`)
       }
     })
-    await page.evaluate(() => console.log(`url is ${location.href}`))
+    await pageSrc.evaluate(() => console.log(`url is ${location.href}`))
 
-    if (tracing) await page.tracing.stop()
+    if (tracing) await pageSrc.tracing.stop()
 
     await actUponNext(current + 1)
   }
