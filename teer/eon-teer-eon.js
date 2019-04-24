@@ -52,29 +52,27 @@ if (opts.length === 0) { // action: help
     // create zeon.html and zeon.js
     action = 'doit'
     eoncode = opts[0]
-
   } else if (opts.length === 3 && opts[2] === 'dofrom') {
     // debug create zeon.html and zeon.js from zeon.js
 
     fromeon = opts[1]
 
     const indir = '.'
-    const eonpattern = new RegExp(`^eon-z${fromeon}.*.js`, 'i')    
+    const eonpattern = new RegExp(`^eon-z${fromeon}.*.js`, 'i')
     const infiles = fs.readdirSync(indir)
       .filter(file => isFile(file))
       .filter(d => eonpattern.test(d))
 
     if (infiles.length === 1) {
-      console.log('infiles', infiles)      
+      console.log('infiles', infiles)
       action = 'dofrom'
       infile = `eon-z${opts[1]}.js`
-      eoncode = opts[0]  
+      eoncode = opts[0]
       tofile = `eon-z${eoncode}`
     } else {
       console.log(' *** dofrom failed')
       action = 'none'
     }
-
   } else if (opts.length === 2 && opts[1] === 'debug') {
     // debug create zeon.html and zeon.js
     action = 'debug'
@@ -88,9 +86,7 @@ if (opts.length === 0) { // action: help
     action = 'del'
     eoncode = opts[0]
   }
-
 }
-
 
 const newHtmlText = `<script src="./eon-x-eonify.js"></script>
 <script>
@@ -103,8 +99,6 @@ const newHtmlText = `<script src="./eon-x-eonify.js"></script>
   window.xEonify.eonify({ anitem: fileName, time: undefined })
 </script>`
 
-
-
 function doit (data) {
   let {action, eoncode, newHtmlText, infile, tofile} = data
 
@@ -116,7 +110,7 @@ function doit (data) {
   if (action === 'show' || action === 'debug') {
     console.log(` ---- will create ${newNameHtml}`)
   }
-  if (action === 'debug') {      
+  if (action === 'debug') {
     console.log(` ---- new text of ${newNameHtml}:`)
     console.log(newHtmlText)
   }
@@ -136,12 +130,9 @@ function doit (data) {
     })
   }
 
-
   if (action === 'dofrom') {
-
     console.log('dofrom')
-    console.log('eonName, preEonName', eonName, preEonName )
-
+    console.log('eonName, preEonName', eonName, preEonName)
 
     let eonPart = fileHtmlParts[1]
     let interHyphenPart = fileHtmlParts[2]
@@ -157,7 +148,6 @@ function doit (data) {
     const eonName = camelize(newName)
     const preEonName = camelize(`z${corePart}`)
 
-
     let fileJsText = fs.readFileSync(infile, 'utf8')
 
     // fileJsText = jsToJs({eonName, preEonName, text: fileJsText})
@@ -172,15 +162,8 @@ function doit (data) {
     //   if (err) throw err
     //   console.log(` ---- created ${newNameJs}`)
     // })
-
-
   }
-
-
-
-
 }
-
 
 if (action === 'show' || action === 'doit' || action === 'debug' || action === 'dofrom') {
   doit({action, eoncode, newHtmlText, infile, tofile})

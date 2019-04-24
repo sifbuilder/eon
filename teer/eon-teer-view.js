@@ -3,8 +3,6 @@ const path = require('path')
 const http = require('http')
 const puppeteer = require('puppeteer')
 
-
-
 const waitInPromise = delay => arg =>
   Number.isFinite(delay) && delay > 0
     ? new Promise(resolve => setTimeout(() => resolve(arg), delay))
@@ -12,12 +10,15 @@ const waitInPromise = delay => arg =>
 
 const isDirectory = d => fs.lstatSync(d).isDirectory()
 const isFile = d => fs.lstatSync(d).isFile()
+const existsFile = d => fs.existsSync(d)
 
 // fs
 
 let filename = __filename // full path name of the current module
 let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
+let cwdir = process.cwd() // directory of invocation
+let prgdir = __dirname // directory of calling js
 
 // args
 
@@ -82,7 +83,7 @@ let options = {
 }
 
 state.indir = './'
-state.indirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
+state.indirpath = (cwdir + '/').replace(/\\/g, '/') // z-indexes
 state.closebrowser = 0
 state.tracing = 0
 state.tracingpath = './___trace.json'
@@ -94,17 +95,21 @@ let files = fs
 state.files = files
 
 // .................. actUponItems
-async function actUponItems (browser, fls, opts) {
+async function actUponItems (browser, data) {
+  let {state, options} = data
+  let {files, indirpath, tracing } = state
+  let {viewPort, timeout, pageSelector, delay } = options
+
   async function actUponNext (current) { // n+1
-    if (current >= fls.length) {
-      return
-    }
+    if (current >= files.length) return
 
-    let infileName = fls[current]
-    let inpathname = `${indirpath}${infileName}`
-    console.log(`ani:  ${current}, ${infileName}`)
+    let infileName = files[current]
 
-    let regex2 = new RegExp('^((eon-z)-(.*)-(.*)).(html)', 'i')
+    let inpathname = path.resolve(indirpath, infileName)
+    console.assert(existsFile(inpathname), `file ${inpathname} does not exist`)
+    if (state.action === 'debug') console.log(`doing:  ${inpathname}`)
+
+    let regex2 = new RegExp('^((eon-z)(.*)-(.*)).(html)', 'i')
     let parts = infileName.match(regex2)
     let fullname = parts[0]
     let rootname = parts[1]
@@ -112,9 +117,8 @@ async function actUponItems (browser, fls, opts) {
     let name = parts[3]
     let type = parts[4]
 
-
     const page = await browser.newPage()
-    page.setViewport(opts.viewPort) // viewport
+    page.setViewport(viewPort) // viewport
 
     if (tracing) {
       await page.tracing.start({
@@ -125,10 +129,10 @@ async function actUponItems (browser, fls, opts) {
 
     await page.goto(`file:///${inpathname}`, {
       waitUntil: 'domcontentloaded',
-      timeout: opts.timeout, // timeout
+      timeout: timeout, // timeout
     })
-    await page.waitForSelector(opts.pageSelector)
-    await waitInPromise(opts.delay)(page.content())
+    await page.waitForSelector(pageSelector)
+    await waitInPromise(delay)(page.content())
 
     page.on('pageerror', function (err) {
       let theTempValue = err.toString()
@@ -156,22 +160,20 @@ async function actUponItems (browser, fls, opts) {
 // .................. doit
 async function doit (data) {
   let { state, options } = data
-  console.log(state)
-  console.log(options)
   console.log(`will do: ${state.files}`)
 
   const browser = await puppeteer.launch({
     headless: options.headless,
     devtools: options.devtools, // open DevTools when window launches
-    args: [`--remote-debugging-port=${options.debuggingPort}`,
+    args: [
+      `--remote-debugging-port=${options.debuggingPort}`,
       `--window-size=${options.window.width},${options.window.height}`, // Window size
-      '--trace-to-console',
     ],
   })
 
-  // await browser.pages()
-  // await actUponItems(browser, files, options) // actUponItems
-  // if (closebrowser) await browser.close()
+  await browser.pages()
+  await actUponItems(browser, data) // actUponItems
+  if (state.closebrowser) await browser.close()
 }
 // .................. help
 function help (data) {

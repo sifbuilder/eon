@@ -92,10 +92,7 @@ function htmlToJs (data) {
   let regexJsHeader = new RegExp(`^(.*async function anitem)`, 'si')
   let partsJsHeader = text.match(regexJsHeader)
   if (partsJsHeader === null) {
-
     console.log(`footer not found`)
-
-  
   }
   text = text.replace(partsJsHeader[0], newHeader)
 
@@ -192,7 +189,7 @@ function doit (data) {
       if (action === 'show' || action === 'debug') {
         console.log(` ---- will delete ${preFileJs}`)
         console.log(` ---- will delete ${preFileHtml}`)
-      }      
+      }
 
       if (action === 'doit') {
         fs.writeFile(`${newNameJs}`, `${fileJsText}`, function (err) { // eon-z815e-d2bernoulli.js
@@ -214,7 +211,7 @@ function doit (data) {
         console.log(`${preFileHtml}`) // eon-z-815e-d2bernoulli.html
         console.log(` ---- will create ${newNameHtml}`)
       }
-      if (action === 'debug') {      
+      if (action === 'debug') {
         console.log(` ---- new text of ${newNameHtml}:`)
         console.log(newHtmlText)
       }
@@ -224,7 +221,6 @@ function doit (data) {
           if (err) throw err
           console.log(` ---- Updated ${newNameHtml}`)
         })
-
       }
 
       let fileHtmlText = fs.readFileSync(preFileHtml, 'utf8')
@@ -233,7 +229,7 @@ function doit (data) {
       if (action === 'show' || action === 'debug') {
         console.log(` ---- will create ${newNameJs}`)
       }
-      if (action === 'debug') {      
+      if (action === 'debug') {
         console.log(` ---- new text of ${newNameJs}:`)
         console.log(fileJsText)
       }

@@ -22,14 +22,13 @@ let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
 let cwdname = process.cwd()
 
-
 // state
 const state = {
   outDir: './',
   outMdFile: 'README.md',
   outText: '',
   rootdirpath: (dirname + '/').replace(/\\/g, '/'),
-  outdirpath: ( dirname + '/../').replace(/\\/g, '/'),
+  outdirpath: (dirname + '/../').replace(/\\/g, '/'),
   where: 'local',
   qcols: 1, // 3, // number of thumbnails per row
   contentUrl: 'https://raw.githubusercontent.com/', // rsc host
@@ -78,14 +77,12 @@ state.picDirPath = `${state.rootdirpath}/pic`
 state.vidDirPath = `${state.rootdirpath}/vid`
 state.tstDirPath = `${state.rootdirpath}/tst`
 
-
 let col = coler(state.qcols)
 state.rooturl = `${state.contentUrl}${state.user}/${state.repo}/${state.branch}/`
 state.rootMediaUrl = `${state.contentUrl}${state.user}/${state.repo}/${state.folder}/${state.branch}/`
 state.rootRepoUrl = `https://${state.hostUrl}${state.user}/${state.repo}/`
 state.rootMediaUrl = `https://${state.user}.${state.hostUrl}/${state.repo}/`
 state.rootRepoUrl = `https://${state.user}.${state.hostUrl}/${state.repo}/`
-
 
 // args
 
@@ -145,7 +142,7 @@ function getUri (data) {
 
 function getEonHtmlUri (data) {
   let { where, prefixAndCodeAndName, outdirpath, rootMediaUrl } = data
-  let fileName =`index.html#${prefixAndCodeAndName}`
+  let fileName = `index.html#${prefixAndCodeAndName}`
   let path = `${outdirpath}${fileName}`
 
   let url = `${rootMediaUrl}${fileName}`
@@ -227,7 +224,6 @@ function getPreviewUri (data) {
   return res
 }
 
-
 function getTileItem (data) {
   let {
     i,
@@ -260,16 +256,15 @@ function getRowsItem (data) {
     srcUri,
     tileview,
     targetHtml,
-    prefixAndCodeAndName,    
+    prefixAndCodeAndName,
   } = data
 
-  let outHtmlUri = getEonHtmlUri(data) // file:///E:/Dropbox/dBox/e/c/eons/eons/eon-z021a.html  
+  let outHtmlUri = getEonHtmlUri(data) // file:///E:/Dropbox/dBox/e/c/eons/eons/eon-z021a.html
   // '<a href="' + href + '">' + text + '</a>'
   let res = `[${prefixAndCodeAndName}](${outHtmlUri})`
   return res
 }
 function getListItem (data) {
-
   let {
     i,
     code,
@@ -287,20 +282,20 @@ function getListItem (data) {
   srcUri = getUri(
     Object.assign({}, data, { outdirpath: data.picDirPath, name: 'thumbnail', type: 'thumbnail', ext: 'png' })
   )
- 
+
   // let targetHtml = existsFile(outHtmlUri) ? outHtmlUri : outEonUri
   // let srcUri = existsFile(outThumbnailPath) ? outThumbnailUri : notile
   // let targetUri = existsFile(outGifPath) ? outGifUri : outEonUri
   let width = tileview.width
   let height = tileview.height
   prefixAndCodeAndName = prefixAndCodeAndName.padEnd(45, ' ')
-  
+
   let res = ` ${prefixAndCodeAndName} [<img id="${i}" alt="${code}" code="${code}" where="${where}" 
       ext="png" type="preview" prefix="eon-z"  
       outdirpath="${outdirpath}"  rootMediaUrl="${rootMediaUrl}"
       src="${srcUri}"
       width="${width}px;" height="${height}px;"/>](${outHtmlUri})`
-  
+
   return res
 }
 
@@ -321,7 +316,6 @@ function getHelpItem (data) {
 }
 
 function doit (data) {
-
   // return outText
 
   let outText = ''
@@ -371,7 +365,6 @@ function doit (data) {
     .filter(d => !mdpattern.test(d))
     .filter(d => !tspattern.test(d))
 
-
   for (let i = 0; i < zfiles.length; i++) {
     let fileName = zfiles[i]
     let icol = col(i)
@@ -383,7 +376,7 @@ function doit (data) {
     let fileData = Object.assign({}, data, fileParts, {i})
 
     let outThumbnailPath = getUri(
-      Object.assign({}, fileData, {name: 'thumbnail',type: 'thumbnail',ext: 'png',where: 'local'})
+      Object.assign({}, fileData, {name: 'thumbnail', type: 'thumbnail', ext: 'png', where: 'local'})
     )
     let outThumbnailUri = getUri(
       Object.assign({}, fileData, { name: 'thumbnail', type: 'thumbnail', ext: 'png' })
@@ -403,13 +396,10 @@ function doit (data) {
 
     if (action === 'doframe') {
       outText += getTileItem(fileData)
-
     } else if (action === 'dolist') {
       outText += getListItem(fileData)
-
     } else if (action === 'dorows') {
       outText += getRowsItem(fileData)
-
     }
 
     if (icol === qcols - 1) {

@@ -30,29 +30,21 @@ let fromreplace = '(^__from)'
 let toreplace = '(^__to$)'
 let doreplace = 0
 
-
 if (opts.length === 0) {
   action = 'help'
-
 } else if (opts.length === 3 && (Number.parseInt(opts[2]) === 1)) {
   action = 'renam'
   fromreplace = `(${opts[0]})` || '(^__from)'
   toreplace = `${opts[1]}` || '(^__to$)'
-
-
 } else if (opts.length === 2 || (opts.length === 3 && (Number.parseInt(opts[2]) !== 1))) {
-
   action = 'show'
 
   fromreplace = `(${opts[0]})` || '(^__from)'
   toreplace = `${opts[1]}` || '(^__to$)'
-
 }
 
-
-
 function renam (data) {
-  let {doreplace,fromreplace,toreplace} = data
+  let {doreplace, fromreplace, toreplace} = data
   let regex = new RegExp(`${fromreplace}`, 'i')
 
   let fzs = files.filter(d => regex.test(d))
@@ -67,7 +59,6 @@ function renam (data) {
     }
   }
 }
-
 
 if (action === 'help') {
   console.log(`rename files in cwd ${indir}`)
