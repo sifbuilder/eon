@@ -165,8 +165,15 @@ function doit (data) {
   }
 }
 
+function help () {
+  console.log(`node ${prgname} {show, doit, debug, dofrom}`)
+  console.log(`node ${prgname} eoncode (eg. 708w-torus-interleaved)`)
+  console.log(`doit: create html file from model, js file`)
+  console.log(`if dofrom: copy html, js, update js`) //  _e_
+}
+
 if (action === 'show' || action === 'doit' || action === 'debug' || action === 'dofrom') {
   doit({action, eoncode, newHtmlText, infile, tofile})
 } else if (action === 'help') {
-  console.log(`node ${prgname} eoncode (eg. 708w-torus-interleaved)`)
+  help()
 }

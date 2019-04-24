@@ -8,11 +8,13 @@ const waitInPromise = delay => arg =>
     ? new Promise(resolve => setTimeout(() => resolve(arg), delay))
     : Promise.resolve(arg)
 
+const includes = (a, b) => a.includes(b) // is element b in array a
+
+// fs
+
 const isDirectory = d => fs.lstatSync(d).isDirectory()
 const isFile = d => fs.lstatSync(d).isFile()
 const existsFile = d => fs.existsSync(d)
-
-// fs
 
 let filename = __filename // full path name of the current module
 let prgname = path.basename(filename) // file name of current module
@@ -20,17 +22,34 @@ let dirname = path.dirname(require.main.filename) // __dirname
 let cwdir = process.cwd() // directory of invocation
 let prgdir = __dirname // directory of calling js
 
+// options
+
+const options = {
+  qualiprefix: 'eon-z',
+  closebrowser: 0,
+  tracing: 0,
+  tracingpath: './___trace.json',
+  zpattern: new RegExp('^((eon-z)(.*)-(.*)).(html)', 'i'),
+}
+
+// state
+
+const state = {
+  prgname,
+  actions: [],
+  indir: './',
+  indirpath: (cwdir + '/').replace(/\\/g, '/'),
+}
+
 // args
 
 let args = process.argv
 let [cmd, scp, ...opts] = args
 
-let action = 'help' // {[help] pattern}
-let qualiprefix = 'eon-z'
 let inScopePattern = new RegExp(`^eon-z___none___.*\.html$`, 'i') // none pattern
 
 if (opts.length === 0) {
-  action = 'help'
+  state.actions.push('help')
 } else if (opts.length >= 1) {
   let codepattern = '.*' // default to all
   if (opts[0] === '.') {
@@ -38,29 +57,27 @@ if (opts.length === 0) {
   } else {
     codepattern = opts[0]
   }
-  inScopePattern = new RegExp(`^${qualiprefix}${codepattern}.*\.html$`, 'i') // actView pattern
+  inScopePattern = new RegExp(
+    `^${options.qualiprefix}${codepattern}.*\.html$`,
+    'i'
+  ) // actView pattern
 
   if (opts.length >= 2 && opts[1] === 'doit') {
-    action = 'doit'
+    state.actions.push('doit')
+  } else if (opts.length >= 2 && opts[1] === 'dodebug') {
+    state.actions.push('doit')
+    state.actions.push('debug')
   } else {
-    action = 'debug'
+    state.actions.push('debug')
   }
 }
 
-// state
-
-let state = {
-  action,
-  qualiprefix,
-  inScopePattern,
-  prgname,
-}
-let options = {
+options.browseopts = {
   headless: false, // puppeteer.launch
   devtools: false, // puppeteer.launch
   debuggingPort: 9222, // puppeteer.launch
-  window: { // puppeteer.launch
-
+  window: {
+    // puppeteer.launch
     width: 1200,
     height: 900,
   },
@@ -71,46 +88,38 @@ let options = {
     width: 600,
     height: 400,
   },
-  viewPort: { // page.setViewport
-
+  viewPort: {
+    // page.setViewport
     width: 600,
     height: 400,
   },
   delay: 3000, // waitInPromise
   timeout: 50000, // page.goto
   pageSelector: '#viewframe', // page.waitForSelector
-
 }
 
-state.indir = './'
-state.indirpath = (cwdir + '/').replace(/\\/g, '/') // z-indexes
-state.closebrowser = 0
-state.tracing = 0
-state.tracingpath = './___trace.json'
-
-let files = fs
+state.files = fs
   .readdirSync(state.indir) // to actView
   .filter(file => isFile(file))
   .filter(d => inScopePattern.test(d))
-state.files = files
 
 // .................. actUponItems
-async function actUponItems (browser, data) {
-  let {state, options} = data
-  let {files, indirpath, tracing } = state
-  let {viewPort, timeout, pageSelector, delay } = options
+async function actUponItems (data) {
+  let { state, options } = data
+  let { files, indirpath, browser } = state
+  let { browseopts, tracing, tracingpath, zpattern } = options
+  let { viewPort, timeout, pageSelector, delay } = browseopts
 
-  async function actUponNext (current) { // n+1
+  async function actUponNext (current) {
+    // n+1
     if (current >= files.length) return
-
     let infileName = files[current]
 
     let inpathname = path.resolve(indirpath, infileName)
     console.assert(existsFile(inpathname), `file ${inpathname} does not exist`)
-    if (state.action === 'debug') console.log(`doing:  ${inpathname}`)
+    if (includes(state.actions, 'debug')) console.log(`doing:  ${inpathname}`)
 
-    let regex2 = new RegExp('^((eon-z)(.*)-(.*)).(html)', 'i')
-    let parts = infileName.match(regex2)
+    let parts = infileName.match(zpattern)
     let fullname = parts[0]
     let rootname = parts[1]
     let code = parts[2]
@@ -160,29 +169,37 @@ async function actUponItems (browser, data) {
 // .................. doit
 async function doit (data) {
   let { state, options } = data
-  console.log(`will do: ${state.files}`)
+  let { browseopts, closebrowser } = options
+  let { headless, devtools, debuggingPort, window } = browseopts
+  let { actions } = state
+  if (includes(actions, 'debug')) console.log('doit data', data)
 
   const browser = await puppeteer.launch({
-    headless: options.headless,
-    devtools: options.devtools, // open DevTools when window launches
+    headless: headless,
+    devtools: devtools, // open DevTools when window launches
     args: [
-      `--remote-debugging-port=${options.debuggingPort}`,
-      `--window-size=${options.window.width},${options.window.height}`, // Window size
+      `--remote-debugging-port=${debuggingPort}`,
+      `--window-size=${window.width},${window.height}`, // Window size
     ],
   })
 
   await browser.pages()
-  await actUponItems(browser, data) // actUponItems
-  if (state.closebrowser) await browser.close()
+  state.browser = browser
+  data.state = state
+  await actUponItems(data) // actUponItems
+  if (closebrowser) await browser.close()
 }
 // .................. help
 function help (data) {
   let { state, options } = data
-  console.log(`node ${state.prgname} inScopePattern {debug | doit}}`)
+  let { prgname } = state
+  console.log(`node ${prgname} inScopePattern {debug | doit}}`)
   console.log(`   inScopePattern applies to eon-z files`)
   console.log(`call puppeteer and show html eon`)
-  console.log(`eg.: node ${state.prgname} 793`)
-  console.log(`eg.: node ${state.prgname} 793d`)
+  console.log(`eg.: node ${prgname} .*`)
+  console.log(`eg.: node ${prgname} 793`)
+  console.log(`eg.: node ${prgname} 793d debug`)
+  console.log(`eg.: node ${prgname} 793d doit`)
 }
 // .................. debug
 function debug (data) {
@@ -192,10 +209,12 @@ function debug (data) {
   console.log(`will do: ${state.files}`)
 }
 
-if (state.action === 'help') {
-  help({state, options})
-} else if (state.action === 'doit') {
-  doit({state, options})
-} else if (state.action === 'debug') {
-  debug({state, options})
+if (includes(state.actions, 'help')) {
+  help({ state, options })
+}
+if (includes(state.actions, 'doit')) {
+  doit({ state, options })
+}
+if (includes(state.actions, 'debug')) {
+  debug({ state, options })
 }

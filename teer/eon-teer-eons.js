@@ -78,7 +78,6 @@ let Q = function(pars={}) {
 }
 
 Q.prototype.blogs = function () {
-  if (1 && 1) console.log(' **************** blogs')
 
   let header = {
     templateKey: 'blog-post'
