@@ -189,16 +189,27 @@
 
       if (camera === undefined) {
         if (type === 'PerspectiveCamera') {
-          let defs = { fov: 50, zoom: 1, near: 0.1, far: 2000, focus: 10, aspect: 1, view: null, filmGauge: 35, filmOffset: 0}
+          let defs = {
+            fov: 50,
+            zoom: 1,
+            near: 0.1,
+            far: 2000,
+            focus: 10,
+            aspect: 1,
+            view: null,
+            filmGauge: 35,
+            filmOffset: 0,
+          }
 
-          let {fov, zoom, near, far, focus, aspect, view, filmGauge, filmOffset } = Object.assign(defs, cameraItem)
+          let {fov, zoom, near, far, focus, aspect, view, filmGauge, filmOffset } =
+            Object.assign(defs, cameraItem)
 
-          camera = new THREE.PerspectiveCamera(fov, aspect, near, far) //
+          camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
         } else if (type === 'OrthographicCamera') {
           let defs = { near: 0.1, far: 2000, zoom: 1, view: null }
           let {left, right, top, bottom, near, far} = Object.assign(defs, cameraItem)
 
-          camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far) //
+          camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far)
         }
 
         if (cameraItem.position !== undefined) {

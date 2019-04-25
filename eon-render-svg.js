@@ -76,8 +76,8 @@
           .attr('width', state.width)
           .attr('height', state.height)
           .style('position', 'absolute')
-          .style('top', 10)
-          .style('left', 10)
+          // .style('top', 10)
+          // .style('left', 10)
           .style('fill', 'transparent')
           .style('background-color', state.background) // background
           .append('defs')
@@ -322,7 +322,7 @@
               .style('direction', 'ltr')
               .style('unicode-bidi', 'bidi-override')
 
-              // string path is added to the text element
+            // string path is added to the text element
             // the textpath id is defs#textpath${d.properties.eoric.uid}
             svgelems(`text.${cid}/textPath`, textsWithPath, d => d.properties.eoric.uid)
               .attr('class', d => `${d.properties.eoric.cid}`)

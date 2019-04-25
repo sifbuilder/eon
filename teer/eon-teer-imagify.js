@@ -29,11 +29,12 @@ const options = {
   closebrowser: 0,
   tracing: 0,
   tracingpath: './___trace.json',
-  // ((eon-z-)([^-.]*))[-]?(.*)  
+  // ((eon-z-)([^-.]*))[-]?(.*)
   zpattern: new RegExp('^(((eon-z)(.*))-([^-.]*))[-]?(.*).(html)', 'i'),
   inScopeExt: 'html',
-  outext: 'png',
-  imgtypes: ['preview'], // ['thumbnail'], // ['preview', 'thumbnail'],
+  outext: 'jpg', // 'png',  //
+  outImgType: 'jpeg', // 'png', //
+  snapTypes: ['preview'], // ['thumbnail'], // ['preview', 'thumbnail'],
 }
 
 // state
@@ -51,7 +52,7 @@ const state = {
   inScopePattern: new RegExp(`^eon-z___none___.*\.html$`, 'i'), // none pattern
 }
 
-options.browseopts = {
+options.browseOpts = {
   headless: false, // puppeteer.launch
   devtools: false, // puppeteer.launch
   debuggingPort: 9222, // puppeteer.launch
@@ -61,9 +62,9 @@ options.browseopts = {
     height: 900,
   },
   fullPage: false,
-  clip: {
-    x: 0,
-    y: 0,
+  clip: { // body default margin is 8px on all sides
+    x: 8,
+    y: 8,
     width: 600,
     height: 400,
   },
@@ -73,7 +74,7 @@ options.browseopts = {
       height: 400,
     },
     thumbnail: { // page.setViewport
-      width: 230,
+      width: 180,
       height: 120,
     },
   },
@@ -116,14 +117,14 @@ state.files = fs
   .filter(file => isFile(file))
   .filter(d => state.inScopePattern.test(d))
 
-// .................. actUponItems
-async function actUponItems (data) {
+// .................. doItems
+async function doItems (data) {
   let { state, options } = data
   let { files, indirpath, browser } = state
-  let { browseopts, tracing, tracingpath, zpattern } = options
-  let { viewPort, timeout, pageSelector, delay } = browseopts
+  let { browseOpts, tracing, tracingpath, zpattern } = options
+  let { viewPort, timeout, pageSelector, delay } = browseOpts
 
-  let imgtypes = { options } // 'preview', 'thumbnail'
+  let snapTypes = { options } // 'preview', 'thumbnail'
 
   async function actUponNext (current) {
     // n+1
@@ -144,47 +145,56 @@ async function actUponItems (data) {
     let vide = parts[6]
     let exten = parts[7]
 
-
     // ------ show
 
     let outfile, outpathname, itemOpts
     let typeimg // preview, thumbnail
+    let pageSrc // page to be loaded
 
-    const pageSrc = await browser.newPage()
+    pageSrc = await browser.newPage()
     await pageSrc.goto(`file:///${inPathName}`, {
       waitUntil: 'domcontentloaded',
     })
 
-    await waitInPromise(options.browseopts.delay)(pageSrc.content())
+    await waitInPromise(options.browseOpts.delay)(pageSrc.content())
 
     typeimg = 'preview'
-    console.assert(typeimg !== undefined, `screenshot type undefined`)
-    viewPort = options.browseopts.viewPort[typeimg]
-    console.assert(viewPort !== undefined, `viewPort size undefined`)
-    await pageSrc.setViewport(viewPort) // viewport
     outfile = `${rootname}-${typeimg}.${options.outext}` // preview, thumbnail
     outpathname = `${state.outdirpath}${outfile}`
-    itemOpts = Object.assign({}, options)
-    itemOpts.path = outpathname
+    viewPort = options.browseOpts.viewPort[typeimg]
+    itemOpts = Object.assign({}, options,
+      {path: outpathname,
+        type: options.outImgType,
+        clip: options.browseOpts.clip,
+      })
+    if (includes(state.actions, 'debug')) console.log('screenshot: ', inPathName, outpathname, itemOpts)
+
+    console.assert(typeimg !== undefined, `screenshot type undefined`)
+    console.assert(viewPort !== undefined, `viewPort size undefined`)
+
+    // await pageSrc.setViewport(viewPort) // viewport
     await pageSrc.screenshot(itemOpts)
 
- 
     // ------ show preview
 
-    const pagePreview = await browser.newPage()
-    await pagePreview.goto(`file:///${outpathname}`, {
+    pageSrc = await browser.newPage()
+    await pageSrc.goto(`file:///${outpathname}`, {
       waitUntil: 'domcontentloaded',
     })
 
     typeimg = 'thumbnail'
-    viewPort = options.browseopts.viewPort[typeimg]
-    await pagePreview.setViewport(viewPort) // viewport
     outfile = `${rootname}-${typeimg}.${options.outext}` // preview, thumbnail
     outpathname = `${state.outdirpath}${outfile}`
-    itemOpts = Object.assign({}, options)
-    itemOpts.path = outpathname
-    console.log('screenshot: ', inPathName, outpathname)
-    await pagePreview.screenshot(itemOpts)
+    viewPort = options.browseOpts.viewPort[typeimg]
+    itemOpts = Object.assign({}, options,
+      {
+        path: outpathname,
+        type: options.outImgType,
+      })
+    if (includes(state.actions, 'debug')) console.log('screenshot: ', inPathName, outpathname, itemOpts)
+
+    await pageSrc.setViewport(viewPort) // viewport
+    await pageSrc.screenshot(itemOpts)
 
     // ------ show thumbnail
     const pageThumbnail = await browser.newPage()
@@ -203,8 +213,8 @@ async function actUponItems (data) {
 // .................. doit
 async function doit (data) {
   let { state, options } = data
-  let { browseopts, closebrowser } = options
-  let { headless, devtools, debuggingPort, window } = browseopts
+  let { browseOpts, closebrowser } = options
+  let { headless, devtools, debuggingPort, window } = browseOpts
   let { actions } = state
   if (includes(actions, 'debug')) console.log('doit data', data)
 
@@ -220,7 +230,7 @@ async function doit (data) {
   await browser.pages()
   state.browser = browser
   data.state = state
-  await actUponItems(data) // actUponItems
+  await doItems(data) // doItems
   if (closebrowser) await browser.close()
 }
 
@@ -231,7 +241,7 @@ async function help (data) {
   console.log(`generate preview.png [600x400] and thumbnail.png [230x120]
       node ${prgname} {[pattern], [ext]}
       from eon-z-...{pattern}...{ext}, where ext in {html, gif, mov}
-      eg. node eon-teer-pngs 714 html`)
+      eg. node ${prgname} 793d doit`)
 }
 
 // .................. debug
