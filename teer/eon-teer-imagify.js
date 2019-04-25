@@ -29,26 +29,25 @@ const options = {
   closebrowser: 0,
   tracing: 0,
   tracingpath: './___trace.json',
-  // ((eon-z-)([^-.]*))[-]?(.*)
   zpattern: new RegExp('^(((eon-z)(.*))-([^-.]*))[-]?(.*).(html)', 'i'),
   inScopeExt: 'html',
   outext: 'jpg', // 'png',  //
   outImgType: 'jpeg', // 'png', //
-  snapTypes: ['preview'], // ['thumbnail'], // ['preview', 'thumbnail'],
+  snapTypes: ['preview', 'thumbnail'],
 }
 
 // state
 
 const state = {
-  imgdirpath: (__dirname + '/images/').replace(/\\/g, '/'),
-  outdirpath: (__dirname + '/').replace(/\\/g, '/'),
-  // imgdirpath: (cwdir + '/img/').replace(/\\/g, '/'),
-  // outdirpath: (cwdir + '/img/').replace(/\\/g, '/'),
+  eonDirPath: (cwdir + '/').replace(/\\/g, '/'),
+  imgDirPath: (cwdir + '/img/').replace(/\\/g, '/'),
+  inDir: './',
+  inDirPath: (cwdir + '/').replace(/\\/g, '/'),
+  teerDirPath: (prgdir + '/').replace(/\\/g, '/'),
+  outDirPath: (cwdir + '/img/').replace(/\\/g, '/'),
 
   prgname,
   actions: [],
-  inDir: './',
-  indirpath: (cwdir + '/').replace(/\\/g, '/'),
   inScopePattern: new RegExp(`^eon-z___none___.*\.html$`, 'i'), // none pattern
 }
 
@@ -63,15 +62,23 @@ options.browseOpts = {
   },
   fullPage: false,
   clip: { // body default margin is 8px on all sides
-    x: 8,
-    y: 8,
-    width: 600,
-    height: 400,
+    preview: {
+      x: 8,
+      y: 8,
+      width: 600,
+      height: 400,
+    },
+    thumbnail: {
+      x: 8,
+      y: 8,
+      width: 180,
+      height: 120,
+    },
   },
   viewPort: { // page.setViewport
     preview: { // page.setViewport
-      width: 600,
-      height: 400,
+      width: 600 + 8 + 8, // add body margin
+      height: 400 + 8 + 8, // add body margin
     },
     thumbnail: { // page.setViewport
       width: 180,
@@ -117,104 +124,91 @@ state.files = fs
   .filter(file => isFile(file))
   .filter(d => state.inScopePattern.test(d))
 
-// .................. doItems
-async function doItems (data) {
+// .................. doItem
+async function doItem (data) {
   let { state, options } = data
-  let { files, indirpath, browser } = state
+  let { files, inDirPath, browser } = state
   let { browseOpts, tracing, tracingpath, zpattern } = options
   let { viewPort, timeout, pageSelector, delay } = browseOpts
 
   let snapTypes = { options } // 'preview', 'thumbnail'
 
-  async function actUponNext (current) {
+  async function doItem (current) {
     // n+1
     if (current >= files.length) return
-    let inFileName = files[current]
-    let inPathName = path.resolve(indirpath, inFileName)
-    console.assert(existsFile(inPathName), `file ${inPathName} does not exist`)
+    state.inFileName = files[current]
+    let inPathName = path.resolve(inDirPath, state.inFileName)
+    if (includes(state.actions, 'debug')) console.assert(existsFile(inPathName), `file ${inPathName} does not exist`)
     if (includes(state.actions, 'debug')) console.log(`doing:  ${inPathName}`)
 
-    let parts = inFileName.match(zpattern)
+    let parts = state.inFileName.match(zpattern)
     console.log('parts:', parts)
-    let fullnamewithext = parts[0]
-    let fullname = parts[1]
-    let rootname = parts[2]
-    let prefix = parts[3]
-    let code = parts[4]
-    let name = parts[5]
-    let vide = parts[6]
-    let exten = parts[7]
+    state.fullnamewithext = parts[0]
+    state.fullname = parts[1]
+    state.rootname = parts[2]
+    state.prefix = parts[3]
+    state.code = parts[4]
+    state.name = parts[5]
+    state.vide = parts[6]
+    state.exten = parts[7]
 
     // ------ show
 
-    let outfile, outpathname, itemOpts
+    let outfile, outPathName, itemOpts
     let typeimg // preview, thumbnail
     let pageSrc // page to be loaded
 
-    pageSrc = await browser.newPage()
-    await pageSrc.goto(`file:///${inPathName}`, {
-      waitUntil: 'domcontentloaded',
-    })
-
-    await waitInPromise(options.browseOpts.delay)(pageSrc.content())
-
-    typeimg = 'preview'
-    outfile = `${rootname}-${typeimg}.${options.outext}` // preview, thumbnail
-    outpathname = `${state.outdirpath}${outfile}`
-    viewPort = options.browseOpts.viewPort[typeimg]
-    itemOpts = Object.assign({}, options,
-      {path: outpathname,
+    // .................. doType    
+    const doType = async function (data) {
+      let { options, state } = data
+      let { typeimg, inPathName } = state
+      if (includes(state.actions, 'debug')) console.log('typeimg:', typeimg)
+      state.outFileName = `${state.rootname}-${typeimg}.${options.outext}` // preview, thumbnail
+      state.outPathName = path.resolve(state.outDirPath, state.outFileName) 
+      
+      let viewPort = options.browseOpts.viewPort[typeimg]
+      let itemOpts = Object.assign({}, options, {
+        path: state.outPathName,
         type: options.outImgType,
-        clip: options.browseOpts.clip,
+        clip: options.browseOpts.clip[typeimg],
       })
-    if (includes(state.actions, 'debug')) console.log('screenshot: ', inPathName, outpathname, itemOpts)
+      if (includes(state.actions, 'debug')) console.log('screenshot: ', outPathName, itemOpts)
 
-    console.assert(typeimg !== undefined, `screenshot type undefined`)
-    console.assert(viewPort !== undefined, `viewPort size undefined`)
+      console.assert(typeimg !== undefined, `screenshot type undefined`)
+      console.assert(viewPort !== undefined, `viewPort size undefined`)
 
-    // await pageSrc.setViewport(viewPort) // viewport
-    await pageSrc.screenshot(itemOpts)
+      pageSrc = await browser.newPage()
+      await pageSrc.goto(`file:///${state.inPathName}`, { waitUntil: 'domcontentloaded' })
+      await waitInPromise(options.browseOpts.delay)(pageSrc.content())
 
-    // ------ show preview
+      await pageSrc.setViewport(viewPort) // viewport
 
-    pageSrc = await browser.newPage()
-    await pageSrc.goto(`file:///${outpathname}`, {
-      waitUntil: 'domcontentloaded',
-    })
+      console.log('do:', `${state.inPathName} to ${state.outPathName}`)
+      await pageSrc.screenshot(itemOpts)
 
-    typeimg = 'thumbnail'
-    outfile = `${rootname}-${typeimg}.${options.outext}` // preview, thumbnail
-    outpathname = `${state.outdirpath}${outfile}`
-    viewPort = options.browseOpts.viewPort[typeimg]
-    itemOpts = Object.assign({}, options,
-      {
-        path: outpathname,
-        type: options.outImgType,
-      })
-    if (includes(state.actions, 'debug')) console.log('screenshot: ', inPathName, outpathname, itemOpts)
+      if (includes(state.actions, 'debug')) console.log('state:', state)
+      return state
+    }
 
-    await pageSrc.setViewport(viewPort) // viewport
-    await pageSrc.screenshot(itemOpts)
+    state.typeimg = 'preview'
+    state.inPathName = path.resolve(state.inDirPath, state.inFileName)
+    state = await doType({state, options})
 
-    // ------ show thumbnail
-    const pageThumbnail = await browser.newPage()
-    await pageThumbnail.goto(`file:///${outpathname}`, {
-      waitUntil: 'domcontentloaded',
-    })
+    state.typeimg = 'thumbnail'
+    state.inPathName = state.outPathName
+    state = await doType({state, options})
 
-    // ------
 
-    await actUponNext(current + 1)
+    await doItem(current + 1)
   }
 
-  return actUponNext(0) // 0
+  return doItem(0) // 0
 }
 
 // .................. doit
 async function doit (data) {
   let { state, options } = data
-  let { browseOpts, closebrowser } = options
-  let { headless, devtools, debuggingPort, window } = browseOpts
+  let { headless, devtools, debuggingPort, window } = options.browseOpts
   let { actions } = state
   if (includes(actions, 'debug')) console.log('doit data', data)
 
@@ -230,8 +224,8 @@ async function doit (data) {
   await browser.pages()
   state.browser = browser
   data.state = state
-  await doItems(data) // doItems
-  if (closebrowser) await browser.close()
+  await doItem(data) // doItem
+  if (options.closebrowser) await browser.close()
 }
 
 // .................. help

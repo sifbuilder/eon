@@ -1,11 +1,13 @@
 /***************************
  *     @eonRenderWebgl
  */
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-    : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eonRenderWebgl = global.eonRenderWebgl || {})))
-}(this, function (exports) {
+;(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined'
+    ? factory(exports)
+    : typeof define === 'function' && define.amd
+      ? define(['exports'], factory)
+      : factory((global.eonRenderWebgl = global.eonRenderWebgl || {}))
+})(this, function (exports) {
   'use strict'
 
   async function eonitem (__eo = {}) {
@@ -25,7 +27,6 @@
       __eo('xs').b('eon-muon-eocrom'),
       __eo('xs').b('eon-muon-nets'),
       __eo('xs').b('eon-render-portview'),
-
     ])
     let TrackballControls = eonCtlTrackballcontrols
 
@@ -39,7 +40,7 @@
         if (u !== undefined && d !== undefined) {
           t = d.t
 
-          let ms = obj.matrices({u, t})
+          let ms = obj.matrices({ u, t })
 
           let t0 = new THREE.Matrix4()
           ms.reverse().map(m => t0.multiply(m))
@@ -53,7 +54,7 @@
       return object
     }
 
-    const to3point = v => (Array.isArray(v)) ? {x: v[0], y: v[1], z: v[2]} : v
+    const to3point = v => (Array.isArray(v) ? { x: v[0], y: v[1], z: v[2] } : v)
 
     let denser = point => {
       console.assert(Array.isArray(point), `point ${point} is not cartesian`)
@@ -66,7 +67,7 @@
     let materials = {
       line: {
         type: 'LineBasicMaterial',
-        color: 0xFFFFFF,
+        color: 0xffffff,
         linewidth: 2,
       },
       flat: {
@@ -89,7 +90,7 @@
       lit: {
         type: 'MeshPhongMaterial',
         color: 0x666666,
-        specular: 0xFFFFFF,
+        specular: 0xffffff,
         side: THREE.DoubleSide,
         shininess: 70,
         polygonOffset: true,
@@ -118,7 +119,7 @@
         sort: 'light',
         type: 'DirectionalLight',
         name: 'DirectionalLight',
-        color: 0xBEC6FF,
+        color: 0xbec6ff,
         intensity: 0.9,
         position: [400, 400, 400],
       },
@@ -138,7 +139,6 @@
         normalize: 1,
         castShadow: 1,
       },
-
     }
 
     // .................. state
@@ -201,15 +201,34 @@
             filmOffset: 0,
           }
 
-          let {fov, zoom, near, far, focus, aspect, view, filmGauge, filmOffset } =
-            Object.assign(defs, cameraItem)
+          let {
+            fov,
+            zoom,
+            near,
+            far,
+            focus,
+            aspect,
+            view,
+            filmGauge,
+            filmOffset,
+          } = Object.assign(defs, cameraItem)
 
           camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
         } else if (type === 'OrthographicCamera') {
           let defs = { near: 0.1, far: 2000, zoom: 1, view: null }
-          let {left, right, top, bottom, near, far} = Object.assign(defs, cameraItem)
+          let { left, right, top, bottom, near, far } = Object.assign(
+            defs,
+            cameraItem
+          )
 
-          camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far)
+          camera = new THREE.OrthographicCamera(
+            left,
+            right,
+            top,
+            bottom,
+            near,
+            far
+          )
         }
 
         if (cameraItem.position !== undefined) {
@@ -286,7 +305,7 @@
 
       if (type === 'AmbientLight') {
         // color is added to the color of objects material
-        let {color = 0xffffff, intensity = 1} = item
+        let { color = 0xffffff, intensity = 1 } = item
 
         if (stat.lights[name] === undefined) {
           light = new THREE[type](color, intensity)
@@ -299,7 +318,7 @@
         }
       } else if (type === 'DirectionalLight') {
         // remote light source. rays run parallel eg. sun
-        let {color, intensity} = item
+        let { color, intensity } = item
 
         if (stat.lights[name] === undefined) {
           light = new THREE[type](color, intensity)
@@ -313,9 +332,10 @@
         if (typeof light.target === 'function') light.target(object)
         if (item.castShadow === 1) light.castShadow = true
         // target object
-      } else if (type === 'SpotLight') { // SpotLight
+      } else if (type === 'SpotLight') {
+        // SpotLight
         // cone light effect
-        let {color } = item
+        let { color } = item
         if (0) {
         } else {
           color = eonMuonEocrom.getColor(color)
@@ -334,7 +354,8 @@
           light.castShadow = true
         }
         // lookAt object
-      } else if (type === 'RectAreaLight') { // RectAreaLight
+      } else if (type === 'RectAreaLight') {
+        // RectAreaLight
         if (stat.lights[name] === undefined) {
           light = new THREE[type]()
         } else {
@@ -343,20 +364,22 @@
         if (item.position !== undefined) {
           light.position.set(...item.position)
         }
-      } else if (type === 'PointLight') { // HemisphereLight
+      } else if (type === 'PointLight') {
+        // HemisphereLight
         // From a point emanates light in all directions
         if (stat.lights[name] === undefined) {
           light = new THREE.PointLightHelper(light, 0.1)
         } else {
           light = stat.lights[name]
         }
-      } else if (type === 'HemisphereLight') { // HemisphereLight
-        let {skyColor, groundColor, intensity} = item
+      } else if (type === 'HemisphereLight') {
+        // HemisphereLight
+        let { skyColor, groundColor, intensity } = item
         if (0) {
         } else {
           skyColor = eonMuonEocrom.getColor(skyColor)
           groundColor = eonMuonEocrom.getColor(groundColor)
-          intensity = (intensity !== undefined) ? intensity : 1.0
+          intensity = intensity !== undefined ? intensity : 1.0
         }
 
         if (stat.lights[name] === undefined) {
@@ -379,21 +402,24 @@
 
     /* THREE RENDERER */
 
-    state.threeRenderer = new THREE.WebGLRenderer({antialias: true}) /* renderer */
+    state.threeRenderer = new THREE.WebGLRenderer({
+      antialias: true,
+    }) /* renderer */
 
     /* CANVAS */
 
     let appendDomElem = function (elem) {
-      return d3.select('body') /* canvas */
-        .append(() => d3.select(elem)
+      return d3.select('body').append(() =>
+        d3
+          .select(elem)
           .attr('id', 'canvas')
           .attr('class', 'overlay')
           .style('position', 'absolute; top:0px; left:0px; z-index:1')
           .node()
-        )
+      )
     }
 
-    function resizeCanvas ({threeRenderer, camera}) {
+    function resizeCanvas ({ threeRenderer, camera }) {
       let width = eonRenderPortview.width()
       let height = eonRenderPortview.height()
 
@@ -415,7 +441,7 @@
 
     /* CAMERA CONTROLS */
 
-    function getViewControls ({camera, domElem}) {
+    function getViewControls ({ camera, domElem }) {
       let controls
       controls = new TrackballControls(camera, domElem) // Add camera interaction
       controls.rotateSpeed = 1.0
@@ -425,7 +451,7 @@
       controls.noPan = false
       controls.staticMoving = true
       controls.dynamicDampingFactor = 0.3
-      controls.keys = [ 65, 83, 68 ]
+      controls.keys = [65, 83, 68]
 
       return controls
     }
@@ -440,7 +466,8 @@
     function eoPolygonsToScene (items = []) {
       if (items.length === 0) return
 
-      for (let k in items) { // DOTS (seg5===0) each group gid
+      for (let k in items) {
+        // DOTS (seg5===0) each group gid
         let item = items[k]
         let feature = item
         let style = item.properties.style
@@ -451,26 +478,25 @@
 
         if (feature.geometry !== undefined && feature.geometry !== null) {
           let vertices = feature.geometry.coordinates
-          let faces = feature.properties.faces.map(face => new THREE.Face3(...face))
+          let faces = feature.properties.faces.map(
+            face => new THREE.Face3(...face)
+          )
 
           let lights = feature.properties.lights || []
 
-          let	geo = new THREE.Geometry()
+          let geo = new THREE.Geometry()
           geo.vertices = vertices.map(to3point)
           geo.faces = faces
           geo.computeFaceNormals()
 
-          let material = new THREE.MeshPhongMaterial({ // LineBasicMaterial({
+          let material = new THREE.MeshPhongMaterial({
+            // LineBasicMaterial({
 
             color: style.fill, // color: 0x0033ff,
             shininess: 50,
-
           })
 
-          let object = new THREE.Mesh(
-            geo,
-            material
-          )
+          let object = new THREE.Mesh(geo, material)
 
           state.scene.add(object)
 
@@ -493,7 +519,8 @@
     function polygonsToScene (items = []) {
       if (items.length === 0) return
 
-      for (let k in items) { // features of type MultiPolygon
+      for (let k in items) {
+        // features of type MultiPolygon
         let item = items[k]
         let feature = item
         let style = feature.properties.style
@@ -518,12 +545,14 @@
 
           let threeGeometry = new THREE.Geometry()
 
-          d3.pairs(outring.map(denser), function (a, b) { // container ring
+          d3.pairs(outring.map(denser), function (a, b) {
+            // container ring
             threeGeometry.vertices.push(a, b) // vertices
           })
           let object = new THREE.LineSegments(threeGeometry, lineMaterial)
 
-          innerrings.forEach(function (ring) { // each hole in polygon
+          innerrings.forEach(function (ring) {
+            // each hole in polygon
             d3.pairs(ring.map(denser), function (a, b) {
               threeGeometry.vertices.push(a, b) // vertices
             })
@@ -544,7 +573,8 @@
     // .................. pointToScene
     function pointToScene (items = []) {
       if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
+      for (let k in items) {
+        // DOTS (seg5===0) each group gid
         let item = items[k] // feature
 
         let style = item.properties.style
@@ -579,7 +609,8 @@
     // .................. lineStringToScene
     function lineStringToScene (items = []) {
       if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
+      for (let k in items) {
+        // DOTS (seg5===0) each group gid
         let item = items[k] // feature
         let feature = item // .feature
         let style = feature.properties.style
@@ -606,10 +637,11 @@
     // .................. threeGridHelpers
     function threeGridHelpers (items = []) {
       if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
+      for (let k in items) {
+        // DOTS (seg5===0) each group gid
         let item = items[k] // feature
 
-        let {size, divisions, position } = item.properties
+        let { size, divisions, position } = item.properties
         let uid = item.properties.eoric.uid
 
         if (state.gridHelpers[uid] === undefined) {
@@ -622,7 +654,7 @@
     // .................. threeLights
     function threeLights (items = []) {
       if (items.length > 0) {
-        if (state.lights['default' ] !== undefined) delete state.lights['default']
+        if (state.lights['default'] !== undefined) { delete state.lights['default'] }
 
         for (let k in items) {
           let item = items[k].properties
@@ -633,10 +665,12 @@
     }
     // .................. threeCameras
     function threeCameras (items = []) {
-      if (items.length > 0) { // add default camera
-        if (state.cameras['default' ] !== undefined) delete state.cameras['default']
+      if (items.length > 0) {
+        // add default camera
+        if (state.cameras['default'] !== undefined) { delete state.cameras['default'] }
 
-        for (let k in items) { // DOTS (seg5===0) each group gid
+        for (let k in items) {
+          // DOTS (seg5===0) each group gid
           let camera = items[k] // feature
 
           let pars = camera.properties
@@ -650,7 +684,8 @@
     function threeCameraHelpers (items = []) {
       if (items.length === 0) return
 
-      for (let k in items) { // DOTS (seg5===0) each group gid
+      for (let k in items) {
+        // DOTS (seg5===0) each group gid
         let item = items[k] // feature
 
         let camaraProps = item.properties
@@ -674,10 +709,11 @@
     // .................. threeLinkToScene
     function threeLinkToScene (items = []) {
       if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
+      for (let k in items) {
+        // DOTS (seg5===0) each group gid
         let item = items[k] // feature
         let link = item
-        state.scene.add(link._line = link.line)
+        state.scene.add((link._line = link.line))
       }
     }
 
@@ -692,7 +728,9 @@
         if (item.geometry.type === 'MultiPoint') {
           console.assert(item.properties.hinges !== undefined, `net undefined`)
           if (item.properties.hinges !== undefined) {
-            let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
+            let coords = item.geometry.coordinates.map(d =>
+              Array.isArray(d) ? new THREE.Vector3(...d) : d
+            )
             item.geometry.coordinates = coords
 
             // tree calls eonMuonNets.build_tree recursive
@@ -727,7 +765,8 @@
     // .................. imgToScene
     function imgToScene (items = []) {
       if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
+      for (let k in items) {
+        // DOTS (seg5===0) each group gid
         let item = items[k] // feature
         let img = item
 
@@ -753,84 +792,88 @@
         name: 'EOMULTIPOLYGON',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-            d.geometry !== null &&
-            d.geometry.type === 'MultiPoint' && // faces
-            d.properties.eoMultiPolygon == 1,
+          d.geometry !== null &&
+          d.geometry.type === 'MultiPoint' && // faces
+          d.properties.eoMultiPolygon == 1,
         retriever: eoMultiPolygonsToScene,
-      }, {
+      },
+      {
         name: 'MULTIPOLYGON',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-            d.geometry !== null &&
-            d.geometry.type === 'MultiPolygon',
+          d.geometry !== null &&
+          d.geometry.type === 'MultiPolygon',
         retriever: multiPolygonsToScene,
-      }, {
+      },
+      {
         name: 'MULTIPOINT',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-            d.geometry !== null &&
-            d.geometry.type === 'MultiPoint' &&
-            d.properties.eoMultiPolygon !== 1,
+          d.geometry !== null &&
+          d.geometry.type === 'MultiPoint' &&
+          d.properties.eoMultiPolygon !== 1,
         retriever: multiPointToScene,
-      }, {
+      },
+      {
         name: 'POINT',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-            d.geometry !== null &&
-            d.geometry.type === 'Point' &&
-            d.properties.eoMultiPolygon !== 1,
+          d.geometry !== null &&
+          d.geometry.type === 'Point' &&
+          d.properties.eoMultiPolygon !== 1,
         retriever: pointToScene,
-      }, {
+      },
+      {
         name: 'MULTILINESTRING',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-            d.geometry !== null &&
-              d.geometry.type === 'MultiLineString',
+          d.geometry !== null &&
+          d.geometry.type === 'MultiLineString',
         retriever: multiLineStringToScene,
-      }, {
+      },
+      {
         name: 'LINESTRING',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-            d.geometry !== null &&
-              d.geometry.type === 'LineString',
+          d.geometry !== null &&
+          d.geometry.type === 'LineString',
         retriever: lineStringToScene,
-      }, {
+      },
+      {
         name: 'THREEGRIDHELPER',
-        filter: d =>
-          (d.properties.sort === 'gridHelper'),
+        filter: d => d.properties.sort === 'gridHelper',
         retriever: threeGridHelpers,
-      }, {
+      },
+      {
         name: 'THREELIGHT',
-        filter: d =>
-          (d.properties.sort === 'light'),
+        filter: d => d.properties.sort === 'light',
         retriever: threeLights,
-      }, {
+      },
+      {
         name: 'THREECAMERAHELPER',
-        filter: d =>
-          (d.properties.sort === 'cameraHelper'),
+        filter: d => d.properties.sort === 'cameraHelper',
         retriever: threeCameraHelpers,
-      }, {
+      },
+      {
         name: 'THREECAMERA',
-        filter: d =>
-          (d.properties.sort === 'camera'),
+        filter: d => d.properties.sort === 'camera',
         retriever: threeCameras,
-      }, {
+      },
+      {
         name: 'THREELINK',
-        filter: d =>
-          d.properties.sort === 'threelink',
-        retriever: undefined,
-      }, {
-        name: 'THREEOBJECT',
-        filter: d =>
-          d.properties.sort === 'threeobject',
-        retriever: threeObjectToScene,
-      }, {
-        name: 'IMG',
-        filter: d =>
-          d.properties.sort === 'img',
+        filter: d => d.properties.sort === 'threelink',
         retriever: undefined,
       },
-
+      {
+        name: 'THREEOBJECT',
+        filter: d => d.properties.sort === 'threeobject',
+        retriever: threeObjectToScene,
+      },
+      {
+        name: 'IMG',
+        filter: d => d.properties.sort === 'img',
+        retriever: undefined,
+      },
     ]
 
     // ............................. render
@@ -838,11 +881,10 @@
     let render = function (featurecollection, maxlimit) {
       if (0 && 1) console.log('featurecollection', featurecollection)
 
-      let features = featurecollection.features
-        .filter(
-          d => d.properties !== undefined && // req properties
-            d.properties.eoric !== undefined // req eoric
-        )
+      let features = featurecollection.features.filter(
+        d =>
+          d.properties !== undefined && d.properties.eoric !== undefined // req properties // req eoric
+      )
 
       console.assert(state.scene !== undefined) /* clean canvas */
       while (state.scene.children.length > 0) {
@@ -851,18 +893,25 @@
 
       /* objects TO SCENE */
 
-      let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
-        .key(function (d) { return d.properties.eoric.gid })
-        .key(function (d) { return d.properties.eoric.cid })
+      let gitems = d3
+        .nest() // let framesByGid = f.groupBy(frames, "gid")
+        .key(function (d) {
+          return d.properties.eoric.gid
+        })
+        .key(function (d) {
+          return d.properties.eoric.cid
+        })
         .entries(features)
 
       let patternedItems = patterns.map(d => [])
 
-      for (let i in gitems) { // DOTS (seg5===0) each group gid
+      for (let i in gitems) {
+        // DOTS (seg5===0) each group gid
         let gid = gitems[i].key,
           citems = gitems[i].values
 
-        for (let j in citems) { // forEach CLASS by cid
+        for (let j in citems) {
+          // forEach CLASS by cid
           let cid = citems[j].key // cid
 
           let fitems = citems[j].values // fitems
@@ -874,7 +923,10 @@
             if (pattern.retriever && pattern.filter) {
               let itemsInPattern = fitems.filter(pattern.filter)
 
-              patternedItems[k] = itemsInPattern.length > 0 ? patternedItems[k].concat(itemsInPattern) : patternedItems[k]
+              patternedItems[k] =
+                itemsInPattern.length > 0
+                  ? patternedItems[k].concat(itemsInPattern)
+                  : patternedItems[k]
             }
           }
         } // citems
@@ -889,13 +941,17 @@
         }
       }
 
-      if (state.lights === undefined || // set default lights
-        Object.keys(state.lights).length === 0) {
+      if (
+        state.lights === undefined || // set default lights
+        Object.keys(state.lights).length === 0
+      ) {
         let lights = getLightsDefault(state)
         state.lights = lights
       }
-      if (state.cameras === undefined || // set default cameras
-        Object.keys(state.cameras).length === 0) {
+      if (
+        state.cameras === undefined || // set default cameras
+        Object.keys(state.cameras).length === 0
+      ) {
         let cameras = getCamerasDefault(state)
         state.cameras = cameras
       } else {
@@ -917,10 +973,10 @@
         }
 
         if (state.viewControls === undefined) {
-          state.viewControls = getViewControls({camera, domElem})
+          state.viewControls = getViewControls({ camera, domElem })
         }
 
-        resizeCanvas({threeRenderer, camera})
+        resizeCanvas({ threeRenderer, camera })
         state.viewControls.update() // UPDATE SCENE by CONTROL //_e_
 
         if (state.scene) {
@@ -948,4 +1004,4 @@
   }
 
   exports.eonRenderWebgl = eonitem
-}))
+})
