@@ -25,14 +25,30 @@ let dirname = path.dirname(require.main.filename) // __dirname
 let cwdir = process.cwd() // directory of invocation
 let prgdir = __dirname // directory of calling js file
 
+let teerPath = path.resolve(cwdir, 'teer')
+let imgPath = path.resolve(cwdir, 'img')
+let vidPath = path.resolve(cwdir, 'vid')
+console.assert(fs.existsSync(teerPath), `teer dir does not exist`)
+console.assert(fs.existsSync(imgPath), `img dir does not exist`)
+console.assert(fs.existsSync(vidPath), `vid dir does not exist`)
+
 // options
+
 const options = {
+  teerPath,
+  imgPath,
+  vidPath,
 }
 
-  // state
-  const state = {
+// state
+
+const state = {
   outDir: './',
   outMdFile: 'README.md',
+  outMdFiles: {
+    remote: 'README.md',
+    local: 'README.md',
+  },
   outText: '',
   rootdirpath: (cwdir + '/').replace(/\\/g, '/'),
   outdirpath: (cwdir + '/').replace(/\\/g, '/'),
@@ -85,6 +101,7 @@ state.vidDirPath = `${state.rootdirpath}/vid`
 state.tstDirPath = `${state.rootdirpath}/tst`
 
 let col = coler(state.qcols)
+
 state.rooturl = `${state.contentUrl}${state.user}/${state.repo}/${
   state.branch
 }/`
@@ -96,6 +113,7 @@ state.rootMediaUrl = `https://${state.user}.${state.hostUrl}/${state.repo}/`
 state.rootRepoUrl = `https://${state.user}.${state.hostUrl}/${state.repo}/`
 
 // args
+
 state.actions = []
 let args = process.argv
 let [cmd, scp, ...opts] = args
@@ -109,7 +127,8 @@ if (optsq < 3) {
   state.actions.push('help')
 }
 
-if (opts[optsq - 1] === 'help') { // last opt
+if (opts[optsq - 1] === 'help') {
+  // last opt
   state.actions.push('help')
 } else if (opts[optsq - 1] === 'doit') {
   state.actions.push('doit')
@@ -130,7 +149,8 @@ if (optsq >= 2) {
   }
 }
 
-if (optsq >= 2) { // first param
+if (optsq >= 2) {
+  // first param
   if (opts[0] === '.') {
     state.codepattern = '.*' // default to all files
   } else {
@@ -138,22 +158,29 @@ if (optsq >= 2) { // first param
   }
 }
 
-
 if (optsq >= 2) {
   let where = opts[1] // first param {local | remote}
-  state.where = (where === 'remote') ? 'remote' : 'local'  // defaul to local
+  state.where = where === 'remote' ? 'remote' : 'local' // defaul to local
 }
 
 state.inScopeText = `^eon-z.*${state.codepattern}.*\.${state.inScopeExt}$`
 state.inScopePattern = new RegExp(`${state.inScopeText}`, 'i')
 
-if (includes(state.actions, 'debug')) console.log(`would do: ${state.dotype} on ${state.codepattern} in ${state.where}`)
-if (includes(state.actions, 'doit')) console.log(`will do: ${state.dotype} on ${state.codepattern} in ${state.where}`)
-
+if (includes(state.actions, 'debug')) {
+  console.log(
+    `would do: ${state.dotype} on ${state.codepattern} in ${state.where}`
+  )
+}
+if (includes(state.actions, 'doit')) {
+  console.log(
+    `will do: ${state.dotype} on ${state.codepattern} in ${state.where}`
+  )
+}
 
 // .................. getUri
 function getUri (data) {
   let { where, prefix, code, ext, name, outdirpath, rootMediaUrl } = data
+  console.log('getUri', where, prefix, code, ext, name, outdirpath, rootMediaUrl)
   let file =
     name !== undefined
       ? `${prefix}${code}-${name}.${ext}`
@@ -162,9 +189,10 @@ function getUri (data) {
   let url = `${rootMediaUrl}/${file}`
 
   let uri = where === 'local' ? path : url
-
+  console.log('getUri uri', uri)  
   return uri
 }
+
 // .................. getEonHtmlUri
 function getEonHtmlUri (data) {
   let { where, prefixAndCodeAndName, outdirpath, rootMediaUrl } = data
@@ -173,12 +201,12 @@ function getEonHtmlUri (data) {
 
   let url = `${rootMediaUrl}${fileName}`
   let uri = where === 'local' ? path : url
-
   return uri
 }
+
 // .................. getThumbnailUri
-function getThumbnailUri (p = {}) {
-  let pars = Object.assign({}, p)
+function getThumbnailUri (data) {
+  let pars = Object.assign({}, data)
   pars.prefix = 'eon-z'
   pars.ext = 'png'
   pars.type = 'thumbnail'
@@ -186,8 +214,8 @@ function getThumbnailUri (p = {}) {
 }
 
 // .................. getGifUri
-function getGifUri (p = {}) {
-  let pars = Object.assign({}, p)
+function getGifUri (data) {
+  let pars = Object.assign({}, data)
   pars.prefix = 'eon-z'
   pars.ext = 'gif'
   pars.type = ''
@@ -195,7 +223,7 @@ function getGifUri (p = {}) {
 }
 
 // .................. getEonUri
-function getEonUri (p = {}) {
+function getEonUri (data) {
   let {
     where,
     prefix,
@@ -205,7 +233,7 @@ function getEonUri (p = {}) {
     name,
     outdirpath,
     rootMediaUrl,
-  } = p
+  } = data
   let file = `${prefix}${code}-${name}.${ext}`
   let path = `${outdirpath}${file}`
   let url = `${rootMediaUrl}${file}`
@@ -265,7 +293,7 @@ function getTileItem (data) {
     rootMediaUrl,
     srcUri,
     tileview,
-    targetHtml,
+    targetUri,
   } = data
   let res = `[<img id="${i}" alt="${code}"
     code="${code}" where="${where}" ext="png" type="preview" prefix="eon-z"  outdirpath="${outdirpath}"  rootMediaUrl="${rootMediaUrl}"
@@ -278,17 +306,8 @@ function getTileItem (data) {
 
 // .................. getRowsItem
 function getRowsItem (data) {
+  console.log('getRowsItem data:', data)
   let {
-    i,
-    preline,
-    bodyline,
-    code,
-    where,
-    outdirpath,
-    rootMediaUrl,
-    srcUri,
-    tileview,
-    targetHtml,
     prefixAndCodeAndName,
   } = data
 
@@ -308,7 +327,6 @@ function getListItem (data) {
     rootMediaUrl,
     srcUri,
     tileview,
-    targetHtml,
     prefixAndCodeAndName,
   } = data
 
@@ -341,8 +359,7 @@ function getListItem (data) {
 
 // .................. doit
 function doit (data) {
-  let {state, options} = data
-  if (includes(state.actions, 'debug')) console.log('doit data:', data)
+  let { state, options } = data
 
   let outText = ''
 
@@ -392,7 +409,10 @@ function doit (data) {
     .filter(d => !tspattern.test(d))
 
   for (let i = 0; i < zfiles.length; i++) {
+    // for each file
     let fileName = zfiles[i]
+    if (includes(state.actions, 'debug')) console.log('doit ', i, fileName)
+
     let icol = col(i)
 
     let parts = fileName.match(partsPattern)
@@ -404,6 +424,7 @@ function doit (data) {
       code,
       name,
     ] = parts
+
     let fileParts = {
       fullname,
       prefixAndCodeAndName,
@@ -414,41 +435,56 @@ function doit (data) {
     }
 
     let fileData = Object.assign({}, state, fileParts, { i })
-    if (includes(state.actions, 'debug')) console.log('doit fileData:', fileData)
 
-    let outThumbnailPath = getUri(
-      Object.assign({}, fileData, {
-        name: 'thumbnail',
-        type: 'thumbnail',
-        ext: 'png',
-        where: 'local',
-      })
-    )
-    
-    let outThumbnailUri = getUri(
-      Object.assign({}, fileData, {
-        name: 'thumbnail',
-        type: 'thumbnail',
-        ext: 'png',
-      })
-    )
+    let outThumbnailPath = getUri({
+      where: 'local',
+      prefix: prefix,
+      code: code,
+      ext: 'png',
+      name: 'thumbnail',
+      outdirpath: state.outdirpath,
+      rootMediaUrl: state.rootMediaUrl,
+    })
 
-    let outPreviewUri = getUri(
-      Object.assign({}, fileData, {
-        name: 'preview',
-        type: 'preview',
-        ext: 'png',
-      })
-    )
-    let outGifPath = getUri(
-      Object.assign({}, fileData, { type: 'gif', ext: 'gif', where: 'local' })
-    )
-    let outGifUri = getUri(
-      Object.assign({}, fileData, { type: 'gif', ext: 'gif' })
-    )
-    let outEonUri = getUri(
-      Object.assign({}, fileData, { type: 'zeon', name: name, ext: 'html' })
-    )
+    let outThumbnailUri = getUri({
+      where: 'local',
+      prefix: prefix,
+      code: code,
+      ext: 'png',
+      name: 'thumbnail',
+    })
+
+    let outPreviewUri = getUri({
+      where: 'local',
+      prefix: prefix,
+      code: code,
+      ext: 'png',
+      name: 'preview',
+    })
+
+    let outGifPath = getUri({
+      where: 'local',
+      prefix: prefix,
+      code: code,
+      ext: 'gif',
+      outdirpath: state.outdirpath,
+      rootMediaUrl: state.rootMediaUrl,
+    })
+
+    let outGifUri = getUri({
+      where: 'local',
+      prefix: prefix,
+      code: code,
+      ext: 'gif',
+      name: 'preview',
+    })
+
+    let outEonUri = getUri({
+      where: 'local',
+      prefix: prefix,
+      code: code,
+      ext: 'html',
+    })
 
     if (state.dotype === 'frame') {
       outText += getTileItem(fileData)
@@ -469,8 +505,6 @@ function doit (data) {
 
   return outText
 }
-
-
 
 // .................. help
 function help (data) {
@@ -493,17 +527,16 @@ function help (data) {
   console.log(res)
 }
 
-
 if (includes(state.actions, 'help')) {
   help()
 }
 if (includes(state.actions, 'doit')) {
-  let outText = doit({state, options})
-  console.log('write', state.outPath, )
+  let outText = doit({ state, options })
+  console.log('write', state.outPath)
   fs.writeFileSync(state.outPath, outText)
-} 
+}
 if (includes(state.actions, 'debug')) {
-  let outText = doit({state, options})
+  let outText = doit({ state, options })
   console.log('would text', outText)
-  console.log('would write', state.outPath, )
+  console.log('would write', state.outPath)
 }

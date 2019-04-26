@@ -19,8 +19,8 @@ const existsFile = d => fs.existsSync(d)
 let filename = __filename // full path name of the current module
 let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
-let cwdir = process.cwd() // directory of invocation
 let prgdir = __dirname // directory of calling js file
+let cwdir = process.cwd() // directory of invocation
 
 // options
 
