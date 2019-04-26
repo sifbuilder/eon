@@ -31,8 +31,8 @@ const options = {
   tracingpath: './___trace.json',
   zpattern: new RegExp('^(((eon-z)(.*))-([^-.]*))[-]?(.*).(html)', 'i'),
   inScopeExt: 'html',
-  outext: 'jpg', // 'png',  //
-  outImgType: 'jpeg', // 'png', //
+  outext: 'png',  // 'jpg', // 
+  outImgType: 'png', // 'jpeg', // 
   snapTypes: ['preview', 'thumbnail'],
 }
 
@@ -61,7 +61,8 @@ options.browseOpts = {
     height: 900,
   },
   fullPage: false,
-  clip: { // body default margin is 8px on all sides
+  clip: {
+    // body default margin is 8px on all sides
     preview: {
       x: 8,
       y: 8,
@@ -75,12 +76,15 @@ options.browseOpts = {
       height: 120,
     },
   },
-  viewPort: { // page.setViewport
-    preview: { // page.setViewport
+  viewPort: {
+    // page.setViewport
+    preview: {
+      // page.setViewport
       width: 600 + 8 + 8, // add body margin
       height: 400 + 8 + 8, // add body margin
     },
-    thumbnail: { // page.setViewport
+    thumbnail: {
+      // page.setViewport
       width: 180,
       height: 120,
     },
@@ -128,21 +132,22 @@ state.files = fs
 async function doItem (data) {
   let { state, options } = data
   let { files, inDirPath, browser } = state
-  let { browseOpts, tracing, tracingpath, zpattern } = options
-  let { viewPort, timeout, pageSelector, delay } = browseOpts
-
-  let snapTypes = { options } // 'preview', 'thumbnail'
 
   async function doItem (current) {
     // n+1
     if (current >= files.length) return
     state.inFileName = files[current]
     let inPathName = path.resolve(inDirPath, state.inFileName)
-    if (includes(state.actions, 'debug')) console.assert(existsFile(inPathName), `file ${inPathName} does not exist`)
+    if (includes(state.actions, 'debug')) {
+      console.assert(
+        existsFile(inPathName),
+        `file ${inPathName} does not exist`
+      )
+    }
     if (includes(state.actions, 'debug')) console.log(`doing:  ${inPathName}`)
 
-    let parts = state.inFileName.match(zpattern)
-    console.log('parts:', parts)
+    let parts = state.inFileName.match(options.zpattern)
+    if (includes(state.actions, 'debug')) console.log('parts:', parts)
     state.fullnamewithext = parts[0]
     state.fullname = parts[1]
     state.rootname = parts[2]
@@ -152,33 +157,30 @@ async function doItem (data) {
     state.vide = parts[6]
     state.exten = parts[7]
 
-    // ------ show
-
-    let outfile, outPathName, itemOpts
-    let typeimg // preview, thumbnail
-    let pageSrc // page to be loaded
-
-    // .................. doType    
+    // .................. doType
     const doType = async function (data) {
       let { options, state } = data
-      let { typeimg, inPathName } = state
-      if (includes(state.actions, 'debug')) console.log('typeimg:', typeimg)
-      state.outFileName = `${state.rootname}-${typeimg}.${options.outext}` // preview, thumbnail
-      state.outPathName = path.resolve(state.outDirPath, state.outFileName) 
-      
-      let viewPort = options.browseOpts.viewPort[typeimg]
+      if (includes(state.actions, 'debug')) { console.log('snapType:', state.snapType) }
+      state.outFileName = `${state.rootname}-${state.snapType}.${
+        options.outext
+      }` // preview, thumbnail
+      state.outPathName = path.resolve(state.outDirPath, state.outFileName)
+
+      let viewPort = options.browseOpts.viewPort[state.snapType]
       let itemOpts = Object.assign({}, options, {
         path: state.outPathName,
         type: options.outImgType,
-        clip: options.browseOpts.clip[typeimg],
+        clip: options.browseOpts.clip[state.snapType],
       })
-      if (includes(state.actions, 'debug')) console.log('screenshot: ', outPathName, itemOpts)
+      if (includes(state.actions, 'debug')) { console.log('screenshot: ', state.outPathName, itemOpts) }
 
-      console.assert(typeimg !== undefined, `screenshot type undefined`)
+      console.assert(state.snapType !== undefined, `screenshot type undefined`)
       console.assert(viewPort !== undefined, `viewPort size undefined`)
 
-      pageSrc = await browser.newPage()
-      await pageSrc.goto(`file:///${state.inPathName}`, { waitUntil: 'domcontentloaded' })
+      let pageSrc = await browser.newPage()
+      await pageSrc.goto(`file:///${state.inPathName}`, {
+        waitUntil: 'domcontentloaded',
+      })
       await waitInPromise(options.browseOpts.delay)(pageSrc.content())
 
       await pageSrc.setViewport(viewPort) // viewport
@@ -190,14 +192,13 @@ async function doItem (data) {
       return state
     }
 
-    state.typeimg = 'preview'
-    state.inPathName = path.resolve(state.inDirPath, state.inFileName)
-    state = await doType({state, options})
-
-    state.typeimg = 'thumbnail'
-    state.inPathName = state.outPathName
-    state = await doType({state, options})
-
+    state.inPathName = path.resolve(state.inDirPath, state.inFileName) // first
+    for (let snapType of options.snapTypes) {
+      // ['preview', 'thumbnail']   // next
+      state.snapType = snapType
+      state = await doType({ state, options }) // do each type
+      state.inPathName = state.outPathName
+    }
 
     await doItem(current + 1)
   }
@@ -210,6 +211,7 @@ async function doit (data) {
   let { state, options } = data
   let { headless, devtools, debuggingPort, window } = options.browseOpts
   let { actions } = state
+  if (includes(actions, 'doit')) console.log('doing ...')
   if (includes(actions, 'debug')) console.log('doit data', data)
 
   const browser = await puppeteer.launch({
@@ -232,10 +234,16 @@ async function doit (data) {
 async function help (data) {
   let { state, options } = data
   let { prgname } = state
-  console.log(`generate preview.png [600x400] and thumbnail.png [230x120]
-      node ${prgname} {[pattern], [ext]}
-      from eon-z-...{pattern}...{ext}, where ext in {html, gif, mov}
-      eg. node ${prgname} 793d doit`)
+  console.log(`
+      ${prgname} help:
+
+      generate eons preview and thumbnail files
+        .jpg [600x400] and .jpg [180x120]
+
+      usage: node ${prgname} pattern {debug, doit, dodebug}
+          eg. node ${prgname} 793d doit
+
+      for each eon html files in scope, wait 5 seconds and take screen shot`)
 }
 
 // .................. debug

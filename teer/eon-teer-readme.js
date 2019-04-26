@@ -8,27 +8,34 @@ const waitInPromise = delay => arg =>
     ? new Promise(resolve => setTimeout(() => resolve(arg), delay))
     : Promise.resolve(arg)
 
-const isDirectory = d => fs.lstatSync(d).isDirectory()
-const isFile = d => fs.lstatSync(d).isFile()
-const existsFile = d => fs.existsSync(d)
+const includes = (a, b) => a.includes(b) // is element b in array a
 
 const rower = q => n => Math.floor(n / q)
 const coler = q => n => n % q
 
 // fs
 
+const isDirectory = d => fs.lstatSync(d).isDirectory()
+const isFile = d => fs.lstatSync(d).isFile()
+const existsFile = d => fs.existsSync(d)
+
 let filename = __filename // full path name of the current module
 let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
-let cwdname = process.cwd()
+let cwdir = process.cwd() // directory of invocation
+let prgdir = __dirname // directory of calling js file
 
-// state
-const state = {
+// options
+const options = {
+}
+
+  // state
+  const state = {
   outDir: './',
   outMdFile: 'README.md',
   outText: '',
-  rootdirpath: (dirname + '/').replace(/\\/g, '/'),
-  outdirpath: (dirname + '/../').replace(/\\/g, '/'),
+  rootdirpath: (cwdir + '/').replace(/\\/g, '/'),
+  outdirpath: (cwdir + '/').replace(/\\/g, '/'),
   where: 'local',
   qcols: 1, // 3, // number of thumbnails per row
   contentUrl: 'https://raw.githubusercontent.com/', // rsc host
@@ -78,60 +85,79 @@ state.vidDirPath = `${state.rootdirpath}/vid`
 state.tstDirPath = `${state.rootdirpath}/tst`
 
 let col = coler(state.qcols)
-state.rooturl = `${state.contentUrl}${state.user}/${state.repo}/${state.branch}/`
-state.rootMediaUrl = `${state.contentUrl}${state.user}/${state.repo}/${state.folder}/${state.branch}/`
+state.rooturl = `${state.contentUrl}${state.user}/${state.repo}/${
+  state.branch
+}/`
+state.rootMediaUrl = `${state.contentUrl}${state.user}/${state.repo}/${
+  state.folder
+}/${state.branch}/`
 state.rootRepoUrl = `https://${state.hostUrl}${state.user}/${state.repo}/`
 state.rootMediaUrl = `https://${state.user}.${state.hostUrl}/${state.repo}/`
 state.rootRepoUrl = `https://${state.user}.${state.hostUrl}/${state.repo}/`
 
 // args
-
+state.actions = []
 let args = process.argv
 let [cmd, scp, ...opts] = args
 
-let action = 'help' // {[help] pattern}
-let optsnb = opts.length
-if (opts.length === 0) {
-  action = 'help'
-} else if (opts[optsnb - 1] === 'help') {
-  action = 'help'
-} else if (opts[optsnb - 1] === 'debug') {
-  action = 'debug'
-} else if (opts[optsnb - 1] === 'doframe') {
-  action = 'doframe'
-} else if (opts[optsnb - 1] === 'dorows') {
-  action = 'dorows'
-} else if (opts[optsnb - 1] === 'dolist') {
-  action = 'dolist'
+let optsq = opts.length
+if (optsq === 0) {
+  state.actions.push('help')
 }
-state.action = action
 
-if (
-  action === 'doframe' ||
-  action === 'dolist' ||
-  action === 'dorows' ||
-  action === 'debug'
-) {
-  let codepattern
-  if (optsnb === 1) {
-    codepattern = '.*'
+if (optsq < 3) {
+  state.actions.push('help')
+}
+
+if (opts[optsq - 1] === 'help') { // last opt
+  state.actions.push('help')
+} else if (opts[optsq - 1] === 'doit') {
+  state.actions.push('doit')
+} else if (opts[optsq - 1] === 'debug') {
+  state.actions.push('debug')
+} else if (opts[optsq - 1] === 'dodebug') {
+  state.actions.push('doit')
+  state.actions.push('debug')
+}
+
+if (optsq >= 2) {
+  if (opts[optsq - 2] === 'frame') {
+    state.dotype = 'frame'
+  } else if (opts[optsq - 2] === 'rows') {
+    state.dotype = 'rows'
   } else {
-    codepattern = opts[0]
-  }
-
-  let inScopeText = `^eon-z.*${codepattern}.*\.${state.inScopeExt}$`
-  state.inScopePattern = new RegExp(`${inScopeText}`, 'i')
-
-  if (optsnb >= 2) {
-    state.where = opts[1] // {local | remote}
+    state.dotype = 'list' // default
   }
 }
 
+if (optsq >= 2) { // first param
+  if (opts[0] === '.') {
+    state.codepattern = '.*' // default to all files
+  } else {
+    state.codepattern = opts[0] // pattern in first param
+  }
+}
+
+
+if (optsq >= 2) {
+  let where = opts[1] // first param {local | remote}
+  state.where = (where === 'remote') ? 'remote' : 'local'  // defaul to local
+}
+
+state.inScopeText = `^eon-z.*${state.codepattern}.*\.${state.inScopeExt}$`
+state.inScopePattern = new RegExp(`${state.inScopeText}`, 'i')
+
+if (includes(state.actions, 'debug')) console.log(`would do: ${state.dotype} on ${state.codepattern} in ${state.where}`)
+if (includes(state.actions, 'doit')) console.log(`will do: ${state.dotype} on ${state.codepattern} in ${state.where}`)
+
+
+// .................. getUri
 function getUri (data) {
   let { where, prefix, code, ext, name, outdirpath, rootMediaUrl } = data
-  let file = name !== undefined
-    ? `${prefix}${code}-${name}.${ext}`
-    : `${prefix}${code}.${ext}`
+  let file =
+    name !== undefined
+      ? `${prefix}${code}-${name}.${ext}`
+      : `${prefix}${code}.${ext}`
   let path = `${outdirpath}/${file}`
   let url = `${rootMediaUrl}/${file}`
 
@@ -139,7 +165,7 @@ function getUri (data) {
 
   return uri
 }
-
+// .................. getEonHtmlUri
 function getEonHtmlUri (data) {
   let { where, prefixAndCodeAndName, outdirpath, rootMediaUrl } = data
   let fileName = `index.html#${prefixAndCodeAndName}`
@@ -150,7 +176,7 @@ function getEonHtmlUri (data) {
 
   return uri
 }
-
+// .................. getThumbnailUri
 function getThumbnailUri (p = {}) {
   let pars = Object.assign({}, p)
   pars.prefix = 'eon-z'
@@ -159,6 +185,7 @@ function getThumbnailUri (p = {}) {
   return getUri(pars)
 }
 
+// .................. getGifUri
 function getGifUri (p = {}) {
   let pars = Object.assign({}, p)
   pars.prefix = 'eon-z'
@@ -166,6 +193,8 @@ function getGifUri (p = {}) {
   pars.type = ''
   return getUri(pars)
 }
+
+// .................. getEonUri
 function getEonUri (p = {}) {
   let {
     where,
@@ -184,6 +213,7 @@ function getEonUri (p = {}) {
   return uri
 }
 
+// .................. getPreviewUri
 function getPreviewUri (data) {
   let { outdirpath, rootMediaUrl, where, code } = data
   let ext = 'png'
@@ -196,6 +226,7 @@ function getPreviewUri (data) {
   return uri
 }
 
+// .................. getPreviewUri
 function getPreviewUri (data) {
   let { previewview, tileview, srcUri } = data
   let res = `onmouseover="(function(that){
@@ -224,6 +255,7 @@ function getPreviewUri (data) {
   return res
 }
 
+// .................. getTileItem
 function getTileItem (data) {
   let {
     i,
@@ -244,6 +276,7 @@ function getTileItem (data) {
   return res
 }
 
+// .................. getRowsItem
 function getRowsItem (data) {
   let {
     i,
@@ -264,6 +297,8 @@ function getRowsItem (data) {
   let res = `[${prefixAndCodeAndName}](${outHtmlUri})`
   return res
 }
+
+// .................. getListItem
 function getListItem (data) {
   let {
     i,
@@ -280,7 +315,12 @@ function getListItem (data) {
   let outHtmlUri = getEonHtmlUri(data) // file:///E:/Dropbox/dBox/e/c/eons/eons/eon-z021a.html
 
   srcUri = getUri(
-    Object.assign({}, data, { outdirpath: data.picDirPath, name: 'thumbnail', type: 'thumbnail', ext: 'png' })
+    Object.assign({}, data, {
+      outdirpath: data.picDirPath,
+      name: 'thumbnail',
+      type: 'thumbnail',
+      ext: 'png',
+    })
   )
 
   // let targetHtml = existsFile(outHtmlUri) ? outHtmlUri : outEonUri
@@ -299,24 +339,10 @@ function getListItem (data) {
   return res
 }
 
-function getHelpItem (data) {
-  let res = `node ${prgname} {[pattern]} {local|remote} {[help], [debug], [doframe], [dolist]}
-  eg: node eon-teer-readme . local do
-  eg: node eon-teer-readme . remote do
-  generate README.md file
-  takes html files from pattern, eg 7*
-  builds content for local or remote README
-  create matrix of thumbnail tiles
-  each tile points in precedence to:
-    - tweet (from .json)
-    - gif anima (.gif)
-    - eon (.html)
-`
-  return res
-}
-
+// .................. doit
 function doit (data) {
-  // return outText
+  let {state, options} = data
+  if (includes(state.actions, 'debug')) console.log('doit data:', data)
 
   let outText = ''
 
@@ -348,7 +374,7 @@ function doit (data) {
     previewext,
     prefix,
     previewview,
-  } = data
+  } = state
 
   let erebody = ''
   let body = ''
@@ -370,35 +396,65 @@ function doit (data) {
     let icol = col(i)
 
     let parts = fileName.match(partsPattern)
-    let [fullname, prefixAndCodeAndName, prefixAndCode, prefix, code, name] = parts
-    let fileParts = {fullname, prefixAndCodeAndName, prefixAndCode, prefix, code, name}
+    let [
+      fullname,
+      prefixAndCodeAndName,
+      prefixAndCode,
+      prefix,
+      code,
+      name,
+    ] = parts
+    let fileParts = {
+      fullname,
+      prefixAndCodeAndName,
+      prefixAndCode,
+      prefix,
+      code,
+      name,
+    }
 
-    let fileData = Object.assign({}, data, fileParts, {i})
+    let fileData = Object.assign({}, state, fileParts, { i })
+    if (includes(state.actions, 'debug')) console.log('doit fileData:', fileData)
 
     let outThumbnailPath = getUri(
-      Object.assign({}, fileData, {name: 'thumbnail', type: 'thumbnail', ext: 'png', where: 'local'})
+      Object.assign({}, fileData, {
+        name: 'thumbnail',
+        type: 'thumbnail',
+        ext: 'png',
+        where: 'local',
+      })
     )
+    
     let outThumbnailUri = getUri(
-      Object.assign({}, fileData, { name: 'thumbnail', type: 'thumbnail', ext: 'png' })
+      Object.assign({}, fileData, {
+        name: 'thumbnail',
+        type: 'thumbnail',
+        ext: 'png',
+      })
     )
 
     let outPreviewUri = getUri(
-      Object.assign({}, fileData, { name: 'preview', type: 'preview', ext: 'png' })
+      Object.assign({}, fileData, {
+        name: 'preview',
+        type: 'preview',
+        ext: 'png',
+      })
     )
     let outGifPath = getUri(
       Object.assign({}, fileData, { type: 'gif', ext: 'gif', where: 'local' })
     )
     let outGifUri = getUri(
-      Object.assign({}, fileData, { type: 'gif', ext: 'gif' }))
+      Object.assign({}, fileData, { type: 'gif', ext: 'gif' })
+    )
     let outEonUri = getUri(
       Object.assign({}, fileData, { type: 'zeon', name: name, ext: 'html' })
     )
 
-    if (action === 'doframe') {
+    if (state.dotype === 'frame') {
       outText += getTileItem(fileData)
-    } else if (action === 'dolist') {
+    } else if (state.dotype === 'list') {
       outText += getListItem(fileData)
-    } else if (action === 'dorows') {
+    } else if (state.dotype === 'rows') {
       outText += getRowsItem(fileData)
     }
 
@@ -414,13 +470,40 @@ function doit (data) {
   return outText
 }
 
-if (state.action === 'help') {
-  console.log(getHelpItem())
-} else {
-  let outText = doit(state)
-  if (state.action === 'debug') {
-    console.log('outText', state.outPath, outText)
-  } else {
-    fs.writeFileSync(state.outPath, outText)
-  }
+
+
+// .................. help
+function help (data) {
+  let res = `
+  generate README.md file
+
+  usage: node ${prgname} {pattern} {local|remote} {frame, rows, [list]} {doit, debug, dodebug}
+      eg: node ${prgname} . local list doit
+      eg: node ${prgname} 813r local rows dodebug
+      eg: node ${prgname} 852d remote frame dodebug
+
+  takes html files from pattern, eg 7*
+  builds content for local or remote README
+  create matrix of thumbnail tiles
+  each tile points to:
+    - tweet (from .json)
+    - gif anima (.gif)
+    - eon (.html)
+`
+  console.log(res)
+}
+
+
+if (includes(state.actions, 'help')) {
+  help()
+}
+if (includes(state.actions, 'doit')) {
+  let outText = doit({state, options})
+  console.log('write', state.outPath, )
+  fs.writeFileSync(state.outPath, outText)
+} 
+if (includes(state.actions, 'debug')) {
+  let outText = doit({state, options})
+  console.log('would text', outText)
+  console.log('would write', state.outPath, )
 }
