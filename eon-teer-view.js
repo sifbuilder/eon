@@ -32,7 +32,7 @@
     const fwddir = d => (d + '/').replace(/\\/g, '/')
     const getindex = d => (d + '/').replace(/\\/g, '/') + `index.html`
     const anchored = (d, a) => getindex(d) + '#' + a
-    
+
     const newLine = '\n'
     const endOfLine = '  '
 
@@ -51,7 +51,7 @@
     // options
 
     const options = {
-   
+
       qcols: 1, // 3, // number of thumbnails per row
 
       contentUrl: 'https://raw.githubusercontent.com/', // rsc host
@@ -65,15 +65,15 @@
       teerDirPath: path.resolve(cwdDirPath, 'eonitem'),
       imgDirPath: path.resolve(cwdDirPath, 'img'),
       vidDirPath: path.resolve(cwdDirPath, 'vid'),
-      
+
       outMdFile: 'README.md',
 
       picDirPath: `${rootDirPath}/pic`,
       tstDirPath: `${rootDirPath}/tst`,
-  
+
       header: `# eons ${newLine}${newLine}**time space manyfolds** ${endOfLine}${newLine}${newLine}`,
       footer: `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`,
-   
+
       indexpattern: new RegExp(`^eon-z.*.js`, 'i'), // z.eons
       eonpattern: new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i'), // eons
       testpattern: new RegExp('(.*).test.(.*)$', 'i'), //  test
@@ -108,7 +108,7 @@
         height: 400,
       },
       prefix: `eon-z`,
-      inScopeExt: 'js',      
+      inScopeExt: 'js',
     }
 
     options.outFilePath = `${rootDirPath}${options.outMdFile}`
@@ -120,6 +120,31 @@
     options.rootRepoUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/`
     options.col = coler(options.qcols)
 
+    options.browseopts = {
+      headless: false, // puppeteer.launch
+      devtools: false, // puppeteer.launch
+      debuggingPort: 9222, // puppeteer.launch
+      window: {
+        // puppeteer.launch
+        width: 1200,
+        height: 900,
+      },
+      fullPage: false,
+      clip: {
+        x: 0,
+        y: 0,
+        width: 600,
+        height: 400,
+      },
+      viewPort: {
+        // pageSrc.setViewport
+        width: 600,
+        height: 400,
+      },
+      delay: 3000, // waitInPromise
+      timeout: 50000, // pageSrc.goto
+      pageSelector: '#viewframe', // pageSrc.waitForSelector
+    }
     // state
 
     let state = {
@@ -129,91 +154,11 @@
       options: options, // options
     }
 
-    
-    // .................. getPreviewUri
-    function getPreviewUri (_) {
-      let { previewview, tileview, srcUri } = _
-      let res = `onmouseover="(function(that){
-    that.width='${previewview.width}'
-    that.height='${previewview.height}'
-        let outDirPath = that.outDirPath 
-        if (1 && 1) console.log('outDirPath', outDirPath)
-        let rootImgUrl = that.rootImgUrl
-        let where = that.where
-        let code = that.code || '10'
-        let ext = 'png'
-        let type = 'preview'
-        let file = 'eon-z'
-        file = file.concat(code, '-', type, '.', ext)
-        let path = outDirPath.concat(file)
-        let url = rootImgUrl.concat(file)
-        let uri = (where === 'local') ? path : url              
-    that.src = uri
-    console.log('***uri: ',uri)
-  })(this);"
-  onmouseout="(function(that){
-    that.width='${tileview.width}'
-    that.height='${tileview.height}'
-    that.src='${srcUri}'
-  })(this);"`
-      return res
-    }
-
-    // .................. getRowsItem
-    function getRowsItem (_) {
-      // [eon-z813r-radi-frame](https://sifbuilder.github.com//eons//index.html#eon-z813r-radi-frame)
-      // [eon-z000a](E:/eons/eons/index.html#eon-z000a)
-      let index = fwddir(`${_.baseUri}`) + `index.html`
-      let res = `[${_.file.prefixCodeName}](${index}#${_.file.prefixCodeName})`
-      return res
-    }
-
-    // .................. getTileItem
-    function getTileItem (_) {
-      let res = `[<img id="${_.fileidx}" 
-      alt="${_.file.code}"
-      code="${_.file.code}" 
-      where="${_.args.where}" 
-      ext=${_.thumbnailext}
-      type="preview" 
-      prefix="eon"  
-      outDirPath="${_.outDirPath}"
-      rootImgUrl="${_.rootImgUrl}"
-      src="${_.thumbnailuri}"
-      width="${_.options.tileview.width}px;"
-       height="${_.options.tileview.height}px;"/>](${index}#${
-  _.file.prefixCodeName
-})`
-      return res
-    }
-
-    // .................. getListItem
-    function getListItem (_) {
-      let res = ''
-
-      let prefixCodeName = _.file.prefixCodeName.padEnd(45, ' ')
-      let index = fwddir(`${_.baseUri}`) + `index.html`
-
-      res = ` ${prefixCodeName} [<img id="${_.i}" alt="${_.file.code}" 
-        code="${_.file.code}" where="${_.args.where}"
-      ext="png" type="preview" 
-      prefix="eon"
-      outDirPath="${_.outDirPath}"  
-      rootImgUrl="${_.rootImgUrl}"
-      src="${_.thumbnailuri}"
-      width="${_.options.tileview.width}px;" height="${
-  _.options.tileview.height
-}px;"/>](${index}#${_.file.prefixCodeName})`
-
-      return res
-    }
-
     // ....................... parseArgs
-    let parseArgs = function (data = {}, _ = {}) {
+    let parseArgs = function (data = {}, context = {}) {
       let res = {}
       res.args = data
       res.actions = []
-      res.dotype = ''
       res.codepattern = ''
 
       let optsq = res.args.length
@@ -238,16 +183,6 @@
       }
 
       if (optsq >= 2) {
-        if (res.args[optsq - 2] === 'frame') {
-          res.dotype = 'frame'
-        } else if (res.args[optsq - 2] === 'rows') {
-          res.dotype = 'rows'
-        } else {
-          res.dotype = 'list' // default
-        }
-      }
-
-      if (optsq >= 2) {
         // first param
         if (res.args[0] === '.') {
           res.codepattern = '.*' // default to all files
@@ -256,113 +191,122 @@
         }
       }
 
-      if (optsq >= 2) {
-        let where = res.args[1] // first param {local | remote}
-        res.where = where === 'remote' ? 'remote' : 'local' // defaul to local
-      }
-
       return res
+
     }
 
-    // .................. getHelp
-    function getHelp (data = {}, _ = {}) {
-      let res = {
-        helpText: '',
-      }
-      res.helpText = `
-  generate README.md file
-
-  usage: node ${
-    _.prgFileName
-} {pattern} {local|remote} {frame, rows, [list]} {doit, debug, dodebug}
-      eg: node ${_.prgFileName} . local list doit
-      eg: node ${_.prgFileName} 813r local rows dodebug
-      eg: node ${_.prgFileName} 852d remote frame dodebug
-
-  takes html files from pattern, eg 7*
-  builds content for local or remote README
-  create matrix of thumbnail tiles
-  each tile points to:
-    - tweet (from .json)
-    - gif anima (.gif)
-    - eon (.html)
-`
-      return res
-    }
-
-    // ....................... todo
-    function todo ({}, _) {
-      let outText = ''
-
-      outText += _.options.header
-
-      let zfiles = fs
-        .readdirSync(_.options.eonDirPath) // index files in inDir
-        .filter(d => _.options.indexpattern.test(d))
+    // .................. actUponItems
+    async function actUponItems (_) {
+      let files = fs
+        .readdirSync(_.options.eonDirPath) // to actView
+        .filter(file => isFile(file))
         .filter(d => _.inScopePattern.test(d))
-        .filter(d => !_.options.testpattern.test(d))
-        .filter(d => !_.options.mdpattern.test(d))
-        .filter(d => !_.options.tspattern.test(d))
 
-      let erebody = ''
-      let body = ''
+      let { eonDirPath, tracing, tracingpath } = _.options
+      let { viewPort, timeout, pageSelector, delay } = _.options.browseopts
 
-      for (let i = 0; i < zfiles.length; i++) {
-        _ = enty.updState({ fileidx: i })
-
-        let fileName = zfiles[i]
-        if (includes(_.args.actions, 'debug')) console.log('doit ', i, fileName)
-
-        let icol = _.options.col(i)
+      // .................. actUponNext
+      async function actUponNext (current) {
+        
+        if (current >= files.length) return
+        let fileName = files[current]
+        console.log('fileName:', eonDirPath, fileName)
 
         let file = fileName.match(_.options.partsPattern).groups
         _ = enty.updState({ file: file })
         if (includes(_.args.actions, 'debug')) console.log('file:', _.file)
 
-        let eonPath = `${_.eonDirPath}${_.file.prefixCodeName}`
-        let eonUrl = `${_.rootImgUrl}${_.file.prefixCodeName}`
-        let eonUri = _.args.where === 'local' ? eonPath : eonUrl
-        let baseUri =
-          _.args.where === 'local' ? _.options.eonDirPath : _.rootImgUrl
-        _ = enty.updState({ eonUri: eonUri, baseUri: baseUri })
+        let index = fwddir(`${eonDirPath}`) + `index.html`
+        let eonUri = `${index}#${_.file.prefixCodeName}`        
 
-        let thumbnailPrefixCodeName = eoname([
-          _.file.options.prefix,
-          _.file.code,
-          'thumbnail',
-        ])
-        let thumbnailName = `${thumbnailPrefixCodeName}.png`
-        let thumbnailpath = `${_.options.imgDirPath}/${thumbnailName}`
-        let thumbnailurl = `${_.rootImgUrl}/${thumbnailName}`
-        let thumbnailuri =
-          _.args.where === 'local' ? thumbnailpath : thumbnailurl
-        _ = enty.updState({
-          thumbnailuri: thumbnailuri,
-          thumbnailext: 'png',
-        })
+        if (includes(_.args.actions, 'debug')) console.log(`doing:  ${eonUri}`)
 
-        if (_.args.dotype === 'frame') {
-          outText += getTileItem(_)
-        } else if (_.args.dotype === 'list') {
-          outText += getListItem(_)
-        } else if (_.args.dotype === 'rows') {
-          outText += getRowsItem(_)
+        const pageSrc = await _.browser.newPage()
+        pageSrc.setViewport(viewPort) // viewport
+
+        if (tracing) {
+          await pageSrc.tracing.start({
+            path: tracingpath,
+            screenshots: true,
+          })
         }
+
+        await pageSrc.goto(`file:///${eonUri}`, {
+          waitUntil: 'domcontentloaded',
+          timeout: timeout, // timeout
+        })
+        await pageSrc.waitForSelector(pageSelector)
+        await waitInPromise(delay)(pageSrc.content())
+
+        pageSrc.on('pageerror', function (err) {
+          let theTempValue = err.toString()
+          console.log('pageSrc error: ' + theTempValue)
+        })
+        pageSrc.on('error', function (err) {
+          let theTempValue = err.toString()
+          console.log('Error: ' + theTempValue)
+        })
+        pageSrc.on('console', msg => {
+          for (let i = 0; i < msg.args.length; ++i) {
+            console.log(`${i}: ${msg.args[i]}`)
+          }
+        })
+        await pageSrc.evaluate(() => console.log(`url is ${location.href}`))
+
+        if (tracing) await pageSrc.tracing.stop()
+
+        await actUponNext(current + 1)
       }
 
-      outText += `${_.options.footer}`
-
-      return outText
+      return actUponNext(0) // 0
     }
 
-    // ....................... doit
+    // .................. todo
+    async function todo (data, context) {
+      let _ = context
+      let { headless, devtools, debuggingPort, window } = _.options.browseopts
+      let { actions } = _.args
+      if (includes(actions, 'debug')) console.log('would do:', _)
+
+      const browser = await puppeteer.launch({
+        headless: headless,
+        devtools: devtools, // open DevTools when window launches
+        args: [
+          `--remote-debugging-port=${debuggingPort}`,
+          `--window-size=${window.width},${window.height}`, // Window size
+        ],
+      })
+
+      await browser.pages()
+      _ = enty.updState({ browser: browser })
+
+      await actUponItems(_) // actUponItems
+      if (_.options.closebrowser) await browser.close()
+    }
+
+    // .................. getHelp
+    function getHelp (data, _) {
+      let res = {
+        helpText: '',
+      }
+      res.helpText = `
+  node ${_.prgFileName} inScopePattern {debug | doit}}
+     inScopePattern applies to eon-z files
+  call puppeteer and show html eon
+  eg.: node ${_.prgFileName} .*
+  eg.: node ${_.prgFileName} 793
+  eg.: node ${_.prgFileName} 793d debug
+  eg.: node ${_.prgFileName} 793d doit
+  `
+      return res
+    }
+
+    // .................. doit
     let doit = function (data, _) {
       let args = enty.parseArgs(data, _)
       _ = enty.updState({ args })
 
-      let inScopeText = `^eon-.*${_.args.codepattern}.*\.${
-        _..options.inScopeExt
-      }$`
+      let inScopeText = `^eon-.*${_.args.codepattern}.*${_.options.inScopeExt}$`
       let inScopePattern = new RegExp(`${inScopeText}`, 'i')
       _ = enty.updState({ inScopeText, inScopePattern })
       if (includes(_.args.actions, 'debug')) console.log('_:', _)
@@ -373,29 +317,17 @@
         console.log(_.help.helpText)
       }
       if (includes(_.args.actions, 'doit')) {
-        let outText = todo({}, _)
-        console.log('write', _.options.outFilePath)
-        fs.writeFileSync(_.options.outFilePath, outText)
-      }
-      if (includes(_.args.actions, 'debug')) {
-        let outText = todo({}, _)
-        console.log('would text', outText)
-        console.log('would write', _.options.outFilePath)
+        todo({}, _)
       }
     }
 
     // ....................... enty
     let enty = () => {}
 
-    enty.getPreviewUri = getPreviewUri
-    enty.getTileItem = getTileItem
-    enty.getRowsItem = getRowsItem
-    enty.getListItem = getListItem
-
     enty.getHelp = getHelp
     enty.doit = doit
     enty.parseArgs = parseArgs
-    enty.getState = () => _
+    enty.getState = () => state
     enty.setState = _ => ((state = _), state)
     enty.updState = _ => ((state = Object.assign(state, _)), state)
     enty.getoptions = () => state.options
