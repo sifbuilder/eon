@@ -248,33 +248,29 @@
       return res
     }
 
-    // .................. getTileItem
-    function getTileItem (data) {
-      let {
-        i,
-        code,
-        where,
-        outDirPath,
-        rootImgUrl,
-        srcUri,
-        tileview,
-        targetUri,
-      } = data
-      let res = `[<img id="${i}" alt="${code}"
-    code="${code}" where="${where}" ext="png" type="preview" prefix="eon-z"  outDirPath="${outDirPath}"  rootImgUrl="${rootImgUrl}"
-    src="${srcUri}"
-    width="${tileview.width}px;" height="${
-  tileview.height
-}px;"/>](${targetUri})`
-      return res
-    }
-
     // .................. getRowsItem
     function getRowsItem (_) {
       // [eon-z813r-radi-frame](https://sifbuilder.github.com//eons//index.html#eon-z813r-radi-frame)
       // [eon-z000a](E:/eons/eons/index.html#eon-z000a)
       let index = fwddir(`${_.baseUri}`) + `index.html`
       let res = `[${_.file.prefixCodeName}](${index}#${_.file.prefixCodeName})`
+      return res
+    }
+
+    // .................. getTileItem
+    function getTileItem (_) {
+      let res = `[<img id="${_.fileidx}" 
+      alt="${_.file.code}"
+      code="${_.file.code}" 
+      where="${_.args.where}" 
+      ext=${_.thumbnailext}
+      type="preview" 
+      prefix="eon"  
+      outDirPath="${_.outDirPath}"
+      rootImgUrl="${_.rootImgUrl}"
+      src="${_.thumbnailuri}"
+      width="${_.tileview.width}px;"
+       height="${_.tileview.height}px;"/>](${index}#${_.file.prefixCodeName})`
       return res
     }
 
@@ -288,7 +284,7 @@
       res = ` ${prefixCodeName} [<img id="${_.i}" alt="${_.file.code}" 
         code="${_.file.code}" where="${_.args.where}"
       ext="png" type="preview" 
-      prefix="eon-z"
+      prefix="eon"
       outDirPath="${_.outDirPath}"  
       rootImgUrl="${_.rootImgUrl}"
       src="${_.thumbnailuri}"
@@ -348,6 +344,8 @@
       let body = ''
 
       for (let i = 0; i < zfiles.length; i++) {
+        _ = enty.updState({ fileidx: i })
+
         let fileName = zfiles[i]
         if (includes(_.args.actions, 'debug')) console.log('doit ', i, fileName)
 
@@ -361,7 +359,7 @@
         let eonUrl = `${_.rootImgUrl}${_.file.prefixCodeName}`
         let eonUri = _.args.where === 'local' ? eonPath : eonUrl
         let baseUri =
-          ( _.args.where === 'local' ) ? _.options.eonDirPath : _.rootImgUrl
+          _.args.where === 'local' ? _.options.eonDirPath : _.rootImgUrl
         _ = enty.updState({ eonUri: eonUri, baseUri: baseUri })
 
         let thumbnailPrefixCodeName = eoname([
@@ -373,8 +371,11 @@
         let thumbnailpath = `${_.options.imgDirPath}/${thumbnailName}`
         let thumbnailurl = `${_.rootImgUrl}/${thumbnailName}`
         let thumbnailuri =
-          ( _.args.where === 'local' ) ? thumbnailpath : thumbnailurl
-        _ = enty.updState({ thumbnailuri: thumbnailuri })
+          _.args.where === 'local' ? thumbnailpath : thumbnailurl
+        _ = enty.updState({
+          thumbnailuri: thumbnailuri,
+          thumbnailext: 'png',
+        })
 
         if (_.args.dotype === 'frame') {
           outText += getTileItem(_)
