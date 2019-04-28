@@ -253,8 +253,8 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
       }
 
       if (optsq >= 2) {
-        if (res.args[optsq - 2] === 'frame') {
-          res.dotype = 'frame'
+        if (res.args[optsq - 2] === 'tile') {
+          res.dotype = 'tile'
         } else if (res.args[optsq - 2] === 'rows') {
           res.dotype = 'rows'
         } else {
@@ -289,10 +289,10 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
 
   usage: node ${
   _.options.prgFileName
-} {pattern} {local|remote} {frame, rows, [list]} {doit, debug, dodebug}
+} {pattern} {local|remote} {tile, rows, [list]} {doit, debug, dodebug}
       eg: node ${_.options.prgFileName} . local list doit
       eg: node ${_.options.prgFileName} 813r local rows dodebug
-      eg: node ${_.options.prgFileName} 852d remote frame dodebug
+      eg: node ${_.options.prgFileName} 852d remote tile dodebug
 
   takes html files from pattern, eg 7*
   builds content for local or remote README
@@ -356,7 +356,7 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
           thumbnailext: 'png',
         })
 
-        if (_.args.dotype === 'frame') {
+        if (_.args.dotype === 'tile') {
           outText += getTileItem(_)
         } else if (_.args.dotype === 'list') {
           outText += getListItem(_)
