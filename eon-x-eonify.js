@@ -606,11 +606,13 @@
     let match2 = rfile2.exec(input) || {}
     let {val} = (match2.groups || {})
 
-    let res = null
+    let res 
     if (val) res = val
     else if (anchor) res = anchor
     else if (filename) res = filename
-    console.log('res:', res)
+
+    res = (res && res !== 'index') ? res : 'eon-z814m-d3heart'
+
 
     return res
   }
