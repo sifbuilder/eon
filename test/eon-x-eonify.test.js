@@ -8,33 +8,38 @@ global.fs = require('fs')
 
 const xEonify = require('../eon-x-eonify.js')
 
-let eo = jest.fn(async ({anitem, time}) => {
-  let __eo = xEonify.eomap() // init mapper
+test('test', async (done) => {
+  let __eo = await xEonify.eostore()
 
-  __eo({'xs': xEonify.xs(__eo)}) // map xs
-  __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
+  const expectedActions = [
+    ['eon-z815e-d2bernoulli', ''],
+    ['d3-array', ''],
+  ]
 
-  let muonStore = await __eo('xs').m('store') // map store
-
-  let animas = await __eo('xs').a(anitem) // function
-  if (typeof anitem === 'string') { // anitem: 852d-3dgrat
-    animas = animas.ani() // animas: {natform: {…}}
+  const asyncCall = async (index) => {
+    const response = await xEonify.getEon(expectedActions[index], __eo)
+    expect(response).toBeDefined()
+    return response
   }
-  muonStore.apply({type: 'UPDANIMA', animas: animas})
 
-  await __eo('xs').m('animation') // map animation
-  __eo('muonAnimation').animate(time) // animate
-  return __eo
+  const responses = await Promise.all([
+    asyncCall(0),
+    asyncCall(1),
+  ])
+
+  expect(responses.length).toEqual(2)
+
+  done()
 })
 
 test('test filenize', async () => {
   let _ = {anitem: undefined, time: 0}
 
-    let __eo = await xEonify.eonit({anitem: undefined})
-    let muonAnimation = await __eo('xs').m('animation')
- 
+  let __eo = await xEonify.eonit({anitem: undefined})
+  let muonAnimation = await __eo('xs').m('animation')
+
   let json = JSON.stringify(__eo())
-  expect(json).toEqual('{"xD3Require":{},"muonTimer":{},"ctlTimer":{},"muonAnimation":{}}')
+  expect(json).toEqual('{"xD3Require":{},"eonEohalCore":{},"eonMuonTimer":{},"eonCtlTimer":{},"eonMuonAnimation":{}}')
 })
 
 test('test filenize', () => {
@@ -79,19 +84,19 @@ test('test getCell if e object', async () => {
 })
 
 test('test getEonItem anchor', async () => {
-  let href = "file:///E:/Dropbox/dBox/e/c/eons/eons/index.html#eon-z100a-anima"
+  let href = 'file:///E:/Dropbox/dBox/e/c/eons/eons/index.html#eon-z100a-anima'
   let r = await xEonify.getEonItem(href)
-  expect(r).toBe("eon-z100a-anima")
+  expect(r).toBe('eon-z100a-anima')
 })
 
 test('test getEonItem filename', async () => {
-  let href = "file:///E:/Dropbox/dBox/e/c/eons/eons/eon-z100a-anima.html"
+  let href = 'file:///E:/Dropbox/dBox/e/c/eons/eons/eon-z100a-anima.html'
   let r = await xEonify.getEonItem(href)
-  expect(r).toBe("eon-z100a-anima")
+  expect(r).toBe('eon-z100a-anima')
 })
 
 test('test getEonItem v param', async () => {
-  let href = "file:///E:/Dropbox/dBox/e/c/eons/eons?v=eon-z100a-anima"
+  let href = 'file:///E:/Dropbox/dBox/e/c/eons/eons?v=eon-z100a-anima'
   let r = await xEonify.getEonItem(href)
-  expect(r).toBe("eon-z100a-anima")
+  expect(r).toBe('eon-z100a-anima')
 })

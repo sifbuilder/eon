@@ -627,12 +627,35 @@
         browse: launch server: cd ${_.sitepath}; npm start develop
         action {[help] deploy, browse}
 
-      d00 get Gatsby CLI (https://www.gatsbyjs.org/docs/)
-          in http://www.netlifycms.org 
-            get the gatsby cms  https://app.netlify.com/start/deploy?repository=https://github.com/AustinGreen/gatsby-starter-netlify-cms&stack=cms
-        connect to github'
-        select site name - eg. eonify'
-        site settings, change site name - eg. eonify'
+      d00 netlify http://www.netlifycms.org 
+
+
+          start a new gatsby site - https://www.gatsbyjs.org/docs/
+          npm install -g gatsby-cli :- get Gatsby CLI
+          >rootdir$ gatsby new eonite  :- create the new site
+          $ cd eonite
+          $ gatsby develop
+            hocalhost:8000
+            editing pages in src/pages
+          $ gatsby build  :- create production build
+          $ gatsby serve  :- serve the production build locally
+          $ gatsby COMMAND_NAME --help e.g. gatsby new --help
+
+
+          get the gatsby cms  https://app.netlify.com/start/deploy?repository=https://github.com/AustinGreen/gatsby-starter-netlify-cms&stack=cms
+            creates https://clever-wilson-99c4be.netlify.com
+            select github repo eg. eonify => https://github.com/sifbuilder/eonify
+            site settings, change site name eg. eonify =>  https://eonify.netlify.com
+                connect to github - repository github.com/sifbuilder/gatsby-starter-netlify-cms
+            in mail: You've been invited to join clever-wilson-99c4be.netlify.com - accept
+            site site information, https://app.netlify.com/sites/eonify/settings/general (can delete)
+              change name to eonify => eonify.netlify.org
+
+            $ git clone https://github.com/sifbuilder/eonify.git
+            $ cd [REPO_NAME]
+            $ yarn
+            $ npm run start
+              
 
       d02 create npm project
       d03 yarn project

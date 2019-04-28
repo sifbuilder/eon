@@ -32,7 +32,7 @@
     const fwddir = d => (d + '/').replace(/\\/g, '/')
     const getindex = d => (d + '/').replace(/\\/g, '/') + `index.html`
     const anchored = (d, a) => getindex(d) + '#' + a
-    
+
     const newLine = '\n'
     const endOfLine = '  '
 
@@ -43,7 +43,6 @@
     const existsFile = d => fs.existsSync(d)
 
     const fileName = __filename // full path name of the current module
-    const prgFileName = path.basename(fileName) // file name of current module
     const cwdDirPath = process.cwd() // directory of invocation
     const prgDirPath = __dirname // directory of calling js file
     const rootDirPath = cwdDirPath
@@ -51,7 +50,6 @@
     // options
 
     const options = {
-   
       qcols: 1, // 3, // number of thumbnails per row
 
       contentUrl: 'https://raw.githubusercontent.com/', // rsc host
@@ -65,15 +63,16 @@
       teerDirPath: path.resolve(cwdDirPath, 'eonitem'),
       imgDirPath: path.resolve(cwdDirPath, 'img'),
       vidDirPath: path.resolve(cwdDirPath, 'vid'),
-      
+      prgFileName: path.basename(fileName),
+
       outMdFile: 'README.md',
 
       picDirPath: `${rootDirPath}/pic`,
       tstDirPath: `${rootDirPath}/tst`,
-  
+
       header: `# eons ${newLine}${newLine}**time space manyfolds** ${endOfLine}${newLine}${newLine}`,
       footer: `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`,
-   
+
       indexpattern: new RegExp(`^eon-z.*.js`, 'i'), // z.eons
       eonpattern: new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i'), // eons
       testpattern: new RegExp('(.*).test.(.*)$', 'i'), //  test
@@ -108,16 +107,27 @@
         height: 400,
       },
       prefix: `eon-z`,
-      inScopeExt: 'js',      
+      inScopeExt: 'js',
     }
 
-    options.outFilePath = `${rootDirPath}${options.outMdFile}`
-    options.rootUrl = `${options.contentUrl}${options.user}/${options.repo}/${options.branch}/`
-    options.rootImgUrl = `${options.contentUrl}${options.user}/${options.repo}/${options.folder}/${options.branch}/`
+    options.outFilePath = `${rootDirPath}/${options.outMdFile}`
+    options.rootUrl = `${options.contentUrl}${options.user}/${options.repo}/${
+      options.branch
+    }/`
+    options.rootImgUrl = `${options.contentUrl}${options.user}/${
+      options.repo
+    }/${options.folder}/${options.branch}/`
     options.rootRepoUrl = `https://${options.hostUrl}${options.user}/${options.repo}/`
-    options.rootImgUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/img/`
-    options.rootVidUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/vid/`
-    options.rootRepoUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/`
+    options.rootImgUrl = `https://${options.user}.${options.hostUrl}/${
+      options.repo
+    }/img/`
+    options.rootVidUrl = `https://${options.user}.${options.hostUrl}/${
+      options.repo
+    }/vid/`
+    options.rootRepoUrl = `https://${options.user}.${options.hostUrl}/${
+      options.repo
+    }/`
+    options.baseUri = options.rootRepoUrl
     options.col = coler(options.qcols)
 
     // state
@@ -129,7 +139,6 @@
       options: options, // options
     }
 
-    
     // .................. getPreviewUri
     function getPreviewUri (_) {
       let { previewview, tileview, srcUri } = _
@@ -163,14 +172,17 @@
     function getRowsItem (_) {
       // [eon-z813r-radi-frame](https://sifbuilder.github.com//eons//index.html#eon-z813r-radi-frame)
       // [eon-z000a](E:/eons/eons/index.html#eon-z000a)
-      let index = fwddir(`${_.baseUri}`) + `index.html`
-      let res = `[${_.file.prefixCodeName}](${index}#${_.file.prefixCodeName})`
+      let index = fwddir(`${_.options.baseUri}`) + `index.html`
+      let res = `${_.options.newLine}[${_.file.prefixCodeName}](${index}#${_.file.prefixCodeName})${_.options.endOfLine}`
       return res
     }
 
     // .................. getTileItem
     function getTileItem (_) {
-      let res = `[<img id="${_.fileidx}" 
+      let res = ''
+      let index = fwddir(`${_.options.baseUri}`) + `index.html`
+
+      res = `[<img id="${_.fileidx}" 
       alt="${_.file.code}"
       code="${_.file.code}" 
       where="${_.args.where}" 
@@ -190,11 +202,12 @@
     // .................. getListItem
     function getListItem (_) {
       let res = ''
-
-      let prefixCodeName = _.file.prefixCodeName.padEnd(45, ' ')
-      let index = fwddir(`${_.baseUri}`) + `index.html`
-
-      res = ` ${prefixCodeName} [<img id="${_.i}" alt="${_.file.code}" 
+      let index = fwddir(`${_.options.baseUri}`) + `index.html`
+      let prefixCodeName = _.file.prefixCodeName.padEnd(60, ' ')
+      res = ` 
+${prefixCodeName} [<img id="${_.i}" alt="${
+  _.file.code
+}" 
         code="${_.file.code}" where="${_.args.where}"
       ext="png" type="preview" 
       prefix="eon"
@@ -203,7 +216,9 @@
       src="${_.thumbnailuri}"
       width="${_.options.tileview.width}px;" height="${
   _.options.tileview.height
-}px;"/>](${index}#${_.file.prefixCodeName})`
+}px;"/>](${index}#${_.file.prefixCodeName})${_.options.endOfLine}
+
+`
 
       return res
     }
@@ -273,11 +288,11 @@
   generate README.md file
 
   usage: node ${
-    _.prgFileName
+  _.options.prgFileName
 } {pattern} {local|remote} {frame, rows, [list]} {doit, debug, dodebug}
-      eg: node ${_.prgFileName} . local list doit
-      eg: node ${_.prgFileName} 813r local rows dodebug
-      eg: node ${_.prgFileName} 852d remote frame dodebug
+      eg: node ${_.options.prgFileName} . local list doit
+      eg: node ${_.options.prgFileName} 813r local rows dodebug
+      eg: node ${_.options.prgFileName} 852d remote frame dodebug
 
   takes html files from pattern, eg 7*
   builds content for local or remote README
@@ -327,7 +342,7 @@
         _ = enty.updState({ eonUri: eonUri, baseUri: baseUri })
 
         let thumbnailPrefixCodeName = eoname([
-          _.file.options.prefix,
+          _.file.prefix,
           _.file.code,
           'thumbnail',
         ])
@@ -361,7 +376,7 @@
       _ = enty.updState({ args })
 
       let inScopeText = `^eon-.*${_.args.codepattern}.*\.${
-        _..options.inScopeExt
+        _.options.inScopeExt
       }$`
       let inScopePattern = new RegExp(`${inScopeText}`, 'i')
       _ = enty.updState({ inScopeText, inScopePattern })
@@ -374,6 +389,7 @@
       }
       if (includes(_.args.actions, 'doit')) {
         let outText = todo({}, _)
+        
         console.log('write', _.options.outFilePath)
         fs.writeFileSync(_.options.outFilePath, outText)
       }
@@ -395,7 +411,7 @@
     enty.getHelp = getHelp
     enty.doit = doit
     enty.parseArgs = parseArgs
-    enty.getState = () => _
+    enty.getState = () => state
     enty.setState = _ => ((state = _), state)
     enty.updState = _ => ((state = Object.assign(state, _)), state)
     enty.getoptions = () => state.options

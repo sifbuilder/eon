@@ -46,7 +46,8 @@
     const prgFileName = path.basename(fileName) // file name of current module
     const cwdDirPath = process.cwd() // directory of invocation
     const prgDirPath = __dirname // directory of calling js file
-    const rootDirPath = cwdDirPath
+
+    const rootDirPath = `${cwdDirPath}/../`
 
     // options
 

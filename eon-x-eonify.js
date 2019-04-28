@@ -628,6 +628,7 @@
   exports.feonize = feonize
   exports.camelize = camelize
   exports.getCell = getCell
+  exports.getEon = getEon
   exports.mapCell = mapCell
   exports.xs = xs
   exports.require = d3Require
