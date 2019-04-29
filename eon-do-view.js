@@ -43,7 +43,7 @@
     const existsFile = d => fs.existsSync(d)
 
     const fileName = __filename // full path name of the current module
-    const prgFileName = path.basename(fileName) // file name of current module
+
     const cwdDirPath = process.cwd() // directory of invocation
     const prgDirPath = __dirname // directory of calling js file
 
@@ -62,6 +62,7 @@
       hostUrl: 'github.com/', //
       folder: 'blob', //
 
+      prgFileName: path.basename(fileName), // file name of current module
       eonDirPath: cwdDirPath,
       teerDirPath: path.resolve(cwdDirPath, 'eonitem'),
       imgDirPath: path.resolve(cwdDirPath, 'img'),
@@ -137,10 +138,9 @@
         width: 600,
         height: 400,
       },
-      viewPort: {
-        // pageSrc.setViewport
-        width: 600,
-        height: 400,
+      viewPort: { // pageSrc.setViewport
+        width: 600 + 8 + 8, // add body margin
+        height: 400 + 8 + 8, // add body margin
       },
       delay: 3000, // waitInPromise
       timeout: 50000, // pageSrc.goto
@@ -152,7 +152,7 @@
       outText: '',
       where: 'local',
       inScopePattern: new RegExp(`^eon-z___none___.*.*$`, 'i'), // none pattern
-      options: options, // options
+      _: options, // options
     }
 
     // ....................... parseArgs
@@ -167,24 +167,21 @@
         res.actions.push('help')
       }
 
-      if (optsq < 3) {
+      if (optsq < 2) {
         res.actions.push('help')
       }
 
-      if (res.args[optsq - 1] === 'help') {
-        // last opt
+      if (includes(res.args, 'help')) {
         res.actions.push('help')
-      } else if (res.args[optsq - 1] === 'doit') {
+      }
+      if (includes(res.args, 'doit')) {
         res.actions.push('doit')
-      } else if (res.args[optsq - 1] === 'debug') {
-        res.actions.push('debug')
-      } else if (res.args[optsq - 1] === 'dodebug') {
-        res.actions.push('doit')
+      }
+      if (includes(res.args, 'debug')) {
         res.actions.push('debug')
       }
 
       if (optsq >= 2) {
-        // first param
         if (res.args[0] === '.') {
           res.codepattern = '.*' // default to all files
         } else {
@@ -193,36 +190,34 @@
       }
 
       return res
-
     }
 
     // .................. actUponItems
-    async function actUponItems (_) {
+    async function actUponItems (__) {
       let files = fs
-        .readdirSync(_.options.eonDirPath) // to actView
+        .readdirSync(__._.eonDirPath) // to actView
         .filter(file => isFile(file))
-        .filter(d => _.inScopePattern.test(d))
+        .filter(d => __.inScopePattern.test(d))
 
-      let { eonDirPath, tracing, tracingpath } = _.options
-      let { viewPort, timeout, pageSelector, delay } = _.options.browseopts
+      let { eonDirPath, tracing, tracingpath } = __._
+      let { viewPort, timeout, pageSelector, delay } = __._.browseopts
 
       // .................. actUponNext
       async function actUponNext (current) {
-        
         if (current >= files.length) return
         let fileName = files[current]
         console.log('fileName:', eonDirPath, fileName)
 
-        let file = fileName.match(_.options.partsPattern).groups
-        _ = enty.updState({ file: file })
-        if (includes(_.args.actions, 'debug')) console.log('file:', _.file)
+        let file = fileName.match(__._.partsPattern).groups
+        __ = enty.updState({ file: file })
+        if (includes(__.args.actions, 'debug')) console.log('file:', __.file)
 
         let index = fwddir(`${eonDirPath}`) + `index.html`
-        let eonUri = `${index}#${_.file.prefixCodeName}`        
+        let eonUri = `${index}#${__.file.prefixCodeName}`
 
-        if (includes(_.args.actions, 'debug')) console.log(`doing:  ${eonUri}`)
+        if (includes(__.args.actions, 'debug')) console.log(`doing:  ${eonUri}`)
 
-        const pageSrc = await _.browser.newPage()
+        const pageSrc = await __.browser.newPage()
         pageSrc.setViewport(viewPort) // viewport
 
         if (tracing) {
@@ -264,10 +259,10 @@
 
     // .................. todo
     async function todo (data, context) {
-      let _ = context
-      let { headless, devtools, debuggingPort, window } = _.options.browseopts
-      let { actions } = _.args
-      if (includes(actions, 'debug')) console.log('would do:', _)
+      let __ = context
+      let { headless, devtools, debuggingPort, window } = __._.browseopts
+      let { actions } = __.args
+      if (includes(actions, 'debug')) console.log('would do:', __)
 
       const browser = await puppeteer.launch({
         headless: headless,
@@ -279,46 +274,46 @@
       })
 
       await browser.pages()
-      _ = enty.updState({ browser: browser })
+      __ = enty.updState({ browser: browser })
 
-      await actUponItems(_) // actUponItems
-      if (_.options.closebrowser) await browser.close()
+      await actUponItems(__) // actUponItems
+      if (__._.closebrowser) await browser.close()
     }
 
     // .................. getHelp
-    function getHelp (data, _) {
+    function getHelp (data, __) {
       let res = {
         helpText: '',
       }
       res.helpText = `
-  node ${_.prgFileName} inScopePattern {debug | doit}}
+  node ${__._.prgFileName} inScopePattern {debug | doit}}
      inScopePattern applies to eon-z files
   call puppeteer and show html eon
-  eg.: node ${_.prgFileName} .*
-  eg.: node ${_.prgFileName} 793
-  eg.: node ${_.prgFileName} 793d debug
-  eg.: node ${_.prgFileName} 793d doit
+  eg.: node ${__._.prgFileName} .*
+  eg.: node ${__._.prgFileName} 793
+  eg.: node ${__._.prgFileName} 793d debug
+  eg.: node ${__._.prgFileName} 793d doit
   `
       return res
     }
 
     // .................. doit
-    let doit = function (data, _) {
-      let args = enty.parseArgs(data, _)
-      _ = enty.updState({ args })
+    let doit = function (data, __) {
+      let args = enty.parseArgs(data, __)
+      __ = enty.updState({ args })
 
-      let inScopeText = `^eon-.*${_.args.codepattern}.*${_.options.inScopeExt}$`
+      let inScopeText = `^eon-.*${__.args.codepattern}.*${__._.inScopeExt}$`
       let inScopePattern = new RegExp(`${inScopeText}`, 'i')
-      _ = enty.updState({ inScopeText, inScopePattern })
-      if (includes(_.args.actions, 'debug')) console.log('_:', _)
+      __ = enty.updState({ inScopeText, inScopePattern })
+      if (includes(__.args.actions, 'debug')) console.log('__:', __)
 
-      if (includes(_.args.actions, 'help')) {
-        let help = getHelp({}, _)
-        _ = enty.updState({ help })
-        console.log(_.help.helpText)
+      if (includes(__.args.actions, 'help')) {
+        let help = getHelp({}, __)
+        __ = enty.updState({ help })
+        console.log(__.help.helpText)
       }
-      if (includes(_.args.actions, 'doit')) {
-        todo({}, _)
+      if (includes(__.args.actions, 'doit')) {
+        todo({}, __)
       }
     }
 
@@ -329,9 +324,9 @@
     enty.doit = doit
     enty.parseArgs = parseArgs
     enty.getState = () => state
-    enty.setState = _ => ((state = _), state)
-    enty.updState = _ => ((state = Object.assign(state, _)), state)
-    enty.getoptions = () => state.options
+    enty.setState = v => { state = v; return state }
+    enty.updState = v => { state = Object.assign(state, v); return state }
+    enty.getOptions = () => state.options
 
     return enty
   }
