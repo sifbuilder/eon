@@ -336,7 +336,10 @@
   `
       return res
     }
-
+    // .................. getHeline
+    function getHeline () {
+      return 'create preview, thumbnail'
+    }
     // .................. doit
     let doit = function (data, __) {
       let args = enty.parseArgs(data, __)
@@ -360,11 +363,12 @@
     // ....................... enty
     let enty = () => {}
     enty.getHelp = getHelp
+    enty.getHeline = getHeline
     enty.doit = doit
     enty.parseArgs = parseArgs
     enty.getState = () => state
-    enty.setState = _ => ((state = _), state)
-    enty.updState = _ => ((state = Object.assign(state, _)), state)
+    enty.setState = v => { state = v; return state }
+    enty.updState = v => { state = Object.assign(state, v); return state }
     enty.getOptions = () => state.options
 
     return enty

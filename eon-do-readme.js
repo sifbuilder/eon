@@ -83,7 +83,7 @@
         `^(?<prefixCodeName>(?<prefixCode>(?<prefix>eon)-(?<code>[^-.]*))[-]?(?<name>.*)).(?<ext>.*)$`,
         'i'
       ),
-      partsPattern: new RegExp(
+      partsPatternEonJs: new RegExp(
         `^(?<prefixCodeName>(?<prefixCode>(?<prefix>eon)-(?<code>[^-.]*))[-]?(?<name>.*)).(?<ext>js)$`,
         'i'
       ),
@@ -111,22 +111,12 @@
     }
 
     options.outFilePath = `${rootDirPath}/${options.outMdFile}`
-    options.rootUrl = `${options.contentUrl}${options.user}/${options.repo}/${
-      options.branch
-    }/`
-    options.rootImgUrl = `${options.contentUrl}${options.user}/${
-      options.repo
-    }/${options.folder}/${options.branch}/`
+    options.rootUrl = `${options.contentUrl}${options.user}/${options.repo}/${options.branch}/`
+    options.rootImgUrl = `${options.contentUrl}${options.user}/${options.repo}/${options.folder}/${options.branch}/`
     options.rootRepoUrl = `https://${options.hostUrl}${options.user}/${options.repo}/`
-    options.rootImgUrl = `https://${options.user}.${options.hostUrl}/${
-      options.repo
-    }/img/`
-    options.rootVidUrl = `https://${options.user}.${options.hostUrl}/${
-      options.repo
-    }/vid/`
-    options.rootRepoUrl = `https://${options.user}.${options.hostUrl}/${
-      options.repo
-    }/`
+    options.rootImgUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/img/`
+    options.rootVidUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/vid/`
+    options.rootRepoUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/`
     options.baseUri = options.rootRepoUrl
     options.col = coler(options.qcols)
 
@@ -240,22 +230,21 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
         res.actions.push('help')
       }
 
-      if (res.args[optsq - 1] === 'help') {
+      if (includes(res.args, 'help')) {
         // last opt
         res.actions.push('help')
-      } else if (res.args[optsq - 1] === 'doit') {
+      }
+      if (includes(res.args, 'doit')) {
         res.actions.push('doit')
-      } else if (res.args[optsq - 1] === 'debug') {
-        res.actions.push('debug')
-      } else if (res.args[optsq - 1] === 'dodebug') {
-        res.actions.push('doit')
+      }
+      if (includes(res.args, 'debug')) {
         res.actions.push('debug')
       }
 
       if (optsq >= 2) {
-        if (res.args[optsq - 2] === 'tile') {
+        if (includes(res.args, 'tile')) {
           res.dotype = 'tile'
-        } else if (res.args[optsq - 2] === 'rows') {
+        } else if (includes(res.args, 'rows')) {
           res.dotype = 'rows'
         } else {
           res.dotype = 'list' // default
@@ -263,7 +252,6 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
       }
 
       if (optsq >= 2) {
-        // first param
         if (res.args[0] === '.') {
           res.codepattern = '.*' // default to all files
         } else {
@@ -271,9 +259,10 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
         }
       }
 
-      if (optsq >= 2) {
-        let where = res.args[1] // first param {local | remote}
-        res.where = where === 'remote' ? 'remote' : 'local' // defaul to local
+      if (includes(res.args, 'remote')) {
+        res.where = 'remote'
+      } else {
+        res.where = 'local' // default
       }
 
       return res
@@ -304,7 +293,10 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
 `
       return res
     }
-
+    // .................. getHeline
+    function getHeline () {
+      return 'create readme file'
+    }
     // ....................... todo
     function todo ({}, _) {
       let outText = ''
@@ -330,7 +322,7 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
 
         let icol = _.options.col(i)
 
-        let file = fileName.match(_.options.partsPattern).groups
+        let file = fileName.match(_.options.partsPatternEonJs).groups
         _ = enty.updState({ file: file })
         if (includes(_.args.actions, 'debug')) console.log('file:', _.file)
 
@@ -389,7 +381,7 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
       }
       if (includes(_.args.actions, 'doit')) {
         let outText = todo({}, _)
-        
+
         console.log('write', _.options.outFilePath)
         fs.writeFileSync(_.options.outFilePath, outText)
       }
@@ -409,11 +401,12 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
     enty.getListItem = getListItem
 
     enty.getHelp = getHelp
+    enty.getHeline = getHeline
     enty.doit = doit
     enty.parseArgs = parseArgs
     enty.getState = () => state
-    enty.setState = _ => ((state = _), state)
-    enty.updState = _ => ((state = Object.assign(state, _)), state)
+    enty.setState = v => { state = v; return state }
+    enty.updState = v => { state = Object.assign(state, v); return state }
     enty.getoptions = () => state.options
 
     return enty

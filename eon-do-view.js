@@ -296,7 +296,10 @@
   `
       return res
     }
-
+    // .................. getHeline
+    function getHeline () {
+      return 'view eon anima'
+    }
     // .................. doit
     let doit = function (data, __) {
       let args = enty.parseArgs(data, __)
@@ -321,6 +324,7 @@
     let enty = () => {}
 
     enty.getHelp = getHelp
+    enty.getHeline = getHeline
     enty.doit = doit
     enty.parseArgs = parseArgs
     enty.getState = () => state

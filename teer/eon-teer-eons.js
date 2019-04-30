@@ -1,4 +1,18 @@
-//https://github.com/ttezel/twit
+/**********************
+ *    @eonitem
+ */
+;(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined'
+    ? factory(exports)
+    : typeof define === 'function' && define.amd
+      ? define(['exports'], factory)
+      : factory((global.eonitem = global.eonitem || {}))
+})(this, function (exports) {
+  'use strict'
+
+  async function eonitem (__eo = {}) {
+
+  //https://github.com/ttezel/twit
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
@@ -22,7 +36,7 @@ function datestring () {
   return d.getUTCFullYear()   + '-'
      +  (d.getUTCMonth() + 1) + '-'
      +   d.getDate();
-};
+}
 
 
 function randIndex (arr) {
@@ -94,8 +108,6 @@ Q.prototype.blogs = function () {
 
 
 // https://github.com/gatsbyjs/gatsby/blob/master/docs/docs/gatsby-project-structure.md
-
-
 let R = new Q()
 if (0) {
 
@@ -109,3 +121,18 @@ if (1 && 1) console.log('R', R)
 
 
 
+    // ....................... enty
+    let enty = () => {}
+    enty.getHelp = getHelp
+    enty.doit = doit
+    enty.parseArgs = parseArgs
+    enty.getState = () => state
+    enty.setState = v => { state = v; return state }
+    enty.updState = v => { state = Object.assign(state, v); return state }
+    enty.getOptions = () => state.options
+
+    return enty
+  }
+
+  exports.eonitem = eonitem
+})

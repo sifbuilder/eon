@@ -11,8 +11,6 @@
   'use strict'
 
   async function eonitem (__eo = {}) {
-    let args = []
-
     // ... **maintains eonify netlify site**
     // ... https://eonify.netlify.com/
     // ... https://github.com/sifbuilder/eonify
@@ -35,7 +33,7 @@
 
     const eoname = elems => elems.filter(d => d !== '').join('-')
     const includes = (a, b) => a.includes(b) // is element b in array a
-    
+
     const newLine = '\n'
     const endOfLine = '  '
 
@@ -112,33 +110,19 @@
     }
 
     options.outFilePath = `${rootDirPath}${options.outMdFile}`
-    options.rootUrl = `${options.contentUrl}${options.user}/${options.repo}/${
-      options.branch
-    }/`
-    options.rootImgUrl = `${options.contentUrl}${options.user}/${
-      options.repo
-    }/${options.folder}/${options.branch}/`
-    options.rootRepoUrl = `https://${options.hostUrl}${options.user}/${
-      options.repo
-    }/`
-    options.rootImgUrl = `https://${options.user}.${options.hostUrl}/${
-      options.repo
-    }/img/`
-    options.rootVidUrl = `https://${options.user}.${options.hostUrl}/${
-      options.repo
-    }/vid/`
-    options.rootRepoUrl = `https://${options.user}.${options.hostUrl}/${
-      options.repo
-    }/`
-
-
+    options.rootUrl = `${options.contentUrl}${options.user}/${options.repo}/${options.branch}/`
+    options.rootImgUrl = `${options.contentUrl}${options.user}/${options.repo}/${options.folder}/${options.branch}/`
+    options.rootRepoUrl = `https://${options.hostUrl}${options.user}/${options.repo}/`
+    options.rootImgUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/img/`
+    options.rootVidUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/vid/`
+    options.rootRepoUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/`
 
     let fromsitedir = '../eonify_site' // folder with initial static site files
     let fromfile = ''
     let rootdirname = 'eons' // root folder
     let netlifysite = 'eonify' // site folder
     let sitepath = `${rootDirPath}${netlifysite}` // eg. ./../eonify
- 
+
     const htmlpattern = new RegExp('^(eon.*).html$', 'i')
     const eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)', 'i')
     const eonifypattern = new RegExp('^eonify.*(.html|js)', 'i')
@@ -147,28 +131,19 @@
     const imgpattern = new RegExp('(.*)(.jpg)$', 'i')
     const zpattern = new RegExp('(.*)(.html)$', 'i')
 
-    // let infiles = []
-    // infiles = fs
-    //   .readdirSync(indir)
-    //   .filter(file => isFile(file))
-    //   .filter(d => eonifypattern.test(d))
-    //   .filter(d => !testpattern.test(d))
-    //   .filter(d => !mdpattern.test(d))
-    //   .filter(d => !imgpattern.test(d))
-
     let filelog = {} // touched files
 
     // state
 
     let state = {}
-    state.options = options
+    state._ = options
 
     // ....................... parseArgs
     let parseArgs = function (data = {}, context = {}) {
       let res = {}
       res.args = data
       res.actions = []
-      res.codepattern = ''
+      res.step = ''
 
       let optsq = res.args.length
       if (optsq === 0) {
@@ -179,25 +154,18 @@
         res.actions.push('help')
       }
 
-      if (res.args[optsq - 1] === 'help') {
-        // last opt
+      if (includes(res.args, 'help')) {
         res.actions.push('help')
-      } else if (res.args[optsq - 1] === 'doit') {
+      }
+      if (includes(res.args, 'doit')) {
         res.actions.push('doit')
-      } else if (res.args[optsq - 1] === 'debug') {
-        res.actions.push('debug')
-      } else if (res.args[optsq - 1] === 'dodebug') {
-        res.actions.push('doit')
+      }
+      if (includes(res.args, 'debug')) {
         res.actions.push('debug')
       }
 
       if (optsq >= 2) {
-        // first param
-        if (res.args[0] === '.') {
-          res.codepattern = '.*' // default to all files
-        } else {
-          res.codepattern = res.args[0] // pattern in first param
-        }
+        res.step = res.args[0]
       }
 
       return res
@@ -213,6 +181,50 @@
         console.log('nothing to do')
       }
     }
+
+    // npm install -g gatsby-cli
+    // gatsby new eonotes https://github.com/gatsbyjs/gatsby-starter-blog
+    // gatsby develop
+    // http://localhost:8000
+    // http://localhost:8000//__graphql
+    // git init
+    // git add .
+    // git status
+    // git commit -am "init basic gatsby blog"
+    // github - create new repository
+    // git remote add origin git@github.com:sifbuilder/eoblog.git
+    // git push -u origin master
+    // netlify - new site from git - continuous deployment github - eonotes - deploy site
+    // aws - hosted zones - create record set - eonotes
+    // edit src - git add 
+
+
+    // start a new gatsby site - https://www.gatsbyjs.org/docs/
+    // npm install -g gatsby-cli :- get Gatsby CLI
+    // >rootdir$ gatsby new eonite  :- create the new site
+    // $ cd eonite
+    // $ gatsby develop
+    //   hocalhost:8000
+    //   editing pages in src/pages
+    // $ gatsby build  :- create production build
+    // $ gatsby serve  :- serve the production build locally
+    // $ gatsby COMMAND_NAME --help e.g. gatsby new --help
+
+    // get the gatsby cms  https://app.netlify.com/start/deploy?repository=https://github.com/AustinGreen/gatsby-starter-netlify-cms&stack=cms
+    //   creates https://clever-wilson-99c4be.netlify.com
+    //   select github repo eg. eonify => https://github.com/sifbuilder/eonify
+    //   site settings, change site name eg. eonify =>  https://eonify.netlify.com
+    //       connect to github - repository github.com/sifbuilder/gatsby-starter-netlify-cms
+    //   in mail: You've been invited to join clever-wilson-99c4be.netlify.com - accept
+    //   site site information, https://app.netlify.com/sites/eonify/settings/general (can delete)
+    //     change name to eonify => eonify.netlify.org
+
+    // dashboard: https://eonify.netlify.com/admin/#/
+
+    //   $ git clone https://github.com/sifbuilder/eonify.git
+    //   $ cd eonify
+    //   $ yarn
+    //   $ npm run start
 
     api.d01 = (p = { opt: 'help' }) => {
       if (p.opt === 'help') {
@@ -616,6 +628,11 @@
       }
     }
 
+    // .................. getHeline
+    function getHeline () {
+      return 'create eonify'
+    }
+    
     // .................. getHelp
     function getHelp (data, _) {
       let res = {
@@ -629,33 +646,6 @@
 
       d00 netlify http://www.netlifycms.org 
 
-
-          start a new gatsby site - https://www.gatsbyjs.org/docs/
-          npm install -g gatsby-cli :- get Gatsby CLI
-          >rootdir$ gatsby new eonite  :- create the new site
-          $ cd eonite
-          $ gatsby develop
-            hocalhost:8000
-            editing pages in src/pages
-          $ gatsby build  :- create production build
-          $ gatsby serve  :- serve the production build locally
-          $ gatsby COMMAND_NAME --help e.g. gatsby new --help
-
-
-          get the gatsby cms  https://app.netlify.com/start/deploy?repository=https://github.com/AustinGreen/gatsby-starter-netlify-cms&stack=cms
-            creates https://clever-wilson-99c4be.netlify.com
-            select github repo eg. eonify => https://github.com/sifbuilder/eonify
-            site settings, change site name eg. eonify =>  https://eonify.netlify.com
-                connect to github - repository github.com/sifbuilder/gatsby-starter-netlify-cms
-            in mail: You've been invited to join clever-wilson-99c4be.netlify.com - accept
-            site site information, https://app.netlify.com/sites/eonify/settings/general (can delete)
-              change name to eonify => eonify.netlify.org
-
-            $ git clone https://github.com/sifbuilder/eonify.git
-            $ cd [REPO_NAME]
-            $ yarn
-            $ npm run start
-              
 
       d02 create npm project
       d03 yarn project
@@ -675,28 +665,24 @@
     }
 
     // .................. doit
-    let doit = function (data, _) {
-      let args = enty.parseArgs(data, _)
-      _ = enty.updState({ args })
-      console.log('_:', _)
+    let doit = function (data, __) {
+      let args = enty.parseArgs(data, __)
+      __ = enty.updState({ args })
+      console.log('__:', __)
 
-      let inScopeText = `^eon-.*${_.args.codepattern}.*${_.options.inScopeExt}$`
+      let inScopeText = `^eon-.*${__.args.codepattern}.*${__.options.inScopeExt}$`
       let inScopePattern = new RegExp(`${inScopeText}`, 'i')
-      _ = enty.updState({ inScopeText, inScopePattern })
-      if (includes(_.args.actions, 'debug')) console.log('_:', _)
+      __ = enty.updState({ inScopeText, inScopePattern })
+      if (includes(__.args.actions, 'debug')) console.log('__:', __)
 
-      if (includes(_.args.actions, 'help')) {
-        let help = getHelp({}, _)
-        _ = enty.updState({ help })
-        console.log(_.help.helpText)
+      if (includes(__.args.actions, 'help')) {
+        let help = getHelp({}, __)
+        __ = enty.updState({ help })
+        console.log(__.help.helpText)
       }
-      if (includes(_.args.actions, 'doit')) {
-        // if (option === 'help') {
-        //   api[action]({ opt: 'help' })
-        // } else {
-        //   api[action]({ opt: 'do' })
-        //   console.log('filelog: ', filelog)
-        // }
+      if (includes(__.args.actions, 'doit')) {
+        api[__.args.step]({ opt: 'do' })
+        console.log('filelog: ', filelog)
       }
     }
 
@@ -704,12 +690,13 @@
     let enty = () => {}
 
     enty.getHelp = getHelp
+    enty.getHeline = getHeline
     enty.doit = doit
     enty.parseArgs = parseArgs
     enty.getState = () => state
     enty.setState = _ => ((state = _), state)
     enty.updState = _ => ((state = Object.assign(state, _)), state)
-    enty.getoptions = () => state.options
+    enty.getOptions = () => state.options
 
     return enty
   }
