@@ -11,7 +11,6 @@
   'use strict'
 
   async function eonitem (__eo = {}) {
-    let args = []
 
     const fs = require('fs')
     const path = require('path')
@@ -126,12 +125,13 @@
       outText: '',
       where: 'local',
       inScopePattern: new RegExp(`^eon-z___none___.*.*$`, 'i'), // none pattern
-      options: options, // options
+      _: options, // options
     }
 
     // .................. getPreviewUri
-    function getPreviewUri (_) {
-      let { previewview, tileview, srcUri } = _
+    function getPreviewUri (context) {
+      let __ = context         
+      let { previewview, tileview, srcUri } = __
       let res = `onmouseover="(function(that){
     that.width='${previewview.width}'
     that.height='${previewview.height}'
@@ -159,62 +159,65 @@
     }
 
     // .................. getRowsItem
-    function getRowsItem (_) {
+    function getRowsItem (context) {
+      let __ = context         
       // [eon-z813r-radi-frame](https://sifbuilder.github.com//eons//index.html#eon-z813r-radi-frame)
       // [eon-z000a](E:/eons/eons/index.html#eon-z000a)
-      let index = fwddir(`${_.options.baseUri}`) + `index.html`
-      let res = `${_.options.newLine}[${_.file.prefixCodeName}](${index}#${_.file.prefixCodeName})${_.options.endOfLine}`
+      let index = fwddir(`${__._.baseUri}`) + `index.html`
+      let res = `${__._.newLine}[${__.file.prefixCodeName}](${index}#${__.file.prefixCodeName})${__._.endOfLine}`
       return res
     }
 
     // .................. getTileItem
-    function getTileItem (_) {
+    function getTileItem (context) {
+      let __ = context         
       let res = ''
-      let index = fwddir(`${_.options.baseUri}`) + `index.html`
+      let index = fwddir(`${__._.baseUri}`) + `index.html`
 
-      res = `[<img id="${_.fileidx}" 
-      alt="${_.file.code}"
-      code="${_.file.code}" 
-      where="${_.args.where}" 
-      ext=${_.thumbnailext}
+      res = `[<img id="${__.fileidx}" 
+      alt="${__.file.code}"
+      code="${__.file.code}" 
+      where="${__.args.where}" 
+      ext=${__.thumbnailext}
       type="preview" 
       prefix="eon"  
-      outDirPath="${_.outDirPath}"
-      rootImgUrl="${_.rootImgUrl}"
-      src="${_.thumbnailuri}"
-      width="${_.options.tileview.width}px;"
-       height="${_.options.tileview.height}px;"/>](${index}#${
-  _.file.prefixCodeName
+      outDirPath="${__.outDirPath}"
+      rootImgUrl="${__.rootImgUrl}"
+      src="${__.thumbnailuri}"
+      width="${__._.tileview.width}px;"
+       height="${__._.tileview.height}px;"/>](${index}#${
+  __.file.prefixCodeName
 })`
       return res
     }
 
     // .................. getListItem
-    function getListItem (_) {
+    function getListItem (context) {
+      let __ = context            
       let res = ''
-      let index = fwddir(`${_.options.baseUri}`) + `index.html`
-      let prefixCodeName = _.file.prefixCodeName.padEnd(60, ' ')
+      let index = fwddir(`${__._.baseUri}`) + `index.html`
+      let prefixCodeName = __.file.prefixCodeName.padEnd(60, ' ')
       res = ` 
-${prefixCodeName} [<img id="${_.i}" alt="${
-  _.file.code
+${prefixCodeName} [<img id="${__.i}" alt="${
+  __.file.code
 }" 
-        code="${_.file.code}" where="${_.args.where}"
+        code="${__.file.code}" where="${__.args.where}"
       ext="png" type="preview" 
       prefix="eon"
-      outDirPath="${_.outDirPath}"  
-      rootImgUrl="${_.rootImgUrl}"
-      src="${_.thumbnailuri}"
-      width="${_.options.tileview.width}px;" height="${
-  _.options.tileview.height
-}px;"/>](${index}#${_.file.prefixCodeName})${_.options.endOfLine}
+      outDirPath="${__.outDirPath}"  
+      rootImgUrl="${__.rootImgUrl}"
+      src="${__.thumbnailuri}"
+      width="${__._.tileview.width}px;" height="${
+  __._.tileview.height
+}px;"/>](${index}#${__.file.prefixCodeName})${__._.endOfLine}
 
 `
-
       return res
     }
 
     // ....................... parseArgs
-    let parseArgs = function (data = {}, _ = {}) {
+    let parseArgs = function (data = {}, context = {}) {
+      let __ = context            
       let res = {}
       res.args = data
       res.actions = []
@@ -269,19 +272,18 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
     }
 
     // .................. getHelp
-    function getHelp (data = {}, _ = {}) {
+    function getHelp (data = {}, context = {}) {
+      let __ = context      
       let res = {
         helpText: '',
       }
       res.helpText = `
   generate README.md file
 
-  usage: node ${
-  _.options.prgFileName
-} {pattern} {local|remote} {tile, rows, [list]} {doit, debug, dodebug}
-      eg: node ${_.options.prgFileName} . local list doit
-      eg: node ${_.options.prgFileName} 813r local rows dodebug
-      eg: node ${_.options.prgFileName} 852d remote tile dodebug
+  usage: node ${__._.prgFileName} {pattern} {local|remote} {tile, rows, [list]} {doit, debug, dodebug}
+      eg: node ${__._.prgFileName} . local list doit
+      eg: node ${__._.prgFileName} 813r local rows dodebug
+      eg: node ${__._.prgFileName} 852d remote tile dodebug
 
   takes html files from pattern, eg 7*
   builds content for local or remote README
@@ -298,97 +300,97 @@ ${prefixCodeName} [<img id="${_.i}" alt="${
       return 'create readme file'
     }
     // ....................... todo
-    function todo ({}, _) {
+    function todo (data = {}, context = {}) {
+      let __ = context
       let outText = ''
 
-      outText += _.options.header
+      outText += __._.header
 
       let zfiles = fs
-        .readdirSync(_.options.eonDirPath) // index files in inDir
-        .filter(d => _.options.indexpattern.test(d))
-        .filter(d => _.inScopePattern.test(d))
-        .filter(d => !_.options.testpattern.test(d))
-        .filter(d => !_.options.mdpattern.test(d))
-        .filter(d => !_.options.tspattern.test(d))
+        .readdirSync(__._.eonDirPath) // index files in inDir
+        .filter(d => __._.indexpattern.test(d))
+        .filter(d => __.inScopePattern.test(d))
+        .filter(d => !__._.testpattern.test(d))
+        .filter(d => !__._.mdpattern.test(d))
+        .filter(d => !__._.tspattern.test(d))
 
       let erebody = ''
       let body = ''
 
       for (let i = 0; i < zfiles.length; i++) {
-        _ = enty.updState({ fileidx: i })
+        __ = enty.updState({ fileidx: i })
 
         let fileName = zfiles[i]
-        if (includes(_.args.actions, 'debug')) console.log('doit ', i, fileName)
+        if (includes(__.args.actions, 'debug')) console.log('doit ', i, fileName)
 
-        let icol = _.options.col(i)
+        let icol = __._.col(i)
 
-        let file = fileName.match(_.options.partsPatternEonJs).groups
-        _ = enty.updState({ file: file })
-        if (includes(_.args.actions, 'debug')) console.log('file:', _.file)
+        let file = fileName.match(__._.partsPatternEonJs).groups
+        __ = enty.updState({ file: file })
+        if (includes(__.args.actions, 'debug')) console.log('file:', __.file)
 
-        let eonPath = `${_.eonDirPath}${_.file.prefixCodeName}`
-        let eonUrl = `${_.rootImgUrl}${_.file.prefixCodeName}`
-        let eonUri = _.args.where === 'local' ? eonPath : eonUrl
+        let eonPath = `${__.eonDirPath}${__.file.prefixCodeName}`
+        let eonUrl = `${__.rootImgUrl}${__.file.prefixCodeName}`
+        let eonUri = __.args.where === 'local' ? eonPath : eonUrl
         let baseUri =
-          _.args.where === 'local' ? _.options.eonDirPath : _.rootImgUrl
-        _ = enty.updState({ eonUri: eonUri, baseUri: baseUri })
+          __.args.where === 'local' ? __._.eonDirPath : __.rootImgUrl
+        __ = enty.updState({ eonUri: eonUri, baseUri: baseUri })
 
         let thumbnailPrefixCodeName = eoname([
-          _.file.prefix,
-          _.file.code,
+          __.file.prefix,
+          __.file.code,
           'thumbnail',
         ])
         let thumbnailName = `${thumbnailPrefixCodeName}.png`
-        let thumbnailpath = `${_.options.imgDirPath}/${thumbnailName}`
-        let thumbnailurl = `${_.rootImgUrl}/${thumbnailName}`
+        let thumbnailpath = `${__._.imgDirPath}/${thumbnailName}`
+        let thumbnailurl = `${__.rootImgUrl}/${thumbnailName}`
         let thumbnailuri =
-          _.args.where === 'local' ? thumbnailpath : thumbnailurl
-        _ = enty.updState({
+          __.args.where === 'local' ? thumbnailpath : thumbnailurl
+        __ = enty.updState({
           thumbnailuri: thumbnailuri,
           thumbnailext: 'png',
         })
 
-        if (_.args.dotype === 'tile') {
-          outText += getTileItem(_)
-        } else if (_.args.dotype === 'list') {
-          outText += getListItem(_)
-        } else if (_.args.dotype === 'rows') {
-          outText += getRowsItem(_)
+        if (__.args.dotype === 'tile') {
+          outText += getTileItem(__)
+        } else if (__.args.dotype === 'list') {
+          outText += getListItem(__)
+        } else if (__.args.dotype === 'rows') {
+          outText += getRowsItem(__)
         }
       }
 
-      outText += `${_.options.footer}`
+      outText += `${__._.footer}`
 
       return outText
     }
 
     // ....................... doit
-    let doit = function (data, _) {
-      let args = enty.parseArgs(data, _)
-      _ = enty.updState({ args })
+    let doit = function (data, context) {
+      let __ = context
+      let args = enty.parseArgs(data, __)
+      __ = enty.updState({ args })
 
-      let inScopeText = `^eon-.*${_.args.codepattern}.*\.${
-        _.options.inScopeExt
-      }$`
+      let inScopeText = `^eon-.*${__.args.codepattern}.*\.${__._.inScopeExt}$`
       let inScopePattern = new RegExp(`${inScopeText}`, 'i')
-      _ = enty.updState({ inScopeText, inScopePattern })
-      if (includes(_.args.actions, 'debug')) console.log('_:', _)
+      __ = enty.updState({ inScopeText, inScopePattern })
+      if (includes(__.args.actions, 'debug')) console.log('__:', __)
 
-      if (includes(_.args.actions, 'help')) {
-        let help = getHelp({}, _)
-        _ = enty.updState({ help })
-        console.log(_.help.helpText)
+      if (includes(__.args.actions, 'help')) {
+        let help = getHelp({}, __)
+        __ = enty.updState({ help })
+        console.log(__.help.helpText)
       }
-      if (includes(_.args.actions, 'doit')) {
-        let outText = todo({}, _)
+      if (includes(__.args.actions, 'doit')) {
+        let outText = todo({}, __)
 
-        console.log('write', _.options.outFilePath)
-        fs.writeFileSync(_.options.outFilePath, outText)
+        console.log('write', __._.outFilePath)
+        fs.writeFileSync(__._.outFilePath, outText)
       }
-      if (includes(_.args.actions, 'debug')) {
-        let outText = todo({}, _)
+      if (includes(__.args.actions, 'debug')) {
+        let outText = todo({}, __)
         console.log('would text', outText)
-        console.log('would write', _.options.outFilePath)
+        console.log('would write', __._.outFilePath)
       }
     }
 
