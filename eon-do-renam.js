@@ -64,10 +64,8 @@
         `^(?<prefix>eon)-(?<codename>[^.]*).(?<ext>.*)$`,
         'i'
       ),
-      searchexp: RegExp(escapeRegExp(` XXXXXX `), 'm'),
-      replacepattern: escapeRegExp(` 
-      YYYYYYYYYYYY
-`),
+      fromReplace: '(^__from)',
+      toReplace: '(^__to$)',
     }
     state._ = options
 
@@ -90,35 +88,28 @@
           .then(fileName => {
             let fileparts = fileName.match(__._.partsPatternEon).groups
             let filePath = `${__._.inDirPath}/${fileName}`
-            __ = enty.updState({ fileName, fileparts, filePath })
+            let filePathname = toPathname(__._.inDirPath, fileName)
+            let fileUrl = toFileUrl(__._.inDirPath, fileName)
+            __ = enty.updState({ fileName, fileparts, filePath, filePathname, fileUrl })
 
             // ... apply
             function apply (data, context) {
               let __ = context
               let eonfile = __.filePath
-              if (includes(__.args.actions, 'debug')) console.log('eonfile:', eonfile)
+              if (includes(__.args.actions, 'debug')) console.log('check name:', eonfile)
               if (fs.existsSync(eonfile)) { // if md file
-                let fileTxt = fs.readFileSync(eonfile, 'utf8')
-                if (includes(__.args.actions, 'debug')) console.log(`debug: will search in text: ${fileTxt} ${newLine}`)
+                if (includes(__.args.actions, 'debug')) console.log('doing name:', eonfile)
 
-                let arr
-                while ((arr = __._.searchexp.exec(fileTxt)) !== null) {
-                  let toreplace = arr[0]
-                  fileTxt = fileTxt.replace(toreplace, __._.replacepattern)
-                }
+                let {fromReplace, toReplace} = __.args
+                if (includes(__.args.actions, 'debug')) console.log('doing:', fromReplace, toReplace)
+                let regex = new RegExp(`${fromReplace}`, 'i')
 
-                if (includes(__.args.actions, 'debug')) {
-                  console.log('debug: replaced text:')
-                  let lines = fileTxt.split('\n')
-                  for (let i = 0; i < lines.length; i++) {
-                    let line = lines[i]
-                    console.log(line)
-                  }
-                }
+                let newFileName = fileName.replace(regex, toReplace)
+                let newFilePath = `${__._.inDirPath}/${newFileName}`
+                if (1 && 1) console.log(`${filePath} -> ${newFilePath}`)
 
                 if (includes(__.args.actions, 'doit')) {
-                  console.log(`${newLine} apply ${eonfile} ${newLine}`)
-                  fs.writeFileSync(eonfile, fileTxt)
+                  fs.renameSync(fileName, newFileName)
                 }
               }
             }
@@ -138,12 +129,13 @@
       res.dotype = ''
       res.inPattern = ''
 
-      let optsq = res.args.length
+      let opts = res.args
+      let optsq = opts.length
       if (optsq === 0) {
         res.actions.push('help')
       }
 
-      if (optsq < 2) {
+      if (optsq < 4) { // from to debug doit
         res.actions.push('help')
       }
 
@@ -158,13 +150,22 @@
         res.actions.push('debug')
       }
 
-      if (optsq >= 1) {
-        if (res.args[0] === '.') {
+      if (optsq >= 2) { // from to debug
+        let frompattern = res.args[0]
+        let toReplace = res.args[1]
+        res.fromReplace = `(${frompattern})`
+        res.toReplace = `${toReplace}`
+      }
+
+      if (optsq >= 3) {
+        let inpattern = res.args[2]
+        if (inpattern === '.') {
           res.inPattern = '.*' // default to all files
         } else {
-          res.inPattern = res.args[0] // pattern in first param
+          res.inPattern = inpattern // pattern in first param
         }
       }
+
       return res
     }
 
@@ -173,6 +174,7 @@
       let __ = context
       let args = enty.parseArgs(data, __)
       __ = enty.updState({ args })
+      if (includes(__.args.actions, 'debug')) console.log('args:', args)
 
       if (includes(__.args.actions, 'help')) {
         let help = getHelp({}, __)
@@ -181,6 +183,7 @@
       }
 
       if (includes(__.args.actions, 'doit')) {
+        if (includes(__.args.actions, 'debug')) console.log('do doit')
         todo({}, __)
       }
 
@@ -188,6 +191,7 @@
         let help = getHelp({}, __)
         __ = enty.updState({ help })
         console.log(__.help.helpText)
+        todo({}, __)
       }
     }
 
@@ -198,13 +202,13 @@
         helpText: '',
       }
       res.helpText = `
-  replace in files
+  ${getHeline()}
 `
       return res
     }
     // .................. getHeline
     function getHeline () {
-      return 'repace in files'
+      return 'rename files: from to pattern action'
     }
     // ....................... enty
     let enty = () => {}
