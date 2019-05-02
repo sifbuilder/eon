@@ -39,6 +39,7 @@ let [cmd, scp, eoteer, ...data] = process.argv
       const eonitem = await eon.eonitem()
       res = eonitem.doit(data, eonitem.getState())
     }
+
     return res
   } else {
     for (let file of files) {

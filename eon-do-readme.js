@@ -216,7 +216,7 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
     }
 
     // ....................... parseArgs
-    let parseArgs = function (data = {}, context = {}) {
+    let parseArgs = function (data, context) {
       let __ = context            
       let res = {}
       res.args = data
@@ -295,10 +295,12 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
 `
       return res
     }
+
     // .................. getHeline
     function getHeline () {
       return 'create readme file'
     }
+
     // ....................... todo
     function todo (data = {}, context = {}) {
       let __ = context

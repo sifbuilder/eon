@@ -10,6 +10,7 @@
 })(this, function (exports) {
   'use strict'
 
+  // ....................... eonitem
   async function eonitem (__eo = {}) {
     const fs = require('fs')
     const path = require('path')
@@ -74,7 +75,7 @@
     // .................. todo
     async function todo (data, context) {
       let __ = context
-      console.log('__:', __)
+
 
       let inScopePattern = `^eon-.*${__.args.inPattern}.*$`
       let inScopeRegExp = new RegExp(`${inScopePattern}`, 'i')
@@ -129,6 +130,7 @@
       Promise.all(promises)
         .then(() => { console.log('done') })
     }
+
     // ....................... parseArgs
     let parseArgs = function (data = {}, context = {}) {
       let __ = context
