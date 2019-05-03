@@ -59,7 +59,7 @@
 
       eonDirPath: cwdDirPath,
       teerDirPath: path.resolve(cwdDirPath, 'eonitem'),
-      imgDirPath: path.resolve(cwdDirPath, 'img'),
+      imgDirPath: path.resolve(cwdDirPath, ''),
       vidDirPath: path.resolve(cwdDirPath, 'vid'),
       prgFileName: path.basename(fileName),
 
@@ -112,7 +112,7 @@
     options.rootUrl = `${options.contentUrl}${options.user}/${options.repo}/${options.branch}/`
     options.rootImgUrl = `${options.contentUrl}${options.user}/${options.repo}/${options.folder}/${options.branch}/`
     options.rootRepoUrl = `https://${options.hostUrl}${options.user}/${options.repo}/`
-    options.rootImgUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/img/`
+    options.rootImgUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/`
     options.rootVidUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/vid/`
     options.rootRepoUrl = `https://${options.user}.${options.hostUrl}/${options.repo}/`
     options.baseUri = options.rootRepoUrl
@@ -347,7 +347,7 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
         let thumbnailuri =
           __.args.where === 'local' 
             ? thumbnailpath 
-            : `img/${thumbnailName}`
+            : `${thumbnailName}`
         __ = enty.updState({
           thumbnailuri: thumbnailuri,
           thumbnailext: 'png',
