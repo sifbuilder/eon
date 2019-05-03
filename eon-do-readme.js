@@ -11,7 +11,6 @@
   'use strict'
 
   async function eonitem (__eo = {}) {
-
     const fs = require('fs')
     const path = require('path')
     const http = require('http')
@@ -130,7 +129,7 @@
 
     // .................. getPreviewUri
     function getPreviewUri (context) {
-      let __ = context         
+      let __ = context
       let { previewview, tileview, srcUri } = __
       let res = `onmouseover="(function(that){
     that.width='${previewview.width}'
@@ -160,7 +159,7 @@
 
     // .................. getRowsItem
     function getRowsItem (context) {
-      let __ = context         
+      let __ = context
       // [eon-z813r-radi-frame](https://sifbuilder.github.com//eons//index.html#eon-z813r-radi-frame)
       // [eon-z000a](E:/eons/eons/index.html#eon-z000a)
       let index = fwddir(`${__._.baseUri}`) + `index.html`
@@ -170,7 +169,7 @@
 
     // .................. getTileItem
     function getTileItem (context) {
-      let __ = context         
+      let __ = context
       let res = ''
       let index = fwddir(`${__._.baseUri}`) + `index.html`
 
@@ -193,7 +192,7 @@
 
     // .................. getListItem
     function getListItem (context) {
-      let __ = context            
+      let __ = context
       let res = ''
       let index = fwddir(`${__._.baseUri}`) + `index.html`
       let prefixCodeName = __.file.prefixCodeName.padEnd(60, ' ')
@@ -217,7 +216,7 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
 
     // ....................... parseArgs
     let parseArgs = function (data, context) {
-      let __ = context            
+      let __ = context
       let res = {}
       res.args = data
       res.actions = []
@@ -244,14 +243,19 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
         res.actions.push('debug')
       }
 
-      if (optsq >= 2) {
-        if (includes(res.args, 'tile')) {
-          res.dotype = 'tile'
-        } else if (includes(res.args, 'rows')) {
-          res.dotype = 'rows'
-        } else {
-          res.dotype = 'list' // default
-        }
+      res.dotype = 'list' // default
+      if (includes(res.args, 'tile')) {
+        res.dotype = 'tile'
+      } else if (includes(res.args, 'rows')) {
+        res.dotype = 'rows'
+      } else if (includes(res.args, 'rows')) {
+        res.dotype = 'list'
+      }
+
+      if (includes(res.args, 'remote')) {
+        res.where = 'remote'
+      } else {
+        res.where = 'local' // default
       }
 
       if (optsq >= 2) {
@@ -262,18 +266,12 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
         }
       }
 
-      if (includes(res.args, 'remote')) {
-        res.where = 'remote'
-      } else {
-        res.where = 'local' // default
-      }
-
       return res
     }
 
     // .................. getHelp
     function getHelp (data = {}, context = {}) {
-      let __ = context      
+      let __ = context
       let res = {
         helpText: '',
       }
@@ -298,7 +296,7 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
 
     // .................. getHeline
     function getHeline () {
-      return 'create readme file'
+      return 'create readme file, node do readme . remote tile doit'
     }
 
     // ....................... todo
