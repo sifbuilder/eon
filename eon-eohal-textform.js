@@ -37,7 +37,7 @@
       let eofold = ani.eofold
 
       let res
-      if (eofold === undefined ||
+      if (eofold == null ||
         (eofold.type === 'Feature' && eofold.geometry.type === 'Point') ||
         eofold.type === 'Point'
       ) {
