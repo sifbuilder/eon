@@ -345,7 +345,9 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
         let thumbnailpath = `${__._.imgDirPath}/${thumbnailName}`
         let thumbnailurl = `${__.rootImgUrl}/${thumbnailName}`
         let thumbnailuri =
-          __.args.where === 'local' ? thumbnailpath : thumbnailurl
+          __.args.where === 'local' 
+            ? thumbnailpath 
+            : `img/${thumbnailName}`
         __ = enty.updState({
           thumbnailuri: thumbnailuri,
           thumbnailext: 'png',
