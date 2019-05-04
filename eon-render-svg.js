@@ -10,52 +10,29 @@
 
   async function eonitem (__eo = {}) {
     // ...
-    // ... The viewport is the visible area of the SVG image
-    // ... Default units are pixels
-    // ... `<svg width="600" height="400"></svg>`
-    // ... The svg [viewBox](http://tutorials.jenkov.com/svg/svg-viewport-view-box.html) attribute is used to redefine the viewport coordinates
-    // ... two first coordinates define user coordinates of upper left corner
-    // ... two last coordinates define user coordinates of lower right corner
-    // ... `<svg width="600" height="400" viewBox="0 0 50 20" >`
-    // ... ref: [Margin Convention](https://bl.ocks.org/mbostock/3019563)
-    // ... ## methods
-    // ... * ### svg
-    // ... * ### svgelems
-    // ... call `svgelems(eoload, data, idfn)`
-    // ... * ### render
-    // ... call `render(elapsed, featurecollection, maxlimit)`
-    // ... gets anima.eofold's from m.animation
-    // ... @elapsed
-    // ... @featurecollection
-    // ... @maxlimit
-    // ...
-    // ... axes
-    // ... d.properties.axis: cf, co, cp, cs, csx, cw, d3Axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
-    // ... d.properties.axis.style :  font-family, font-size, text-anchor
-    // ...
     // ... # license
     // ... MIT
 
     let [
-      // d3Selection,
-      // d3Collection,
-      d3,
+      d3Selection,
+      d3Collection,
+      // d3,
       d3Geo,
       eonMuonProj3ct,
       eonProtonUniwen,
       eonRenderPortview, // viewScreenPrt - _e_ to be defined in z.
     ] = await Promise.all([
-      // __eo('xs').b('d3-selection'),
-      // __eo('xs').b('d3-collection'),
-      __eo('xs').b('d3'),
+      __eo('xs').b('d3-selection'),
+      __eo('xs').b('d3-collection'),
+      // __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
       __eo('xs').b('eon-muon-proj3ct'),
       __eo('xs').b('eon-proton-uniwen'),
       __eo('xs').b('eon-render-portview'),
     ])
 
-    let d3Selection = d3
-    let d3Collection = d3
+    // let d3Selection = d3
+    // let d3Collection = d3
 
     let width = 600,
       height = 400
@@ -97,7 +74,7 @@
 
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {
-      if (0 && 1) console.log('idfyer', idfyer)
+      if (0 && 1) console.log('svgelems', idfyer, data, idfn)
 
       if (d3Selection.select('.muon-style-block').empty()) {
         d3Selection.select('head').append('style').attr('class', 'muon-style-block')
@@ -477,7 +454,9 @@
                 let ret = path(d)
 
                 return ret
-              })
+              })       
+
+              
 
               .style('fill', d => d.properties.style.fill)
               .style('stroke', d => d.properties.style.stroke)

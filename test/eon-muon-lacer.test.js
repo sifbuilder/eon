@@ -15,31 +15,36 @@ let eo = jest.fn(async () => {
   __eo({'xD3Require': { require: xEonify.require, requireFrom: xEonify.requireFrom } })
 
   await __eo('xs').m('store') // map store
-
   return __eo
 })
 
 test('test scale', async () => {
   let __eo = await eo()
-  let eon = await __eo('xs').m('lacer')
+  let eonMuonLacer = await __eo('xs').m('lacer')
 
-  let _s1extent = [-180, 180]
-  // let _s1range = [0, 6]
-  // let _s2extent = [ 0, 1, 2, 3, 4, 5, 6 ]
-  let _s2range = [
-    0.24253562503633297,
-    0.2857142857142857,
-    0.48507125007266594,
-    1,
-    0.4850712500726661,
-    0.28571428571428575,
-    0.24253562503633297,
-  ]
-  // expect(eon.eoformer(_s1extent, _s2range)(-180)).toBe(0.24253562503633297)
-  // expect(eon.eoformer(_s1extent, _s2range)(180)).toBe(0.24253562503633297)
+  let _s1extent = [-10, 10]
+  let _s2range = [ 0, 1, 2, 3, 4, 5, 6 ]
 
-  let scale = eon.linscal().domain(_s1extent).range(_s2range)
-  expect(scale(180)).toBe(0.24253562503633297)
+
+  let scale = eonMuonLacer.linscal().domain(_s1extent).range(_s2range)
+  expect(scale(-10)).toBe(0)
+  expect(scale(0)).toBe(0.5)
+  expect(scale(10)).toBe(1)
+
+})
+
+test('test scale with b', async () => {
+  let __eo = await eo()
+  let eonMuonLacer = await __eo('xs').b('eon-muon-lacer')
+
+  let _s1extent = [-10, 10]
+  let _s2range = [ 0, 1 ]
+
+
+  let scale = eonMuonLacer.linscal().domain(_s1extent).range(_s2range)
+  expect(scale(-10)).toBe(0)
+  expect(scale(0)).toBe(0.5)
+  expect(scale(10)).toBe(1)
 })
 
 test('test  linscal', async () => {
@@ -83,7 +88,7 @@ test('test  linscal', async () => {
   expect(eon.eoformer(d, r)(0.25)).toBe(625)
 })
 
-test.only('test  linscal', async () => {
+test('test  linscal', async () => {
   let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
@@ -107,7 +112,7 @@ test.only('test  linscal', async () => {
   expect(eon.eoformer(d, r)(1)).toBe(450)
 })
 
-test.only('test  linscal', async () => {
+test('test  linscal', async () => {
   let __eo = await eo()
   let eon = await __eo('xs').m('lacer')
 
@@ -159,7 +164,7 @@ test('test unslide', async () => {
   let as2 = [ [1, 5], [3, 6] ]
 
   expect(eon.unslide(as1)).toEqual([[1, 2, 3], [5, 5.5, 6]])
-  expect(eon.unslide(as1)).toEqual([[1, 3], [5, 6]])
+  expect(eon.unslide(as2)).toEqual([[1, 3], [5, 6]])
 })
 
 test('test slide/unslide', async () => {

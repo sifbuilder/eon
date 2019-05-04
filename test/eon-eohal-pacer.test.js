@@ -10,21 +10,54 @@ global.fs = require('fs')
 
 const xEonify = require('../eon-x-eonify.js')
 
-//
-// check access to rayder grab
-//
 describe('test grabbed', () => {
   test('grabbed is undefined', async () => {
     let __eo = await xEonify.eostore()
-    await __eo('xs').c('rayder')
-    await __eo('xs').e('mars')
-    await __eo('xs').e('pacer')
-    await __eo('xs').m('natform')
-    await __eo('xs').m('stace')
-    await __eo('xs').p('uniwen')
-    let muonEotype = await __eo('xs').e('pacer')
+    let [
+      eonCtlRayder,
+      eonMuonAnitem,
+      eonMuonEoric,
+      eonMuonEotim,
+      eonMuonGeom,
+      eonMuonGeoj,
+      eonMuonProps,
+    ] = await Promise.all([
+      __eo('xs').b('eon-ctl-rayder'),
+      __eo('xs').b('eon-muon-anitem'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-eotim'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-props'),
+    ])
 
-    expect(typeof muonEotype.grabbed).toBe('function')
-    expect(muonEotype.grabbed()).toBe(undefined)
+    let eonEohalPacer = await __eo('xs').b('eon-eohal-pacer')
+
+    expect(eonEohalPacer.anify).not.toBe(undefined)
+  })
+  test('grabbed is undefined', async () => {
+    let __eo = await xEonify.eostore()
+    let [
+      eonCtlRayder,
+      eonMuonAnitem,
+      eonMuonEoric,
+      eonMuonEotim,
+      eonMuonGeom,
+      eonMuonGeoj,
+      eonMuonProps,
+    ] = await Promise.all([
+      __eo('xs').b('eon-ctl-rayder'),
+      __eo('xs').b('eon-muon-anitem'),
+      __eo('xs').b('eon-muon-eoric'),
+      __eo('xs').b('eon-muon-eotim'),
+      __eo('xs').b('eon-muon-geom'),
+      __eo('xs').b('eon-muon-geoj'),
+      __eo('xs').b('eon-muon-props'),
+    ])
+
+    let eonEohalPacer = await __eo('xs').e('pacer')
+
+    expect(typeof eonEohalPacer.grabbed).toBe('function')
+    expect(eonEohalPacer.grabbed()).toBe(undefined)
   })
 })
