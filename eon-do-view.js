@@ -298,7 +298,10 @@
     }
     // .................. getHeline
     function getHeline () {
-      return 'view eon anima'
+      let defin = 'view eon anima'
+      let def = defin.padEnd(24, ' ')
+      let mod = ' node do view 793d debug'
+      return `${def}${mod}`
     }
     // .................. doit
     let doit = function (data, __) {

@@ -338,7 +338,10 @@
     }
     // .................. getHeline
     function getHeline () {
-      return 'create preview, thumbnail'
+      let defin = 'generate eon imgs'
+      let def = defin.padEnd(24, ' ')
+      let mod = ' node do imagify 793d debug'
+      return `${def}${mod}`
     }
     // .................. doit
     let doit = function (data, __) {

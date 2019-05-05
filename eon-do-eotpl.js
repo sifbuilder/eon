@@ -263,7 +263,10 @@
 
     // .................. getHeline
     function getHeline () {
-      return 'generate eon template: z999z-zzz z189a debug'
+      let defin = 'generate eon template'
+      let def = defin.padEnd(24, ' ')
+      let mod = ' :: node do eotpl . z999z-zzz z189a debug'
+      return `${def}${mod}`
     }
 
     // ....................... enty

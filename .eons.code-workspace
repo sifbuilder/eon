@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+
+    "files.defaultLanguage": "javascript",
+    "files.exclude": {
+        "**/*.html": true,
+        "**/*.png": true,
+        "**/*.jpg": true,
+    }
+
+	}
+}

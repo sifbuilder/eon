@@ -296,7 +296,10 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
 
     // .................. getHeline
     function getHeline () {
-      return 'create readme file, node do readme . remote tile doit'
+      let defin = 'gen readme'
+      let def = defin.padEnd(24, ' ')
+      let mod = ' node do readme . remote tile doit'
+      return `${def}${mod}`
     }
 
     // ....................... todo
@@ -345,8 +348,8 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
         let thumbnailpath = `${__._.imgDirPath}/${thumbnailName}`
         let thumbnailurl = `${__.rootImgUrl}/${thumbnailName}`
         let thumbnailuri =
-          __.args.where === 'local' 
-            ? thumbnailpath 
+          __.args.where === 'local'
+            ? thumbnailpath
             : `${thumbnailName}`
         __ = enty.updState({
           thumbnailuri: thumbnailuri,

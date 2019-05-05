@@ -18,7 +18,18 @@
 
     const isFile = d => fs.lstatSync(d).isFile()
 
+    let filename = __filename // full path name of the current module
+    let prgname = path.basename(filename) // file name of current module
+    let dirname = path.dirname(require.main.filename) // __dirname
+    let dircwd = process.cwd() //
+    let outdir = dircwd
+
     // .......................
+
+    const camelize = str => str
+      .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
+      .replace(/\s+/g, '') // remove white space
+      .replace(/-+/g, '') // remove hyphen
 
     // https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
     function escapeRegExp (string) {
@@ -43,97 +54,65 @@
       cwdDirPath: process.cwd(), // directory of invocation
       prgDirPath: __dirname, // directory of calling js file
       inDirPath: process.cwd(), // directory of in files
+
       partsPatternEon: new RegExp(`^(?<prefix>eon)-(?<codename>[^.]*).(?<ext>.*)$`, 'i'),
-      searchexp: RegExp(escapeRegExp(` XXXXXX `), 'm'),
-      replacepattern: escapeRegExp(`YYYYYYYYYYYY`),
+
+      newHtmlText: `<script src="./eon-x-eonify.js"></script>
+      <script>eonXEonify.eonify({ anitem: eonXEonify.getEonItem(location.href)})</script>`,
+      regexFileNameParts: new RegExp('^(eon-z)(.*).(js)', 'i'),
     }
+
     state._ = options
 
     // .................. todo
     async function todo (data, context) {
       let __ = context
 
-      let inScopePattern = `^eon-.*${__.args.inPattern}.*$`
+      let inScopePattern = `^eon-.*${__.args.inPattern}.*.(js)$`
       let inScopeRegExp = new RegExp(`${inScopePattern}`, 'i')
       __ = enty.updState({ inScopeRegExp })
 
-      let infiles = fs
-        .readdirSync(__._.inDirPath)
-        .filter(file => isFile(file))
-        .filter(d => __.inScopeRegExp.test(d))
+      let indexfiles = fs.readdirSync(__._.cwdDirPath)
+        .filter(d => isFile(d))
+        .filter(d => inScopePattern.test(d))
 
       if (includes(__.args.args, 'debug')) {
-        console.log('infiles', infiles)
+        console.log('infiles', indexfiles)
       }
 
-      let promises = infiles.map(fileName => {
-        Promise.resolve(fileName)
-          .then(fileName => {
-            let fileparts = fileName.match(__._.partsPatternEon).groups
-            let filePath = `${__._.inDirPath}/${fileName}`
-            __ = enty.updState({ fileName, fileparts, filePath })
+      for (let i = 0; i < indexfiles.length; i++) {
+        let fileItemName = indexfiles[i]
+        let fileItemParts = fileItemName.match(__._.regexFileNameParts) // eg. [ 'eon-z-021a.html', 'eon-z', '-', '021a', 'html' ]
 
-            // ... apply
-            function apply (data, context) {
-              let __ = context
-              let eonfile = __.filePath
-              if (includes(__.args.actions, 'debug')) console.log('eonfile:', eonfile)
+        let eonPart = fileItemParts[1]
+        let corePart = fileItemParts[2]
 
-              if (fs.existsSync(eonfile)) { // if md file
-                let fileTxt = fs.readFileSync(eonfile, 'utf8')
-                if (includes(__.args.actions, 'debug')) console.log(`debug: will search "${__._.searchexp}" in ${eonfile} ${newLine}`)
+        const newFileHtmlName = `${eonPart}${corePart}.html`
+        const newFileHtmlPath = `${outdir}/${newFileHtmlName}`
+        if (includes(__.args.actions, 'debug')) console.log('newFileHtmlPath:', newFileHtmlPath)
 
-                let isInFile = __._.searchexp.test(fileTxt)
-                if (isInFile === false) {
-                  console.log(`search pattern "${__._.searchexp}" not found`)
-                } else {
-                  let arr
-                  while ((arr = __._.searchexp.exec(fileTxt)) !== null) {
-                    if (includes(__.args.actions, 'debug')) console.log(`pattern ${__._.searchexp} found in file ${eonfile}`)
-                    let toreplace = arr[0]
-                    fileTxt = fileTxt.replace(toreplace, __._.replacepattern)
-                  }
+        if (includes(__.args.actions, 'debug')) {
+          console.log(` ---- will create ${newFileHtmlPath}`) // eon-z-815e-d2bernoulli.html
+        }
 
-                  if (includes(__.args.actions, 'debug')) {
-                    console.log('debug: replaced text:')
-                    let lines = fileTxt.split('\n')
-                    for (let i = 0; i < lines.length; i++) {
-                      let line = lines[i]
-                      console.log(line)
-                    }
-                  }
+        if (includes(__.args.actions, 'debug')) {
+          console.log(` ---- text of ${newFileHtmlPath}`)
+          console.log(`${newHtmlText}`)
+        }
 
-                  if (includes(__.args.actions, 'doit')) {
-                    console.log(`${newLine} apply ${eonfile} ${newLine}`)
-                    fs.writeFileSync(eonfile, fileTxt)
-                  }
-                }
-              }
-            }
-
-            apply({}, __)
+        if (includes(__.args.actions, 'doit')) {
+          fs.writeFile(`${newFileHtmlPath}`, `${__._.newHtmlText}`, function (err) { // eon-z815e-d2bernoulli.html
+            if (err) throw err
+            console.log(` ----Updated ${newFileHtmlPath}`)
           })
-      })
-      Promise.all(promises)
-        .then(() => { console.log('done') })
-    }
+        }
 
-    // ....................... doit
-    let doit = function (data, context) {
-      let __ = context
-      let args = enty.parseArgs(data, __)
-      __ = enty.updState({ args })
-
-      if (includes(__.args.actions, 'help')) {
-        let help = getHelp({}, __)
-        __ = enty.updState({ help })
-        console.log(__.help.helpText)
-      }
-
-      if (includes(__.args.actions, 'doit') ||
-        includes(__.args.actions, 'debug')
-      ) {
-        todo({}, __)
+        if (includes(__.args.actions, 'delete')) {
+          fs.unlinkSync(`${newFileHtmlPath}`, function (err) { // eon-z815e-d2bernoulli.html
+            if (err) throw err
+            console.log(` ----Deleted ${newFileHtmlPath}`)
+          })
+        }
       }
     }
 
@@ -174,6 +153,25 @@
       return res
     }
 
+    // ....................... doit
+    let doit = function (data, context) {
+      let __ = context
+      let args = enty.parseArgs(data, __)
+      __ = enty.updState({ args })
+
+      if (includes(__.args.actions, 'help')) {
+        let help = getHelp({}, __)
+        __ = enty.updState({ help })
+        console.log(__.help.helpText)
+      }
+
+      if (includes(__.args.actions, 'doit') ||
+        includes(__.args.actions, 'debug')
+      ) {
+        todo({}, __)
+      }
+    }
+
     // .................. getHelp
     function getHelp (data = {}, context) {
       const helpline = getHeline()
@@ -186,9 +184,9 @@
 
     // .................. getHeline
     function getHeline () {
-      let defin = 'replace (from-to incode)'
+      let defin = 'gen eon htmls '
       let def = defin.padEnd(24, ' ')
-      let mod = ' :: node do chang . debug'
+      let mod = ' :: node do html . debug'
       return `${def}${mod}`
     }
 
