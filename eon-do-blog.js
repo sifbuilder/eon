@@ -282,10 +282,23 @@
 `
 
     state.eoblogs.b4 = `--- 4 netlify service worker
-  https://www.netlify.com/blog/2017/10/31/service-workers-explained/
-  A bad HTTP response code (404) was received when fetching the script.
-  Failed to load resource: net::ERR_INVALID_RESPONSE  
-  http://localhost:8888/sw.js
+    https://www.netlify.com/blog/2017/10/31/service-workers-explained/
+    A bad HTTP response code (404) was received when fetching the script.
+    Failed to load resource: net::ERR_INVALID_RESPONSE  
+    http://localhost:8888/sw.js
+`
+    state.eoblogs.b5 = `--- 5 eons series 791 polyhedra
+    see http://dmccooey.com/polyhedra/
+    Copyright © 2015 David I. McCooey
+    Email: dmccooey@mac.com
+    twitter: https://twitter.com/cooey_d
+    https://archive.bridgesmathart.org/2010/bridges2010-479.html
+`
+    state.eoblogs.b6 = `--- 6 eons series 793 polyhedra nets
+    https://github.com/paaatrick
+    https://github.com/paaatrick/polyhedra-folding
+    http://netlib.org/polyhedra/
+    https://github.com/qbotics/Rpolyhedra   
 `
     // ....................... todo
     function todo (data = {}, context = {}) {

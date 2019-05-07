@@ -52,7 +52,7 @@
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh,
-      exp = Math.exp
+      exp = Math.exp,
     atan2 = Math.atan2,
     tan = Math.tan,
     epsilon = 1e-5

@@ -214,94 +214,6 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
       return res
     }
 
-    // ....................... parseArgs
-    let parseArgs = function (data, context) {
-      let __ = context
-      let res = {}
-      res.args = data
-      res.actions = []
-      res.dotype = ''
-      res.codepattern = ''
-
-      let optsq = res.args.length
-      if (optsq === 0) {
-        res.actions.push('help')
-      }
-
-      if (optsq < 3) {
-        res.actions.push('help')
-      }
-
-      if (includes(res.args, 'help')) {
-        // last opt
-        res.actions.push('help')
-      }
-      if (includes(res.args, 'doit')) {
-        res.actions.push('doit')
-      }
-      if (includes(res.args, 'debug')) {
-        res.actions.push('debug')
-      }
-
-      res.dotype = 'list' // default
-      if (includes(res.args, 'tile')) {
-        res.dotype = 'tile'
-      } else if (includes(res.args, 'rows')) {
-        res.dotype = 'rows'
-      } else if (includes(res.args, 'rows')) {
-        res.dotype = 'list'
-      }
-
-      if (includes(res.args, 'remote')) {
-        res.where = 'remote'
-      } else {
-        res.where = 'local' // default
-      }
-
-      if (optsq >= 2) {
-        if (res.args[0] === '.') {
-          res.codepattern = '.*' // default to all files
-        } else {
-          res.codepattern = res.args[0] // pattern in first param
-        }
-      }
-
-      return res
-    }
-
-    // .................. getHelp
-    function getHelp (data = {}, context = {}) {
-      let __ = context
-      let res = {
-        helpText: '',
-      }
-      res.helpText = `
-  generate README.md file
-
-  usage: node ${__._.prgFileName} {pattern} {local|remote} {tile, rows, [list]} {doit, debug, dodebug}
-      eg: node ${__._.prgFileName} . local list doit
-      eg: node ${__._.prgFileName} 813r local rows dodebug
-      eg: node ${__._.prgFileName} 852d remote tile dodebug
-
-  takes html files from pattern, eg 7*
-  builds content for local or remote README
-  create matrix of thumbnail tiles
-  each tile points to:
-    - tweet (from .json)
-    - gif anima (.gif)
-    - eon (.html)
-`
-      return res
-    }
-
-    // .................. getHeline
-    function getHeline () {
-      let defin = 'gen readme'
-      let def = defin.padEnd(24, ' ')
-      let mod = ' node do readme . remote tile doit'
-      return `${def}${mod}`
-    }
-
     // ....................... todo
     function todo (data = {}, context = {}) {
       let __ = context
@@ -397,6 +309,94 @@ ${prefixCodeName} [<img id="${__.i}" alt="${
         console.log('would text', outText)
         console.log('would write', __._.outFilePath)
       }
+    }
+
+    // ....................... parseArgs
+    let parseArgs = function (data, context) {
+      let __ = context
+      let res = {}
+      res.args = data
+      res.actions = []
+      res.dotype = ''
+      res.codepattern = ''
+
+      let optsq = res.args.length
+      if (optsq === 0) {
+        res.actions.push('help')
+      }
+
+      if (optsq < 3) {
+        res.actions.push('help')
+      }
+
+      if (includes(res.args, 'help')) {
+        // last opt
+        res.actions.push('help')
+      }
+      if (includes(res.args, 'doit')) {
+        res.actions.push('doit')
+      }
+      if (includes(res.args, 'debug')) {
+        res.actions.push('debug')
+      }
+
+      res.dotype = 'list' // default
+      if (includes(res.args, 'tile')) {
+        res.dotype = 'tile'
+      } else if (includes(res.args, 'rows')) {
+        res.dotype = 'rows'
+      } else if (includes(res.args, 'rows')) {
+        res.dotype = 'list'
+      }
+
+      if (includes(res.args, 'remote')) {
+        res.where = 'remote'
+      } else {
+        res.where = 'local' // default
+      }
+
+      if (optsq >= 2) {
+        if (res.args[0] === '.') {
+          res.codepattern = '.*' // default to all files
+        } else {
+          res.codepattern = res.args[0] // pattern in first param
+        }
+      }
+
+      return res
+    }
+
+    // .................. getHelp
+    function getHelp (data = {}, context = {}) {
+      let __ = context
+      let res = {
+        helpText: '',
+      }
+      res.helpText = `
+  generate README.md file
+
+  usage: node ${__._.prgFileName} {pattern} {local|remote} {tile, rows, [list]} {doit, debug, dodebug}
+      eg: node ${__._.prgFileName} . local list doit
+      eg: node ${__._.prgFileName} 813r local rows dodebug
+      eg: node ${__._.prgFileName} 852d remote tile dodebug
+
+  takes html files from pattern, eg 7*
+  builds content for local or remote README
+  create matrix of thumbnail tiles
+  each tile points to:
+    - tweet (from .json)
+    - gif anima (.gif)
+    - eon (.html)
+`
+      return res
+    }
+
+    // .................. getHeline
+    function getHeline () {
+      let defin = 'gen readme'
+      let def = defin.padEnd(24, ' ')
+      let mod = ' node do readme . remote tile doit'
+      return `${def}${mod}`
     }
 
     // ....................... enty

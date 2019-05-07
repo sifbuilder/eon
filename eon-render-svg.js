@@ -14,25 +14,25 @@
     // ... MIT
 
     let [
-      d3Selection,
-      d3Collection,
-      // d3,
+      // d3Selection,
+      // d3Collection,
+      d3,
       d3Geo,
       eonMuonProj3ct,
       eonProtonUniwen,
       eonRenderPortview, // viewScreenPrt - _e_ to be defined in z.
     ] = await Promise.all([
-      __eo('xs').b('d3-selection'),
-      __eo('xs').b('d3-collection'),
-      // __eo('xs').b('d3'),
+      // __eo('xs').b('d3-selection'),
+      // __eo('xs').b('d3-collection'),
+      __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
       __eo('xs').b('eon-muon-proj3ct'),
       __eo('xs').b('eon-proton-uniwen'),
       __eo('xs').b('eon-render-portview'),
     ])
 
-    // let d3Selection = d3
-    // let d3Collection = d3
+    let d3Selection = d3
+    let d3Collection = d3
 
     let width = 600,
       height = 400
