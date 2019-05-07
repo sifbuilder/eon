@@ -1,11 +1,11 @@
 /* ******************************************
-   *    @eonZ791kBncs08BiscribedDisdyakisTriacontahedron
+   *    @eonZ791kPh18BiscribedDisdyakisTriacontahedron
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eonZ791kBncs08BiscribedDisdyakisTriacontahedron = global.eonZ791kBncs08BiscribedDisdyakisTriacontahedron || {})))
+      : (factory((global.eonZ791kPh18BiscribedDisdyakisTriacontahedron = global.eonZ791kPh18BiscribedDisdyakisTriacontahedron || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -18,11 +18,12 @@
       eonEohalMars,
       eonEohalSol,
       eonEohalTextform,
-      eonMuonNatform,      
+      eonMuonNatform,
       eonMuonGeom,
       eonMuonProps,
       eonMuonGeovoro,
       eonRenderPortview,
+      eonRenderSvg,
       eonRenderWebgl,
     ] = await Promise.all([
       __eo('xs').b('d3'),
@@ -32,22 +33,23 @@
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-sol'),
       __eo('xs').b('eon-eohal-textform'),
-      __eo('xs').b('eon-muon-natform'),      
+      __eo('xs').b('eon-muon-natform'),
       __eo('xs').b('eon-muon-geom'),
       __eo('xs').b('eon-muon-props'),
       __eo('xs').b('eon-muon-geovoro'),
       __eo('xs').b('eon-render-portview'),
+      __eo('xs').b('eon-render-svg'),
       __eo('xs').b('eon-render-webgl'),
     ])
-    try { eonRenderSvg.scenecolor('black') } catch (e) {}
+    // try { eonRenderSvg.scenecolor('black') } catch (e) {}
     let z = function () {
     // .................. pics
-    let ctl
-    try {
-      ctl = eonCtlWen().control(eonRenderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
+      let ctl
+      try {
+        ctl = eonCtlWen().control(eonRenderSvg.svg())
+      } catch (e) {
+        ctl = () => [0, 0, 0]
+      }
 
       let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin,
         atan = Math.atan, abs = Math.abs,
@@ -56,7 +58,7 @@
         pi = Math.PI, degrees = 180 / pi, asin1_3 = Math.asin(1 / 3),
         theta = atan(0.5) * degrees
 
-      const eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
+      const eotim = {'td': 10000, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
       // .................. facesAni anima
       let facesAni = {
@@ -74,6 +76,7 @@
               coordinates: eoload.vertices(eoload.pars),
             },
             properties: {
+              pointRadius: 0.01,
               sort: 'form',
               eoMultiPolygon: 1,
               faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...eonMuonGeom.convextriang(q)], []),
@@ -92,7 +95,7 @@
             projection: 'uniwen',
             translate: [
               0,
-              0,
+              30,
               0,
             ],
 
@@ -102,7 +105,7 @@
               100,
             ],
 
-            rotate: [ [[[90, 36, 90]]], [[[0, 2 * 360]]], [[[9, 24, 9]]] ],
+            rotate: [ [[[90, 90, 36, 90, 90]]], [[[0, 0, 360, 2 * 360, 2 * 360]]], [[[9, 9, 24, 9, 9]]] ],
             lens: [0, 1, Infinity ],
 
           },
@@ -112,7 +115,7 @@
             Dave McCooey
             dmccooey@mac.com
 
-            hamfered Truncated Icosahedron (canonical)
+            Biscribed Disdyakis Triacontahedron
 
           */
           pars: {
@@ -581,9 +584,26 @@
         },
 
       }
+      let text = `Biscribed Disdyakis Triacontahedron
+      Vertices:  	62
+      Faces:	    120
+      Edges:    	180
+      Symmetry:  	Full Icosahedral
+      Dual Solid: Biscribed Truncated Icosidodecahedron      
+      `
 
-      // .................. textA
-      let textA = {
+      let textsegment = function (text, t) {
+        let s = text // source
+        let a = Array.from(s) // discretize source
+        let q = a.length // length, number of elems
+        let n = Math.ceil(q * t) // elems in time
+        let v = a.slice(0, n) // segment in time
+        let s1 = v.join('') // rejoin segment
+
+        return s1
+      }
+      // .................. textAni
+      let textAni = {
         eohal: eonEohalTextform,
         eotim: eotim,
         eoric: {gid: 'txtg', cid: 'txtTA', fid: 'txtfA'},
@@ -597,7 +617,7 @@
             projection: 'uniwen',
             scale: [ 0.2, 0.2 ],
             prerotate: [[[ ctl.rotation ]]],
-            translate: [ 150, -100, 0 ],
+            translate: [ 50, -150, 0 ],
             rotate: [0, 0, 0],
             lens: [0, 1, Infinity ],
           },
@@ -620,13 +640,19 @@
             },
           },
           textform: {
-            string: [[[function (t) { return this.text }]]],
-            text: ` ▬▬▬▬▬ `,
+            string: [[[function (t) {
+              let txt = this.text
+              let linenb = this.linenb
+              let sttxt = txt.split('\n')
+              return sttxt[linenb]
+            }]]],
+            text: text,
+            // text: `Biscribed Disdyakis Triacontahedron`,
             style: {
               rotate: [[[ 0, 0 ]]],
               // 'dx': 444,
               // 'dy': 444,
-              'font-size': [[[9, 9]]],
+              'font-size': 9,
               'font-family': 'Verdana', // BankFuturistic, Arial
               // 'height': 56,
               'kerning': 4, // 1
@@ -641,7 +667,19 @@
           },
         },
       }
-
+      let getanis = function (txt = '') {
+        let anis = {}
+        let a = txt.split('\n')
+        for (let i = 0; i < a.length; i++) {
+          let ani = eonMuonProps.clone(textAni)
+          ani.eoric.fid = textAni.eoric.fid + '_' + i
+          ani.eoric.cid = textAni.eoric.cid + '_' + i
+          ani.eomot.proform.translate = [-50, -105 - 15 * i]
+          ani.eoload.textform.linenb = i
+          anis['ani' + '_' + i] = ani
+        }
+        return anis
+      }
       // .................. animas
       let animas = [
 
@@ -653,7 +691,8 @@
         // gridHelper, // h.sol
         lightHemisphereAni, // h.sol
         spotLight, // h.sol
-        textA, // h.textFrom
+        // textAni, // h.textFrom
+        ...Object.values(getanis(text)),
 
       ]
       return animas
@@ -663,5 +702,5 @@
     enty.z = z
     return enty
   }
-  exports.eonZ791kBncs08BiscribedDisdyakisTriacontahedron = anitem
+  exports.eonZ791kPh18BiscribedDisdyakisTriacontahedron = anitem
 }))

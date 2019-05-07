@@ -922,11 +922,10 @@
 
             if (pattern.retriever && pattern.filter) {
               let itemsInPattern = fitems.filter(pattern.filter)
+              if (itemsInPattern.length > 0) {
+                patternedItems[k] = patternedItems[k].concat(itemsInPattern)
+              }
 
-              patternedItems[k] =
-                itemsInPattern.length > 0
-                  ? patternedItems[k].concat(itemsInPattern)
-                  : patternedItems[k]
             }
           }
         } // citems
