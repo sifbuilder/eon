@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let eonXVersion = function () {
+  let eonitem = function () {
     let version = '0.0.1-rc1'
 
     // ............................. enty

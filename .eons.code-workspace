@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "C:\\e\\c\\does"
 		}
 	],
 	"settings": {
