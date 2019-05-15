@@ -100,3 +100,8 @@ test('test getEonItem v param', async () => {
   let r = await xEonify.getEonItem(href)
   expect(r).toBe('eon-z100a-anima')
 })
+
+test('test inNode', () => {
+  let inNode = xEonify.inNode()
+  expect(inNode).toBe(true)
+})

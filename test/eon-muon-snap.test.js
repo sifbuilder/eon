@@ -8,7 +8,7 @@ global.fs = require('fs')
 
 const xEonify = require('../eon-x-eonify.js')
 
-test.only('test snap triple array', async () => {
+test('test snap triple array', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
   __eo = await xEonify.eocharge(__eo)
   let muonSnap = await __eo('xs').m('snap')

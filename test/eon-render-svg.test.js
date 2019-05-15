@@ -113,18 +113,3 @@ describe('test svg', () => {
   })     
 })
 
-
-/**
- * Is this script currently running within a browser context?
- * Note: also returns true within a Web Worker context
- * @returns {boolean}
- * https://github.com/TimothyGu/jsdom/blob/master/test/util.js
- */
-
-
- 
-test('inBrowserContext', async () => { 
-  /* globals window */
-  let inBrowserContext = (typeof window === "object" && window === window.self) || exports.inWebWorkerContext()
-  expect(inBrowserContext).toBe(false) 
-}

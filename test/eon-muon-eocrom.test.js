@@ -20,7 +20,7 @@ let eo = jest.fn(async () => {
   return __eo
 })
 
-describe('test eocrom', async () => {
+describe('test eocrom', () => {
   test('kolor', async () => {
     let __eo = await eo()
     let muonEocrom = await __eo('xs').m('eocrom')

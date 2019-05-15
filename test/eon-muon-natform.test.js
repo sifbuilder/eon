@@ -504,7 +504,7 @@ test('test daxify', async () => {
 //
 // test taylor
 //
-test.only('test taylor', async () => {
+test('test taylor', async () => {
   let __eo = await xEonify.eonit({anitem: undefined})
   __eo = await xEonify.eocharge(__eo)
   let muonNatform = await __eo('xs').m('natform')

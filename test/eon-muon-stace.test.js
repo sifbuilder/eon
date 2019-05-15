@@ -130,7 +130,7 @@ describe('stace from anitem', () => {
       setTimeout(() => {
         t = times * dt
         ++times
-        state = __eo('muonAnimation').animier(t) // animier
+        state = __eo('eonMuonAnimation').animier(t) // animier
         aniTimer(callback)
       }, dt)
     }
@@ -141,7 +141,7 @@ describe('stace from anitem', () => {
       await Promise.resolve()
     }
 
-    let animas = __eo('muonStore').animasLive()
+    let animas = __eo('eonMuonStore').animasLive()
     let stace0 = [ 0, 1, 2]
     let locus0 = muonStace.getTranspots(stace0, animas[0])
     expect(locus0).toEqual([[0, 1, 2]])

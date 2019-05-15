@@ -70,16 +70,15 @@
     return meta
   }
 
+
   async function resolve (name, base) {
     if (name.startsWith(origin)) name = name.substring(origin.length)
     if (/^(\w+:)|\/\//i.test(name)) {
       return name
     }
     if (/^[.]{0,2}\//i.test(name)) {
-      let isnode1 = window.name == 'nodejs'
-      let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
       let res
-      if (isnode1 && isnode2) { // _e_
+      if (inNode()) { // _e_
         // res = 'file:///E:/Dropbox/dBox/e/c/eons/eons/d3-interpolate.js'
         try {
           let p = path.normalize(name)
@@ -126,9 +125,7 @@
       if (typeof url !== 'string') return url
       let module = cache.get(url)
 
-      let isnode1 = window.name === 'nodejs'
-      let isnode2 = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom')
-      if (isnode1 && isnode2) { // _e_
+      if (inNode()) { // _e_
         if (/^file:/i.test(url)) { // file:
           if (!module) {
             let response
@@ -279,6 +276,17 @@
   }
 
   define.amd = {}
+
+  // ----------------------------------------------
+
+  function inNode () {
+    let winisobject = typeof window === "object"
+    let isnode1 = window.name == 'nodejs'
+    let isnode2 = navigator.userAgent.includes('Node.js') 
+      || navigator.userAgent.includes('jsdom')
+    return  (winisobject && isnode1 && isnode2)
+  }
+  
 
   const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1)
   const a = d => Array.isArray(d) ? d : Array.of(d)
@@ -613,6 +621,7 @@
     return res
   }
   // ............................. exports
+  exports.inNode = inNode
   exports.getEonItem = getEonItem
   exports.eomap = eomap
   exports.eostore = eostore

@@ -195,7 +195,7 @@ test('dedges', async () => {
       type: 'MultiLineString',
     },
     properties: {
-      muonGraticule: 'vhMultiLine',
+      eonMuonGraticule: 'vhMultiLine',
     },
   }
 
@@ -307,7 +307,7 @@ test('equator', async () => {
       type: 'LineString',
     },
     properties: {
-      muonGraticule: 'equator',
+      eonMuonGraticule: 'equator',
     },
   }
 
@@ -326,7 +326,7 @@ test('equator', async () => {
       type: 'LineString',
     },
     properties: {
-      muonGraticule: 'equator',
+      eonMuonGraticule: 'equator',
     },
   }
 
