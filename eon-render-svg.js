@@ -454,9 +454,7 @@
                 let ret = path(d)
 
                 return ret
-              })       
-
-              
+              })
 
               .style('fill', d => d.properties.style.fill)
               .style('stroke', d => d.properties.style.stroke)
