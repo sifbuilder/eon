@@ -52,7 +52,7 @@
 
       eoload: {
         textform: {
-          string: 'eon-z-144',
+          string: 'eon-z144',
           style: {
             rotate: [[[ 0, -1 ]]],
             'font-size': [[[60, 60]]],

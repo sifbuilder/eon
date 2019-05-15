@@ -132,10 +132,10 @@
     // ............................. animas
     let animas = [
       // natAni(0,4,'market01.jpg'),
-      natAni(0, 4, 'eon-z-110b-imgs-f01.jpg'),
-      natAni(1, 4, 'eon-z-110b-imgs-f02.jpg'),
-      natAni(2, 4, 'eon-z-110b-imgs-f03.jpg'),
-      natAni(3, 4, 'eon-z-110b-imgs-f04.jpg'),
+      natAni(0, 4, 'eon-z110b-imgs-f01.jpg'),
+      natAni(1, 4, 'eon-z110b-imgs-f02.jpg'),
+      natAni(2, 4, 'eon-z110b-imgs-f03.jpg'),
+      natAni(3, 4, 'eon-z110b-imgs-f04.jpg'),
 
     ]
 

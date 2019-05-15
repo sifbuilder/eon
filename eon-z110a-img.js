@@ -123,7 +123,7 @@
       },
       eoload: {
         img: {
-          url: 'eon-z-110a-img.jpg',
+          url: 'eon-z110a-img.jpg',
           style: {
             width: quad(extent)(i, n).v[0], // 400,
             height: quad(extent)(i, n).v[1], // 300,

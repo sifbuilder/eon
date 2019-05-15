@@ -1,3 +1,6 @@
+/**********************
+ *    @eonXEonify
+ */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
@@ -253,13 +256,11 @@
   }
 
   function define (name, dependencies, factory) {
-    // define (2) ["exports", "d3-color"] ƒ (t,n){"use strict";function r(t,n,r,e,o)
 
     const n = arguments.length
     if (n < 2) factory = name, dependencies = []
     else if (n < 3) factory = dependencies, dependencies = typeof name === 'string' ? [] : name
 
-    // queue.push(some.call(dependencies, isexports) ? d3Require => {
     let r = some.call(dependencies, isexports) ? d3Require => {
       const exports = {}
       return Promise.all(map.call(dependencies, name => {
@@ -272,7 +273,6 @@
       return Promise.all(map.call(dependencies, d3Require)).then(dependencies => {
         return typeof factory === 'function' ? factory.apply(null, dependencies) : factory
       })
-    // })
     }
 
     queue.push(r)
@@ -288,7 +288,6 @@
   }
 
   const ceonize = function (nome, pres = '') {
-    // console.log('ceonize pres:', pres, nome)
     let camelized
     if (pres === '' || pres === 'eon') {
       camelized = camelize(nome)
@@ -299,7 +298,6 @@
   }
 
   const feonize = function (nome, pres = '') {
-    // console.log('feonize pres:', pres, nome)    
     let xeonized
     if (pres === '' || pres === 'eon') {
       xeonized = './' + nome + '.js'
@@ -310,7 +308,6 @@
   }
 
   const xeonize = function (nome, pres = '') {
-    // console.log('xeonize pres:', pres, nome)    
     let xeonized
     if (pres === '' || pres === 'eon') {
       xeonized = nome
@@ -390,7 +387,6 @@
   // ............................. getEon
   // nome is partName: eg 'eonMuonGraticule'
   async function getEon (inpart, __eo) {
-  // console.log('getEon inpart:', inpart)
 
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
