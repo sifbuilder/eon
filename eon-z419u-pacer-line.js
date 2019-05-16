@@ -15,34 +15,22 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-      eonCtlRayder,
+
       eonCtlWen,
-      eonEohalNatform,
+
       eonEohalMars,
-      eonEohalPacer,
-      eonEohalTextform,
-      eonMuonEoric,
+
       eonMuonGeoj,
-      eonMuonGraticule,
-      eonMuonNatform,
-      eonMuonProps,
-      eonMuonStace,
-      eonProtonUniwen,
+
       eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').b('eon-ctl-rayder'),
+
       __eo('xs').b('eon-ctl-wen'),
-      __eo('xs').b('eon-eohal-natform'),
+
       __eo('xs').b('eon-eohal-mars'),
-      __eo('xs').b('eon-eohal-pacer'),
-      __eo('xs').b('eon-eohal-textform'),
-      __eo('xs').b('eon-muon-eoric'),
+
       __eo('xs').b('eon-muon-geoj'),
-      __eo('xs').b('eon-muon-graticule'),
-      __eo('xs').b('eon-muon-natform'),
-      __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-muon-stace'),
-      __eo('xs').b('eon-proton-uniwen'),
+
       __eo('xs').b('eon-render-svg'),
     ])
 
@@ -155,7 +143,6 @@
 
               eonode: function (ani, props) {
                 // eoric repeated in pacedItem eonode from pacedItem eoric
-                let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
                 let stace = [0, 0, 0]
 
                 let coordinates = stace

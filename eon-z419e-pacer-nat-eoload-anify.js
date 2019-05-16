@@ -14,23 +14,21 @@
     // .................. eons
     let [
       eonCtlRayder,
-      eonCtlWen,
-      eonEohalNatform,
+
       eonEohalMars,
       eonEohalPacer,
       eonMuonEoric,
       eonMuonNatform,
-      eonProtonUniwen,
+
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('eon-ctl-rayder'),
-      __eo('xs').b('eon-ctl-wen'),
-      __eo('xs').b('eon-eohal-natform'),
+
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-pacer'),
       __eo('xs').b('eon-muon-eoric'),
       __eo('xs').b('eon-muon-natform'),
-      __eo('xs').b('eon-proton-uniwen'),
+
       __eo('xs').b('eon-render-svg'),
     ])
 
@@ -44,7 +42,7 @@
       // ....................... pacerNat
       let pacerNat = {
 
-        eohal: 'pacer',
+        eohal: eonEohalPacer,
         eoric: { gid: 'g', cid: 'c', fid: 'pacer' },
 
         eoload: {
@@ -52,8 +50,8 @@
           pacer: {
 
             pacedby: {
-              initN: 2, eventN: 0, autoN: 1, autoP: 0.1, 
-              outtimed: 0, maxN: 60, 
+              initN: 2, eventN: 0, autoN: 1, autoP: 0.1,
+              outtimed: 0, maxN: 60,
               geospan: 0,
               basePaceOnAniView: '',
               addItemToPacer: 0,
@@ -61,11 +59,10 @@
 
             anima: {
               eotim: eotim,
-              eohal: 'mars',
+              eohal: eonEohalMars,
 
               eoric: function (ani, props) {
                 let eoric = { gid: 'g', cid: 'c', fid: 'paced' }
-console.log(props)
                 if (props !== undefined) {
                   if (props.key === 'init') { // INIT
                     let q = eonMuonStore.animasInClassHowMany(eoric)

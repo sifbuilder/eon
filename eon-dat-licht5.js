@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var eonDatLicht5 = function (__eo = {}) {
+  var eonitem = function (__eo = {}) {
     let data = {
 
       width: '2.77778in',

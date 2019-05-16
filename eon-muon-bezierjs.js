@@ -12,7 +12,7 @@
   // http://pomax.github.io/bezierjs/
   // https://pomax.github.io/bezierinfo/
 
-  let eonMuonBezierjs = function (__eo = {}) {
+  let eonitem = function (__eo = {}) {
     // .................. utils
   // math-inlining.
     var abs = Math.abs,

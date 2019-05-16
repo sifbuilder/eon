@@ -2,34 +2,29 @@
    *    @eonZ579aFuturecube
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ579aFuturecube = global.eonZ579aFuturecube || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ579aFuturecube = global.eonZ579aFuturecube || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
     let [
-      eonMuonNatform,
-      eonMuonGraticule,
+
       topojson,
       eonDatWorldTopo110m,
-      d3Geo,
-      d3Geoprojection,
+
       eonGeoFuturi,
-      eonCtlWen,
+
       eonEohalMars,
       eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').b('eon-muon-natform'),
-      __eo('xs').b('eon-muon-graticule'),
+
       __eo('xs').b('topojson'),
-      __eo('xs').b('eon-dat-world-topo110m'),
-      __eo('xs').b('d3-geo'),
-      __eo('xs').b('d3-geo-projection'),
+
       __eo('xs').b('eon-geo-futuri'),
-      __eo('xs').b('eon-ctl-wen'),
+
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-render-svg'),
     ])
@@ -38,16 +33,6 @@
     let z = function () {
       // .................... pics
       let eotim = { 'td': 19800, 't0': 0, 't1': 1, 't2': 1, 't3': 1 }
-
-      let proformCube = {
-
-        projections: 'uniwen',
-        translate: [0, 0],
-        scale: 60,
-        rotate: [-5, 50, 0],
-        lens: [[[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4],
-
-      }
 
       let eoframe = {
 

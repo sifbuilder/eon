@@ -2,40 +2,36 @@
    *    @eonZ515cGeoearthWen
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ515cGeoearthWen = global.eonZ515cGeoearthWen || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ515cGeoearthWen = global.eonZ515cGeoearthWen || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
     // .................. eons
     let [
       topojson,
-      d3Geo,
-      d3Geoprojection,
+
       eonCtlWen,
-      eonCtlVersor,
+
       eonDatWorldTopo110m,
       eonEohalMars,
-      eonMuonGeom,
-      eonMuonGraticule,
+
       eonMuonNatform,
-      eonProtonNatform,
+
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('topojson'),
-      __eo('xs').b('d3-geo'),
-      __eo('xs').b('d3-geo-projection'),
+
       __eo('xs').b('eon-ctl-wen'),
-      __eo('xs').b('eon-ctl-versor'),
+
       __eo('xs').b('eon-dat-world-topo110m'),
       __eo('xs').b('eon-eohal-mars'),
-      __eo('xs').b('eon-muon-geom'),
-      __eo('xs').b('eon-muon-graticule'),
+
       __eo('xs').b('eon-muon-natform'),
-      __eo('xs').b('eon-proton-natform'),
+
       __eo('xs').b('eon-render-svg'),
     ])
     try { eonRenderSvg.scenecolor('black') } catch (e) { }
@@ -52,35 +48,7 @@
       let eotim = { 'td': 18800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1 }
 
       // .................. pics
-      let pi = Math.PI,
-        radians = Math.PI / 180, degrees = 180 / Math.PI,
-        sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
-        sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh,
-        exp = Math.exp,
-        epsilon = 1e-5
-
-      let formCube = {
-
-        'x': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          'dom3': [-180, 180],
-
-        },
-        'y': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          'dom3': [-180, 180],
-
-        },
-        'z': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          'pr8': d => Math.cos(d),
-          'dom3': [-180, 180],
-
-        },
-      }
+      let pi = Math.PI, sin = Math.sin, cos = Math.cos, epsilon = 1e-5
 
       let conformTangerine = {
         x: {
@@ -120,165 +88,6 @@
         translate: [[0, 0, 0]],
         rotate: [0, 0, 0],
         lens: [0, 1, Infinity],
-      }
-
-      // .................. geoearthDark  DARK
-      let pDark = function () {
-        let forward = (x, y) => d3Geo.geoOrthographicRaw(-x, -y)
-        forward.invert = (x, y) => d3Geo.geoOrthographicRaw.invert(-x, -y)
-        return forward
-      }
-
-      let darkProjection = d3Geo.geoProjection(pDark())
-        .clipAngle(90)
-        .translate([0, 0, 0])
-        .scale(180)
-
-      let proformDark = {
-
-        projection: darkProjection,
-        prerotate: [[[t => {
-          let rot = eonCtlVersor
-            .projection({ projection: darkProjection }) // versor projection
-            .rotation()
-          let res = [180 + rot[0], -rot[1], -rot[2]]
-          return res
-        }]]],
-
-        // rotate: [ [[[0, 0 + 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-        // rotate: [ 90, 0, 0 ],
-        rotate: [0, 0, 0],
-
-      }
-
-      let geoearthDark = {
-
-        eohal: eonEohalMars,
-
-        eofold: () => {
-          return Object.assign({},
-            topojson.feature(
-              eonDatWorldTopo110m.data(),
-              eonDatWorldTopo110m.data().objects.land
-            )
-          )
-        },
-
-        eotim,
-        eomot: {
-          proform: proformDark,
-        },
-        eoric: { gid: 'geo', cid: 'geo', fid: 'geoearthDark' },
-        eocrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9 },
-        eoload: {
-        },
-
-      }
-
-      // .................. geoearthFront FRONT
-      let pFront = function (x, y) {
-        let forward = (x, y) => d3Geo.geoOrthographicRaw(x, -y)
-        forward.invert = (x, y) => d3Geo.geoOrthographicRaw.invert(x, -y)
-        return forward
-      }
-
-      let frontProjection = d3Geo.geoProjection(pFront())
-        .clipAngle(90)
-        .translate([0, 0, 0])
-        .rotate([0, 0, 0])
-
-      let proformFront = {
-
-        projection: frontProjection,
-        prerotate: [[[function (t) {
-          let rot = eonCtlVersor
-            .projection({ projection: frontProjection }) // versor projection
-            .rotation()
-          return rot
-        }]]],
-
-        translate: [0, 0, 0],
-        scale: 180,
-        // rotate: [ [[[30, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-        // rotate: [ 90, 0, 0 ],
-        rotate: [0, 0, 0],
-
-      }
-
-      let geoearthFront = {
-
-        eohal: eonEohalMars,
-        eotim,
-        eoric: { gid: 'geo', cid: 'geo', fid: 'geoearthFront' },
-
-        eofold: () => {
-          return Object.assign({},
-            topojson.feature(
-              eonDatWorldTopo110m.data(),
-              eonDatWorldTopo110m.data().objects.land
-            )
-          )
-        },
-
-        eomot: {
-          proform: proformFront,
-        },
-
-        eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9 },
-        eoload: {},
-
-      }
-
-      // .................. graticuleFront
-      let graticuleFront = {
-
-        eohal: eonEohalMars,
-        eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoframe),
-        eotim: eotim,
-        eomot: {
-          proform: proformFront,
-        },
-        eoric: { 'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront' },
-        eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9 },
-
-        eoframe: {
-
-          geoframe: [[[-180, 180, 30, 30], // x
-            [-180, 180, 15, 15]]], // y
-
-        },
-        eoload: {},
-
-      }
-
-      // ............................. tangerineAni
-      let tangerineAni3 = {
-
-        eohal: eonEohalMars,
-        eotim,
-        eoric: { gid: 'q', cid: 'q', fid: 'q3' },
-
-        eofold: p => eonMuonGraticule.gjfMultiLineString(p.eoform),
-
-        eomot: {
-          proform: proform,
-        },
-
-        eocrom: {
-          'csx': 0, 'cf': [[[666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-          'cs': [[[333, 333, 333]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]],
-        },
-
-        eoframe: {
-
-          geoframe: [[[-180, 180, 45, 45],
-            [-90, 90, 22.5, 22.5]],
-          [[-180, 180, 45, 45],
-            [-90, 90, 22.5, 22.5]]],
-
-        },
-        eoform: conformTangerine,
-        eoload: {},
       }
 
       // ............................. tangerineAni
@@ -341,7 +150,6 @@
       let animas = [
         tangerineAni, //
         earthAni, //
-
       ]
 
       return animas

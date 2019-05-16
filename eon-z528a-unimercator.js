@@ -2,29 +2,29 @@
    *    @eonZ528aUnimercator
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ528aUnimercator = global.eonZ528aUnimercator || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ528aUnimercator = global.eonZ528aUnimercator || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
     let [
       topojson,
-      eonCtlWen,
+
       eonCtlVersor,
       eonDatWorldTopo110m,
-      eonMuonGraticule,
+
       eonEohalMars,
       eonProtonUnimercator,
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('topojson'),
-      __eo('xs').b('eon-ctl-wen'),
+
       __eo('xs').b('eon-ctl-versor'),
       __eo('xs').b('eon-dat-world-topo110m'),
-      __eo('xs').b('eon-muon-graticule'),
+
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-proton-unimercator'),
       __eo('xs').b('eon-render-svg'),
@@ -32,12 +32,6 @@
     try { eonRenderSvg.scenecolor('black') } catch (e) { }
     let z = function () {
       // .................. pics
-      let ctl
-      try {
-        ctl = eonCtlVersor().control(eonRenderSvg.svg())
-      } catch (e) {
-        ctl = () => [0, 0, 0]
-      }
 
       let eotim = { 'td': 32200, 't0': 0, 't1': 1, 't2': 1, 't3': 1 }
 

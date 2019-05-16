@@ -15,26 +15,26 @@
     let [
       eonCtlRayder,
       eonCtlWen,
-      eonEohalNatform,
+
       eonEohalPacer,
-      eonEohalTextform,
+
       eonEohalMars,
-      eonMuonGeoj,
+
       eonMuonNatform,
       eonMuonStace,
-      eonProtonUniwen,
+
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('eon-ctl-rayder'),
       __eo('xs').b('eon-ctl-wen'),
-      __eo('xs').b('eon-eohal-natform'),
+
       __eo('xs').b('eon-eohal-pacer'),
-      __eo('xs').b('eon-eohal-textform'),
+
       __eo('xs').b('eon-eohal-mars'),
-      __eo('xs').b('eon-muon-geoj'),
+
       __eo('xs').b('eon-muon-natform'),
       __eo('xs').b('eon-muon-stace'),
-      __eo('xs').b('eon-proton-uniwen'),
+
       __eo('xs').b('eon-render-svg'),
     ])
 
@@ -106,12 +106,10 @@
 
             eohal: (ani, props) => 'mars',
             eoric: function (ani, props) {
-              let counter = props.counter || 0
-
               let fidsuffix = ''
               if (props.key === 'event') {
                 let hm = eonMuonStore.anigramsInClassHowMany(ani)
-                let pacecount = hm + 1
+
                 fidsuffix = `_${hm}`
               }
 
@@ -213,7 +211,7 @@
       // ....................... traceNat
       let traceNat = {
 
-        eoric: { gid: 'nattrace', cid: 'nattrace', fid: 'traceNat', },
+        eoric: { gid: 'nattrace', cid: 'nattrace', fid: 'traceNat' },
         eotim: eotim,
         eohal: eonEohalPacer,
 
@@ -221,7 +219,7 @@
 
         eonode: {
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
         },
 
@@ -254,23 +252,19 @@
             eohal: eonEohalMars,
             pacedAnisort: 'anigram',
             basePaceOnAniView: 'viewform',
-            initN: 0, eventN: 0, autoN: 1, autoP: 0.01, 
-            outtimed: 0, maxN: 60, 
-            geospan: 0, 
+            initN: 0, eventN: 0, autoN: 1, autoP: 0.01,
+            outtimed: 0, maxN: 60,
+            geospan: 0,
             addItemToPacer: 0,
 
             eonode: function (ani, props) {
-
-
               let stace = [0, 0, 0]
 
               if (props.key === 'init') { // INIT
               // stace is ani's transformed eonode
                 stace = eonMuonStace.getLocus([null, null, null], ani)
-
               } else if (props.key === 'auto') { // AUTO
                 stace = eonMuonStace.getLocus([null, null, null], ani)
-
               } else if (props.key === 'event') { // EVENT
                 if (eonCtlRayder.grabbed() !== undefined) {
                   let grabbed = eonCtlRayder.grabbed()
@@ -280,10 +274,10 @@
                   stace = {x, y, z }
                 }
               }
-console.log('*********** ani:', stace, ani)
+              console.log('*********** ani:', stace, ani)
               let feature = {
                 type: 'Feature',
-                geometry: { type: 'Point', coordinates: stace, },
+                geometry: { type: 'Point', coordinates: stace },
                 properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
               }
               return feature

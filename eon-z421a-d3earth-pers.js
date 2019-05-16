@@ -12,37 +12,27 @@
   async function anitem (__eo) {
   // .................. eons
     let [
-      d3Geo,
-      d3Geoprojection,
+
       topojson,
-      eonCtlVersor,
-      eonCtlWen,
+
       eonDatWorldTopo110m,
       eonEohalMars,
       eonEohalSol,
-      eonMuonGeoj,
-      eonMuonGeom,
+
       eonMuonGraticule,
-      eonMuonNatform,
-      eonProtonNatform,
-      eonProtonOrthographic,
+
       eonRenderPortview,
-      eonRenderWebgl,
+      eonRenderWebgl, // eslint-disable-line no-unused-vars
     ] = await Promise.all([
-      __eo('xs').b('d3-geo'),
-      __eo('xs').b('d3-geo-projection'),
+
       __eo('xs').b('topojson'),
-      __eo('xs').b('eon-ctl-versor'),
-      __eo('xs').b('eon-ctl-wen'),
+
       __eo('xs').b('eon-dat-world-topo110m'),
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-sol'),
-      __eo('xs').b('eon-muon-geoj'),
-      __eo('xs').b('eon-muon-geom'),
+
       __eo('xs').b('eon-muon-graticule'),
-      __eo('xs').b('eon-muon-natform'),
-      __eo('xs').b('eon-proton-natform'),
-      __eo('xs').b('eon-proton-orthographic'),
+
       __eo('xs').b('eon-render-portview'),
       __eo('xs').b('eon-render-webgl'),
     ])
@@ -56,7 +46,7 @@
       let eoform = {
 
         x: {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'v0': 0, 'v1': 1,
           'ra2': 60,
           'w4': 0, // [[[180,360,180]]], // [[[0,-360,0]]],
@@ -64,7 +54,7 @@
           'dom3': [-180, 180],
         },
         y: {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'v0': 0, 'v1': 1,
           'ra2': 60,
           'w4': 90, // [[[60, 60 + 1 * 360]]], // [[[0,-360,0]]],
@@ -72,8 +62,7 @@
           'dom3': [-180, 180],
         },
         z: {
-        // 'm1': [[[2, 2]]], 'm2': [[[2, 2]]], 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'v0': 0, 'v1': 1,
           'ra2': 60,
           'w4': 0, // [[[180,360,180]]], // [[[0,-360,0]]],
@@ -81,8 +70,7 @@
           'dom3': [-90, 90],
         },
         w: {
-        // 'm1': [[[2, 2]]], 'm2': [[[2, 2]]], 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'v0': 0, 'v1': 1,
           'ra2': 60,
           'w4': 0, // [[[180,360,180]]], // [[[0,-360,0]]],
@@ -193,7 +181,6 @@
         eohal: eonEohalSol,
 
         eofold: anitem => {
-          let eoload = anitem.eoload
           let json = { // Feature
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [0, 0, 0] },
@@ -224,7 +211,6 @@
         eohal: eonEohalSol,
 
         eofold: anitem => {
-          let eoload = anitem.eoload
           let json = { // Feature
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [0, 0, 0] },
@@ -255,7 +241,6 @@
         eohal: eonEohalSol,
 
         eofold: anitem => {
-          let eoload = anitem.eoload
           let json = { // Feature
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [0, 0, 0] },
@@ -286,7 +271,6 @@
         eohal: eonEohalSol,
 
         eofold: anitem => {
-          let eoload = anitem.eoload
           let json = { // Feature
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [0, 0, 0] },
@@ -318,7 +302,6 @@
         eohal: eonEohalSol,
 
         eofold: anitem => {
-          let eoload = anitem.eoload
           let json = { // Feature
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [0, 0, 0] },

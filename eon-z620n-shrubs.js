@@ -16,20 +16,18 @@
     let [
       eonCtlWen,
       eonEohalMars,
-      eonEohalTextform,
-      eonMuonGeoj,
+
       eonMuonLindenmayer,
       eonMuonProps,
-      eonProtonUniwen,
+
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('eon-ctl-wen'),
       __eo('xs').b('eon-eohal-mars'),
-      __eo('xs').b('eon-eohal-textform'),
-      __eo('xs').b('eon-muon-geoj'),
+
       __eo('xs').b('eon-muon-lindenmayer'),
       __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-proton-uniwen'),
+
       __eo('xs').b('eon-render-svg'),
     ])
 
@@ -101,7 +99,6 @@
       let qv = 2 // columns
       let treeanis = new Array(qh * qv)
       let tidx = eonMuonProps.tidx(qh, qv, 1, 1) // index from coords
-      let ridx = eonMuonProps.ridx(qh, qv, 1, 1) // coords from index
 
       let hvar = 10
       let hsep = 40

@@ -2,38 +2,36 @@
    *    @eonZ524aDynafuturiHedral
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ524aDynafuturiHedral = global.eonZ524aDynafuturiHedral || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ524aDynafuturiHedral = global.eonZ524aDynafuturiHedral || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
     // .................. eons
     let [
       topojson,
-      eonCtlWen,
+
       eonDatWorldTopo110m,
       eonEohalTextform,
       eonEohalMars,
-      eonMuonNatform,
+
       eonMuonGeom,
       eonMuonGraticule,
-      eonMuonProps,
-      eonProtonHedrals,
+
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('topojson'),
-      __eo('xs').b('eon-ctl-wen'),
+
       __eo('xs').b('eon-dat-world-topo110m'),
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-textform'),
-      __eo('xs').b('eon-muon-natform'),
+
       __eo('xs').b('eon-muon-geom'),
       __eo('xs').b('eon-muon-graticule'),
-      __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-proton-hedrals'),
+
       __eo('xs').b('eon-render-svg'),
     ])
     try { eonRenderSvg.scenecolor('black') } catch (e) { }

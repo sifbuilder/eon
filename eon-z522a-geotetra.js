@@ -2,41 +2,33 @@
    *    @eonZ522aGeotetra
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ522aGeotetra = global.eonZ522aGeotetra || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ522aGeotetra = global.eonZ522aGeotetra || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
     // .................. eons
     let [
-      eonMuonProps,
-      eonMuonGeom,
+
       eonMuonGraticule,
       topojson,
       eonDatWorldTopo110m,
-      eonMuonNatform,
-      eonCtlWen,
+
       eonCtlVersor,
-      d3Geo,
-      d3Geoprojection,
-      eonProtonTetra,
+
       eonEohalMars,
       eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-muon-geom'),
+
       __eo('xs').b('eon-muon-graticule'),
       __eo('xs').b('topojson'),
       __eo('xs').b('eon-dat-world-topo110m'),
-      __eo('xs').b('eon-muon-natform'),
-      __eo('xs').b('eon-ctl-wen'),
+
       __eo('xs').b('eon-ctl-versor'),
-      __eo('xs').b('d3-geo'),
-      __eo('xs').b('d3-geo-projection'),
-      __eo('xs').b('eon-proton-tetra'),
+
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-render-svg'),
     ])
@@ -52,29 +44,6 @@
       }
 
       let eotim = { 'td': 18200, 't0': 0, 't1': 1, 't2': 1, 't3': 1 }
-
-      let form = {
-
-        'x': {
-
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 162, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-
-        },
-        'y': {
-
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 162, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-
-        },
-        'z': {
-
-          'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, // tri
-          'ra2': [[[30, 30, 262 / Math.sqrt(2), 162 / Math.sqrt(2), 162 / Math.sqrt(2), 162 / Math.sqrt(2), 262 / Math.sqrt(2)]]],
-          'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-
-        },
-      }
 
       let eoframe = {
 

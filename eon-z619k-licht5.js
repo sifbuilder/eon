@@ -2,42 +2,39 @@
    *    @eonZ619kLicht5
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ619kLicht5 = global.eonZ619kLicht5 || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ619kLicht5 = global.eonZ619kLicht5 || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
     // .................. eons
     let [
       dlicht5,
-      eonEohalMars,
+
       eonEohalSol,
       eonMuonGeoj,
       eonMuonProj3ct,
       eonMuonProfier,
-      eonMuonStace,
-      eonMuonEoric,
+
       eonMuonCastel,
       eonRenderPortview,
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('eon-dat-licht5'),
-      __eo('xs').b('eon-eohal-mars'),
+
       __eo('xs').b('eon-eohal-sol'),
       __eo('xs').b('eon-muon-geoj'),
       __eo('xs').b('eon-muon-proj3ct'),
       __eo('xs').b('eon-muon-profier'),
-      __eo('xs').b('eon-muon-stace'),
-      __eo('xs').b('eon-muon-eoric'),
+
       __eo('xs').b('eon-muon-castel'),
       __eo('xs').b('eon-render-portview'),
       __eo('xs').b('eon-render-svg'),
     ])
     try { eonRenderSvg.scenecolor('black') } catch (e) { }
-    let eonMuonStore = __eo('xs').b('eon-muon-store')
 
     // .................. animas
     let z = function () {
@@ -80,8 +77,7 @@
 
         eofold: ani => {
           let anigram = ani, // anigram
-            eohal = ani.eohal, // eohal
-            eofold = ani.eofold, // eofold
+
             eoload = ani.eoload // eoload
 
           let unElapsed = ani.eotim.unElapsed // unit time elapsed

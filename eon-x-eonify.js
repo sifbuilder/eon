@@ -70,7 +70,6 @@
     return meta
   }
 
-
   async function resolve (name, base) {
     if (name.startsWith(origin)) name = name.substring(origin.length)
     if (/^(\w+:)|\/\//i.test(name)) {
@@ -280,14 +279,13 @@
   // ----------------------------------------------
 
   function inNode () {
-    let winisobject = typeof window === "object"
+    let winisobject = typeof window === 'object'
     let isnode1 = window.name == 'nodejs'
-    let isnode2 = navigator.userAgent.includes('Node.js') 
-      || navigator.userAgent.includes('jsdom')
-    return  (winisobject && isnode1 && isnode2)
+    let isnode2 = navigator.userAgent.includes('Node.js') ||
+      navigator.userAgent.includes('jsdom')
+    return (winisobject && isnode1 && isnode2)
   }
   
-
   const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1)
   const a = d => Array.isArray(d) ? d : Array.of(d)
 
@@ -600,17 +598,17 @@
       await Promise.resolve() // allow any pending jobs in the PromiseJobs queue to run
     }
   }
-  function getEonItem(input) {  // _e_
+  function getEonItem (input) { // _e_
     console.log('input:', input)
-    const rfile1 = /^.*\/(?<filename>[^/]+)(?=.html).html(?:#)?(?<anchor>.*)$/u
+    const rfile1 = new RegExp('^.*/(?<filename>[^/]+)(?=.html).html(?:#)?(?<anchor>.*)$', 'u')
     let match1 = rfile1.exec(input) || {}
     let {filename, anchor} = (match1.groups || {})
 
-    const rfile2 = /.*\/(?<filename>[^/?#]+)(.html)?[^#]*(?==)v?=?(?<val>.*)(?:#)?#?(?<anchor>[^#]*)$/u
+    const rfile2 = new RegExp('.*/(?<filename>[^/?#]+)(.html)?[^#]*(?==)v?=?(?<val>.*)(?:#)?#?(?<anchor>[^#]*)$', 'u')
     let match2 = rfile2.exec(input) || {}
     let {val} = (match2.groups || {})
 
-    let res 
+    let res
     if (val) res = val
     else if (anchor) res = anchor
     else if (filename) res = filename

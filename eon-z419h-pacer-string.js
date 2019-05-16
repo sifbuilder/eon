@@ -13,28 +13,24 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-      eonCtlWen,
-      eonMuonNatform,
-      eonMuonStace,
+
       eonMuonGeoj,
-      // eonCtlRayder,
+      eonCtlRayder,
       eonEohalMars,
-      eonEohalNatform,
+
       eonEohalPacer,
       eonEohalTextform,
-      eonProtonUniwen,
+
       eonRenderSvg,
     ] = await Promise.all([
-      __eo('xs').b('eon-ctl-wen'),
-      __eo('xs').b('eon-muon-natform'),
-      __eo('xs').b('eon-muon-stace'),
+
       __eo('xs').b('eon-muon-geoj'),
-      // __eo('xs').b('eon-ctl-rayder'),
+      __eo('xs').b('eon-ctl-rayder'),
       __eo('xs').b('eon-eohal-mars'),
-      __eo('xs').b('eon-eohal-natform'),
+
       __eo('xs').b('eon-eohal-pacer'),
       __eo('xs').b('eon-eohal-textform'),
-      __eo('xs').b('eon-proton-uniwen'),
+
       __eo('xs').b('eon-render-svg'),
     ])
 

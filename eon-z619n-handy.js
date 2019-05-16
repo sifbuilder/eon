@@ -2,14 +2,14 @@
    *    @eonZ619nHandy
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ619nHandy = global.eonZ619nHandy || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ619nHandy = global.eonZ619nHandy || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
     // .................. eons
     let [
       eonEohalSol,

@@ -16,20 +16,18 @@
     let [
       eonCtlWen,
       eonEohalMars,
-      eonEohalTextform,
-      eonMuonGeoj,
+
       eonMuonLindenmayer,
       eonMuonProps,
-      eonProtonUniwen,
+
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('eon-ctl-wen'),
       __eo('xs').b('eon-eohal-mars'),
-      __eo('xs').b('eon-eohal-textform'),
-      __eo('xs').b('eon-muon-geoj'),
+
       __eo('xs').b('eon-muon-lindenmayer'),
       __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-proton-uniwen'),
+
       __eo('xs').b('eon-render-svg'),
     ])
 
@@ -107,11 +105,6 @@
       let treeanis = new Array(qh * qv)
       let tidx = eonMuonProps.tidx(qh, qv, 1, 1)
 
-      let hvar = 10
-      let hsep = 40
-      let vmar = 0
-      let vsep = 50
-
       for (let iv = 0; iv < qv; iv++) {
         for (let ih = 0; ih < qh; ih++) {
           let idx = tidx(ih, iv)
@@ -119,8 +112,6 @@
           let anii = eonMuonProps.clone(aniForm)
           anii.eoric.fid = 'ani' + idx
 
-          let dist = (0.5 - ih % 2)
-          let htol = (0.5 - Math.random())
           let crom = Math.floor(0.5 + Math.random())
 
           // anii.eoload.soma = eonMuonProps.clone(soma)

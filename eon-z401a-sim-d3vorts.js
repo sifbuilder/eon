@@ -21,7 +21,6 @@
       eonMuonEoric,
       eonMuonEoforces,
       eonMuonProps,
-      eonMuonSim,
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('d3-force-3d'),
@@ -32,7 +31,6 @@
       __eo('xs').b('eon-muon-eoric'),
       __eo('xs').b('eon-muon-eoforces'),
       __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-muon-sim'),
       __eo('xs').b('eon-render-svg'),
     ])
     try { eonRenderSvg.scenecolor('black') } catch (e) {}
