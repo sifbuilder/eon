@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var eonDatPicasso = function (__eo = {}) {
+  var eonitem = function (__eo = {}) {
     let data = {
 
       width: '5.01389in', height: '7.23611in',

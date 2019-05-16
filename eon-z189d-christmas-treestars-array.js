@@ -58,27 +58,12 @@
         eotim: eotim,
         eoric: {gid: 'nat', cid: 'nat', fid: 'natTree'},
 
-        eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoform}),
+        eofold: ani => eonMuonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
         eonode: {
           type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0, 0],
-          },
+          geometry: {type: 'Point', coordinates: [0, 0, 0] },
           properties: {
             orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-          },
-        },
-        eoform: {
-          x: {
-            'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
-            'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
-            'dom3': [ -180, 180 ],
-          },
-          y: {
-            'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
-            'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
-            'dom3': [ -180, 180 ],
           },
         },
         eomot: {
@@ -91,9 +76,20 @@
           },
         },
         eocrom: { 'csx': 0, 'cf': [[[100, 300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-        eoload: {},
-
+        eoload: {
+          eoform: {
+            x: {
+              'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
+              'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+              'dom3': [ -180, 180 ],
+            },
+            y: {
+              'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
+              'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+              'dom3': [ -180, 180 ],
+            },
+          },
+        },
       }
 
       // ....................... natStar
@@ -105,19 +101,13 @@
 
         eofold: {
           type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0, 0],
-          },
+          geometry: {type: 'Point', coordinates: [0, 0, 0] },
           properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
         },
 
         eonode: {
           type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0, 0],
-          },
+          geometry: {type: 'Point', coordinates: [0, 0, 0] },
           properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
         },
 
@@ -151,7 +141,7 @@
 
           pacer: {
 
-            initN: 10, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
+            initN: 10, eventN: 0, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
             pacedAnisort: 'anima', // anima - avatar -> anigram
             basePaceOnAniView: 'viewform',
             addItemToPacer: 0,
@@ -168,7 +158,6 @@
 
             eofold: function (ani, props) {
               let neweofold = eonMuonNatform.natMultiLineString({eoform: ani.eoform})
-
               return neweofold
             },
 
@@ -219,10 +208,7 @@
               let coordinates = coords
               let res = {
                 type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: coordinates,
-                },
+                geometry: {type: 'Point', coordinates: coordinates },
                 properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
               }
               return res

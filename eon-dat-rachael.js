@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var eonDatRachael = function (__eo = {}) {
+  var eonitem = function (__eo = {}) {
     let data = {
 
       'width': '2.33333in', 'height': '1.75in',

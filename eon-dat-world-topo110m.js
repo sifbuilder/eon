@@ -11,7 +11,7 @@
   // eonDatWorldTopo110m ref. https://github.com/topojson/world-atlas
   // Copyright (c) 2013-2016, Michael Bostock All rights reserved.
 
-  async function eonDatWorldTopo110m (__eo = {}) {
+  async function eonitem (__eo = {}) {
     let data = {
       'type': 'Topology',
       'objects': {

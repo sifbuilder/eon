@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var eonDatPath = function (__eo = {}) {
+  var eonitem = function (__eo = {}) {
     let data = {
 
       'width': '2in', 'height': '1.33333in',
