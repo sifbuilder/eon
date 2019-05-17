@@ -19,7 +19,7 @@
       __eo('xs').b('eon-render-svg'),
     ])
     try { eonRenderSvg.scenecolor('black') } catch (e) { }
-    
+
     let z = function () {
       let anima = {
         eohal: 'sol',

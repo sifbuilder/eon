@@ -95,7 +95,7 @@
         return geo
       }
 
-      let lindengeo =  shrub({ lindenmayer })
+      let lindengeo = shrub({ lindenmayer })
 
       let aniForm2 = {
 
@@ -104,7 +104,6 @@
         eoric: { gid: 'ani', cid: 'ani', fid: 'ani2' },
 
         eofold: ani => {
-
           let geo = lindengeo
 
           geo.features = geo.features.sort(function (a, b) {

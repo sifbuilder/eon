@@ -2,46 +2,46 @@
    *    @eonZ856dMinkowskiBeat
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ856dMinkowskiBeat = global.eonZ856dMinkowskiBeat || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ856dMinkowskiBeat = global.eonZ856dMinkowskiBeat || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
   // .................. eons
-  let [
-    eonCtlWen,
-    eonEohalMars,
-    eonMuonMinkowski,
-    eonMuonProj3ct,
-    eonMuonProfier,
-    eonMuonCastel,
-    eonRenderPortview,
-    eonRenderSvg,
-  ] = await Promise.all([
-    __eo('xs').b('eon-ctl-wen'),
-    __eo('xs').b('eon-eohal-mars'),
-    __eo('xs').b('eon-muon-minkowski'),
-    __eo('xs').b('eon-muon-proj3ct'),
-    __eo('xs').b('eon-muon-profier'),
-    __eo('xs').b('eon-muon-castel'),
-    __eo('xs').b('eon-render-portview'),
-    __eo('xs').b('eon-render-svg'),
-  ])
-  try { eonRenderSvg.scenecolor('black') } catch (e) {}
-  let svgdata1 = {
-    width: '364.815mm',
-    height: '204.497mm',
-    viewBox: '0 0 1379 773',
-    path: {
-      id: 'path3',
-      fill: 'none',
-      stroke: 'black',
-      // ["stroke-width"]:"1",
-      svgdata: '1',
-      d: `M 894.78,770.15
+    let [
+      eonCtlWen,
+      eonEohalMars,
+      eonMuonMinkowski,
+      eonMuonProj3ct,
+      eonMuonProfier,
+      eonMuonCastel,
+      eonRenderPortview,
+      eonRenderSvg,
+    ] = await Promise.all([
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-muon-minkowski'),
+      __eo('xs').b('eon-muon-proj3ct'),
+      __eo('xs').b('eon-muon-profier'),
+      __eo('xs').b('eon-muon-castel'),
+      __eo('xs').b('eon-render-portview'),
+      __eo('xs').b('eon-render-svg'),
+    ])
+    try { eonRenderSvg.scenecolor('black') } catch (e) {}
+    let svgdata1 = {
+      width: '364.815mm',
+      height: '204.497mm',
+      viewBox: '0 0 1379 773',
+      path: {
+        id: 'path3',
+        fill: 'none',
+        stroke: 'black',
+        // ["stroke-width"]:"1",
+        svgdata: '1',
+        d: `M 894.78,770.15
            C 898.06,767.80 907.99,677.00 907.99,677.00
              907.99,677.00 901.00,605.00 889.75,579.00
              886.05,567.72 876.00,509.00 876.00,509.00
@@ -111,20 +111,20 @@
              760.46,767.34 762.70,727.30 766.01,727.54
              771.77,727.95 771.06,768.80 774.23,770.69
              784.00,770.00 892.00,771.00 894.78,770.15 Z`,
-    },
-  }
+      },
+    }
 
-  let svgdata2 = {
-    width: '364.815mm',
-    height: '204.497mm',
-    viewBox: '0 0 1379 773',
-    path: {
-      id: 'path3',
-      fill: 'none',
-      stroke: 'black',
-      // ["stroke-width"]:"1",
-      svgdata: '1',
-      d: `M 739.33,2.67
+    let svgdata2 = {
+      width: '364.815mm',
+      height: '204.497mm',
+      viewBox: '0 0 1379 773',
+      path: {
+        id: 'path3',
+        fill: 'none',
+        stroke: 'black',
+        // ["stroke-width"]:"1",
+        svgdata: '1',
+        d: `M 739.33,2.67
            C 702.67,24.67 706.46,54.99 705.07,58.00
              703.07,62.33 699.21,64.32 697.93,69.00
              699.50,107.33 715.26,108.36 718.36,114.00
@@ -163,181 +163,181 @@
              845.50,101.67 832.17,76.00 827.96,49.00
              827.96,49.00 812.67,13.33 794.00,3.33
              785.00,2.83 739.33,3.67 739.33,2.67 Z`,
-    },
-  }
-
-  // .................. animas
-  let z = function () {
-    // .................. pics
-    let ctl
-    try {
-      ctl = eonCtlWen().control(eonRenderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
-
-    let eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
-
-    let uniframe = {start: 0, stop: 0.9, step: 0.09}
-    let gjdata1 = eonMuonCastel.castels(svgdata1, uniframe)
-    let svgprj1 = eonMuonCastel.svgprj(svgdata1, eonRenderPortview)
-
-    let proformSvg1 = {
-      projection: 'uniwen',
-      translate: svgprj1.translate,
-      scale: svgprj1.scale,
-      rotate: [ 0, 0, 0 ],
-      lens: [0, 1, Infinity],
-    }
-    let geoData1 = eonMuonProj3ct(gjdata1, eonMuonProfier.uniweon(proformSvg1))
-
-    let gjdata2 = eonMuonCastel.castels(svgdata2, uniframe)
-    let svgprj2 = eonMuonCastel.svgprj(svgdata2, eonRenderPortview)
-    let proformSvg2 = {
-      projection: 'uniwen',
-      translate: svgprj2.translate,
-      scale: svgprj2.scale,
-      rotate: [ 0, 0, 0 ],
-      lens: [ 0, 1, Infinity ],
-    }
-    let geoData2 = eonMuonProj3ct(gjdata2, eonMuonProfier.uniweon(proformSvg2))
-
-    // .................. lichtAni1
-    let lichtAni1 = {
-
-      eohal: eonEohalMars,
-      eotim: eotim,
-      eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
-
-      eofold: ani => {
-        let geoData = geoData1
-        let coords = geoData.geometry.coordinates
-        let ngj = {
-          type: 'Feature',
-          geometry: { type: 'Polygon', coordinates:
-              (geoData.geometry.type === 'LineString') ? Array.of(coords) : coords,
-          },
-          properties: {
-            eocrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.8, 'co': 0.01, 'cp': 0.99},
-          },
-        }
-        return ngj
-      },
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          prerotate: [[[ ctl.rotation ]]],
-          scale: 1,
-          translate: [ 200, 0 ],
-          rotate: [ 0, 0, 0 ],
-        },
-      },
-      eocrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
-      eoload: {},
-    }
-    // .................. lichtAni2
-    let lichtAni2 = {
-
-      eohal: eonEohalMars,
-      eotim: eotim,
-      eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
-
-      eofold: ani => {
-        let geoData = geoData2
-        let coords = geoData.geometry.coordinates
-        let ngj = {
-          type: 'Feature',
-          geometry: { type: 'Polygon', coordinates:
-              (geoData.geometry.type === 'LineString') ? Array.of(coords) : coords,
-          },
-          properties: {
-            eocrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.8, 'co': 0.01, 'cp': 0.99},
-          },
-        }
-        return ngj
-      },
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [-100, 0],
-          scale: [1, 1],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-        },
-      },
-      eocrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
-      eoload: {},
-    }
-    // .................. natB
-    let natAB = {
-
-      eohal: eonEohalMars,
-      eotim: eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'natAB'},
-
-      eofold: ani => {
-        let uniframe = {start: 0, stop: 0.9, step: ani.eoload.step}
-
-        let gjdata1 = eonMuonCastel.castels(svgdata1, uniframe)
-        let geoData1 = eonMuonProj3ct(gjdata1, eonMuonProfier.uniweon(proformSvg1))
-        let A = geoData1.geometry.coordinates
-
-        let gjdata2 = eonMuonCastel.castels(svgdata2, uniframe)
-        let geoData2 = eonMuonProj3ct(gjdata2, eonMuonProfier.uniweon(proformSvg2))
-        let B = geoData2.geometry.coordinates
-
-        let sum = eonMuonMinkowski(A, B, ani.eoload.sa, ani.eoload.sb)
-        let sumring = [...sum, sum[0]]
-
-        let res = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiLineString',
-            coordinates: [sumring],
-          },
-          properties: {},
-        }
-
-        return res
-      },
-      eonode: {
-        type: 'Feature',
-        geometry: {type: 'Point', coordinates: [0, 0, 0]},
-        properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
-      },
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          prerotate: [[[ ctl.rotation ]]],
-          scale: 1,
-          translate: [ 50, 0 ],
-          rotate: [ 0, 0, 0 ],
-        },
-      },
-
-      eocrom: { 'csx': 0, 'cf': [[[999, 555, 222, 555, 999]]], 'co': 0.99, 'cs': [[[999, 555, 222, 555, 999]]],
-        'cw': 2.99, 'cp': 0.99 },
-      eoload: {
-        step: [[[0.09, 0.9, 0.9, 0.9, 0.09, 0.9, 0.9, 0.9, 0.01]]],
-        sa: [[[0, 0, 0.5, 1, 1, 1, 0.5, 0, 0]]],
-        sb: [[[1, 1, 0.5, 0, 0, 0, 0.5, 1, 1]]],
       },
     }
+
     // .................. animas
-    let animas = [
+    let z = function () {
+    // .................. pics
+      let ctl
+      try {
+        ctl = eonCtlWen().control(eonRenderSvg.svg())
+      } catch (e) {
+        ctl = () => [0, 0, 0]
+      }
 
-      lichtAni1, // h.sol
-      lichtAni2, // h.sol
-      natAB, // h.sol
+      let eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-    ]
+      let uniframe = {start: 0, stop: 0.9, step: 0.09}
+      let gjdata1 = eonMuonCastel.castels(svgdata1, uniframe)
+      let svgprj1 = eonMuonCastel.svgprj(svgdata1, eonRenderPortview)
 
-    return animas
+      let proformSvg1 = {
+        projection: 'uniwen',
+        translate: svgprj1.translate,
+        scale: svgprj1.scale,
+        rotate: [ 0, 0, 0 ],
+        lens: [0, 1, Infinity],
+      }
+      let geoData1 = eonMuonProj3ct(gjdata1, eonMuonProfier.uniweon(proformSvg1))
+
+      let gjdata2 = eonMuonCastel.castels(svgdata2, uniframe)
+      let svgprj2 = eonMuonCastel.svgprj(svgdata2, eonRenderPortview)
+      let proformSvg2 = {
+        projection: 'uniwen',
+        translate: svgprj2.translate,
+        scale: svgprj2.scale,
+        rotate: [ 0, 0, 0 ],
+        lens: [ 0, 1, Infinity ],
+      }
+      let geoData2 = eonMuonProj3ct(gjdata2, eonMuonProfier.uniweon(proformSvg2))
+
+      // .................. lichtAni1
+      let lichtAni1 = {
+
+        eohal: eonEohalMars,
+        eotim: eotim,
+        eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
+
+        eofold: ani => {
+          let geoData = geoData1
+          let coords = geoData.geometry.coordinates
+          let ngj = {
+            type: 'Feature',
+            geometry: { type: 'Polygon', coordinates:
+              (geoData.geometry.type === 'LineString') ? Array.of(coords) : coords,
+            },
+            properties: {
+              eocrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.8, 'co': 0.01, 'cp': 0.99},
+            },
+          }
+          return ngj
+        },
+        eomot: {
+          proform: {
+            projection: 'uniwen',
+            prerotate: [[[ ctl.rotation ]]],
+            scale: 1,
+            translate: [ 200, 0 ],
+            rotate: [ 0, 0, 0 ],
+          },
+        },
+        eocrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
+        eoload: {},
+      }
+      // .................. lichtAni2
+      let lichtAni2 = {
+
+        eohal: eonEohalMars,
+        eotim: eotim,
+        eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
+
+        eofold: ani => {
+          let geoData = geoData2
+          let coords = geoData.geometry.coordinates
+          let ngj = {
+            type: 'Feature',
+            geometry: { type: 'Polygon', coordinates:
+              (geoData.geometry.type === 'LineString') ? Array.of(coords) : coords,
+            },
+            properties: {
+              eocrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.8, 'co': 0.01, 'cp': 0.99},
+            },
+          }
+          return ngj
+        },
+        eomot: {
+          proform: {
+            projection: 'uniwen',
+            translate: [-100, 0],
+            scale: [1, 1],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+          },
+        },
+        eocrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
+        eoload: {},
+      }
+      // .................. natB
+      let natAB = {
+
+        eohal: eonEohalMars,
+        eotim: eotim,
+        eoric: {gid: 'nat', cid: 'nat', fid: 'natAB'},
+
+        eofold: ani => {
+          let uniframe = {start: 0, stop: 0.9, step: ani.eoload.step}
+
+          let gjdata1 = eonMuonCastel.castels(svgdata1, uniframe)
+          let geoData1 = eonMuonProj3ct(gjdata1, eonMuonProfier.uniweon(proformSvg1))
+          let A = geoData1.geometry.coordinates
+
+          let gjdata2 = eonMuonCastel.castels(svgdata2, uniframe)
+          let geoData2 = eonMuonProj3ct(gjdata2, eonMuonProfier.uniweon(proformSvg2))
+          let B = geoData2.geometry.coordinates
+
+          let sum = eonMuonMinkowski(A, B, ani.eoload.sa, ani.eoload.sb)
+          let sumring = [...sum, sum[0]]
+
+          let res = {
+            type: 'Feature',
+            geometry: {
+              type: 'MultiLineString',
+              coordinates: [sumring],
+            },
+            properties: {},
+          }
+
+          return res
+        },
+        eonode: {
+          type: 'Feature',
+          geometry: {type: 'Point', coordinates: [0, 0, 0]},
+          properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+        },
+        eomot: {
+          proform: {
+            projection: 'uniwen',
+            prerotate: [[[ ctl.rotation ]]],
+            scale: 1,
+            translate: [ 50, 0 ],
+            rotate: [ 0, 0, 0 ],
+          },
+        },
+
+        eocrom: { 'csx': 0, 'cf': [[[999, 555, 222, 555, 999]]], 'co': 0.99, 'cs': [[[999, 555, 222, 555, 999]]],
+          'cw': 2.99, 'cp': 0.99 },
+        eoload: {
+          step: [[[0.09, 0.9, 0.9, 0.9, 0.09, 0.9, 0.9, 0.9, 0.01]]],
+          sa: [[[0, 0, 0.5, 1, 1, 1, 0.5, 0, 0]]],
+          sb: [[[1, 1, 0.5, 0, 0, 0, 0.5, 1, 1]]],
+        },
+      }
+      // .................. animas
+      let animas = [
+
+        lichtAni1, // h.sol
+        lichtAni2, // h.sol
+        natAB, // h.sol
+
+      ]
+
+      return animas
+    }
+
+    let enty = () => {}
+    enty.z = z
+    return enty
   }
-
-  let enty = () => {}
-  enty.z = z
-  return enty
-}
   exports.eonZ856dMinkowskiBeat = anitem
 }))

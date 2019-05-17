@@ -252,7 +252,6 @@
   }
 
   function define (name, dependencies, factory) {
-
     const n = arguments.length
     if (n < 2) factory = name, dependencies = []
     else if (n < 3) factory = dependencies, dependencies = typeof name === 'string' ? [] : name
@@ -285,7 +284,7 @@
       navigator.userAgent.includes('jsdom')
     return (winisobject && isnode1 && isnode2)
   }
-  
+
   const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1)
   const a = d => Array.isArray(d) ? d : Array.of(d)
 
@@ -328,15 +327,12 @@
     .replace(/\s+/g, '') // remove white space
     .replace(/-+/g, '') // remove hyphen
 
-
   const snakefy = str => str
     .replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() })
-  
 
   const eonpre = d => 'eon' + capitalize(d)
-  
+
   const camelize = str => precamelize(str)
-  
 
   async function getCell (e, n, m) { // eon, name, mapper returns enty
     console.assert(e !== undefined, `eon ${n} is undefined`)
@@ -393,7 +389,6 @@
   // ............................. getEon
   // nome is partName: eg 'eonMuonGraticule'
   async function getEon (inpart, __eo) {
-
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
     let res = []
@@ -513,7 +508,6 @@
   // xEo gets xs from the state to retrive eons
   //
   let eonit = async function ({anitem, time}) {
-
     let __eo = await eostore()
     let eonMuonStore = __eo('eonMuonStore')
 
@@ -614,7 +608,6 @@
     else if (filename) res = filename
 
     res = (res && res !== 'index') ? res : 'eon-z814m-d3heart'
-
 
     return res
   }

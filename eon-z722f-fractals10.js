@@ -63,7 +63,7 @@
     let z = function () {
     // let ctl = eonCtlVersor().control(eonRenderSvg.svg())
 
-    // .................. pics
+      // .................. pics
 
       const pi = Math.PI, pi2 = 2 * pi,
         turn = 2 * Math.PI // 360

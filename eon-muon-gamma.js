@@ -10,7 +10,6 @@
   'use strict'
 
   async function eonitem (__eo = {}) {
-
     // ............................. pics
     const fact = op => gamma(op + 1)
 
@@ -42,9 +41,9 @@
 
     let bessel = (data) => {
       let {x, summs, level} = data
-      console.assert(x !== undefined , `bessel x undefined` )
-      console.assert(summs !== undefined , `bessel summs undefined` )
-      console.assert(level !== undefined, `bessel level undefined` )
+      console.assert(x !== undefined, `bessel x undefined`)
+      console.assert(summs !== undefined, `bessel summs undefined`)
+      console.assert(level !== undefined, `bessel level undefined`)
       let w = Array.from(new Array(summs), (d, i) => 1)
       let v = level
 

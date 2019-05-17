@@ -2,53 +2,53 @@
    *    @eonZ722qLindentext
    *
    */
-  (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
-      : typeof define === 'function' && define.amd ? define(['exports'], factory)
-        : (factory((global.eonZ722qLindentext = global.eonZ722qLindentext || {})))
-  }(this, function (exports) {
-    'use strict'
-  
-    async function anitem (__eo) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.eonZ722qLindentext = global.eonZ722qLindentext || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function anitem (__eo) {
   // .................. eons
-  let [
-    eonCtlWen,
-    eonEohalMars,
-    eonEohalTextform,
-    eonMuonLindenmayer,
-    eonMuonNatform,
-    eonMuonProps,
-    eonProtonUniwen,
-    eonRenderSvg,
-  ] = await Promise.all([
-    __eo('xs').b('eon-ctl-wen'),
-    __eo('xs').b('eon-eohal-mars'),
-    __eo('xs').b('eon-eohal-textform'),
-    __eo('xs').b('eon-muon-lindenmayer'),
-    __eo('xs').b('eon-muon-natform'),
-    __eo('xs').b('eon-muon-props'),
-    __eo('xs').b('eon-proton-uniwen'),
-    __eo('xs').b('eon-render-svg'),
-  ])
-  try { eonRenderSvg.scenecolor('black') } catch (e) {}
-  let sin = Math.sin
+    let [
+      eonCtlWen,
+      eonEohalMars,
+      eonEohalTextform,
+      eonMuonLindenmayer,
+      eonMuonNatform,
+      eonMuonProps,
+      eonProtonUniwen,
+      eonRenderSvg,
+    ] = await Promise.all([
+      __eo('xs').b('eon-ctl-wen'),
+      __eo('xs').b('eon-eohal-mars'),
+      __eo('xs').b('eon-eohal-textform'),
+      __eo('xs').b('eon-muon-lindenmayer'),
+      __eo('xs').b('eon-muon-natform'),
+      __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-proton-uniwen'),
+      __eo('xs').b('eon-render-svg'),
+    ])
+    try { eonRenderSvg.scenecolor('black') } catch (e) {}
+    let sin = Math.sin
 
-  let conformT = {
-    x: {
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-      'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-      'dom3': [ 0, 7 * 360 ],
-      'fn0': (e, c) => e[0],
-    },
-    y: {
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-      'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-      'dom3': [0, 360],
-      'fn0': (e, c) => 0 * sin(e[0]),
-    },
-  }
+    let conformT = {
+      x: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [ 0, 7 * 360 ],
+        'fn0': (e, c) => e[0],
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 360],
+        'fn0': (e, c) => 0 * sin(e[0]),
+      },
+    }
 
-  let text = `The Peano curve is the first 
+    let text = `The Peano curve is the first 
 example of a space-filling curve. 
 Giuseppe Peano, motivate by an earlier
 result of Georg Cantor that the unit 
@@ -68,201 +68,201 @@ delays -due to his demand that formulae
 be printed on one line- that he 
 purchased a printing press. ref. wikipedia`
 
-  let ctl
-  try {
-    ctl = eonCtlWen().control(eonRenderSvg.svg())
-  } catch (e) {
-    ctl = () => [0, 0, 0]
-  }
+    let ctl
+    try {
+      ctl = eonCtlWen().control(eonRenderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }
 
-  let eomotAniText = {
-    proform: {
+    let eomotAniText = {
+      proform: {
+        projection: 'uniwen',
+        scale: 1,
+        translate: {'x': -20, 'y': 150 },
+        prerotate: [[[ ctl.rotation ]]],
+        rotate: [ 0, 0, 0 ],
+      },
+    }
+
+    let lindenmayer = { //
+      linden: {
+        axiom: 'L',
+        loopq: 3,
+        feet: 1,
+        rules: {
+          L: 'LFRFL-F-RFLFR+F+LFRFL',
+          R: 'RFLFR+F+LFRFL-F-RFLFR',
+        },
+      },
+      mayer: {
+        angstart: 0,
+        side: 12,
+        angunit: -90,
+        start: [0, 0],
+      },
+    }
+    let proformT = {
       projection: 'uniwen',
-      scale: 1,
-      translate: {'x': -20, 'y': 150 },
+      scale: [ 0.2, 0.2 ],
       prerotate: [[[ ctl.rotation ]]],
-      rotate: [ 0, 0, 0 ],
-    },
-  }
-
-  let lindenmayer = { //
-    linden: {
-      axiom: 'L',
-      loopq: 3,
-      feet: 1,
-      rules: {
-        L: 'LFRFL-F-RFLFR+F+LFRFL',
-        R: 'RFLFR+F+LFRFL-F-RFLFR',
-      },
-    },
-    mayer: {
-      angstart: 0,
-      side: 12,
-      angunit: -90,
-      start: [0, 0],
-    },
-  }
-  let proformT = {
-    projection: 'uniwen',
-    scale: [ 0.2, 0.2 ],
-    prerotate: [[[ ctl.rotation ]]],
-    translate: [ 0, 0, 0 ], // iter
-    rotate: [0, 0, 0],
-    lens: [0, 1, Infinity ],
-  }
-  let eocromT = { 'csx': 7, 'cf': 999, 'co': 0.9, 'cs': 999, 'cw': 0.1, 'cp': 0.99}
-
-  // .................. animas
-  let z = function () {
-    // .................. pics
-
-    let eotim = { td: 19200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
-
-    // .................. aniForm1
-    let aniForm1 = {
-
-      eotim: eotim,
-      eoric: { gid: 'ani', cid: 'ani1', fid: 'ani1' },
-      eohal: eonEohalMars,
-
-      eofold: ani => {
-        let geoData = eonMuonLindenmayer.multiFeature(ani.eoload.lindenmayer)
-
-        return geoData
-      },
-
-      eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.1]]], 'cp': [[[0.9, 0.9]]]},
-
-      eomot: eomotAniText,
-      eoload: {
-
-        lindenmayer: lindenmayer,
-
-      },
+      translate: [ 0, 0, 0 ], // iter
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
     }
-
-    // .................. aniFormText
-    let aniFormText = {
-
-      eotim: eotim,
-      eoric: { gid: 'ani', cid: 'ani2', fid: 'ani2' },
-      eohal: eonEohalTextform,
-
-      eofold: ani => {
-        let geoData = eonMuonLindenmayer.lineString(ani.eoload.lindenmayer)
-
-        return geoData
-      },
-
-      eocrom: { 'csx': 7, 'cf': [[[999, 999]]], 'cs': 999, 'cw': [[[0.3, 0.3]]], 'co': [[[0.001, 0.5]]], 'cp': [[[0.001, 0.5]]]},
-
-      eomot: eomotAniText,
-      eoload: {
-
-        textform: {
-          string: [[[function (t) {
-            return this.text
-          }]]],
-          text: text,
-          style: {
-            rotate: [[[ 0, 0 ]]],
-            'font-size': [[[48, 8]]],
-            'font-family': 'Verdana', // BankFuturistic, Arial
-            'kerning': 4, // 1
-            'lengthAdjust': 'spacing', // spacingAndGlyphs
-            'letter-spacing': 2,
-            'text-anchor': 'start', // start, middle, end
-            'textLength': 0,
-            'word-spacing': 3,
-          },
-        },
-
-        lindenmayer: lindenmayer,
-
-      },
-    }
-
-    // .................. textAni
-    let textAni = {
-      eohal: eonEohalTextform,
-      eotim: eotim,
-      eoric: {gid: 'txtg', cid: 'txtcT', fid: 'txtfT'},
-
-      eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
-        return eonMuonNatform.natMultiLineString(natipros)
-      },
-      eomot: {
-        proform: proformT,
-      },
-      eocrom: eocromT,
-
-      eoload: {
-        eoform: conformT,
-        textform: {
-          string: [[[function (t) {
-            let txt = this.text
-            let linenb = this.linenb
-            let ttxt = txt // textsegment( txt, t)
-            let sttxt = ttxt.split('\n')
-
-            return sttxt[linenb]
-          }]]],
-          text: text,
-          style: {
-            rotate: [[[ 0, 0 ]]],
-
-            // eocromT
-            // 'fill': "rgb(255, 215, 0)",
-            // 'fill-opacity': 1,
-            // 'stroke': "rgb(255, 215, 0)",
-            // 'stroke-width': 0.1,
-            // 'stroke-opacity': undefined,
-
-            'font-size': [[[12, 12]]],
-            'font-family': 'Verdana', // BankFuturistic, Arial
-            'kerning': 4, // 1
-            'lengthAdjust': 'spacing', // spacingAndGlyphs
-            'letter-spacing': 1,
-            'text-anchor': 'start', // start, middle, end
-            'textLength': 0,
-            'word-spacing': 1,
-          },
-        },
-      },
-    }
-
-    let getanis = function (txt = '') {
-      let anis = []
-      let a = txt.split('\n')
-      let x0 = -295
-      let xd = 0
-      let y0 = 150
-      let yd = -18
-      for (let i = 0; i < a.length; i++) {
-        let ani = eonMuonProps.clone(textAni)
-        ani.eoric.fid = textAni.eoric.fid + '_' + i
-        ani.eoric.cid = textAni.eoric.cid + '_' + i
-        ani.eomot.proform.translate = [x0 + xd * i, y0 + yd * i]
-        ani.eoload.textform.linenb = i
-        anis.push(ani)
-      }
-      return anis
-    }
+    let eocromT = { 'csx': 7, 'cf': 999, 'co': 0.9, 'cs': 999, 'cw': 0.1, 'cp': 0.99}
 
     // .................. animas
-    let scene = [
-      ...getanis(text),
-      aniFormText, // h.textform
-      aniForm1, // h.mars
-    ]
+    let z = function () {
+    // .................. pics
 
-    return scene
+      let eotim = { td: 19200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
+
+      // .................. aniForm1
+      let aniForm1 = {
+
+        eotim: eotim,
+        eoric: { gid: 'ani', cid: 'ani1', fid: 'ani1' },
+        eohal: eonEohalMars,
+
+        eofold: ani => {
+          let geoData = eonMuonLindenmayer.multiFeature(ani.eoload.lindenmayer)
+
+          return geoData
+        },
+
+        eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.1]]], 'cp': [[[0.9, 0.9]]]},
+
+        eomot: eomotAniText,
+        eoload: {
+
+          lindenmayer: lindenmayer,
+
+        },
+      }
+
+      // .................. aniFormText
+      let aniFormText = {
+
+        eotim: eotim,
+        eoric: { gid: 'ani', cid: 'ani2', fid: 'ani2' },
+        eohal: eonEohalTextform,
+
+        eofold: ani => {
+          let geoData = eonMuonLindenmayer.lineString(ani.eoload.lindenmayer)
+
+          return geoData
+        },
+
+        eocrom: { 'csx': 7, 'cf': [[[999, 999]]], 'cs': 999, 'cw': [[[0.3, 0.3]]], 'co': [[[0.001, 0.5]]], 'cp': [[[0.001, 0.5]]]},
+
+        eomot: eomotAniText,
+        eoload: {
+
+          textform: {
+            string: [[[function (t) {
+              return this.text
+            }]]],
+            text: text,
+            style: {
+              rotate: [[[ 0, 0 ]]],
+              'font-size': [[[48, 8]]],
+              'font-family': 'Verdana', // BankFuturistic, Arial
+              'kerning': 4, // 1
+              'lengthAdjust': 'spacing', // spacingAndGlyphs
+              'letter-spacing': 2,
+              'text-anchor': 'start', // start, middle, end
+              'textLength': 0,
+              'word-spacing': 3,
+            },
+          },
+
+          lindenmayer: lindenmayer,
+
+        },
+      }
+
+      // .................. textAni
+      let textAni = {
+        eohal: eonEohalTextform,
+        eotim: eotim,
+        eoric: {gid: 'txtg', cid: 'txtcT', fid: 'txtfT'},
+
+        eofold: ani => {
+          let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
+          return eonMuonNatform.natMultiLineString(natipros)
+        },
+        eomot: {
+          proform: proformT,
+        },
+        eocrom: eocromT,
+
+        eoload: {
+          eoform: conformT,
+          textform: {
+            string: [[[function (t) {
+              let txt = this.text
+              let linenb = this.linenb
+              let ttxt = txt // textsegment( txt, t)
+              let sttxt = ttxt.split('\n')
+
+              return sttxt[linenb]
+            }]]],
+            text: text,
+            style: {
+              rotate: [[[ 0, 0 ]]],
+
+              // eocromT
+              // 'fill': "rgb(255, 215, 0)",
+              // 'fill-opacity': 1,
+              // 'stroke': "rgb(255, 215, 0)",
+              // 'stroke-width': 0.1,
+              // 'stroke-opacity': undefined,
+
+              'font-size': [[[12, 12]]],
+              'font-family': 'Verdana', // BankFuturistic, Arial
+              'kerning': 4, // 1
+              'lengthAdjust': 'spacing', // spacingAndGlyphs
+              'letter-spacing': 1,
+              'text-anchor': 'start', // start, middle, end
+              'textLength': 0,
+              'word-spacing': 1,
+            },
+          },
+        },
+      }
+
+      let getanis = function (txt = '') {
+        let anis = []
+        let a = txt.split('\n')
+        let x0 = -295
+        let xd = 0
+        let y0 = 150
+        let yd = -18
+        for (let i = 0; i < a.length; i++) {
+          let ani = eonMuonProps.clone(textAni)
+          ani.eoric.fid = textAni.eoric.fid + '_' + i
+          ani.eoric.cid = textAni.eoric.cid + '_' + i
+          ani.eomot.proform.translate = [x0 + xd * i, y0 + yd * i]
+          ani.eoload.textform.linenb = i
+          anis.push(ani)
+        }
+        return anis
+      }
+
+      // .................. animas
+      let scene = [
+        ...getanis(text),
+        aniFormText, // h.textform
+        aniForm1, // h.mars
+      ]
+
+      return scene
+    }
+
+    let enty = () => {}
+    enty.z = z
+    return enty
   }
-
-  let enty = () => {}
-  enty.z = z
-  return enty
-}
   exports.eonZ722qLindentext = anitem
 }))

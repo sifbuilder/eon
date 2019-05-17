@@ -39,9 +39,9 @@
       __eo('xs').b('eon-render-svg'),
       __eo('xs').b('eon-render-webgl'),
     ])
-    try { 
+    try {
       if (__eo('eonRenderWebgl') == undefined) {
-        eonRenderSvg.scenecolor('black') 
+        eonRenderSvg.scenecolor('black')
       }
     } catch (e) {}
     let ctl

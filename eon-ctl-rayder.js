@@ -23,7 +23,6 @@
 
     let eonRenderSvg = __eo('eonRenderSvg')
 
-
     let state = {
       showpos: false,
       grabbed: false,

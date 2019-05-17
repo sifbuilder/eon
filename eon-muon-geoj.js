@@ -677,7 +677,7 @@
                   q.reduce((p2, q2) => p2 && // ring
                     Array.isArray(q2) && q2.reduce((p3, q3) => p3 && // point
                       typeof (q3 === 'number' || q3 === undefined) // coord
-                    ,
+                  ,
                   true),
                   true),
                 true)

@@ -925,7 +925,6 @@
               if (itemsInPattern.length > 0) {
                 patternedItems[k] = patternedItems[k].concat(itemsInPattern)
               }
-
             }
           }
         } // citems

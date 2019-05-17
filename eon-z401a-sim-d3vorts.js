@@ -32,7 +32,7 @@
       __eo('xs').b('eon-muon-eoric'),
       __eo('xs').b('eon-muon-eoforces'),
       __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-muon-sim'),      
+      __eo('xs').b('eon-muon-sim'),
       __eo('xs').b('eon-render-svg'),
     ])
     try { eonRenderSvg.scenecolor('black') } catch (e) {}

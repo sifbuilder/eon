@@ -42,11 +42,9 @@ describe('results from animation', () => {
     expect(callback).toHaveBeenCalledTimes(ntimes + 1) //  4
     expect(t).toBe((ntimes - 1) * dt) //  200
 
-
     // feature 1 is MultiLineString
-    expect(state.featurecollection.features[1].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td) // 0.1 
+    expect(state.featurecollection.features[1].properties.eotim.unElapsed).toBe(((ntimes - 1) * dt) / td) // 0.1
     expect(state.featurecollection.features[1].geometry.type).toBe('MultiLineString')
     expect(state.featurecollection.features[1].properties.eoric.uid).toEqual('natpace_natpace_1')
-
   })
 })

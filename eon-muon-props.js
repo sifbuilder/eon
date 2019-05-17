@@ -56,7 +56,7 @@
         Array.isArray(curr) ||
         typeof (curr) === 'string' ||
         typeof (curr) === 'number'
-      , true)
+    , true)
 
     props.isDoubleSingleArray = d => (Array.isArray(d) && // [[_]]
         Array.isArray(d[0]) &&
@@ -465,7 +465,7 @@
       p &&
         (q === 'x' || q === 'y' || q === 'z') &&
         typeof obj[q] === 'number'
-      , true)
+    , true)
 
     props.debug = () => [].join.call(arguments, '\n')
 

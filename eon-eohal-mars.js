@@ -123,7 +123,6 @@
         anitem.eoload.pacer.anigram !== undefined
       ) {
         pacedItems = eonEohalPacer.eopace(anitem)
-
       }
 
       return [...newAnitems, ...pacedItems]
@@ -140,7 +139,6 @@
         anitem.eoload.pacer.anima !== undefined
       ) {
         pacedItems = eonEohalPacer.eopace(anitem)
-
       }
 
       return [...newAnitems, ...pacedItems]

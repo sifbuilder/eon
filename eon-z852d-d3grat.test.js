@@ -13,7 +13,6 @@ const eonXEonify = require('../eon-x-eonify.js')
 jest.useFakeTimers()
 
 describe('results from animation', () => {
-  
   test('ani timer', async () => {
     let __eo = await eonXEonify.eonit({anitem: '852d-3dgrat'})
     await __eo('xs').b('eon-ctl-timer')
@@ -43,9 +42,9 @@ describe('results from animation', () => {
     let anigram = state.anigrams[0]
     let td = anigram.eotim.td
 
-    expect(callback).toHaveBeenCalledTimes(ntimes + 1)  // 9
+    expect(callback).toHaveBeenCalledTimes(ntimes + 1) // 9
     expect(t).toBe((ntimes - 1) * dt) // 700
-    expect(anigram.eotim.unElapsed).toBe((ntimes - 2) * dt / td)  // 0.06
+    expect(anigram.eotim.unElapsed).toBe((ntimes - 2) * dt / td) // 0.06
     expect(anigram.eofold.features[0].geometry.type).toBe('MultiLineString')
     expect(anigram.eofold.features[0].geometry.coordinates.length).toBe(2)
   })

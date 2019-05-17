@@ -51,7 +51,7 @@
         sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
         pow = Math.pow
 
-        // let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
+      // let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
       let fact = x => eonMuonGamma.fact(x)
       let infact = x => 1 / fact(x)
 
@@ -64,12 +64,9 @@
         //  e: [-1.5707963267948966, -1.5707963267948966, 0, 0]
         //  dax.e: [Array(9), 1, 1, Array(9)]
 
-
-
         // turn each dimension into array
         let cf = eonMuonNatform.daxify(_c) // _c
         let ef = eonMuonNatform.daxify(_e) // _e
-
 
         // value described as series of powers
         // eg. cost: [infact(0), 0, -infact(2), 0, infact(4)]
@@ -207,4 +204,3 @@
   }
   exports.eonZ813qRadiFrame = anitem
 }))
-

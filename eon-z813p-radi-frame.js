@@ -170,7 +170,7 @@
 
         eomot: {
           ereform: {
-            projection: 'uniwen', scale: [1, 1, 1], translate: [-120, 0, 0], rotate: [ [[[-30,-30,-60,-60, -30]]], 0, [[[0,180, 360]]] ],
+            projection: 'uniwen', scale: [1, 1, 1], translate: [-120, 0, 0], rotate: [ [[[-30, -30, -60, -60, -30]]], 0, [[[0, 180, 360]]] ],
           },
           proform: {
             projection: 'uniwen', scale: [1, 1, 1], translate: [0, 0, 0], rotate: [[[ctl.rotation]]],
@@ -203,7 +203,7 @@
 
         eomot: {
           ereform: {
-            projection: 'uniwen', scale: [1, 1, 1], translate: [120, 0, 0], rotate: [[[[-30,-30,-60,-60, -30]]], 0, [[[0,180, 360]]]],
+            projection: 'uniwen', scale: [1, 1, 1], translate: [120, 0, 0], rotate: [[[[-30, -30, -60, -60, -30]]], 0, [[[0, 180, 360]]]],
           },
           proform: {
             projection: 'uniwen', scale: [1, 1, 1], translate: [0, 0, 0], rotate: [[[ctl.rotation]]],

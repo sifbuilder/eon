@@ -76,7 +76,6 @@
 
     // ... async animate
     function animate (time) {
-
       eonMuonStore = __eo('eonMuonStore')
       eonMuonSim = __eo('eonMuonSim')
       eonRenderRenderer = __eo('eonRenderRenderer')
@@ -117,7 +116,7 @@
             q.eofold.type === 'Feature'
               ? [...p, q.eofold] // Feature
               : [...p, ...q.eofold.features] // FeatureCollection
-            , []),
+          , []),
 
       }
       return featurecollection
@@ -125,7 +124,6 @@
 
     // ... ANIMIER
     function animier (elapsed, s) {
-
       eonMuonStore = __eo('eonMuonStore')
       state.animas = eonMuonStore.animas()
       state.anigrams = eonMuonStore.anigrams()
@@ -154,9 +152,7 @@
         maxlimit > 0 &&
         overtime // stop if spired
       ) { // stop if anigrams spired
-
         state.animationStop()
-
       }
 
       // ... @ANIFY SIM GRAMIFY RENDER
@@ -168,7 +164,7 @@
 
       // ... then render by sort the features in the collection
       eonRenderRenderer.render(featurecollection, elapsed)
-      
+
       return state
     }
 

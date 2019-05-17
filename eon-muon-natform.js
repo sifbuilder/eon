@@ -183,7 +183,7 @@
       // d3Scale,
       // d3Array,
       d3Geo,
-      eonMuonGamma,      
+      eonMuonGamma,
       eonMuonLacer,
       eonMuonProps,
       eonMuonGeom,
@@ -195,7 +195,7 @@
       // __eo('xs').b('d3'),
       // __eo('xs').b('d3-array'),
       __eo('xs').b('d3-geo'),
-      __eo('xs').b('eon-muon-gamma'),      
+      __eo('xs').b('eon-muon-gamma'),
       __eo('xs').b('eon-muon-lacer'),
       __eo('xs').b('eon-muon-props'),
       __eo('xs').b('eon-muon-geom'),
@@ -212,8 +212,8 @@
       degrees = 180 / Math.PI,
       tau = 2 * Math.PI,
       pow = Math.pow
-      
-    let _fact = n => n - 1 > 0 ? n * fact(n - 1) : n      
+
+    let _fact = n => n - 1 > 0 ? n * fact(n - 1) : n
     let fact = x => eonMuonGamma.fact(x)
     let infact = x => 1 / fact(x)
     let ponder = d => t => Math.min(1 + Math.floor(d * t), d)
@@ -230,14 +230,14 @@
       for (let i = 0; i < n; i++) {
         let c1 = v[i]
         let c2 = fact(i)
-        let c3 =  (Math.pow(x, i) || 0)
+        let c3 = (Math.pow(x, i) || 0)
         let sum = (c1 / c2) * c3
         res = res + sum
       }
       return res
-    }    
+    }
     let rtaylor = x => taylor(Math.abs(x))
-   
+
     let daxify = (d, dim = 4, defv = 0) => Array(dim)
       .fill(defv)
       .map((c, i) => functor(d)[i] !== undefined
@@ -292,8 +292,6 @@
       [-90, 90],
       [-90, 90],
     ]
-
-
 
     // ............................. enformDax
     let enformDax = function (formDax) {
@@ -398,7 +396,6 @@
 
     // ............................. natMultiPolygon
     let natMultiPolygon = function (props = {}) {
-
       let feature
 
       const {
@@ -739,7 +736,6 @@
       geoProj.stream = s => geoTrans.stream(s)
       return geoProj
     }
-
 
     // ............................. enty
     let enty = function () {}

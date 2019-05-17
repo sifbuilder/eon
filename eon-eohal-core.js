@@ -9,7 +9,6 @@
   'use strict'
 
   async function eonitem (__eo = {}) {
-
     // ....................... eohale
     let eohale = anitem => anitem
 

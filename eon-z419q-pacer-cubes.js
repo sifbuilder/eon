@@ -15,36 +15,26 @@
     let [
       eonCtlRayder,
       eonCtlWen,
-
       eonEohalMars,
       eonEohalPacer,
-
       eonMuonEoric,
       eonMuonGraticule,
       eonMuonNatform,
-
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('eon-ctl-rayder'),
       __eo('xs').b('eon-ctl-wen'),
-
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-pacer'),
-
       __eo('xs').b('eon-muon-eoric'),
       __eo('xs').b('eon-muon-graticule'),
       __eo('xs').b('eon-muon-natform'),
-
       __eo('xs').b('eon-render-svg'),
     ])
 
     try { eonRenderSvg.scenecolor('black') } catch (e) {}
     let ctl
-    try {
-      ctl = eonCtlWen().control(eonRenderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
+    try { ctl = eonCtlWen().control(eonRenderSvg.svg()) } catch (e) { ctl = () => [0, 0, 0] }
     let eonMuonStore = __eo('eonMuonStore')
     // .................. animas
     let z = function () {
@@ -55,6 +45,7 @@
       let pacerNat = {
 
         eohal: eonEohalPacer,
+        eotim: eotim,
         eoric: { gid: 'natpace', cid: 'natpace', fid: 'natpace' },
         eoload: {
 

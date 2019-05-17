@@ -465,9 +465,9 @@
       // .................. animas
       let animas = [
         natLeaform, // h.pacer
-      // natLined, // h.pacer
-      // textAni, // h.textform
-      // pointTrace, // h.pacer
+        // natLined, // h.pacer
+        // textAni, // h.textform
+        // pointTrace, // h.pacer
 
       ]
 

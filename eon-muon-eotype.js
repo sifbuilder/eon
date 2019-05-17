@@ -19,7 +19,7 @@
         (Array.isArray(curr) ||
         typeof (curr) === 'string' ||
         typeof (curr) === 'number')
-      , true)
+    , true)
 
     const isDoubleSingleArray = d => (Array.isArray(d) && // [[_]]
         Array.isArray(d[0]) &&

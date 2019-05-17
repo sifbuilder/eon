@@ -14,32 +14,32 @@
     let [
       d3Geo,
       d3Geoprojection,
-      topojson,      
+      topojson,
       eonCtlWen,
-      eonDatWorldTopo110m,      
+      eonDatWorldTopo110m,
       eonEohalMars,
       eonEohalSol,
       eonMuonGamma,
       eonMuonGraticule,
       eonMuonNatform,
       eonProtonNatform,
-      eonProtonOrthographic,      
+      eonProtonOrthographic,
       eonRenderPortview,
       eonRenderSvg,
       // eonRenderWebgl,
     ] = await Promise.all([
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
-      __eo('xs').b('topojson'),      
+      __eo('xs').b('topojson'),
       __eo('xs').b('eon-ctl-wen'),
-      __eo('xs').b('eon-dat-world-topo110m'),      
+      __eo('xs').b('eon-dat-world-topo110m'),
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-sol'),
       __eo('xs').b('eon-muon-gamma'),
       __eo('xs').b('eon-muon-graticule'),
       __eo('xs').b('eon-muon-natform'),
       __eo('xs').b('eon-proton-natform'),
-      __eo('xs').b('eon-proton-orthographic'),      
+      __eo('xs').b('eon-proton-orthographic'),
       __eo('xs').b('eon-render-portview'),
       __eo('xs').b('eon-render-svg'),
       // __eo('xs').b('eon-render-webgl'),
@@ -75,7 +75,7 @@
         [[[0, 0, 0, 0, -1]]],
         [[[0, 0, 0, 0, 0]]],
         [[[0, 0, 0, 0, 0, 1, 1]]],
-        [[[0, 0, 0, 0, 0, 0]]]
+        [[[0, 0, 0, 0, 0, 0]]],
       ]
       let sint = [
         0,
@@ -97,7 +97,6 @@
           'dom3': [-180, 180],
           t: [[[0, Math.PI]]],
           e: [ cost, 1, 1, cost ],
-
 
           fn0: (e, c, dax) => {
             let series = eonMuonNatform.daxify(dax.e) // to dax
@@ -207,7 +206,7 @@
           conform: {
             projection: 'natform',
             eoform: conform2,
-          },          
+          },
           ereform: {
             projection: 'uniwen', scale: [ [[[0.5, 0.5, 0.7, 1.5]]], [[[0.5, 0.5, 0.7, 1.5]]], [[[0.5, 0.5, 0.7, 1.5]]]],
             translate: [0, 0, 0],

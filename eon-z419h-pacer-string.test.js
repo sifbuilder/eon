@@ -19,7 +19,7 @@ describe('results from animation', () => {
     let eonMuonAnimation = await __eo('xs').b('eon-muon-animation')
 
     jest.useFakeTimers()
-    const callback = jest.fn()    
+    const callback = jest.fn()
     let gjfc = {}, times = 0, dt = 100, t = 0, ntimes = 8 // td: 1000
     async function anitimer (callback) {
       await callback()
