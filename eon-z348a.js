@@ -174,7 +174,7 @@
         },
         eoload: {
           textform: {
-            string: 'eon-z-348a',
+            string: 'eon-z348a',
             style: {
               'font-size': 12,
             },

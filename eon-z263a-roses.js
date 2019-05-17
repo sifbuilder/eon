@@ -79,7 +79,7 @@
         eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
         eoload: {
           textform: {
-            string: 'eon-z-263a roses',
+            string: 'eon-z263a roses',
             style: { 'font-size': [[[12, 12]]] },
           },
         },
