@@ -133,7 +133,6 @@
                 let C1 = 50
                 let C2 = 2 // correlate with initN
                 stace = [0, Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2), 0]
-
               } else if (props.key === 'auto') { // AUTO
                 stace = [ 0 + 20 * Math.random(), 0 + 20 * Math.random(), 0]
               } else if (props.key === 'event') { // EVENT

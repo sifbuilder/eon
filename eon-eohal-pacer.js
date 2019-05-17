@@ -236,6 +236,7 @@
       let count = getCounter(data).count
 
       // -------------------  // UPD STORE HOST
+
       if (hostAnitem.eoinited === undefined) {
         hostAnitem.eoinited = { [pacedUid]: eotim.unPassed }
       } else {
@@ -322,6 +323,7 @@
       return newitems
     }
 
+    // ............................. eohal
     let eohal = {
       anify: anitem => anify(anitem),
       gramify: anitem => gramify(anitem),

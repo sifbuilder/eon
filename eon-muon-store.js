@@ -22,7 +22,7 @@
         console.log('A m.store promise failed to resolve', err)
       })
 
-    let epsilon = 1e-5
+    let eonMuonStore = __eo('eonMuonStore')
 
     let state = {
       animas: [], // animas array
@@ -73,7 +73,7 @@
             ? updAnima.eoric.uid
             : eonMuonEoric.getuid(updAnima)
 
-          let anima = state.animas[uid] 
+          let anima = state.animas[uid]
 
           if (anima !== undefined) { // anima exists
             if (updAnima.eodelled === 1) {
@@ -99,7 +99,7 @@
             let newItem = newAnigrams[i] // new anigram
 
             if (Array.isArray(newItem)) {
-              newItem = newItem[0]  // _e_
+              newItem = newItem[0] // _e_
             }
 
             let uid = newItem.eoric.uid || eonMuonEoric.getuid(newItem)
@@ -124,7 +124,9 @@
     }
 
     // .................. gavatars
-    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
+    let gavatars = item => (typeof item.avatars === 'object')
+      ? Object.values(item.avatars)
+      : (item.avatars || [])
 
     // .................. sequence
     function sequence (items = [], fromitem) {
@@ -153,7 +155,6 @@
 
     // .................. anify
     function anify (anitem) { // ok trace
-
       let eohal = anitem.eohal
       if (typeof (eohal) === 'object') {
 
@@ -301,7 +302,6 @@
           res = anitems[item.uid]
         } else if (typeof item === 'object' && item.gid !== undefined) {
           let uid = eonMuonEoric.idify(item.gid, item.cid, item.fid)
-
 
           res = anitems[uid]
         } else if (typeof item === 'string') {

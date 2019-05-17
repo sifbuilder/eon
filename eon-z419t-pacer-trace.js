@@ -15,22 +15,16 @@
   async function anitem (__eo) {
     // .................. eons
     let [
-
       eonEohalMars,
-
       eonRenderSvg,
     ] = await Promise.all([
-
       __eo('xs').b('eon-eohal-mars'),
-
       __eo('xs').b('eon-render-svg'),
     ])
 
-    try {
-      eonRenderSvg.scenecolor('black')
-    } catch (e) {}
-
+    try { eonRenderSvg.scenecolor('black') } catch (e) {}
     let eonMuonStore = __eo('eonMuonStore')
+
     // .................. animas
     let z = function () {
       // .................. pics
@@ -38,6 +32,7 @@
 
       // ....................... pacerNat
       let pacerNat = {
+
         eohal: eonEohalMars, // eonEohalPacer,
         eoric: { gid: 'ani', cid: 'ani', fid: 'dot' },
         eotim: eotim,

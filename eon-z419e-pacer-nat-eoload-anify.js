@@ -14,26 +14,23 @@
     // .................. eons
     let [
       eonCtlRayder,
-
       eonEohalMars,
       eonEohalPacer,
       eonMuonEoric,
       eonMuonNatform,
-
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('eon-ctl-rayder'),
-
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-pacer'),
       __eo('xs').b('eon-muon-eoric'),
       __eo('xs').b('eon-muon-natform'),
-
       __eo('xs').b('eon-render-svg'),
     ])
 
-    let eonMuonStore = __eo('eonMuonStore')
     try { eonRenderSvg.scenecolor('black') } catch (e) {}
+    let eonMuonStore = __eo('eonMuonStore')
+
     // .................. animas
     let z = function () {
       // .................. pics
