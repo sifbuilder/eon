@@ -13,29 +13,25 @@
   // .................. eons
     let [
       eonCtlRayder,
-      eonCtlWen,
-      eonEohalNatform,
+
       eonEohalMars,
       eonEohalPacer,
       eonEohalTextform,
       eonMuonEoric,
       eonMuonNatform,
       eonMuonProps,
-      eonMuonStace,
-      eonProtonUniwen,
+
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('eon-ctl-rayder'),
-      __eo('xs').b('eon-ctl-wen'),
-      __eo('xs').b('eon-eohal-natform'),
+
       __eo('xs').b('eon-eohal-mars'),
       __eo('xs').b('eon-eohal-pacer'),
       __eo('xs').b('eon-eohal-textform'),
       __eo('xs').b('eon-muon-eoric'),
       __eo('xs').b('eon-muon-natform'),
       __eo('xs').b('eon-muon-props'),
-      __eo('xs').b('eon-muon-stace'),
-      __eo('xs').b('eon-proton-uniwen'),
+
       __eo('xs').b('eon-render-svg'),
     ])
 

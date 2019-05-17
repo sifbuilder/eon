@@ -22,12 +22,8 @@
     ])
 
     let d3_force = d3Force3d
-    let sim = d3_force.forceSimulation() //
+    let sim = d3_force.forceSimulation()
     let dim = 3
-
-    // props.o
-    // props.fa
-    // props.v
 
     const o = obj => {
       if (obj == null || typeof obj !== 'object') return obj

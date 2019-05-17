@@ -8,28 +8,22 @@
 }(this, function (exports) {
   'use strict'
 
-  let eonMuonEonode = function eonMuonEonode (__eo = {}) {
-    // eonode definition
-
-    let getdefault = function () {
-      let res = {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        properties: {
-          orgen: [0, 0, 0],
-          velin: [0, 0, 0],
-          velang: [0, 0, 0],
-          prevous: [0, 0, 0],
-          geodelta: [0, 0, 0],
-          hyperdelta: [0, 0, 0],
-        },
-      }
-
-      return res
-    }
+  let eonitem = function eonMuonEonode (__eo = {}) {
+    let getdefault = () => ({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [0, 0, 0],
+      },
+      properties: {
+        orgen: [0, 0, 0],
+        velin: [0, 0, 0],
+        velang: [0, 0, 0],
+        prevous: [0, 0, 0],
+        geodelta: [0, 0, 0],
+        hyperdelta: [0, 0, 0],
+      },
+    })
 
     // ....................... init
     let init = function (node = {}) {

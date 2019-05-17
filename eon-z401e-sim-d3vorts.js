@@ -20,6 +20,7 @@
       eonMuonEoforces,
       eonMuonGeom,
       eonMuonProps,
+      eonMuonSim, // eslint-disable-line no-unused-vars
       eonRenderSvg,
     ] = await Promise.all([
       __eo('xs').b('d3-force-3d'),
@@ -31,6 +32,7 @@
       __eo('xs').b('eon-muon-eoforces'),
       __eo('xs').b('eon-muon-geom'),
       __eo('xs').b('eon-muon-props'),
+      __eo('xs').b('eon-muon-sim'),
       __eo('xs').b('eon-render-svg'),
     ])
     try { eonRenderSvg.scenecolor('black') } catch (e) {}
@@ -402,7 +404,6 @@
         },
 
         eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
-        eoform: {},
         eoload: {},
       }
 
@@ -456,7 +457,7 @@
       let animas = [
 
         natVort, // h.mars
-        // fieldAni, // h.core
+        fieldAni, // h.core
 
       ]
 

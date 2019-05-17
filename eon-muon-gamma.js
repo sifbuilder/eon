@@ -9,9 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... ** **
-  // .................. anitem
-  async function anitem (__eo) {
+  async function eonitem (__eo = {}) {
 
     // ............................. pics
     const fact = op => gamma(op + 1)
@@ -74,5 +72,5 @@
     enty.bessel = bessel
     return enty
   }
-  exports.eonMuonGamma = anitem
+  exports.eonMuonGamma = eonitem
 }))
